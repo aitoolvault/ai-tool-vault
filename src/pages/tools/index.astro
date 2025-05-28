@@ -18,6 +18,20 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Tool Vault - {tools.length} KI-Tools durchsuchen</title>
   <meta name="description" content="Entdecke die besten {tools.length} KI-Tools für Textgenerierung, Bildgenerierung, Videobearbeitung, Coding und mehr. Kostenlos, Freemium und Premium Tools.">
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-EC62QPK5VL');
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5595876978844902"
+     crossorigin="anonymous"></script>
+
   <style>
     * {
       margin: 0;
@@ -313,7 +327,7 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     .pricing-freemium { background: rgba(59,130,246,0.1); color: #3b82f6; }
     .pricing-kostenpflichtig { background: rgba(239,68,68,0.1); color: #ef4444; }
     
-    /* 🚀 Tool Actions Styling */
+    /* Tool Actions Styling */
     .tool-actions {
       display: flex;
       gap: 0.5rem;
@@ -360,27 +374,6 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       box-shadow: 0 8px 20px rgba(255,107,107,0.4);
     }
     
-    .btn {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.75rem;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all 0.3s;
-      border: none;
-      cursor: pointer;
-      font-size: 0.95rem;
-    }
-    
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(102,126,234,0.3);
-    }
-    
     .footer {
       text-align: center;
       padding: 3rem 2rem;
@@ -389,6 +382,33 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     
     .hidden {
       display: none !important;
+    }
+
+    /* AdSense Styling */
+    .ad-container {
+      margin: 2rem auto;
+      padding: 1rem;
+      max-width: 1400px;
+      text-align: center;
+      background: rgba(255,255,255,0.95);
+      border-radius: 0.5rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(20px);
+    }
+
+    .ad-container::before {
+      content: "Anzeige";
+      display: block;
+      font-size: 0.8rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .ad-in-grid {
+      grid-column: 1 / -1;
+      margin: 1rem 0;
     }
     
     /* Mobile Responsive */
@@ -481,9 +501,19 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
         </div>
       </div>
     </div>
+
+    <!-- AdSense #1: Nach Filter-Section -->
+    <div class="ad-container">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-5595876978844902"
+           data-ad-slot="AUTO"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
     
     <div class="grid" id="toolsGrid">
-      {tools.map(tool => (
+      {tools.map((tool, index) => (
         <div class="card tool-card" 
              data-category={tool.data.category} 
              data-pricing={tool.data.pricing}
@@ -502,11 +532,11 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
           <h3>{tool.data.title}</h3>
           <p>{tool.data.description}</p>
           
-          <div class={`pricing-badge pricing-${tool.data.pricing.toLowerCase()}`}>
-            {tool.data.pricing}
+          <div class={`pricing-badge pricing-${tool.data.pricing?.toLowerCase() || 'freemium'}`}>
+            {tool.data.pricing || 'Freemium'}
           </div>
           
-          <!-- 🚀 NEUE DUAL-CTA BUTTONS -->
+          <!-- Dual-CTA Buttons -->
           <div class="tool-actions">
             <a 
               href={`/tools/${tool.slug}`}
@@ -521,13 +551,36 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
               rel="noopener noreferrer"
               class="btn-affiliate"
               data-tool={tool.data.title}
+              data-position={index + 1}
             >
               🚀 Jetzt testen
             </a>
           </div>
         </div>
+
+        <!-- AdSense #2: Nach jedem 6. Tool -->
+        {(index + 1) % 6 === 0 && (
+          <div class="ad-container ad-in-grid">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-format="fluid"
+                 data-ad-layout-key="-fb+5w+4e-db+86"
+                 data-ad-client="ca-pub-5595876978844902"
+                 data-ad-slot="AUTO"></ins>
+          </div>
+        )}
       ))}
     </div>
+  </div>
+  
+  <!-- AdSense #3: Vor Footer -->
+  <div class="ad-container">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5595876978844902"
+         data-ad-slot="AUTO"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
   </div>
   
   <footer class="footer">
@@ -613,6 +666,29 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       // Initial count
       updateVisibleCount();
       
+      // ===== ADSENSE INITIALIZATION =====
+      function initAdSense() {
+        const ads = document.querySelectorAll('.adsbygoogle');
+        console.log(`💰 Found ${ads.length} AdSense slots on tools page`);
+        
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.getAttribute('data-loaded')) {
+              try {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                entry.target.setAttribute('data-loaded', 'true');
+                console.log('💰 AdSense slot loaded');
+              } catch (e) {
+                console.warn('AdSense loading error:', e);
+              }
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        
+        ads.forEach(ad => observer.observe(ad));
+      }
+      
       // ===== TRACKING für DETAILS-BUTTONS =====
       document.querySelectorAll('.btn-details').forEach((btn, index) => {
         btn.addEventListener('click', function() {
@@ -633,14 +709,32 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       document.querySelectorAll('.btn-affiliate').forEach((btn, index) => {
         btn.addEventListener('click', function() {
           const toolName = this.getAttribute('data-tool');
+          const position = this.getAttribute('data-position') || index + 1;
+          
           console.log('💰 Affiliate-Button geklickt:', toolName, this.href);
           
           if (typeof gtag !== 'undefined') {
             gtag('event', 'affiliate_click', {
               'tool_name': toolName,
               'source': 'tools_page',
-              'position': index + 1,
-              'affiliate_url': this.href
+              'position': position,
+              'affiliate_url': this.href,
+              'value': 15.00,
+              'currency': 'EUR'
+            });
+            
+            // Enhanced Ecommerce
+            gtag('event', 'purchase', {
+              'transaction_id': `${Date.now()}_${toolName}`,
+              'value': 15.00,
+              'currency': 'EUR',
+              'items': [{
+                'item_id': toolName.toLowerCase().replace(/\s+/g, '_'),
+                'item_name': toolName,
+                'item_category': 'tools_page',
+                'quantity': 1,
+                'price': 15.00
+              }]
             });
           }
         });
@@ -681,8 +775,12 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
         }, 1000);
       });
       
+      // Initialize AdSense
+      initAdSense();
+      
       console.log('✅ Tools-Seite erfolgreich initialisiert!');
       console.log(`📊 ${toolCards.length} Tools geladen`);
+      console.log(`💰 AdSense mit ID: ca-pub-5595876978844902 aktiv`);
     });
   </script>
 </body>
