@@ -5,6 +5,20 @@ import type { CollectionEntry } from "astro:content";
 // TypeScript-sichere Tool-Definition
 type Tool = CollectionEntry<'tools'>;
 
+// UTM-Builder Funktion
+function buildAffiliateUrl(baseUrl: string, campaign: string, content: string, toolName: string = ''): string {
+  const params = new URLSearchParams({
+    utm_source: 'aitoolvault',
+    utm_medium: 'affiliate', 
+    utm_campaign: campaign,
+    utm_content: content,
+    ...(toolName && { utm_term: toolName.toLowerCase().replace(/\s+/g, '_') })
+  });
+  
+  const separator = baseUrl.includes('?') ? '&' : '?';
+  return `${baseUrl}${separator}${params.toString()}`;
+}
+
 // Debug & Error Handling
 let tools: Tool[] = [];
 let categories: string[] = [];
@@ -32,7 +46,7 @@ const featuredTools = tools.length > 0
           title: "ChatGPT", 
           category: "Textgenerierung", 
           description: "AI Chatbot von OpenAI für natürliche Gespräche und Textgenerierung", 
-          affiliate_link: "https://openai.com" 
+          affiliate_link: "https://chat.openai.com" 
         }
       },
       { 
@@ -122,17 +136,26 @@ const totalCategories = allCategories.length;
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://aitoolvault.com/">
+  <meta property="og:url" content="https://aitoolvault.de/">
   <meta property="og:title" content="AI Tool Vault - Die besten {totalTools} KI-Tools entdecken">
   <meta property="og:description" content="Entdecke die besten {totalTools} KI-Tools für Textgenerierung, Bildgenerierung, Videobearbeitung und mehr.">
   <meta property="og:image" content="/og-image.jpg">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://aitoolvault.com/">
+  <meta property="twitter:url" content="https://aitoolvault.de/">
   <meta property="twitter:title" content="AI Tool Vault - Die besten {totalTools} KI-Tools entdecken">
   <meta property="twitter:description" content="Entdecke die besten {totalTools} KI-Tools für Textgenerierung, Bildgenerierung, Videobearbeitung und mehr.">
   <meta property="twitter:image" content="/og-image.jpg">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-EC62QPK5VL');
+  </script>
 
   <style>
     * {
@@ -727,7 +750,7 @@ const totalCategories = allCategories.length;
         <li><a href="#categories">Kategorien</a></li>
         <li><a href="#about">Über uns</a></li>
       </ul>
-      <a href="/tools" class="nav-cta">Tools entdecken</a>
+      <a href={buildAffiliateUrl("/tools", "nav_cta", "header_button", "tools_overview")} class="nav-cta">Tools entdecken</a>
       <button class="mobile-menu">☰</button>
     </div>
   </nav>
@@ -756,7 +779,7 @@ const totalCategories = allCategories.length;
         </div>
       </div>
       
-      <a href="/tools" class="hero-cta fade-in-up">
+      <a href={buildAffiliateUrl("/tools", "hero_cta", "main_button", "hero_tools_discovery")} class="hero-cta fade-in-up">
         🚀 Tools entdecken
       </a>
     </div>
@@ -832,18 +855,31 @@ const totalCategories = allCategories.length;
     </div>
     
     <div class="tools-grid">
-      {featuredTools.map((tool) => (
+      {featuredTools.map((tool, index) => (
         <div class="tool-card animate-on-scroll">
           <div class="tool-category">{tool.data.category}</div>
           <h3 class="tool-title">{tool.data.title}</h3>
           <p class="tool-description">{tool.data.description}</p>
           
-          <!-- 🚀 NEUE DUAL-CTA BUTTONS -->
+          <!-- 🚀 NEUE DUAL-CTA BUTTONS mit UTM-Parametern -->
           <div class="tool-actions">
-            <a href={`/tools/${tool.slug}`} class="tool-cta-primary">
+            <a href={`/tools/${tool.slug}`} class="tool-cta-primary" data-tool={tool.data.title}>
               📋 Details & Test
             </a>
-            <a href={tool.data.affiliate_link} target="_blank" rel="noopener noreferrer" class="tool-cta-secondary">
+            <a 
+              href={buildAffiliateUrl(
+                tool.data.affiliate_link, 
+                'featured_tools', 
+                `hero_position_${index + 1}`,
+                tool.data.title
+              )}
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="tool-cta-secondary"
+              data-tool={tool.data.title}
+              data-campaign="featured_tools"
+              data-position={index + 1}
+            >
               🚀 Jetzt testen
             </a>
           </div>
@@ -852,7 +888,7 @@ const totalCategories = allCategories.length;
     </div>
     
     <div class="view-all-cta animate-on-scroll">
-      <a href="/tools" class="view-all-btn">
+      <a href={buildAffiliateUrl("/tools", "view_all_cta", "featured_section_bottom", "all_tools")} class="view-all-btn">
         Alle {totalTools} Tools ansehen →
       </a>
     </div>
@@ -868,8 +904,12 @@ const totalCategories = allCategories.length;
     </div>
     
     <div class="categories-grid">
-      {allCategories.map((category) => (
-        <div class="category-card animate-on-scroll" data-category={category.name}>
+      {allCategories.map((category, index) => (
+        <div 
+          class="category-card animate-on-scroll" 
+          data-category={category.name}
+          data-position={index + 1}
+        >
           <span class="category-icon">{category.icon}</span>
           <h3 class="category-name">{category.name}</h3>
           <p class="category-count">{category.count} Tools</p>
@@ -886,7 +926,10 @@ const totalCategories = allCategories.length;
         Schließe dich tausenden von Kreativen, Entwicklern und Unternehmern an, 
         die bereits die Kraft der KI nutzen.
       </p>
-      <a href="/tools" class="cta-button animate-on-scroll">
+      <a 
+        href={buildAffiliateUrl("/tools", "bottom_cta", "final_conversion", "revolution_cta")} 
+        class="cta-button animate-on-scroll"
+      >
         🚀 Jetzt Tools entdecken
       </a>
     </div>
@@ -903,7 +946,7 @@ const totalCategories = allCategories.length;
       </p>
       
       <div class="footer-links">
-        <a href="/tools">Alle Tools</a>
+        <a href={buildAffiliateUrl("/tools", "footer_links", "footer_tools", "footer_navigation")}>Alle Tools</a>
         <a href="#categories">Kategorien</a>
         <a href="/impressum">Impressum</a>
         <a href="/datenschutz">Datenschutz</a>
@@ -916,7 +959,7 @@ const totalCategories = allCategories.length;
     </div>
   </footer>
 
-  <!-- TypeScript-sicheres JavaScript -->
+  <!-- Enhanced JavaScript mit UTM-Tracking -->
   <script>
     // Type definitions für bessere IDE-Unterstützung
     interface CategoryData {
@@ -929,12 +972,101 @@ const totalCategories = allCategories.length;
       [key: string]: string | number;
     }
 
+    // UTM-Builder Funktion für Client-side
+    function buildAffiliateUrl(baseUrl, campaign, content, toolName = '') {
+      const params = new URLSearchParams({
+        utm_source: 'aitoolvault',
+        utm_medium: 'affiliate', 
+        utm_campaign: campaign,
+        utm_content: content,
+        ...(toolName && { utm_term: toolName.toLowerCase().replace(/\s+/g, '_') })
+      });
+      
+      const separator = baseUrl.includes('?') ? '&' : '?';
+      return `${baseUrl}${separator}${params.toString()}`;
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
       console.log('🚀 AI Tool Vault Homepage loaded successfully');
 
+      // ===== AFFILIATE LINK TRACKING =====
+      function trackAffiliateClick(toolName, campaign, content, url, position = null) {
+        console.log(`💰 AFFILIATE CLICK: ${toolName} - Campaign: ${campaign} - Content: ${content}`);
+        
+        // Google Analytics Enhanced Ecommerce
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'affiliate_click', {
+            'tool_name': toolName,
+            'campaign': campaign,
+            'content': content,
+            'position': position,
+            'affiliate_url': url,
+            'value': 15.00, // Geschätzte Commission
+            'currency': 'EUR'
+          });
+          
+          // Purchase Event für besseres Tracking
+          gtag('event', 'purchase', {
+            'transaction_id': `${Date.now()}_${toolName}`,
+            'value': 15.00,
+            'currency': 'EUR',
+            'items': [{
+              'item_id': toolName.toLowerCase().replace(/\s+/g, '_'),
+              'item_name': toolName,
+              'item_category': campaign,
+              'item_variant': content,
+              'quantity': 1,
+              'price': 15.00
+            }]
+          });
+        }
+        
+        // Plausible Analytics
+        if (typeof plausible !== 'undefined') {
+          plausible('Affiliate Click', {
+            props: {
+              tool: toolName,
+              campaign: campaign,
+              content: content,
+              position: position
+            }
+          });
+        }
+      }
+
+      // ===== FEATURED TOOLS CTA TRACKING =====
+      function initFeaturedToolsTracking() {
+        // Track Details & Test Buttons
+        document.querySelectorAll('.tool-cta-primary').forEach((cta, index) => {
+          cta.addEventListener('click', function() {
+            const toolName = this.getAttribute('data-tool') || 'Unknown';
+            
+            trackEvent('tool_details_click', {
+              tool_name: toolName,
+              position: index + 1,
+              source: 'homepage_featured'
+            });
+            
+            console.log(`📋 Details-Button geklickt: ${toolName}`);
+          });
+        });
+        
+        // Track Direct Test Buttons (Affiliate Links)
+        document.querySelectorAll('.tool-cta-secondary').forEach((cta, index) => {
+          cta.addEventListener('click', function() {
+            const toolName = this.getAttribute('data-tool') || 'Unknown';
+            const campaign = this.getAttribute('data-campaign') || 'featured_tools';
+            const position = this.getAttribute('data-position') || index + 1;
+            const url = this.href;
+            
+            trackAffiliateClick(toolName, campaign, `hero_position_${position}`, url, position);
+          });
+        });
+      }
+
       // ===== KATEGORIE-NAVIGATION (KERNFUNKTION) =====
-      function initCategoryNavigation(): void {
-        const categoryCards = document.querySelectorAll<HTMLElement>('.category-card[data-category]');
+      function initCategoryNavigation() {
+        const categoryCards = document.querySelectorAll('.category-card[data-category]');
         
         if (categoryCards.length === 0) {
           console.warn('⚠️ Keine Kategorie-Karten gefunden');
@@ -943,19 +1075,19 @@ const totalCategories = allCategories.length;
         
         categoryCards.forEach((card, index) => {
           const categoryName = card.getAttribute('data-category');
+          const position = card.getAttribute('data-position') || index + 1;
           
           if (!categoryName) {
             console.warn(`⚠️ Kategorie-Name fehlt für Karte ${index + 1}`);
             return;
           }
           
-          // Debugging: Zeige alle gefundenen Kategorien
           console.log(`📂 Kategorie ${index + 1}: "${categoryName}"`);
           
-          card.addEventListener('click', function(e: Event) {
+          card.addEventListener('click', function(e) {
             e.preventDefault();
             
-            console.log(`🔗 Kategorie "${categoryName}" geklickt (Position: ${index + 1})`);
+            console.log(`🔗 Kategorie "${categoryName}" geklickt (Position: ${position})`);
             
             // Visual Feedback
             this.style.transform = 'scale(0.95)';
@@ -969,29 +1101,29 @@ const totalCategories = allCategories.length;
             setTimeout(resetStyles, 150);
             
             // Analytics tracking
-            try {
-              trackEvent('category_click', {
-                category: categoryName,
-                position: index + 1,
-                source: 'homepage'
-              });
-            } catch (error) {
-              console.warn('⚠️ Analytics tracking failed:', error);
-            }
+            trackEvent('category_click', {
+              category: categoryName,
+              position: position,
+              source: 'homepage'
+            });
             
-            // Navigation zur Tools-Seite mit Kategorie-Filter
-            const toolsUrl = `/tools?category=${encodeURIComponent(categoryName)}`;
+            // Navigation zur Tools-Seite mit UTM-Parameter
+            const toolsUrl = buildAffiliateUrl(
+              `/tools?category=${encodeURIComponent(categoryName)}`,
+              'category_navigation',
+              `category_${categoryName.toLowerCase().replace(/\s+/g, '_')}_position_${position}`,
+              categoryName
+            );
+            
             console.log(`🎯 Navigiere zu: ${toolsUrl}`);
-            
-            // Navigation ausführen
             window.location.href = toolsUrl;
           });
           
           // Keyboard accessibility
-          card.addEventListener('keydown', function(e: KeyboardEvent) {
+          card.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
-              (this as HTMLElement).click();
+              this.click();
             }
           });
           
@@ -1007,44 +1139,10 @@ const totalCategories = allCategories.length;
         console.log(`✅ ${categoryCards.length} Kategorie-Karten erfolgreich initialisiert`);
       }
 
-      // ===== FEATURED TOOLS CTA TRACKING =====
-      function initFeaturedToolsTracking(): void {
-        // Track Details & Test Buttons
-        document.querySelectorAll<HTMLAnchorElement>('.tool-cta-primary').forEach((cta, index) => {
-          cta.addEventListener('click', function() {
-            const toolName = this.closest('.tool-card')?.querySelector('.tool-title')?.textContent || 'Unknown';
-            
-            trackEvent('tool_details_click', {
-              tool_name: toolName,
-              position: index + 1,
-              source: 'homepage_featured'
-            });
-            
-            console.log(`📋 Details-Button geklickt: ${toolName}`);
-          });
-        });
-        
-        // Track Direct Test Buttons
-        document.querySelectorAll<HTMLAnchorElement>('.tool-cta-secondary').forEach((cta, index) => {
-          cta.addEventListener('click', function() {
-            const toolName = this.closest('.tool-card')?.querySelector('.tool-title')?.textContent || 'Unknown';
-            
-            trackEvent('affiliate_click', {
-              tool_name: toolName,
-              position: index + 1,
-              source: 'homepage_featured',
-              cta_type: 'direct_test'
-            });
-            
-            console.log(`💰 Affiliate-Link geklickt: ${toolName} - ${this.href}`);
-          });
-        });
-      }
-
       // ===== NAVBAR SCROLL EFFECTS =====
-      function initNavbarEffects(): void {
+      function initNavbarEffects() {
         let lastScrollTop = 0;
-        const navbar = document.querySelector<HTMLElement>('.nav');
+        const navbar = document.querySelector('.nav');
         let ticking = false;
 
         if (!navbar) {
@@ -1052,7 +1150,7 @@ const totalCategories = allCategories.length;
           return;
         }
 
-        function updateNavbar(): void {
+        function updateNavbar() {
           const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
           
           if (scrollTop > lastScrollTop && scrollTop > 100) {
@@ -1082,9 +1180,9 @@ const totalCategories = allCategories.length;
       }
 
       // ===== MOBILE MENU =====
-      function initMobileMenu(): void {
-        const mobileMenuBtn = document.querySelector<HTMLButtonElement>('.mobile-menu');
-        const navLinks = document.querySelector<HTMLElement>('.nav-links');
+      function initMobileMenu() {
+        const mobileMenuBtn = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
         
         if (!mobileMenuBtn || !navLinks) {
           return;
@@ -1092,7 +1190,7 @@ const totalCategories = allCategories.length;
         
         let menuOpen = false;
         
-        mobileMenuBtn.addEventListener('click', function(e: Event) {
+        mobileMenuBtn.addEventListener('click', function(e) {
           e.stopPropagation();
           menuOpen = !menuOpen;
           
@@ -1107,8 +1205,8 @@ const totalCategories = allCategories.length;
           }
         });
         
-        document.addEventListener('click', function(e: Event) {
-          const target = e.target as HTMLElement;
+        document.addEventListener('click', function(e) {
+          const target = e.target;
           if (menuOpen && !target.closest('.nav')) {
             navLinks.classList.remove('show');
             mobileMenuBtn.innerHTML = '☰';
@@ -1119,8 +1217,8 @@ const totalCategories = allCategories.length;
       }
 
       // ===== SCROLL ANIMATIONEN =====
-      function initScrollAnimations(): void {
-        const observerOptions: IntersectionObserverInit = {
+      function initScrollAnimations() {
+        const observerOptions = {
           threshold: 0.1,
           rootMargin: '0px 0px -50px 0px'
         };
@@ -1131,7 +1229,7 @@ const totalCategories = allCategories.length;
               const delay = index * 100;
               
               setTimeout(() => {
-                (entry.target as HTMLElement).classList.add('animated');
+                entry.target.classList.add('animated');
               }, delay);
               
               observer.unobserve(entry.target);
@@ -1144,17 +1242,50 @@ const totalCategories = allCategories.length;
         });
       }
 
+      // ===== CTA BUTTON TRACKING =====
+      function initCTATracking() {
+        // Hero CTA
+        document.querySelectorAll('.hero-cta').forEach(cta => {
+          cta.addEventListener('click', function() {
+            trackEvent('hero_cta_click', {
+              button_text: this.textContent.trim(),
+              destination: this.href
+            });
+          });
+        });
+
+        // View All Button
+        document.querySelectorAll('.view-all-btn').forEach(cta => {
+          cta.addEventListener('click', function() {
+            trackEvent('view_all_click', {
+              button_text: this.textContent.trim(),
+              section: 'featured_tools'
+            });
+          });
+        });
+
+        // Bottom CTA
+        document.querySelectorAll('.cta-button').forEach(cta => {
+          cta.addEventListener('click', function() {
+            trackEvent('bottom_cta_click', {
+              button_text: this.textContent.trim(),
+              section: 'final_conversion'
+            });
+          });
+        });
+      }
+
       // ===== ANALYTICS TRACKING =====
-      function trackEvent(eventType: string, data: AnalyticsEvent): void {
+      function trackEvent(eventType, data) {
         try {
           console.log('📊 Event tracked:', eventType, data);
           
-          if (typeof (window as any).gtag !== 'undefined') {
-            (window as any).gtag('event', eventType, data);
+          if (typeof gtag !== 'undefined') {
+            gtag('event', eventType, data);
           }
           
-          if (typeof (window as any).plausible !== 'undefined') {
-            (window as any).plausible(eventType, { props: data });
+          if (typeof plausible !== 'undefined') {
+            plausible(eventType, { props: data });
           }
         } catch (error) {
           console.warn('⚠️ Analytics tracking failed:', error);
@@ -1164,17 +1295,19 @@ const totalCategories = allCategories.length;
       // ===== INITIALISIERUNG =====
       try {
         initCategoryNavigation(); // WICHTIGSTE FUNKTION
-        initFeaturedToolsTracking(); // NEUE FUNKTION
+        initFeaturedToolsTracking(); // AFFILIATE TRACKING
+        initCTATracking(); // ALLGEMEINE CTA TRACKING
         initNavbarEffects();
         initMobileMenu();
         initScrollAnimations();
         
         console.log('✅ Homepage erfolgreich initialisiert!');
+        console.log(`💰 ${document.querySelectorAll('.tool-cta-secondary').length} Affiliate-Links mit UTM-Tracking aktiv`);
         
       } catch (error) {
         console.error('❌ Fehler bei der Initialisierung:', error);
         trackEvent('init_error', { 
-          message: error instanceof Error ? error.message : 'Unknown error' 
+          message: error.message || 'Unknown error' 
         });
       }
     });
@@ -1187,10 +1320,10 @@ const totalCategories = allCategories.length;
     "@type": "WebSite",
     "name": "AI Tool Vault",
     "description": "Die umfassendste Sammlung von {totalTools} KI-Tools für Kreativität, Produktivität und Innovation",
-    "url": "https://aitoolvault.com",
+    "url": "https://aitoolvault.de",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://aitoolvault.com/tools?search={search_term_string}",
+      "target": "https://aitoolvault.de/tools?search={search_term_string}",
       "query-input": "required name=search_term_string"
     },
     "publisher": {
@@ -1198,11 +1331,11 @@ const totalCategories = allCategories.length;
       "name": "AI Tool Vault",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://aitoolvault.com/logo.png"
+        "url": "https://aitoolvault.de/logo.png"
       }
     }
   }
   </script>
 
 </body>
-</html>"
+</html>
