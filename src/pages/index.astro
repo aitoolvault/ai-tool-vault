@@ -1,0 +1,1208 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+// TypeScript-sichere Tool-Definition
+type Tool = CollectionEntry<'tools'>;
+
+// Debug & Error Handling
+let tools: Tool[] = [];
+let categories: string[] = [];
+
+try {
+  tools = await getCollection("tools");
+  categories = Array.from(new Set(tools.map(tool => tool.data.category))).sort();
+  console.log("✅ Tools geladen:", tools.length);
+  console.log("📂 Kategorien:", categories);
+} catch (error) {
+  console.error("❌ Fehler beim Laden der Tools:", error);
+  tools = [];
+  categories = ['Textgenerierung', 'Bildgenerierung', 'Videobearbeitung', 'Coding', 'Audiogenerierung', 'Design', 'Produktivität', 'Literaturrecherche', 'Multimodal'];
+}
+
+// Featured Tools mit TypeScript-sicherer Filterung
+const featuredToolNames = ["ChatGPT", "Claude", "DALL-E 3", "Midjourney", "GitHub Copilot", "ElevenLabs"];
+const featuredTools = tools.length > 0 
+  ? tools.filter(tool => featuredToolNames.includes(tool.data.title)).slice(0, 6)
+  : [
+      // Demo-Tools mit korrekter Typisierung
+      { 
+        slug: "chatgpt",
+        data: { 
+          title: "ChatGPT", 
+          category: "Textgenerierung", 
+          description: "AI Chatbot von OpenAI für natürliche Gespräche und Textgenerierung", 
+          affiliate_link: "https://openai.com" 
+        }
+      },
+      { 
+        slug: "claude",
+        data: { 
+          title: "Claude", 
+          category: "Textgenerierung", 
+          description: "AI Assistant von Anthropic für komplexe Aufgaben", 
+          affiliate_link: "https://claude.ai" 
+        }
+      },
+      { 
+        slug: "dall-e-3",
+        data: { 
+          title: "DALL-E 3", 
+          category: "Bildgenerierung", 
+          description: "Fortschrittliche AI-Bildgenerierung von OpenAI", 
+          affiliate_link: "https://openai.com/dall-e-3" 
+        }
+      },
+      { 
+        slug: "midjourney",
+        data: { 
+          title: "Midjourney", 
+          category: "Bildgenerierung", 
+          description: "Kreative AI-Kunstgenerierung für beeindruckende Bilder", 
+          affiliate_link: "https://midjourney.com" 
+        }
+      },
+      { 
+        slug: "github-copilot",
+        data: { 
+          title: "GitHub Copilot", 
+          category: "Coding", 
+          description: "AI-Programmierassistent für Entwickler", 
+          affiliate_link: "https://github.com/features/copilot" 
+        }
+      },
+      { 
+        slug: "elevenlabs",
+        data: { 
+          title: "ElevenLabs", 
+          category: "Audiogenerierung", 
+          description: "Realistische AI-Sprachsynthese und Voice Cloning", 
+          affiliate_link: "https://elevenlabs.io" 
+        }
+      }
+    ] as Tool[];
+
+// Statistiken berechnen mit null-safety
+const freeTools = tools.filter(tool => tool.data?.pricing === "Kostenlos").length || 24;
+const freemiumTools = tools.filter(tool => tool.data?.pricing === "Freemium").length || 18;
+const paidTools = tools.filter(tool => tool.data?.pricing === "Kostenpflichtig").length || 44;
+
+// TypeScript-sichere Kategorie-Definition
+interface Category {
+  name: string;
+  icon: string;
+  count: number;
+}
+
+const allCategories: Category[] = [
+  { name: "Textgenerierung", icon: "📝", count: tools.filter(t => t.data?.category === "Textgenerierung").length || 15 },
+  { name: "Bildgenerierung", icon: "🎨", count: tools.filter(t => t.data?.category === "Bildgenerierung").length || 12 },
+  { name: "Videobearbeitung", icon: "🎬", count: tools.filter(t => t.data?.category === "Videobearbeitung").length || 8 },
+  { name: "Coding", icon: "💻", count: tools.filter(t => t.data?.category === "Coding").length || 10 },
+  { name: "Audiogenerierung", icon: "🎵", count: tools.filter(t => t.data?.category === "Audiogenerierung").length || 6 },
+  { name: "Design", icon: "🎯", count: tools.filter(t => t.data?.category === "Design").length || 7 },
+  { name: "Produktivität", icon: "⚡", count: tools.filter(t => t.data?.category === "Produktivität").length || 9 },
+  { name: "Literaturrecherche", icon: "📚", count: tools.filter(t => t.data?.category === "Literaturrecherche").length || 4 },
+  { name: "Multimodal", icon: "🔄", count: tools.filter(t => t.data?.category === "Multimodal").length || 5 }
+];
+
+// SEO-Metadaten
+const totalTools = tools.length || 86;
+const totalCategories = allCategories.length;
+---
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Tool Vault - Die besten {totalTools} KI-Tools entdecken</title>
+  <meta name="description" content="Entdecke die besten {totalTools} KI-Tools für Textgenerierung, Bildgenerierung, Videobearbeitung und mehr. Kostenlos, Freemium und Premium Tools in {totalCategories} Kategorien.">
+  <meta name="keywords" content="KI Tools, AI Tools, Künstliche Intelligenz, ChatGPT, DALL-E, Midjourney, Claude, AI Verzeichnis">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aitoolvault.com/">
+  <meta property="og:title" content="AI Tool Vault - Die besten {totalTools} KI-Tools entdecken">
+  <meta property="og:description" content="Entdecke die besten {totalTools} KI-Tools für Textgenerierung, Bildgenerierung, Videobearbeitung und mehr.">
+  <meta property="og:image" content="/og-image.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://aitoolvault.com/">
+  <meta property="twitter:title" content="AI Tool Vault - Die besten {totalTools} KI-Tools entdecken">
+  <meta property="twitter:description" content="Entdecke die besten {totalTools} KI-Tools für Textgenerierung, Bildgenerierung, Videobearbeitung und mehr.">
+  <meta property="twitter:image" content="/og-image.jpg">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      overflow-x: hidden;
+    }
+    
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      z-index: 1000;
+      padding: 1rem 0;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .nav-logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      color: #667eea;
+    }
+    
+    .nav-cta {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: 2rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.3s;
+    }
+    
+    .nav-cta:hover {
+      transform: translateY(-2px);
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 8rem 2rem 6rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.1;
+    }
+    
+    .hero-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      margin-bottom: 2rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+    
+    .hero-stat {
+      text-align: center;
+    }
+    
+    .hero-stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      display: block;
+    }
+    
+    .hero-stat-label {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: white;
+      color: #667eea;
+      padding: 1rem 2rem;
+      border-radius: 3rem;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: all 0.3s;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    
+    .hero-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    }
+    
+    /* Sections */
+    .section {
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: #1a202c;
+      text-align: center;
+    }
+    
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto 4rem auto;
+      text-align: center;
+    }
+    
+    /* Features Grid */
+    .features {
+      background: #f8fafc;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+    }
+    
+    .feature-card {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: all 0.3s;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    
+    .feature-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #1a202c;
+    }
+    
+    .feature-description {
+      color: #666;
+      line-height: 1.6;
+    }
+    
+    /* Tools Grid */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .tool-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+      border: 1px solid #f1f5f9;
+    }
+    
+    .tool-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .tool-category {
+      padding: 0.25rem 0.75rem;
+      border-radius: 2rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: rgba(102,126,234,0.1);
+      color: #667eea;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+    
+    .tool-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #1a202c;
+    }
+    
+    .tool-description {
+      color: #666;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    
+    /* 🚀 NEUE DUAL-CTA BUTTONS für Featured Tools */
+    .tool-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .tool-cta-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      flex: 1;
+      text-align: center;
+      transition: all 0.3s;
+      border: 2px solid transparent;
+    }
+    
+    .tool-cta-secondary {
+      background: #ff6b6b;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      flex: 1;
+      text-align: center;
+      transition: all 0.3s;
+      border: 2px solid transparent;
+    }
+    
+    .tool-cta-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102,126,234,0.3);
+      border-color: rgba(255,255,255,0.2);
+    }
+    
+    .tool-cta-secondary:hover {
+      transform: translateY(-2px);
+      background: #ff5252;
+      box-shadow: 0 8px 25px rgba(255,107,107,0.3);
+    }
+    
+    .view-all-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 3rem;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s;
+      margin: 0 auto;
+    }
+    
+    .view-all-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(102,126,234,0.3);
+    }
+    
+    .view-all-cta {
+      text-align: center;
+    }
+    
+    /* Categories */
+    .categories {
+      background: #f8fafc;
+    }
+    
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .category-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      transition: all 0.3s;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+    
+    .category-card:hover {
+      transform: translateY(-3px);
+      border-color: #667eea;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
+    
+    .category-card:active {
+      transform: translateY(-1px);
+      background: #f8faff;
+    }
+    
+    .category-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    
+    .category-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #1a202c;
+    }
+    
+    .category-count {
+      color: #667eea;
+      font-weight: 600;
+    }
+    
+    /* CTA Section */
+    .cta-section {
+      padding: 6rem 2rem;
+      background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+      color: white;
+      text-align: center;
+    }
+    
+    .cta-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .cta-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    
+    .cta-subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .cta-button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 3rem;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(102,126,234,0.4);
+    }
+    
+    /* Footer */
+    .footer {
+      background: #1a202c;
+      color: white;
+      padding: 3rem 2rem 2rem;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+    
+    .footer-description {
+      color: #a0aec0;
+      margin-bottom: 2rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .footer-links a {
+      color: #a0aec0;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: #667eea;
+    }
+    
+    .footer-bottom {
+      border-top: 1px solid #2d3748;
+      padding-top: 1rem;
+      color: #718096;
+      font-size: 0.9rem;
+    }
+    
+    /* Mobile */
+    .mobile-menu {
+      display: none;
+      background: none;
+      border: none;
+      color: #333;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      }
+      
+      .nav-links.show {
+        display: flex;
+      }
+      
+      .mobile-menu {
+        display: block;
+      }
+      
+      .hero {
+        padding: 6rem 1rem 4rem;
+      }
+      
+      .section {
+        padding: 4rem 1rem;
+      }
+      
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .categories-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      }
+      
+      .tool-actions {
+        flex-direction: column;
+      }
+      
+      .tool-cta-primary,
+      .tool-cta-secondary {
+        width: 100%;
+      }
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .fade-in-up {
+      animation: fadeInUp 0.6s ease-out;
+    }
+    
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+    
+    .animate-on-scroll.animated {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">🤖 AI Tool Vault</a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tools">Tools</a></li>
+        <li><a href="#categories">Kategorien</a></li>
+        <li><a href="#about">Über uns</a></li>
+      </ul>
+      <a href="/tools" class="nav-cta">Tools entdecken</a>
+      <button class="mobile-menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-container">
+      <h1 class="fade-in-up">Die besten KI-Tools an einem Ort</h1>
+      <p class="hero-subtitle fade-in-up">
+        Entdecke, vergleiche und nutze die kraftvollsten KI-Tools für Kreativität, Produktivität und Innovation. 
+        Kuratiert von Experten, täglich aktualisiert.
+      </p>
+      
+      <div class="hero-stats fade-in-up">
+        <div class="hero-stat">
+          <span class="hero-stat-number">{totalTools}</span>
+          <span class="hero-stat-label">KI-Tools</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-number">{totalCategories}</span>
+          <span class="hero-stat-label">Kategorien</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-number">{freeTools}</span>
+          <span class="hero-stat-label">Kostenlos</span>
+        </div>
+      </div>
+      
+      <a href="/tools" class="hero-cta fade-in-up">
+        🚀 Tools entdecken
+      </a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+<section class="features section">
+  <div class="section-header">
+    <h2 class="section-title animate-on-scroll">Warum AI Tool Vault?</h2>
+    <p class="section-subtitle animate-on-scroll">
+      Wir machen es einfach, die perfekten KI-Tools für deine Bedürfnisse zu finden
+    </p>
+  </div>
+  
+  <div class="features-grid">
+    <div class="feature-card animate-on-scroll">
+      <span class="feature-icon">🔍</span>
+      <h3 class="feature-title">Kuratiert & Getestet</h3>
+      <p class="feature-description">
+        Jedes Tool wird von unseren Experten getestet und bewertet. Keine Zeit mit minderwertigen Tools verschwenden.
+      </p>
+    </div>
+    
+    <div class="feature-card animate-on-scroll">
+      <span class="feature-icon">⚡</span>
+      <h3 class="feature-title">Täglich aktualisiert</h3>
+      <p class="feature-description">
+        Neue Tools, Updates und Preisänderungen werden täglich erfasst. Bleib immer auf dem neuesten Stand.
+      </p>
+    </div>
+    
+    <div class="feature-card animate-on-scroll">
+      <span class="feature-icon">🎯</span>
+      <h3 class="feature-title">Smart Filtering</h3>
+      <p class="feature-description">
+        Finde Tools nach Kategorie, Preis und Anwendungsfall. Intelligente Suche für schnelle Ergebnisse.
+      </p>
+    </div>
+    
+    <div class="feature-card animate-on-scroll">
+      <span class="feature-icon">💎</span>
+      <h3 class="feature-title">Für jeden Geldbeutel</h3>
+      <p class="feature-description">
+        Von kostenlosen Tools bis zu Enterprise-Lösungen. Transparente Preisangaben für jedes Budget.
+      </p>
+    </div>
+    
+    <div class="feature-card animate-on-scroll">
+      <span class="feature-icon">🏆</span>
+      <h3 class="feature-title">Beste in Class</h3>
+      <p class="feature-description">
+        Nur die besten Tools in jeder Kategorie. Qualität vor Quantität für maximale Produktivität.
+      </p>
+    </div>
+    
+    <div class="feature-card animate-on-scroll">
+      <span class="feature-icon">🌐</span>
+      <h3 class="feature-title">Immer verfügbar</h3>
+      <p class="feature-description">
+        24/7 Zugang zu unserer Tool-Datenbank. Inspiration und Lösungen, wann immer du sie brauchst.
+      </p>
+    </div>
+  </div>
+</section>
+
+  <!-- Featured Tools -->
+  <section class="section">
+    <div class="section-header">
+      <h2 class="section-title animate-on-scroll">Top KI-Tools</h2>
+      <p class="section-subtitle animate-on-scroll">
+        Die beliebtesten und mächtigsten KI-Tools, die du heute nutzen kannst
+      </p>
+    </div>
+    
+    <div class="tools-grid">
+      {featuredTools.map((tool) => (
+        <div class="tool-card animate-on-scroll">
+          <div class="tool-category">{tool.data.category}</div>
+          <h3 class="tool-title">{tool.data.title}</h3>
+          <p class="tool-description">{tool.data.description}</p>
+          
+          <!-- 🚀 NEUE DUAL-CTA BUTTONS -->
+          <div class="tool-actions">
+            <a href={`/tools/${tool.slug}`} class="tool-cta-primary">
+              📋 Details & Test
+            </a>
+            <a href={tool.data.affiliate_link} target="_blank" rel="noopener noreferrer" class="tool-cta-secondary">
+              🚀 Jetzt testen
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="view-all-cta animate-on-scroll">
+      <a href="/tools" class="view-all-btn">
+        Alle {totalTools} Tools ansehen →
+      </a>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="categories section" id="categories">
+    <div class="section-header">
+      <h2 class="section-title animate-on-scroll">Kategorien entdecken</h2>
+      <p class="section-subtitle animate-on-scroll">
+        Finde KI-Tools für jeden Anwendungsbereich
+      </p>
+    </div>
+    
+    <div class="categories-grid">
+      {allCategories.map((category) => (
+        <div class="category-card animate-on-scroll" data-category={category.name}>
+          <span class="category-icon">{category.icon}</span>
+          <h3 class="category-name">{category.name}</h3>
+          <p class="category-count">{category.count} Tools</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-container">
+      <h2 class="cta-title animate-on-scroll">Bereit für die KI-Revolution?</h2>
+      <p class="cta-subtitle animate-on-scroll">
+        Schließe dich tausenden von Kreativen, Entwicklern und Unternehmern an, 
+        die bereits die Kraft der KI nutzen.
+      </p>
+      <a href="/tools" class="cta-button animate-on-scroll">
+        🚀 Jetzt Tools entdecken
+      </a>
+    </div>
+  </section>
+  
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-logo">🤖 AI Tool Vault</div>
+      <p class="footer-description">
+        Die umfassendste Sammlung von KI-Tools für Kreativität, Produktivität und Innovation. 
+        Entdecke die Zukunft heute.
+      </p>
+      
+      <div class="footer-links">
+        <a href="/tools">Alle Tools</a>
+        <a href="#categories">Kategorien</a>
+        <a href="/impressum">Impressum</a>
+        <a href="/datenschutz">Datenschutz</a>
+        <a href="/kontakt">Kontakt</a>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2024 AI Tool Vault. Alle Rechte vorbehalten. Made with ❤️ für die KI-Community.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- TypeScript-sicheres JavaScript -->
+  <script>
+    // Type definitions für bessere IDE-Unterstützung
+    interface CategoryData {
+      category: string;
+      position: number;
+      source: string;
+    }
+
+    interface AnalyticsEvent {
+      [key: string]: string | number;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('🚀 AI Tool Vault Homepage loaded successfully');
+
+      // ===== KATEGORIE-NAVIGATION (KERNFUNKTION) =====
+      function initCategoryNavigation(): void {
+        const categoryCards = document.querySelectorAll<HTMLElement>('.category-card[data-category]');
+        
+        if (categoryCards.length === 0) {
+          console.warn('⚠️ Keine Kategorie-Karten gefunden');
+          return;
+        }
+        
+        categoryCards.forEach((card, index) => {
+          const categoryName = card.getAttribute('data-category');
+          
+          if (!categoryName) {
+            console.warn(`⚠️ Kategorie-Name fehlt für Karte ${index + 1}`);
+            return;
+          }
+          
+          // Debugging: Zeige alle gefundenen Kategorien
+          console.log(`📂 Kategorie ${index + 1}: "${categoryName}"`);
+          
+          card.addEventListener('click', function(e: Event) {
+            e.preventDefault();
+            
+            console.log(`🔗 Kategorie "${categoryName}" geklickt (Position: ${index + 1})`);
+            
+            // Visual Feedback
+            this.style.transform = 'scale(0.95)';
+            this.style.background = '#f8faff';
+            
+            const resetStyles = () => {
+              this.style.transform = '';
+              this.style.background = '';
+            };
+            
+            setTimeout(resetStyles, 150);
+            
+            // Analytics tracking
+            try {
+              trackEvent('category_click', {
+                category: categoryName,
+                position: index + 1,
+                source: 'homepage'
+              });
+            } catch (error) {
+              console.warn('⚠️ Analytics tracking failed:', error);
+            }
+            
+            // Navigation zur Tools-Seite mit Kategorie-Filter
+            const toolsUrl = `/tools?category=${encodeURIComponent(categoryName)}`;
+            console.log(`🎯 Navigiere zu: ${toolsUrl}`);
+            
+            // Navigation ausführen
+            window.location.href = toolsUrl;
+          });
+          
+          // Keyboard accessibility
+          card.addEventListener('keydown', function(e: KeyboardEvent) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              (this as HTMLElement).click();
+            }
+          });
+          
+          // Accessibility attributes
+          card.setAttribute('role', 'button');
+          card.setAttribute('tabindex', '0');
+          
+          const countElement = card.querySelector('.category-count');
+          const countText = countElement ? countElement.textContent : '';
+          card.setAttribute('aria-label', `${categoryName} Kategorie öffnen - ${countText}`);
+        });
+        
+        console.log(`✅ ${categoryCards.length} Kategorie-Karten erfolgreich initialisiert`);
+      }
+
+      // ===== FEATURED TOOLS CTA TRACKING =====
+      function initFeaturedToolsTracking(): void {
+        // Track Details & Test Buttons
+        document.querySelectorAll<HTMLAnchorElement>('.tool-cta-primary').forEach((cta, index) => {
+          cta.addEventListener('click', function() {
+            const toolName = this.closest('.tool-card')?.querySelector('.tool-title')?.textContent || 'Unknown';
+            
+            trackEvent('tool_details_click', {
+              tool_name: toolName,
+              position: index + 1,
+              source: 'homepage_featured'
+            });
+            
+            console.log(`📋 Details-Button geklickt: ${toolName}`);
+          });
+        });
+        
+        // Track Direct Test Buttons
+        document.querySelectorAll<HTMLAnchorElement>('.tool-cta-secondary').forEach((cta, index) => {
+          cta.addEventListener('click', function() {
+            const toolName = this.closest('.tool-card')?.querySelector('.tool-title')?.textContent || 'Unknown';
+            
+            trackEvent('affiliate_click', {
+              tool_name: toolName,
+              position: index + 1,
+              source: 'homepage_featured',
+              cta_type: 'direct_test'
+            });
+            
+            console.log(`💰 Affiliate-Link geklickt: ${toolName} - ${this.href}`);
+          });
+        });
+      }
+
+      // ===== NAVBAR SCROLL EFFECTS =====
+      function initNavbarEffects(): void {
+        let lastScrollTop = 0;
+        const navbar = document.querySelector<HTMLElement>('.nav');
+        let ticking = false;
+
+        if (!navbar) {
+          console.warn('⚠️ Navbar nicht gefunden');
+          return;
+        }
+
+        function updateNavbar(): void {
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          
+          if (scrollTop > lastScrollTop && scrollTop > 100) {
+            navbar.style.transform = 'translateY(-100%)';
+          } else {
+            navbar.style.transform = 'translateY(0)';
+          }
+          
+          if (scrollTop > 50) {
+            navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+            navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+          } else {
+            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            navbar.style.boxShadow = 'none';
+          }
+          
+          lastScrollTop = scrollTop;
+          ticking = false;
+        }
+
+        window.addEventListener('scroll', function() {
+          if (!ticking) {
+            requestAnimationFrame(updateNavbar);
+            ticking = true;
+          }
+        });
+      }
+
+      // ===== MOBILE MENU =====
+      function initMobileMenu(): void {
+        const mobileMenuBtn = document.querySelector<HTMLButtonElement>('.mobile-menu');
+        const navLinks = document.querySelector<HTMLElement>('.nav-links');
+        
+        if (!mobileMenuBtn || !navLinks) {
+          return;
+        }
+        
+        let menuOpen = false;
+        
+        mobileMenuBtn.addEventListener('click', function(e: Event) {
+          e.stopPropagation();
+          menuOpen = !menuOpen;
+          
+          if (menuOpen) {
+            navLinks.classList.add('show');
+            this.innerHTML = '✕';
+            this.setAttribute('aria-expanded', 'true');
+          } else {
+            navLinks.classList.remove('show');
+            this.innerHTML = '☰';
+            this.setAttribute('aria-expanded', 'false');
+          }
+        });
+        
+        document.addEventListener('click', function(e: Event) {
+          const target = e.target as HTMLElement;
+          if (menuOpen && !target.closest('.nav')) {
+            navLinks.classList.remove('show');
+            mobileMenuBtn.innerHTML = '☰';
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            menuOpen = false;
+          }
+        });
+      }
+
+      // ===== SCROLL ANIMATIONEN =====
+      function initScrollAnimations(): void {
+        const observerOptions: IntersectionObserverInit = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              const delay = index * 100;
+              
+              setTimeout(() => {
+                (entry.target as HTMLElement).classList.add('animated');
+              }, delay);
+              
+              observer.unobserve(entry.target);
+            }
+          });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+          observer.observe(el);
+        });
+      }
+
+      // ===== ANALYTICS TRACKING =====
+      function trackEvent(eventType: string, data: AnalyticsEvent): void {
+        try {
+          console.log('📊 Event tracked:', eventType, data);
+          
+          if (typeof (window as any).gtag !== 'undefined') {
+            (window as any).gtag('event', eventType, data);
+          }
+          
+          if (typeof (window as any).plausible !== 'undefined') {
+            (window as any).plausible(eventType, { props: data });
+          }
+        } catch (error) {
+          console.warn('⚠️ Analytics tracking failed:', error);
+        }
+      }
+
+      // ===== INITIALISIERUNG =====
+      try {
+        initCategoryNavigation(); // WICHTIGSTE FUNKTION
+        initFeaturedToolsTracking(); // NEUE FUNKTION
+        initNavbarEffects();
+        initMobileMenu();
+        initScrollAnimations();
+        
+        console.log('✅ Homepage erfolgreich initialisiert!');
+        
+      } catch (error) {
+        console.error('❌ Fehler bei der Initialisierung:', error);
+        trackEvent('init_error', { 
+          message: error instanceof Error ? error.message : 'Unknown error' 
+        });
+      }
+    });
+  </script>
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "AI Tool Vault",
+    "description": "Die umfassendste Sammlung von {totalTools} KI-Tools für Kreativität, Produktivität und Innovation",
+    "url": "https://aitoolvault.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://aitoolvault.com/tools?search={search_term_string}",
+      "query-input": "required name=search_term_string"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "AI Tool Vault",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://aitoolvault.com/logo.png"
+      }
+    }
+  }
+  </script>
+
+</body>
+</html>"

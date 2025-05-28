@@ -1,0 +1,689 @@
+---
+import { getCollection } from "astro:content";
+const tools = await getCollection("tools");
+
+// Kategorien extrahieren und sortieren
+const categories = Array.from(new Set(tools.map(tool => tool.data.category))).sort();
+
+// Statistiken
+const freeTools = tools.filter(tool => tool.data.pricing === "Kostenlos").length;
+const freemiumTools = tools.filter(tool => tool.data.pricing === "Freemium").length;
+const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").length;
+---
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Tool Vault - {tools.length} KI-Tools durchsuchen</title>
+  <meta name="description" content="Entdecke die besten {tools.length} KI-Tools für Textgenerierung, Bildgenerierung, Videobearbeitung, Coding und mehr. Kostenlos, Freemium und Premium Tools.">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    
+    /* Breadcrumb Navigation */
+    .breadcrumb {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      padding: 1rem 2rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .breadcrumb-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .breadcrumb a {
+      color: #667eea;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .breadcrumb a:hover {
+      color: #5a67d8;
+      text-decoration: underline;
+    }
+    
+    .breadcrumb .current {
+      color: #333;
+      font-weight: 600;
+    }
+    
+    .breadcrumb span:not(.current) {
+      color: #666;
+    }
+    
+    .header {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    
+    .header h1 {
+      font-size: 3rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+    
+    .header p {
+      font-size: 1.2rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    
+    .header-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    
+    .header-stat {
+      background: rgba(102,126,234,0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      color: #667eea;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    
+    .filter-section {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      padding: 2rem;
+      border-radius: 1rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+    
+    .filter-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .filter-label {
+      font-weight: 600;
+      color: #333;
+      font-size: 1rem;
+    }
+    
+    .dropdown {
+      padding: 0.75rem 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 0.5rem;
+      background: white;
+      font-size: 1rem;
+      min-width: 180px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .dropdown:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+    }
+    
+    .search-box {
+      padding: 0.75rem 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 0.5rem;
+      background: white;
+      font-size: 1rem;
+      min-width: 250px;
+      transition: all 0.3s;
+    }
+    
+    .search-box:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .stat {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(102,126,234,0.05);
+      border-radius: 0.75rem;
+      border: 1px solid rgba(102,126,234,0.1);
+    }
+    
+    .stat-number {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #667eea;
+      margin-bottom: 0.25rem;
+    }
+    
+    .stat-label {
+      font-size: 0.85rem;
+      color: #666;
+      font-weight: 500;
+    }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .card {
+      background: rgba(255,255,255,0.95);
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      backdrop-filter: blur(20px);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.2);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.5s;
+    }
+    
+    .card:hover::before {
+      left: 100%;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .card-badges {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    
+    .category-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    /* Kategorie-Farben */
+    .category-textgenerierung { background: rgba(102,126,234,0.1); color: #667eea; }
+    .category-bildgenerierung { background: rgba(236,72,153,0.1); color: #ec4899; }
+    .category-videobearbeitung { background: rgba(245,101,101,0.1); color: #f56565; }
+    .category-literaturrecherche { background: rgba(72,187,120,0.1); color: #48bb78; }
+    .category-multimodal { background: rgba(237,137,54,0.1); color: #ed8936; }
+    .category-audiogenerierung { background: rgba(168,85,247,0.1); color: #a855f7; }
+    .category-coding { background: rgba(59,130,246,0.1); color: #3b82f6; }
+    .category-design { background: rgba(244,63,94,0.1); color: #f43f5e; }
+    .category-produktivität { background: rgba(34,197,94,0.1); color: #22c55e; }
+    
+    .new-badge {
+      background: linear-gradient(135deg, #f59e0b, #f97316);
+      color: white;
+      font-size: 0.7rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 1rem;
+      font-weight: 600;
+    }
+    
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #333;
+      font-weight: 700;
+    }
+    
+    .card p {
+      color: #666;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+    
+    .pricing-badge {
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+    }
+    
+    .pricing-kostenlos { background: rgba(34,197,94,0.1); color: #22c55e; }
+    .pricing-freemium { background: rgba(59,130,246,0.1); color: #3b82f6; }
+    .pricing-kostenpflichtig { background: rgba(239,68,68,0.1); color: #ef4444; }
+    
+    /* 🚀 Tool Actions Styling */
+    .tool-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .btn-details {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      text-align: center;
+      font-size: 0.9rem;
+      flex: 1;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn-affiliate {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ff5722 100%);
+      color: white;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      text-align: center;
+      font-size: 0.9rem;
+      flex: 1;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn-details:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102,126,234,0.4);
+    }
+    
+    .btn-affiliate:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255,107,107,0.4);
+    }
+    
+    .btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.75rem;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102,126,234,0.3);
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: rgba(255,255,255,0.8);
+    }
+    
+    .hidden {
+      display: none !important;
+    }
+    
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .header h1 { font-size: 2rem; }
+      .filter-controls { flex-direction: column; align-items: stretch; }
+      .dropdown, .search-box { min-width: 100%; }
+      .grid { grid-template-columns: 1fr; }
+      .header-stats { justify-content: center; }
+      .tool-actions { flex-direction: column; }
+      .btn-details, .btn-affiliate { width: 100%; }
+      .breadcrumb-container { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Breadcrumb Navigation -->
+  <nav class="breadcrumb">
+    <div class="breadcrumb-container">
+      <a href="/">🏠 Home</a>
+      <span>›</span>
+      <span class="current">🔧 Tools</span>
+    </div>
+  </nav>
+
+  <header class="header">
+    <h1>🤖 AI Tool Vault - Alle Tools</h1>
+    <p>Die umfassendste Sammlung von {tools.length} KI-Tools für jeden Anwendungsfall</p>
+    <div class="header-stats">
+      <div class="header-stat">{tools.length} Tools</div>
+      <div class="header-stat">{categories.length} Kategorien</div>
+      <div class="header-stat">{freeTools} Kostenlos</div>
+      <div class="header-stat">{freemiumTools} Freemium</div>
+      <div class="header-stat">{paidTools} Premium</div>
+    </div>
+  </header>
+  
+  <div class="container">
+    <div class="filter-section">
+      <div class="filter-controls">
+        <div class="filter-group">
+          <label for="searchBox" class="filter-label">🔍 Suche:</label>
+          <input 
+            type="text" 
+            id="searchBox" 
+            class="search-box" 
+            placeholder="Tool oder Beschreibung suchen..."
+          />
+        </div>
+        
+        <div class="filter-group">
+          <label for="categoryFilter" class="filter-label">📂 Kategorie:</label>
+          <select id="categoryFilter" class="dropdown">
+            <option value="alle">Alle Kategorien</option>
+            {categories.map(category => (
+              <option value={category}>{category}</option>
+            ))}
+          </select>
+          
+          <label for="pricingFilter" class="filter-label">💰 Preis:</label>
+          <select id="pricingFilter" class="dropdown">
+            <option value="alle">Alle Preise</option>
+            <option value="Kostenlos">Kostenlos</option>
+            <option value="Freemium">Freemium</option>
+            <option value="Kostenpflichtig">Premium</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-number" id="visibleCount">{tools.length}</div>
+          <div class="stat-label">Angezeigt</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">{tools.length}</div>
+          <div class="stat-label">Gesamt</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">{freeTools}</div>
+          <div class="stat-label">Kostenlos</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">{freemiumTools}</div>
+          <div class="stat-label">Freemium</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">{categories.length}</div>
+          <div class="stat-label">Kategorien</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="grid" id="toolsGrid">
+      {tools.map(tool => (
+        <div class="card tool-card" 
+             data-category={tool.data.category} 
+             data-pricing={tool.data.pricing}
+             data-title={tool.data.title.toLowerCase()}
+             data-description={tool.data.description.toLowerCase()}>
+          
+          <div class="card-badges">
+            <div class={`category-badge category-${tool.data.category.toLowerCase().replace(/[^a-z]/g, '')}`}>
+              {tool.data.category}
+            </div>
+            {Math.random() > 0.7 && (
+              <div class="new-badge">Neu</div>
+            )}
+          </div>
+          
+          <h3>{tool.data.title}</h3>
+          <p>{tool.data.description}</p>
+          
+          <div class={`pricing-badge pricing-${tool.data.pricing.toLowerCase()}`}>
+            {tool.data.pricing}
+          </div>
+          
+          <!-- 🚀 NEUE DUAL-CTA BUTTONS -->
+          <div class="tool-actions">
+            <a 
+              href={`/tools/${tool.slug}`}
+              class="btn-details"
+              data-tool={tool.data.title}
+            >
+              📋 Details & Test
+            </a>
+            <a 
+              href={tool.data.affiliate_link} 
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-affiliate"
+              data-tool={tool.data.title}
+            >
+              🚀 Jetzt testen
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+  
+  <footer class="footer">
+    <p>&copy; 2024 AI Tool Vault. Entdecke die Zukunft der KI.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+      {tools.length} handverlesene KI-Tools für Kreativität, Produktivität und Innovation.
+    </p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const categoryFilter = document.getElementById('categoryFilter');
+      const pricingFilter = document.getElementById('pricingFilter');
+      const searchBox = document.getElementById('searchBox');
+      const toolCards = document.querySelectorAll('.tool-card');
+      const visibleCount = document.getElementById('visibleCount');
+      
+      function updateVisibleCount() {
+        const visible = Array.from(toolCards).filter(card => 
+          !card.classList.contains('hidden')
+        ).length;
+        visibleCount.textContent = visible;
+      }
+      
+      function filterTools() {
+        const selectedCategory = categoryFilter.value;
+        const selectedPricing = pricingFilter.value;
+        const searchTerm = searchBox.value.toLowerCase();
+        
+        toolCards.forEach(card => {
+          const cardCategory = card.getAttribute('data-category');
+          const cardPricing = card.getAttribute('data-pricing');
+          const cardTitle = card.getAttribute('data-title');
+          const cardDescription = card.getAttribute('data-description');
+          
+          const categoryMatch = selectedCategory === 'alle' || cardCategory === selectedCategory;
+          const pricingMatch = selectedPricing === 'alle' || cardPricing === selectedPricing;
+          const searchMatch = searchTerm === '' || 
+                            cardTitle.includes(searchTerm) || 
+                            cardDescription.includes(searchTerm);
+          
+          if (categoryMatch && pricingMatch && searchMatch) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+        
+        updateVisibleCount();
+      }
+      
+      // URL Parameter auslesen und anwenden
+      function handleURLParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryParam = urlParams.get('category');
+        const pricingParam = urlParams.get('pricing');
+        const searchParam = urlParams.get('search');
+        
+        if (categoryParam && categoryParam !== 'alle') {
+          categoryFilter.value = categoryParam;
+          console.log('🎯 Kategorie-Filter aus URL angewendet:', categoryParam);
+        }
+        if (pricingParam && pricingParam !== 'alle') {
+          pricingFilter.value = pricingParam;
+          console.log('💰 Preis-Filter aus URL angewendet:', pricingParam);
+        }
+        if (searchParam) {
+          searchBox.value = searchParam;
+          console.log('🔍 Such-Filter aus URL angewendet:', searchParam);
+        }
+        
+        filterTools();
+      }
+      
+      // Event Listeners
+      categoryFilter.addEventListener('change', filterTools);
+      pricingFilter.addEventListener('change', filterTools);
+      searchBox.addEventListener('input', filterTools);
+      
+      // URL Parameter beim Laden anwenden
+      handleURLParams();
+      
+      // Initial count
+      updateVisibleCount();
+      
+      // ===== TRACKING für DETAILS-BUTTONS =====
+      document.querySelectorAll('.btn-details').forEach((btn, index) => {
+        btn.addEventListener('click', function() {
+          const toolName = this.getAttribute('data-tool');
+          console.log('📋 Details-Button geklickt:', toolName, this.href);
+          
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'tool_details_click', {
+              'tool_name': toolName,
+              'source': 'tools_page',
+              'position': index + 1
+            });
+          }
+        });
+      });
+      
+      // ===== TRACKING für AFFILIATE-BUTTONS =====
+      document.querySelectorAll('.btn-affiliate').forEach((btn, index) => {
+        btn.addEventListener('click', function() {
+          const toolName = this.getAttribute('data-tool');
+          console.log('💰 Affiliate-Button geklickt:', toolName, this.href);
+          
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'affiliate_click', {
+              'tool_name': toolName,
+              'source': 'tools_page',
+              'position': index + 1,
+              'affiliate_url': this.href
+            });
+          }
+        });
+      });
+      
+      // Filter Change Tracking
+      categoryFilter.addEventListener('change', function() {
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'filter_change', {
+            'filter_type': 'category',
+            'filter_value': this.value
+          });
+        }
+      });
+      
+      pricingFilter.addEventListener('change', function() {
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'filter_change', {
+            'filter_type': 'pricing',
+            'filter_value': this.value
+          });
+        }
+      });
+      
+      // Search Tracking
+      let searchTimeout;
+      searchBox.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          if (this.value.length > 2) {
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'search', {
+                'search_term': this.value,
+                'source': 'tools_page'
+              });
+            }
+          }
+        }, 1000);
+      });
+      
+      console.log('✅ Tools-Seite erfolgreich initialisiert!');
+      console.log(`📊 ${toolCards.length} Tools geladen`);
+    });
+  </script>
+</body>
+</html>
