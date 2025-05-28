@@ -23,6 +23,83 @@ const { title, description = "Die besten KI-Tools entdecken" } = Astro.props;
     gtag('js', new Date());
     gtag('config', 'G-EC62QPK5VL');
   </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-DEINE-ADSENSE-ID" crossorigin="anonymous"></script>
+  
+  <style>
+    /* AdSense Container Styling */
+    .ad-container {
+      margin: 2rem auto;
+      padding: 1rem;
+      max-width: 1200px;
+      text-align: center;
+      background: #f8fafc;
+      border-radius: 0.5rem;
+      border: 1px solid #e2e8f0;
+    }
+
+    .ad-container::before {
+      content: "Anzeige";
+      display: block;
+      font-size: 0.8rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .ad-between-sections {
+      margin: 4rem auto;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    }
+
+    .ad-in-grid {
+      grid-column: 1 / -1;
+      margin: 1rem 0;
+    }
+
+    .ad-pre-footer {
+      margin: 3rem auto 1rem;
+      background: #1a202c;
+      color: white;
+    }
+
+    .ad-pre-footer::before {
+      color: #a0aec0;
+    }
+
+    .sidebar-ads {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 300px;
+      z-index: 100;
+    }
+
+    .sticky-ad {
+      position: sticky;
+      top: 100px;
+    }
+
+    @media (max-width: 1400px) {
+      .sidebar-ads {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .ad-container {
+        margin: 1.5rem auto;
+        padding: 0.5rem;
+      }
+      
+      .ad-between-sections {
+        margin: 2rem auto;
+      }
+    }
+  </style>
 </head>
 <body class="bg-gray-50">
   <header class="bg-white shadow-sm">
@@ -45,8 +122,33 @@ const { title, description = "Die besten KI-Tools entdecken" } = Astro.props;
   
   <footer class="bg-gray-800 text-white py-8 mt-16">
     <div class="max-w-7xl mx-auto px-4 text-center">
-      <p>&copy; 2025 AI Tool Vault. Alle Rechte vorbehalten.</p>
+      <p>&copy; 2024 AI Tool Vault. Alle Rechte vorbehalten.</p>
     </div>
   </footer>
+
+  <!-- AdSense Initialization -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize all AdSense ads
+      const ads = document.querySelectorAll('.adsbygoogle');
+      
+      // Lazy loading for better performance
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !entry.target.getAttribute('data-loaded')) {
+            try {
+              (adsbygoogle = window.adsbygoogle || []).push({});
+              entry.target.setAttribute('data-loaded', 'true');
+            } catch (e) {
+              console.warn('AdSense loading error:', e);
+            }
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      ads.forEach(ad => observer.observe(ad));
+    });
+  </script>
 </body>
 </html>
