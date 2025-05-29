@@ -1,0 +1,581 @@
+---
+---
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kontakt - AI Tool Vault</title>
+  <meta name="description" content="Kontaktiere das AI Tool Vault Team - Wir helfen dir gerne weiter">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f8fafc;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: white;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border-radius: 1rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    h1 {
+      color: #667eea;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    
+    h2 {
+      color: #1a202c;
+      font-size: 1.5rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 0.5rem;
+    }
+    
+    h3, h4 {
+      color: #4a5568;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #374151;
+    }
+    
+    input, select, textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+      font-family: inherit;
+    }
+    
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    
+    .btn-submit {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    
+    .btn-submit:hover {
+      transform: translateY(-2px);
+    }
+    
+    .contact-info {
+      background: #f7fafc;
+      padding: 2rem;
+      border-radius: 1rem;
+      border: 1px solid #e2e8f0;
+    }
+    
+    .contact-item {
+      margin-bottom: 2rem;
+    }
+    
+    .contact-item h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .contact-item p {
+      margin-bottom: 0.5rem;
+      line-height: 1.8;
+    }
+    
+    .social-links a {
+      color: #667eea;
+      text-decoration: none;
+      display: inline-block;
+      margin-right: 1rem;
+      margin-bottom: 0.5rem;
+      transition: color 0.3s;
+    }
+    
+    .social-links a:hover {
+      color: #5a67d8;
+      text-decoration: underline;
+    }
+    
+    .back-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      margin-top: 2rem;
+      transition: transform 0.3s;
+    }
+    
+    .back-btn:hover {
+      transform: translateY(-2px);
+      color: white;
+      text-decoration: none;
+    }
+    
+    .highlight-box {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    
+    .faq-section {
+      margin-top: 3rem;
+    }
+    
+    .faq-item {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    
+    .faq-question {
+      background: #f1f5f9;
+      padding: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      width: 100%;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .faq-question:hover {
+      background: #e2e8f0;
+    }
+    
+    .faq-answer {
+      padding: 1rem;
+      display: none;
+      background: white;
+    }
+    
+    .faq-answer.active {
+      display: block;
+    }
+    
+    .quick-contact {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    
+    .quick-contact-item {
+      background: #f8fafc;
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      border: 1px solid #e2e8f0;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    
+    .quick-contact-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .quick-contact-item .icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+      .row {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .container {
+        padding: 1rem;
+        margin: 1rem;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .quick-contact {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Kontakt</h1>
+    
+    <div class="highlight-box">
+      <h3>🚀 Lass uns zusammen die KI-Zukunft gestalten!</h3>
+      <p>Hast du Fragen, Vorschläge oder möchtest du mit uns kooperieren? Wir freuen uns auf deine Nachricht!</p>
+    </div>
+    
+    <!-- Quick Contact Options -->
+    <div class="quick-contact">
+      <div class="quick-contact-item">
+        <div class="icon">📧</div>
+        <h4>E-Mail Support</h4>
+        <p>Schnelle Antwort innerhalb von 24h</p>
+        <strong>support@aitoolvault.de</strong>
+      </div>
+      
+      <div class="quick-contact-item">
+        <div class="icon">🤝</div>
+        <h4>Partnership</h4>
+        <p>Kooperationen & Business</p>
+        <strong>partner@aitoolvault.de</strong>
+      </div>
+      
+      <div class="quick-contact-item">
+        <div class="icon">💡</div>
+        <h4>Tool vorschlagen</h4>
+        <p>Kennst du ein cooles KI-Tool?</p>
+        <strong>tools@aitoolvault.de</strong>
+      </div>
+    </div>
+    
+    <div class="row">
+      <!-- Contact Form -->
+      <div class="form-section">
+        <h2>Schreib uns eine Nachricht</h2>
+        <p>Nutze unser Kontaktformular für eine schnelle und strukturierte Kommunikation:</p>
+        
+        <form action="#" method="POST" id="contactForm">
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" required placeholder="Dein vollständiger Name">
+          </div>
+          
+          <div class="form-group">
+            <label for="email">E-Mail-Adresse *</label>
+            <input type="email" id="email" name="email" required placeholder="deine@email.de">
+          </div>
+          
+          <div class="form-group">
+            <label for="subject">Betreff</label>
+            <select id="subject" name="subject">
+              <option value="">Wähle ein Thema...</option>
+              <option value="general">Allgemeine Anfrage</option>
+              <option value="tool-suggestion">Tool-Vorschlag</option>
+              <option value="bug-report">Fehler melden</option>
+              <option value="partnership">Partnership / Kooperation</option>
+              <option value="press">Presse-Anfrage</option>
+              <option value="feedback">Feedback & Verbesserung</option>
+              <option value="other">Sonstiges</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="company">Unternehmen (optional)</label>
+            <input type="text" id="company" name="company" placeholder="Dein Unternehmen">
+          </div>
+          
+          <div class="form-group">
+            <label for="message">Nachricht *</label>
+            <textarea id="message" name="message" required placeholder="Beschreibe dein Anliegen ausführlich..."></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label>
+              <input type="checkbox" required style="width: auto; margin-right: 0.5rem;">
+              Ich habe die <a href="/datenschutz" target="_blank">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zu. *
+            </label>
+          </div>
+          
+          <button type="submit" class="btn-submit">✉️ Nachricht senden</button>
+        </form>
+      </div>
+      
+      <!-- Contact Info Sidebar -->
+      <div class="contact-info">
+        <h2>Direkte Kontaktdaten</h2>
+        
+        <div class="contact-item">
+          <h4>📧 E-Mail Kontakte</h4>
+          <p>
+            <strong>Allgemein:</strong> info@aitoolvault.de<br>
+            <strong>Support:</strong> support@aitoolvault.de<br>
+            <strong>Partnership:</strong> partner@aitoolvault.de<br>
+            <strong>Presse:</strong> presse@aitoolvault.de
+          </p>
+        </div>
+        
+        <div class="contact-item">
+          <h4>💬 Social Media</h4>
+          <div class="social-links">
+            <a href="#">🐦 Twitter/X</a>
+            <a href="#">💼 LinkedIn</a>
+            <a href="#">📘 Facebook</a>
+            <a href="#">📸 Instagram</a>
+            <a href="#">▶️ YouTube</a>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <h4>⏰ Antwortzeiten</h4>
+          <p>
+            <strong>E-Mail:</strong> Innerhalb von 24 Stunden<br>
+            <strong>Support:</strong> Mo-Fr, 9-17 Uhr MEZ<br>
+            <strong>Dringende Anfragen:</strong> Innerhalb von 4 Stunden<br>
+            <strong>Wochenende:</strong> Montag Vormittag
+          </p>
+        </div>
+        
+        <div class="contact-item">
+          <h4>🌍 Sprachen</h4>
+          <p>
+            Wir kommunizieren in:<br>
+            • Deutsch (Muttersprache)<br>
+            • Englisch (fließend)<br>
+            • Französisch (Grundkenntnisse)
+          </p>
+        </div>
+        
+        <div class="contact-item">
+          <h4>🎯 Tool-Empfehlungen</h4>
+          <p>
+            Du kennst ein innovatives KI-Tool?<br>
+            Schick uns einfach den Link und eine kurze Beschreibung! Wir prüfen jede Empfehlung persönlich.
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- FAQ Section -->
+    <div class="faq-section">
+      <h2>Häufige Fragen (FAQ)</h2>
+      <p>Hier findest du Antworten auf die am häufigsten gestellten Fragen:</p>
+      
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          Wie werden Tools in AI Tool Vault aufgenommen?
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Wir testen jedes Tool persönlich auf Qualität, Benutzerfreundlichkeit und Nutzen. Kriterien sind: Innovation, Zuverlässigkeit, Preis-Leistung und Community-Feedback. Nur die besten schaffen es in unsere kuratierte Sammlung.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          Sind die Tool-Links Affiliate-Links?
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Ja, einige unserer Links sind Affiliate-Links. Das bedeutet keine zusätzlichen Kosten für dich, hilft uns aber dabei, die Website zu betreiben und kontinuierlich zu verbessern. Wir empfehlen nur Tools, die wir selbst getestet und für gut befunden haben.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          Kann ich mein eigenes KI-Tool einreichen?
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Absolut! Wir freuen uns über neue Tools. Schicke uns einfach den Link, eine Beschreibung und ggf. einen Test-Zugang. Wir prüfen jede Einreichung fair und unvoreingenommen.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          Wie oft wird die Tool-Sammlung aktualisiert?
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Wir aktualisieren unsere Sammlung täglich! Neue Tools werden wöchentlich hinzugefügt, bestehende Tools regelmäßig auf Updates und Preisänderungen überprüft.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          Bietet ihr auch individuelle KI-Beratung an?
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Ja! Für Unternehmen bieten wir individuelle KI-Strategieberatung an. Kontaktiere uns über partner@aitoolvault.de für ein kostenloses Erstgespräch.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          Wie kann ich bei AI Tool Vault mitarbeiten?
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Wir suchen immer motivierte KI-Enthusiasten! Egal ob Content Creator, Entwickler oder Marketing-Experte - schreib uns deine Ideen und Fähigkeiten. Wir freuen uns auf dich!</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Call to Action -->
+    <div class="highlight-box">
+      <h3>🤖 Werde Teil der AI Tool Vault Community!</h3>
+      <p>Folge uns auf Social Media für die neuesten KI-Tool Updates, Tipps und exklusive Inhalte!</p>
+      <div style="margin-top: 1rem;">
+        <a href="#" style="color: white; margin-right: 1rem;">📧 Newsletter abonnieren</a>
+        <a href="#" style="color: white; margin-right: 1rem;">🐦 Twitter folgen</a>
+        <a href="#" style="color: white;">💼 LinkedIn vernetzen</a>
+      </div>
+    </div>
+    
+    <a href="/" class="back-btn">← Zurück zur Startseite</a>
+  </div>
+  
+  <script>
+    // FAQ Toggle Functionality
+    function toggleFAQ(button) {
+      const answer = button.nextElementSibling;
+      const icon = button.querySelector('span');
+      
+      // Close all other FAQs
+      document.querySelectorAll('.faq-answer').forEach(item => {
+        if (item !== answer) {
+          item.classList.remove('active');
+          item.previousElementSibling.querySelector('span').textContent = '+';
+        }
+      });
+      
+      // Toggle current FAQ
+      answer.classList.toggle('active');
+      icon.textContent = answer.classList.contains('active') ? '−' : '+';
+    }
+    
+    // Form Submission Handler
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Basic form validation
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      
+      if (!name || !email || !message) {
+        alert('Bitte fülle alle Pflichtfelder (*) aus.');
+        return;
+      }
+      
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert('Bitte gib eine gültige E-Mail-Adresse ein.');
+        return;
+      }
+      
+      // Simulate form submission
+      const submitBtn = this.querySelector('.btn-submit');
+      const originalText = submitBtn.textContent;
+      
+      submitBtn.textContent = '📤 Wird gesendet...';
+      submitBtn.disabled = true;
+      
+      // Simulate delay
+      setTimeout(() => {
+        alert('✅ Vielen Dank für deine Nachricht! Wir melden uns innerhalb von 24 Stunden bei dir.');
+        this.reset();
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }, 2000);
+    });
+    
+    // Analytics tracking for contact interactions
+    document.addEventListener('DOMContentLoaded', function() {
+      // Track email link clicks
+      document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+        link.addEventListener('click', function() {
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'contact_email_click', {
+              'email': this.href.replace('mailto:', ''),
+              'source': 'contact_page'
+            });
+          }
+        });
+      });
+      
+      // Track social media clicks
+      document.querySelectorAll('.social-links a').forEach(link => {
+        link.addEventListener('click', function() {
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'social_media_click', {
+              'platform': this.textContent.trim(),
+              'source': 'contact_page'
+            });
+          }
+        });
+      });
+      
+      // Track FAQ interactions
+      document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', function() {
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'faq_interaction', {
+              'question': this.textContent.replace('+', '').replace('−', '').trim(),
+              'source': 'contact_page'
+            });
+          }
+        });
+      });
+      
+      console.log('✅ Kontakt-Seite erfolgreich geladen');
+    });
+  </script>
+</body>
+</html>
