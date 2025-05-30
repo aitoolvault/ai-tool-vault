@@ -17,11 +17,41 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Tool Vault - {tools.length} KI-Tools durchsuchen</title>
-  <meta name="description" content="Entdecke die besten {tools.length} KI-Tools für Textgenerierung, Bildgenerierung, Videobearbeitung, Coding und mehr. Kostenlos, Freemium und Premium Tools.">
+  <meta name="description" content={`Entdecke die besten ${tools.length} KI-Tools für Textgenerierung, Bildgenerierung, Videobearbeitung, Coding und mehr. Kostenlos, Freemium und Premium Tools.`}>
+  
+  <!-- Theme Script - MUST be before any styling to prevent FOUC -->
+  <script is:inline>
+    (function() {
+      function setTheme() {
+        var theme = 'light'; // Default zu light!
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          theme = localStorage.getItem('theme');
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          theme = 'dark';
+        }
+        
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+        
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem('theme', theme);
+        }
+      }
+      
+      setTheme();
+      
+      document.addEventListener('astro:after-swap', setTheme);
+    })();
+  </script>
   
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
-  <script>
+  <script is:inline>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
@@ -33,24 +63,143 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
      crossorigin="anonymous"></script>
 
   <style>
+    /* CSS Custom Properties für Theme-Switching */
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #f8fafc;
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --text-tertiary: #94a3b8;
+      --border-primary: #e2e8f0;
+      --border-secondary: #cbd5e1;
+      --accent-primary: #3b82f6;
+      --accent-secondary: #2563eb;
+      --success-color: #10b981;
+      --error-color: #ef4444;
+      --warning-color: #f59e0b;
+      --shadow-light: rgba(0, 0, 0, 0.1);
+      --shadow-medium: rgba(0, 0, 0, 0.15);
+      --nav-bg: rgba(255, 255, 255, 0.95);
+      --card-bg: #ffffff;
+      --footer-bg: #0f172a;
+      --footer-text: #94a3b8;
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-tertiary: #334155;
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --text-tertiary: #94a3b8;
+      --border-primary: #334155;
+      --border-secondary: #475569;
+      --accent-primary: #60a5fa;
+      --accent-secondary: #3b82f6;
+      --success-color: #34d399;
+      --error-color: #f87171;
+      --warning-color: #fbbf24;
+      --shadow-light: rgba(0, 0, 0, 0.3);
+      --shadow-medium: rgba(0, 0, 0, 0.4);
+      --nav-bg: rgba(30, 41, 59, 0.95);
+      --card-bg: #1e293b;
+      --footer-bg: #020617;
+      --footer-text: #64748b;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
     
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #f8fafc;
+      background: var(--bg-primary);
       min-height: 100vh;
       line-height: 1.6;
-      color: #1e293b;
+      color: var(--text-primary);
+    }
+
+    /* Theme Toggle Button - Switch Style */
+    .theme-toggle {
+      position: fixed;
+      top: 50%;
+      right: 2rem;
+      transform: translateY(-50%);
+      z-index: 1001;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .theme-switch {
+      position: relative;
+      width: 60px;
+      height: 30px;
+      background: #2c3e50;
+      border-radius: 15px;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 12px var(--shadow-light);
+    }
+
+    .theme-switch::before {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 24px;
+      height: 24px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    /* Sun icon on the switch */
+    .theme-switch::after {
+      content: '☀️';
+      position: absolute;
+      top: 50%;
+      left: 8px;
+      transform: translateY(-50%);
+      font-size: 14px;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Dark mode state */
+    [data-theme="dark"] .theme-switch {
+      background: #34495e;
+    }
+
+    [data-theme="dark"] .theme-switch::before {
+      transform: translateX(30px);
+    }
+
+    [data-theme="dark"] .theme-switch::after {
+      content: '🌙';
+      left: auto;
+      right: 8px;
+    }
+
+    .theme-toggle:hover .theme-switch {
+      box-shadow: 0 6px 16px var(--shadow-medium);
+    }
+
+    .theme-toggle:focus {
+      outline: 2px solid var(--accent-primary);
+      outline-offset: 4px;
+      border-radius: 20px;
     }
     
     /* Modern Navigation */
     .navigation {
-      background: white;
-      border-bottom: 1px solid #e2e8f0;
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border-primary);
       padding: 1rem 0;
       position: sticky;
       top: 0;
@@ -71,7 +220,7 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     .nav-logo {
       font-size: 1.5rem;
       font-weight: 700;
-      color: #0f172a;
+      color: var(--text-primary);
       text-decoration: none;
     }
     
@@ -82,14 +231,13 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     }
     
     .nav-links a {
-      color: #64748b;
+      color: var(--text-secondary);
       text-decoration: none;
       font-weight: 500;
-      transition: color 0.2s;
     }
     
     .nav-links a:hover {
-      color: #0f172a;
+      color: var(--text-primary);
     }
 
     /* Mobile Menu */
@@ -97,16 +245,17 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       display: none;
       background: none;
       border: none;
-      color: #0f172a;
+      color: var(--text-primary);
       font-size: 1.5rem;
       cursor: pointer;
     }
     
     /* Trust Banner */
     .trust-banner {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      color: white;
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+      color: var(--text-primary);
       padding: 1rem 0;
+      border-bottom: 1px solid var(--border-primary);
     }
     
     .trust-container {
@@ -134,7 +283,8 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     .trust-icon {
       width: 20px;
       height: 20px;
-      background: rgba(255,255,255,0.2);
+      background: var(--accent-primary);
+      color: white;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -144,9 +294,9 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     
     /* Header Section */
     .header {
-      background: white;
+      background: var(--bg-secondary);
       padding: 3rem 0;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid var(--border-primary);
     }
     
     .header-container {
@@ -159,13 +309,13 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     .header h1 {
       font-size: 2.5rem;
       font-weight: 800;
-      color: #0f172a;
+      color: var(--text-primary);
       margin-bottom: 1rem;
     }
     
     .header p {
       font-size: 1.1rem;
-      color: #64748b;
+      color: var(--text-secondary);
       margin-bottom: 2rem;
       max-width: 600px;
       margin-left: auto;
@@ -186,13 +336,13 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     .header-stat-number {
       font-size: 2rem;
       font-weight: 700;
-      color: #0f172a;
+      color: var(--text-primary);
       display: block;
     }
     
     .header-stat-label {
       font-size: 0.85rem;
-      color: #64748b;
+      color: var(--text-secondary);
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
@@ -206,12 +356,12 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     
     /* Filter Section */
     .filter-section {
-      background: white;
+      background: var(--bg-secondary);
       padding: 2rem;
       margin: 2rem auto;
       border-radius: 12px;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-primary);
+      box-shadow: 0 1px 3px var(--shadow-light);
     }
     
     .filter-controls {
@@ -230,7 +380,7 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     
     .filter-label {
       font-weight: 600;
-      color: #374151;
+      color: var(--text-primary);
       font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -238,17 +388,17 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     
     .search-box, .dropdown {
       padding: 0.75rem 1rem;
-      border: 2px solid #e2e8f0;
+      border: 2px solid var(--border-primary);
       border-radius: 8px;
-      background: white;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
       font-size: 1rem;
-      transition: all 0.2s;
       font-family: inherit;
     }
     
     .search-box:focus, .dropdown:focus {
       outline: none;
-      border-color: #3b82f6;
+      border-color: var(--accent-primary);
       box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
     }
     
@@ -270,26 +420,25 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     
     .quick-filter-btn {
       padding: 0.5rem 1rem;
-      border: 2px solid #e2e8f0;
+      border: 2px solid var(--border-primary);
       border-radius: 6px;
-      background: white;
-      color: #64748b;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
       cursor: pointer;
-      transition: all 0.2s;
       font-size: 0.9rem;
       font-weight: 500;
       font-family: inherit;
     }
     
     .quick-filter-btn:hover {
-      border-color: #3b82f6;
-      color: #3b82f6;
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
     }
     
     .quick-filter-btn.active {
-      background: #3b82f6;
+      background: var(--accent-primary);
       color: white;
-      border-color: #3b82f6;
+      border-color: var(--accent-primary);
     }
     
     /* Filter Results */
@@ -298,16 +447,16 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       justify-content: space-between;
       align-items: center;
       padding-top: 1.5rem;
-      border-top: 1px solid #e2e8f0;
+      border-top: 1px solid var(--border-primary);
     }
     
     .result-count {
       font-weight: 600;
-      color: #374151;
+      color: var(--text-primary);
     }
     
     .clear-btn {
-      background: #ef4444;
+      background: var(--error-color);
       color: white;
       border: none;
       padding: 0.5rem 1rem;
@@ -315,12 +464,11 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       cursor: pointer;
       font-size: 0.9rem;
       font-weight: 500;
-      transition: all 0.2s;
       font-family: inherit;
     }
     
     .clear-btn:hover {
-      background: #dc2626;
+      opacity: 0.9;
     }
     
     /* Grid */
@@ -333,21 +481,21 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     
     /* Tool Card */
     .card {
-      background: white;
+      background: var(--card-bg);
       border-radius: 12px;
       padding: 2rem;
-      border: 1px solid #e2e8f0;
-      transition: all 0.2s ease;
+      border: 1px solid var(--border-primary);
       position: relative;
       display: flex;
       flex-direction: column;
       height: 100%;
+      box-shadow: 0 1px 3px var(--shadow-light);
     }
     
     .card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      border-color: #3b82f6;
+      box-shadow: 0 4px 12px var(--shadow-light);
+      border-color: var(--accent-primary);
     }
     
     .card-header {
@@ -376,9 +524,19 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     .category-coding { background: #ecfdf5; color: #059669; }
     .category-design { background: #fed7d7; color: #c53030; }
     .category-produktivität { background: #e6fffa; color: #00b4d8; }
+
+    [data-theme="dark"] .category-textgenerierung { background: rgba(30, 64, 175, 0.2); color: #93c5fd; }
+    [data-theme="dark"] .category-bildgenerierung { background: rgba(190, 24, 93, 0.2); color: #f9a8d4; }
+    [data-theme="dark"] .category-videobearbeitung { background: rgba(217, 119, 6, 0.2); color: #fbbf24; }
+    [data-theme="dark"] .category-literaturrecherche { background: rgba(4, 120, 87, 0.2); color: #6ee7b7; }
+    [data-theme="dark"] .category-multimodal { background: rgba(67, 56, 202, 0.2); color: #c4b5fd; }
+    [data-theme="dark"] .category-audiogenerierung { background: rgba(124, 58, 237, 0.2); color: #d8b4fe; }
+    [data-theme="dark"] .category-coding { background: rgba(5, 150, 105, 0.2); color: #6ee7b7; }
+    [data-theme="dark"] .category-design { background: rgba(197, 48, 48, 0.2); color: #fca5a5; }
+    [data-theme="dark"] .category-produktivität { background: rgba(0, 180, 216, 0.2); color: #67e8f9; }
     
     .rating-badge {
-      background: #fbbf24;
+      background: var(--warning-color);
       color: white;
       padding: 0.25rem 0.5rem;
       border-radius: 6px;
@@ -389,12 +547,12 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     .card h3 {
       font-size: 1.25rem;
       margin-bottom: 0.75rem;
-      color: #0f172a;
+      color: var(--text-primary);
       font-weight: 700;
     }
     
     .card p {
-      color: #64748b;
+      color: var(--text-secondary);
       margin-bottom: 1.5rem;
       line-height: 1.6;
       flex-grow: 1;
@@ -409,11 +567,11 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     
     .stat {
       font-size: 0.8rem;
-      color: #64748b;
-      background: #f8fafc;
+      color: var(--text-secondary);
+      background: var(--bg-tertiary);
       padding: 0.25rem 0.5rem;
       border-radius: 4px;
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--border-primary);
     }
     
     .pricing-badge {
@@ -428,6 +586,10 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     .pricing-kostenlos { background: #d1fae5; color: #047857; }
     .pricing-freemium { background: #dbeafe; color: #1e40af; }
     .pricing-kostenpflichtig { background: #fee2e2; color: #dc2626; }
+
+    [data-theme="dark"] .pricing-kostenlos { background: rgba(4, 120, 87, 0.2); color: #6ee7b7; }
+    [data-theme="dark"] .pricing-freemium { background: rgba(30, 64, 175, 0.2); color: #93c5fd; }
+    [data-theme="dark"] .pricing-kostenpflichtig { background: rgba(220, 38, 38, 0.2); color: #fca5a5; }
     
     /* Tool Actions */
     .tool-actions {
@@ -438,20 +600,19 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     }
     
     .btn-details {
-      background: #f8fafc;
-      color: #374151;
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
       padding: 0.75rem 1rem;
       border-radius: 8px;
       text-decoration: none;
       font-weight: 600;
       text-align: center;
       font-size: 0.9rem;
-      transition: all 0.2s;
-      border: 2px solid #e2e8f0;
+      border: 2px solid var(--border-primary);
     }
     
     .btn-affiliate {
-      background: #3b82f6;
+      background: var(--accent-primary);
       color: white;
       padding: 0.75rem 1rem;
       border-radius: 8px;
@@ -459,19 +620,18 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       font-weight: 600;
       text-align: center;
       font-size: 0.9rem;
-      transition: all 0.2s;
-      border: 2px solid #3b82f6;
+      border: 2px solid var(--accent-primary);
     }
     
     .btn-details:hover {
-      background: #e2e8f0;
-      border-color: #cbd5e1;
-      color: #1e293b;
+      background: var(--bg-secondary);
+      border-color: var(--border-secondary);
+      color: var(--text-primary);
     }
     
     .btn-affiliate:hover {
-      background: #2563eb;
-      border-color: #2563eb;
+      background: var(--accent-secondary);
+      border-color: var(--accent-secondary);
       transform: translateY(-1px);
     }
     
@@ -481,7 +641,7 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       position: absolute;
       top: -8px;
       right: 15px;
-      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      background: linear-gradient(135deg, var(--warning-color), #d97706);
       color: white;
       padding: 0.25rem 0.75rem;
       border-radius: 12px;
@@ -495,7 +655,7 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       position: absolute;
       top: -8px;
       left: 15px;
-      background: linear-gradient(135deg, #10b981, #059669);
+      background: linear-gradient(135deg, var(--success-color), #059669);
       color: white;
       padding: 0.25rem 0.75rem;
       border-radius: 12px;
@@ -510,16 +670,16 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       padding: 1.5rem;
       max-width: 1400px;
       text-align: center;
-      background: white;
+      background: var(--card-bg);
       border-radius: 12px;
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--border-primary);
     }
 
     .ad-container::before {
       content: "Anzeige";
       display: block;
       font-size: 0.8rem;
-      color: #64748b;
+      color: var(--text-secondary);
       margin-bottom: 1rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -532,7 +692,7 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     
     /* Footer */
     .footer {
-      background: #0f172a;
+      background: var(--footer-bg);
       color: white;
       padding: 4rem 2rem 2rem;
       margin-top: 4rem;
@@ -558,7 +718,7 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     }
     
     .footer-description {
-      color: #94a3b8;
+      color: var(--footer-text);
       margin-bottom: 2rem;
       line-height: 1.6;
     }
@@ -578,9 +738,8 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     }
     
     .footer-links a {
-      color: #94a3b8;
+      color: var(--footer-text);
       text-decoration: none;
-      transition: color 0.3s;
     }
     
     .footer-links a:hover {
@@ -588,10 +747,10 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     }
     
     .footer-bottom {
-      border-top: 1px solid #374151;
+      border-top: 1px solid var(--border-secondary);
       padding-top: 2rem;
       text-align: center;
-      color: #94a3b8;
+      color: var(--footer-text);
       font-size: 0.9rem;
     }
     
@@ -602,18 +761,48 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     
     /* Mobile Responsive */
     @media (max-width: 768px) {
+      .theme-toggle {
+        right: 1rem;
+      }
+
+      .theme-switch {
+        width: 50px;
+        height: 25px;
+        border-radius: 12.5px;
+      }
+
+      .theme-switch::before {
+        width: 19px;
+        height: 19px;
+        top: 3px;
+        left: 3px;
+      }
+
+      .theme-switch::after {
+        font-size: 12px;
+        left: 6px;
+      }
+
+      [data-theme="dark"] .theme-switch::before {
+        transform: translateX(25px);
+      }
+
+      [data-theme="dark"] .theme-switch::after {
+        right: 6px;
+      }
+
       .nav-links {
         display: none;
         position: absolute;
         top: 100%;
         left: 0;
         right: 0;
-        background: white;
+        background: var(--bg-secondary);
         flex-direction: column;
         padding: 1rem;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        box-shadow: 0 5px 15px var(--shadow-light);
         z-index: 999;
-        border-top: 1px solid #e2e8f0;
+        border-top: 1px solid var(--border-primary);
       }
       
       .nav-links.show {
@@ -697,6 +886,11 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
 </head>
 
 <body>
+  <!-- Theme Toggle Button -->
+  <button class="theme-toggle" id="themeToggle" aria-label="Theme umschalten">
+    <div class="theme-switch"></div>
+  </button>
+
   <!-- Navigation -->
   <nav class="navigation">
     <div class="nav-container">
@@ -901,7 +1095,7 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
           </div>
         </div>
 
-        <!-- AdSense #2: Nach jedem 6. Tool -->
+        {/* AdSense #2: Nach jedem 6. Tool */}
         {(index + 1) % 6 === 0 && (
           <div class="ad-container ad-in-grid">
             <ins class="adsbygoogle"
@@ -965,16 +1159,60 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const categoryFilter = document.getElementById('categoryFilter');
-      const pricingFilter = document.getElementById('pricingFilter');
-      const ratingFilter = document.getElementById('ratingFilter');
-      const searchBox = document.getElementById('searchBox');
-      const toolCards = document.querySelectorAll('.tool-card');
-      const resultCount = document.getElementById('resultCount');
-      const clearFilters = document.getElementById('clearFilters');
-      const quickFilterBtns = document.querySelectorAll('.quick-filter-btn');
+      // ===== THEME TOGGLE FUNCTIONALITY =====
+      var themeToggle = document.getElementById('themeToggle');
+      var html = document.documentElement;
       
-      let activeFilters = {
+      // Check for saved theme preference or default to 'light'
+      var savedTheme = localStorage.getItem('theme') || 'light';
+      html.setAttribute('data-theme', savedTheme);
+      
+      // Update toggle button appearance
+      function updateToggleButton(theme) {
+        var button = document.getElementById('themeToggle');
+        if (button) {
+          button.setAttribute('aria-label', 
+            theme === 'dark' ? 'Zu hellem Modus wechseln' : 'Zu dunklem Modus wechseln'
+          );
+        }
+      }
+      
+      updateToggleButton(savedTheme);
+      
+      // Theme toggle functionality
+      if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+          var currentTheme = html.getAttribute('data-theme');
+          var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          
+          // Change theme
+          html.setAttribute('data-theme', newTheme);
+          localStorage.setItem('theme', newTheme);
+          
+          // Update button
+          updateToggleButton(newTheme);
+          
+          // Track theme change
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'theme_change', {
+              'theme_mode': newTheme,
+              'source': 'tools_page_toggle'
+            });
+          }
+        });
+      }
+
+      // ===== FILTER FUNCTIONALITY =====
+      var categoryFilter = document.getElementById('categoryFilter');
+      var pricingFilter = document.getElementById('pricingFilter');
+      var ratingFilter = document.getElementById('ratingFilter');
+      var searchBox = document.getElementById('searchBox');
+      var toolCards = document.querySelectorAll('.tool-card');
+      var resultCount = document.getElementById('resultCount');
+      var clearFilters = document.getElementById('clearFilters');
+      var quickFilterBtns = document.querySelectorAll('.quick-filter-btn');
+      
+      var activeFilters = {
         category: 'alle',
         pricing: 'alle',
         rating: 'alle',
@@ -983,12 +1221,14 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       };
 
       // Quick Filter Buttons
-      quickFilterBtns.forEach(btn => {
+      quickFilterBtns.forEach(function(btn) {
         btn.addEventListener('click', function() {
-          quickFilterBtns.forEach(b => b.classList.remove('active'));
+          quickFilterBtns.forEach(function(b) {
+            b.classList.remove('active');
+          });
           this.classList.add('active');
           
-          const filterValue = this.getAttribute('data-filter');
+          var filterValue = this.getAttribute('data-filter');
           activeFilters.quick = filterValue;
           
           if (filterValue === 'Kostenlos') {
@@ -1002,7 +1242,9 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
             categoryFilter.value = 'alle';
             pricingFilter.value = 'alle';
             ratingFilter.value = 'alle';
-            activeFilters = { ...activeFilters, category: 'alle', pricing: 'alle', rating: 'alle' };
+            activeFilters.category = 'alle';
+            activeFilters.pricing = 'alle';
+            activeFilters.rating = 'alle';
           }
           
           filterTools();
@@ -1010,45 +1252,53 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       });
 
       function markNewTools() {
-        const randomCards = Array.from(toolCards).sort(() => 0.5 - Math.random()).slice(0, 5);
-        toolCards.forEach(card => card.classList.remove('new'));
-        randomCards.forEach(card => card.classList.add('new'));
+        var randomCards = Array.from(toolCards).sort(function() { return 0.5 - Math.random(); }).slice(0, 5);
+        toolCards.forEach(function(card) {
+          card.classList.remove('new');
+        });
+        randomCards.forEach(function(card) {
+          card.classList.add('new');
+        });
       }
 
       function sortByPopularity() {
-        const shuffledCards = Array.from(toolCards).sort(() => 0.5 - Math.random());
-        const grid = document.getElementById('toolsGrid');
-        shuffledCards.forEach(card => grid.appendChild(card));
+        var shuffledCards = Array.from(toolCards).sort(function() { return 0.5 - Math.random(); });
+        var grid = document.getElementById('toolsGrid');
+        shuffledCards.forEach(function(card) {
+          grid.appendChild(card);
+        });
       }
 
       function updateResultCount() {
-        const visibleCards = Array.from(toolCards).filter(card => 
-          !card.classList.contains('hidden')
-        ).length;
+        var visibleCards = Array.from(toolCards).filter(function(card) {
+          return !card.classList.contains('hidden');
+        }).length;
         resultCount.textContent = visibleCards;
         
         // Show/hide clear button
-        const hasActiveFilters = Object.values(activeFilters).some(value => value !== 'alle' && value !== '');
+        var hasActiveFilters = Object.keys(activeFilters).some(function(key) {
+          return activeFilters[key] !== 'alle' && activeFilters[key] !== '';
+        });
         clearFilters.style.display = hasActiveFilters ? 'block' : 'none';
       }
 
       function filterTools() {
-        toolCards.forEach(card => {
-          const cardCategory = card.getAttribute('data-category');
-          const cardPricing = card.getAttribute('data-pricing');
-          const cardTitle = card.getAttribute('data-title');
-          const cardDescription = card.getAttribute('data-description');
+        toolCards.forEach(function(card) {
+          var cardCategory = card.getAttribute('data-category');
+          var cardPricing = card.getAttribute('data-pricing');
+          var cardTitle = card.getAttribute('data-title');
+          var cardDescription = card.getAttribute('data-description');
           
           // Category match
-          const categoryMatch = activeFilters.category === 'alle' || cardCategory === activeFilters.category;
+          var categoryMatch = activeFilters.category === 'alle' || cardCategory === activeFilters.category;
           
           // Pricing match
-          const pricingMatch = activeFilters.pricing === 'alle' || cardPricing === activeFilters.pricing;
+          var pricingMatch = activeFilters.pricing === 'alle' || cardPricing === activeFilters.pricing;
           
           // Search match
-          const searchMatch = activeFilters.search === '' || 
-                             cardTitle.includes(activeFilters.search.toLowerCase()) || 
-                             cardDescription.includes(activeFilters.search.toLowerCase());
+          var searchMatch = activeFilters.search === '' || 
+                           cardTitle.includes(activeFilters.search.toLowerCase()) || 
+                           cardDescription.includes(activeFilters.search.toLowerCase());
           
           // Show/hide card
           if (categoryMatch && pricingMatch && searchMatch) {
@@ -1098,7 +1348,9 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
         };
         
         // Reset quick filter buttons
-        quickFilterBtns.forEach(btn => btn.classList.remove('active'));
+        quickFilterBtns.forEach(function(btn) {
+          btn.classList.remove('active');
+        });
         quickFilterBtns[0].classList.add('active');
         
         filterTools();
@@ -1106,9 +1358,9 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
 
       // URL Parameters support
       function handleURLParams() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const categoryParam = urlParams.get('category');
-        const pricingParam = urlParams.get('pricing');
+        var urlParams = new URLSearchParams(window.location.search);
+        var categoryParam = urlParams.get('category');
+        var pricingParam = urlParams.get('pricing');
         
         if (categoryParam) {
           categoryFilter.value = categoryParam;
@@ -1126,11 +1378,11 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       updateResultCount();
 
       // ===== MOBILE MENU =====
-      const mobileMenuBtn = document.querySelector('.mobile-menu');
-      const navLinks = document.querySelector('.nav-links');
+      var mobileMenuBtn = document.querySelector('.mobile-menu');
+      var navLinks = document.querySelector('.nav-links');
       
       if (mobileMenuBtn && navLinks) {
-        let menuOpen = false;
+        var menuOpen = false;
         
         mobileMenuBtn.addEventListener('click', function(e) {
           e.stopPropagation();
@@ -1157,9 +1409,9 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
 
       // ===== TRACKING =====
       // Details Button Tracking
-      document.querySelectorAll('.btn-details').forEach((btn, index) => {
+      document.querySelectorAll('.btn-details').forEach(function(btn, index) {
         btn.addEventListener('click', function() {
-          const toolName = this.getAttribute('data-tool');
+          var toolName = this.getAttribute('data-tool');
           
           if (typeof gtag !== 'undefined') {
             gtag('event', 'tool_details_click', {
@@ -1172,10 +1424,10 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       });
       
       // Affiliate Button Tracking
-      document.querySelectorAll('.btn-affiliate').forEach((btn, index) => {
+      document.querySelectorAll('.btn-affiliate').forEach(function(btn, index) {
         btn.addEventListener('click', function() {
-          const toolName = this.getAttribute('data-tool');
-          const position = this.getAttribute('data-position') || index + 1;
+          var toolName = this.getAttribute('data-tool');
+          var position = this.getAttribute('data-position') || index + 1;
           
           if (typeof gtag !== 'undefined') {
             gtag('event', 'affiliate_click', {
@@ -1210,14 +1462,15 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       });
       
       // Search Tracking
-      let searchTimeout;
+      var searchTimeout;
       searchBox.addEventListener('input', function() {
         clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
-          if (this.value.length > 2) {
+        var searchValue = this.value;
+        searchTimeout = setTimeout(function() {
+          if (searchValue.length > 2) {
             if (typeof gtag !== 'undefined') {
               gtag('event', 'search', {
-                'search_term': this.value,
+                'search_term': searchValue,
                 'source': 'tools_page'
               });
             }
@@ -1227,10 +1480,10 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       
       // AdSense Initialization
       function initAdSense() {
-        const ads = document.querySelectorAll('.adsbygoogle');
+        var ads = document.querySelectorAll('.adsbygoogle');
         
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
             if (entry.isIntersecting && !entry.target.getAttribute('data-loaded')) {
               try {
                 (adsbygoogle = window.adsbygoogle || []).push({});
@@ -1243,10 +1496,14 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
           });
         }, { threshold: 0.1 });
         
-        ads.forEach(ad => observer.observe(ad));
+        ads.forEach(function(ad) {
+          observer.observe(ad);
+        });
       }
       
       initAdSense();
+      
+      console.log('🎨 Tools page with Dark Mode initialized');
     });
   </script>
 </body>
