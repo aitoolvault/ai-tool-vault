@@ -1,6 +1,5 @@
 ---
 import { getCollection } from "astro:content";
-import type { CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
   const tools = await getCollection("tools");
@@ -8,10 +7,6 @@ export async function getStaticPaths() {
     params: { slug: tool.slug },
     props: { tool }
   }));
-}
-
-type Props = {
-  tool: CollectionEntry<'tools'>;
 }
 
 const { tool } = Astro.props;
@@ -30,8 +25,8 @@ const isPopular = userCount > 50000;
 const isNew = data.founded && parseInt(data.founded) >= 2023;
 
 // Vereinfachte Logo-URLs (Vercel-sicher)
-function getToolLogo(toolName: string): string {
-  const logoMap: Record<string, string> = {
+function getToolLogo(toolName) {
+  const logoMap = {
     'ChatGPT': 'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg',
     'Claude': 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Anthropic_logo.svg',
     'DALL-E 3': 'https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg',
@@ -83,11 +78,10 @@ const toolLogo = getToolLogo(data.title);
   <title>{data.title} Test & Erfahrungen 2025 - Lohnt sich das KI-Tool?</title>
   <meta name="description" content={`✅ ${data.title} im Test: Funktionen, Preise & ehrliche Bewertung. ${data.description} ➤ Jetzt kostenlos testen!`}>
   
-  <!-- Theme Script - MUST be before any styling to prevent FOUC -->
   <script is:inline>
     (function() {
       function setTheme() {
-        var theme = 'light'; // Default zu light!
+        var theme = 'light';
         if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
           theme = localStorage.getItem('theme');
         } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -108,12 +102,10 @@ const toolLogo = getToolLogo(data.title);
       }
       
       setTheme();
-      
       document.addEventListener('astro:after-swap', setTheme);
     })();
   </script>
   
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
   <script is:inline>
     window.dataLayer = window.dataLayer || [];
@@ -122,12 +114,10 @@ const toolLogo = getToolLogo(data.title);
     gtag('config', 'G-EC62QPK5VL');
   </script>
 
-  <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5595876978844902"
      crossorigin="anonymous"></script>
 
   <style>
-    /* CSS Custom Properties für Theme-Switching */
     :root {
       --bg-primary: #f8fafc;
       --bg-secondary: #ffffff;
@@ -186,7 +176,6 @@ const toolLogo = getToolLogo(data.title);
       background: var(--bg-primary);
     }
 
-    /* Theme Toggle Button - Switch Style */
     .theme-toggle {
       position: fixed;
       top: 50%;
@@ -196,17 +185,30 @@ const toolLogo = getToolLogo(data.title);
       background: none;
       border: none;
       cursor: pointer;
-      padding: 0;
+      padding: 10px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    [data-theme="dark"] .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .theme-switch {
       position: relative;
       width: 60px;
       height: 30px;
-      background: #2c3e50;
+      background: linear-gradient(145deg, #e2e8f0, #f1f5f9);
       border-radius: 15px;
-      transition: background-color 0.3s ease;
-      box-shadow: 0 4px 12px var(--shadow-light);
+      transition: all 0.3s ease;
+      box-shadow: 
+        inset 2px 2px 5px rgba(0, 0, 0, 0.1),
+        inset -2px -2px 5px rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(0, 0, 0, 0.1);
     }
 
     .theme-switch::before {
@@ -214,52 +216,99 @@ const toolLogo = getToolLogo(data.title);
       position: absolute;
       top: 3px;
       left: 3px;
-      width: 24px;
-      height: 24px;
-      background: white;
+      width: 22px;
+      height: 22px;
+      background: linear-gradient(145deg, #ffffff, #f8fafc);
       border-radius: 50%;
-      transition: transform 0.3s ease;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 
+        2px 2px 6px rgba(0, 0, 0, 0.2),
+        -1px -1px 3px rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(0, 0, 0, 0.05);
     }
 
-    /* Sun icon on the switch */
     .theme-switch::after {
       content: '☀️';
       position: absolute;
       top: 50%;
-      left: 8px;
+      right: 8px;
       transform: translateY(-50%);
-      font-size: 14px;
+      font-size: 12px;
       opacity: 1;
-      transition: opacity 0.3s ease;
+      transition: all 0.3s ease;
+      z-index: 1;
     }
 
-    /* Dark mode state */
     [data-theme="dark"] .theme-switch {
-      background: #34495e;
+      background: linear-gradient(145deg, #374151, #4b5563);
+      box-shadow: 
+        inset 2px 2px 5px rgba(0, 0, 0, 0.3),
+        inset -2px -2px 5px rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.1);
     }
 
     [data-theme="dark"] .theme-switch::before {
       transform: translateX(30px);
+      background: linear-gradient(145deg, #1f2937, #374151);
+      box-shadow: 
+        2px 2px 6px rgba(0, 0, 0, 0.4),
+        -1px -1px 3px rgba(255, 255, 255, 0.1);
     }
 
     [data-theme="dark"] .theme-switch::after {
       content: '🌙';
-      left: auto;
-      right: 8px;
+      left: 8px;
+      right: auto;
     }
 
     .theme-toggle:hover .theme-switch {
-      box-shadow: 0 6px 16px var(--shadow-medium);
+      transform: scale(1.05);
+    }
+
+    .theme-toggle:active .theme-switch {
+      transform: scale(0.95);
     }
 
     .theme-toggle:focus {
       outline: 2px solid var(--accent-primary);
       outline-offset: 4px;
-      border-radius: 20px;
+      border-radius: 25px;
     }
 
-    /* Navigation */
+    @media (max-width: 768px) {
+      .theme-toggle {
+        right: 1rem;
+        padding: 8px;
+      }
+
+      .theme-switch {
+        width: 50px;
+        height: 25px;
+        border-radius: 12.5px;
+      }
+
+      .theme-switch::before {
+        width: 18px;
+        height: 18px;
+        top: 2.5px;
+        left: 2.5px;
+      }
+
+      .theme-switch::after {
+        font-size: 10px;
+        right: 6px;
+      }
+
+      [data-theme="dark"] .theme-switch::before {
+        transform: translateX(25px);
+      }
+
+      [data-theme="dark"] .theme-switch::after {
+        left: 6px;
+        right: auto;
+      }
+    }
+
     .nav {
       position: fixed;
       top: 0;
@@ -313,7 +362,6 @@ const toolLogo = getToolLogo(data.title);
       cursor: pointer;
     }
 
-    /* Breadcrumb */
     .breadcrumb {
       background: var(--bg-secondary);
       padding: 1rem 0;
@@ -345,7 +393,6 @@ const toolLogo = getToolLogo(data.title);
       font-weight: 500;
     }
 
-    /* Hero Section */
     .hero {
       background: var(--bg-secondary);
       padding: 4rem 0;
@@ -490,7 +537,6 @@ const toolLogo = getToolLogo(data.title);
       transform: translateY(-2px);
     }
 
-    /* Main Content */
     .main-content {
       max-width: 1400px;
       margin: 0 auto;
@@ -514,7 +560,6 @@ const toolLogo = getToolLogo(data.title);
       gap: 2rem;
     }
 
-    /* Pricing Card */
     .pricing-card {
       background: var(--card-bg);
       padding: 2rem;
@@ -572,7 +617,6 @@ const toolLogo = getToolLogo(data.title);
       color: var(--text-secondary);
     }
 
-    /* Content Sections */
     .section-title {
       font-size: 2rem;
       font-weight: 700;
@@ -586,7 +630,6 @@ const toolLogo = getToolLogo(data.title);
       font-size: 1.1rem;
     }
 
-    /* Features Section */
     .features-section {
       margin: 3rem 0;
     }
@@ -637,7 +680,6 @@ const toolLogo = getToolLogo(data.title);
       line-height: 1.6;
     }
 
-    /* Pros & Cons */
     .pros-cons {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -701,7 +743,6 @@ const toolLogo = getToolLogo(data.title);
       flex-shrink: 0;
     }
 
-    /* FAQ Section */
     .faq-section {
       margin: 3rem 0;
     }
@@ -727,7 +768,6 @@ const toolLogo = getToolLogo(data.title);
       line-height: 1.6;
     }
 
-    /* Similar Tools */
     .similar-tools {
       background: var(--card-bg);
       padding: 3rem 2rem;
@@ -785,7 +825,6 @@ const toolLogo = getToolLogo(data.title);
       background: var(--accent-secondary);
     }
 
-    /* AdSense */
     .ad-container {
       margin: 3rem auto;
       padding: 1.5rem;
@@ -811,7 +850,6 @@ const toolLogo = getToolLogo(data.title);
       padding: 1rem;
     }
 
-    /* Footer */
     .footer {
       background: var(--footer-bg);
       color: white;
@@ -875,38 +913,7 @@ const toolLogo = getToolLogo(data.title);
       font-size: 0.9rem;
     }
 
-    /* Mobile Responsive */
     @media (max-width: 768px) {
-      .theme-toggle {
-        right: 1rem;
-      }
-
-      .theme-switch {
-        width: 50px;
-        height: 25px;
-        border-radius: 12.5px;
-      }
-
-      .theme-switch::before {
-        width: 19px;
-        height: 19px;
-        top: 3px;
-        left: 3px;
-      }
-
-      .theme-switch::after {
-        font-size: 12px;
-        left: 6px;
-      }
-
-      [data-theme="dark"] .theme-switch::before {
-        transform: translateX(25px);
-      }
-
-      [data-theme="dark"] .theme-switch::after {
-        right: 6px;
-      }
-
       .nav-links {
         display: none;
         position: absolute;
@@ -974,12 +981,354 @@ const toolLogo = getToolLogo(data.title);
 </head>
 
 <body>
-  <!-- Theme Toggle Button -->
   <button class="theme-toggle" id="themeToggle" aria-label="Theme umschalten">
     <div class="theme-switch"></div>
   </button>
 
-  <!-- Navigation -->
   <nav class="nav">
     <div class="nav-container">
-      <a href="/" class="
+      <a href="/" class="nav-logo">AI Tool Vault</a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tools">Tools</a></li>
+        <li><a href="/impressum">Impressum</a></li>
+        <li><a href="/kontakt">Kontakt</a></li>
+        <li><a href="/datenschutz">Datenschutz</a></li>
+      </ul>
+      <button class="mobile-menu">☰</button>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <div class="breadcrumb-container">
+      <a href="/">Home</a>
+      <span>→</span>
+      <a href="/tools">Tools</a>
+      <span>→</span>
+      <span class="current">{data.title}</span>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-container">
+      <img src={toolLogo} alt={`${data.title} Logo`} class="tool-logo" />
+      
+      <div class="hero-content">
+        <div class="hero-badges">
+          {isPopular && <span class="badge badge-popular">Beliebt</span>}
+          {data.pricing === "Kostenlos" && <span class="badge badge-free">Kostenlos</span>}
+          {isNew && <span class="badge badge-new">Neu</span>}
+          <span class="badge badge-expert">Expertenempfehlung</span>
+        </div>
+        
+        <h1>{data.title}</h1>
+        <p class="hero-description">{data.description}</p>
+        
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="hero-stat-number">★ {expertRating.toFixed(1)}</span>
+            <span class="hero-stat-label">Bewertung</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-number">{userCount.toLocaleString()}</span>
+            <span class="hero-stat-label">Nutzer</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-number">{data.category}</span>
+            <span class="hero-stat-label">Kategorie</span>
+          </div>
+        </div>
+      </div>
+      
+      <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="hero-cta">
+        Tool testen →
+      </a>
+    </div>
+  </section>
+
+  <div class="ad-container">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5595876978844902"
+         data-ad-slot="AUTO"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+
+  <div class="main-content">
+    <div class="content">
+      <h2 class="section-title">Was ist {data.title}?</h2>
+      <p class="section-subtitle">Eine ausführliche Analyse des KI-Tools</p>
+      
+      <p>{data.title} ist ein innovatives KI-Tool aus der Kategorie {data.category}. {data.description}</p>
+      
+      <div class="features-section">
+        <h3>Hauptfunktionen</h3>
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-icon">⚡</div>
+            <div class="feature-content">
+              <h3>Schnelle Verarbeitung</h3>
+              <p>Ergebnisse in Sekundenschnelle durch optimierte KI-Algorithmen</p>
+            </div>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">🎯</div>
+            <div class="feature-content">
+              <h3>Präzise Ergebnisse</h3>
+              <p>Hochqualitative Ausgaben durch fortschrittliche Trainingsmodelle</p>
+            </div>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">🔧</div>
+            <div class="feature-content">
+              <h3>Einfache Bedienung</h3>
+              <p>Intuitive Benutzeroberfläche für Anfänger und Profis gleichermaßen</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pros-cons">
+        <div class="pros">
+          <h3 class="pros-title">✅ Vorteile</h3>
+          <ul class="pros-list">
+            {data.pros ? data.pros.map(pro => <li>{pro}</li>) : (
+              <>
+                <li>Intuitive Benutzeroberfläche</li>
+                <li>Schnelle Verarbeitung</li>
+                <li>Hochwertige Ergebnisse</li>
+                <li>Regelmäßige Updates</li>
+              </>
+            )}
+          </ul>
+        </div>
+        
+        <div class="cons">
+          <h3 class="cons-title">❌ Nachteile</h3>
+          <ul class="cons-list">
+            {data.cons ? data.cons.map(con => <li>{con}</li>) : (
+              <>
+                <li>Lernkurve für Anfänger</li>
+                <li>Internet-Verbindung erforderlich</li>
+                <li>Begrenzte kostenlose Features</li>
+              </>
+            )}
+          </ul>
+        </div>
+      </div>
+
+      <div class="faq-section">
+        <h3>Häufig gestellte Fragen</h3>
+        {faqItems.map(faq => (
+          <div class="faq-item">
+            <h4 class="faq-question">{faq.question}</h4>
+            <p class="faq-answer">{faq.answer}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="pricing-card">
+        <div class="pricing-tag">{data.pricing || 'Freemium'}</div>
+        <h3 class="pricing-title">{data.title} testen</h3>
+        <p class="pricing-description">
+          {data.pricing === "Kostenlos" ? 
+            "Komplett kostenlos nutzbar" :
+            data.pricing === "Freemium" ?
+            "Kostenlos testen, dann upgraden" :
+            "Premium Tool für Profis"
+          }
+        </p>
+        <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="pricing-cta">
+          Jetzt testen
+        </a>
+        <p class="pricing-note">
+          {data.free_trial ? "✅ Kostenlose Testversion verfügbar" : "💡 Direkt loslegen"}
+        </p>
+      </div>
+
+      <div class="ad-container ad-sidebar">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-format="auto"
+             data-full-width-responsive="true"
+             data-ad-client="ca-pub-5595876978844902"
+             data-ad-slot="AUTO"></ins>
+      </div>
+    </div>
+  </div>
+
+  <div class="similar-tools">
+    <h3>Ähnliche Tools</h3>
+    <p>Weitere Tools aus der Kategorie {data.category}</p>
+    
+    <div class="tools-grid">
+      {similarTools.map(tool => (
+        <div class="tool-card">
+          <h3>{tool.data.title}</h3>
+          <p>{tool.data.description}</p>
+          <a href={`/tools/${tool.slug}`} class="tool-card-cta">
+            Mehr erfahren
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="ad-container">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5595876978844902"
+         data-ad-slot="AUTO"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-content">
+        <div>
+          <div class="footer-logo">AI Tool Vault</div>
+          <p class="footer-description">
+            Die umfassendste Sammlung von KI-Tools für Kreativität, Produktivität und Innovation. 
+            Entdecke die Zukunft heute.
+          </p>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="/tools">Alle Tools</a></li>
+            <li><a href="/#categories">Kategorien</a></li>
+            <li><a href="/kontakt">Kontakt</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Rechtliches</h4>
+          <ul class="footer-links">
+            <li><a href="/impressum">Impressum</a></li>
+            <li><a href="/datenschutz">Datenschutz</a></li>
+            <li><a href="/kontakt">Support</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 AI Tool Vault. Alle Rechte vorbehalten.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var themeToggle = document.getElementById('themeToggle');
+      var html = document.documentElement;
+      
+      var savedTheme = localStorage.getItem('theme') || 'light';
+      html.setAttribute('data-theme', savedTheme);
+      
+      function updateToggleButton(theme) {
+        var button = document.getElementById('themeToggle');
+        if (button) {
+          button.setAttribute('aria-label', 
+            theme === 'dark' ? 'Zu hellem Modus wechseln' : 'Zu dunklem Modus wechseln'
+          );
+        }
+      }
+      
+      updateToggleButton(savedTheme);
+      
+      if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+          var currentTheme = html.getAttribute('data-theme');
+          var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          
+          html.setAttribute('data-theme', newTheme);
+          localStorage.setItem('theme', newTheme);
+          updateToggleButton(newTheme);
+          
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'theme_change', {
+              'theme_mode': newTheme,
+              'source': 'tool_page_toggle'
+            });
+          }
+        });
+      }
+
+      var mobileMenuBtn = document.querySelector('.mobile-menu');
+      var navLinks = document.querySelector('.nav-links');
+      
+      if (mobileMenuBtn && navLinks) {
+        var menuOpen = false;
+        
+        mobileMenuBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          menuOpen = !menuOpen;
+          
+          if (menuOpen) {
+            navLinks.classList.add('show');
+            this.innerHTML = '✕';
+          } else {
+            navLinks.classList.remove('show');
+            this.innerHTML = '☰';
+          }
+        });
+        
+        document.addEventListener('click', function() {
+          if (menuOpen) {
+            navLinks.classList.remove('show');
+            mobileMenuBtn.innerHTML = '☰';
+            menuOpen = false;
+          }
+        });
+      }
+
+      function initAdSense() {
+        var ads = document.querySelectorAll('.adsbygoogle');
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting && !entry.target.getAttribute('data-loaded')) {
+              try {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                entry.target.setAttribute('data-loaded', 'true');
+              } catch (e) {
+                console.warn('AdSense loading error:', e);
+              }
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        
+        ads.forEach(function(ad) {
+          observer.observe(ad);
+        });
+      }
+
+      var affiliateButtons = document.querySelectorAll('a[href*="' + document.querySelector('.hero-cta').href.split('?')[0] + '"]');
+      affiliateButtons.forEach(function(btn, index) {
+        btn.addEventListener('click', function() {
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'affiliate_click', {
+              'tool_name': document.querySelector('h1').textContent,
+              'source': 'tool_detail_page',
+              'position': index + 1,
+              'affiliate_url': this.href,
+              'value': 25.00,
+              'currency': 'EUR'
+            });
+          }
+        });
+      });
+
+      initAdSense();
+      console.log('🎨 Tool Detail Page - NO JSX, NO TYPESCRIPT!');
+    });
+  </script>
+</body>
+</html>
