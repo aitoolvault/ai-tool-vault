@@ -75,7 +75,7 @@ function getCategoryIcon(categoryName: string): string {
   <script is:inline>
     (function() {
       function setTheme() {
-        var theme = 'light';
+        var theme = 'light'; // Default zu light!
         if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
           theme = localStorage.getItem('theme');
         } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -168,46 +168,77 @@ function getCategoryIcon(categoryName: string): string {
       --features-gradient-end: #334155;
     }
 
-    /* Theme Toggle Button */
+    /* Theme Toggle Button - Switch Style */
     .theme-toggle {
       position: fixed;
       top: 50%;
       right: 2rem;
       transform: translateY(-50%);
       z-index: 1001;
-      background: var(--card-bg);
-      border: 2px solid var(--border-primary);
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
+      background: none;
+      border: none;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      color: var(--text-primary);
+      padding: 0;
+    }
+
+    .theme-switch {
+      position: relative;
+      width: 60px;
+      height: 30px;
+      background: #2c3e50;
+      border-radius: 15px;
+      transition: background-color 0.3s ease;
       box-shadow: 0 4px 12px var(--shadow-light);
     }
 
-    .theme-toggle:hover {
-      transform: translateY(-50%) scale(1.1);
-      border-color: var(--accent-primary);
+    .theme-switch::before {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 24px;
+      height: 24px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
 
-    .theme-toggle .sun-icon {
-      display: none;
+    /* Sun icon on the switch */
+    .theme-switch::after {
+      content: '☀️';
+      position: absolute;
+      top: 50%;
+      left: 8px;
+      transform: translateY(-50%);
+      font-size: 14px;
+      opacity: 1;
+      transition: opacity 0.3s ease;
     }
 
-    .theme-toggle .moon-icon {
-      display: inline;
+    /* Dark mode state */
+    [data-theme="dark"] .theme-switch {
+      background: #34495e;
     }
 
-    [data-theme="dark"] .theme-toggle .sun-icon {
-      display: inline;
+    [data-theme="dark"] .theme-switch::before {
+      transform: translateX(30px);
     }
 
-    [data-theme="dark"] .theme-toggle .moon-icon {
-      display: none;
+    [data-theme="dark"] .theme-switch::after {
+      content: '🌙';
+      left: auto;
+      right: 8px;
+    }
+
+    .theme-toggle:hover .theme-switch {
+      box-shadow: 0 6px 16px var(--shadow-medium);
+    }
+
+    .theme-toggle:focus {
+      outline: 2px solid var(--accent-primary);
+      outline-offset: 4px;
+      border-radius: 20px;
     }
 
     * {
@@ -780,9 +811,32 @@ function getCategoryIcon(categoryName: string): string {
     @media (max-width: 768px) {
       .theme-toggle {
         right: 1rem;
+      }
+
+      .theme-switch {
         width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
+        height: 25px;
+        border-radius: 12.5px;
+      }
+
+      .theme-switch::before {
+        width: 19px;
+        height: 19px;
+        top: 3px;
+        left: 3px;
+      }
+
+      .theme-switch::after {
+        font-size: 12px;
+        left: 6px;
+      }
+
+      [data-theme="dark"] .theme-switch::before {
+        transform: translateX(25px);
+      }
+
+      [data-theme="dark"] .theme-switch::after {
+        right: 6px;
       }
 
       .nav-links {
@@ -850,8 +904,7 @@ function getCategoryIcon(categoryName: string): string {
 <body>
   <!-- Theme Toggle Button -->
   <button class="theme-toggle" id="themeToggle" aria-label="Theme umschalten">
-    <span class="sun-icon">☀️</span>
-    <span class="moon-icon">🌙</span>
+    <div class="theme-switch"></div>
   </button>
 
   <!-- Navigation -->
