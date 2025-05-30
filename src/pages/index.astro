@@ -38,21 +38,18 @@ const allCategories = [
 const totalTools = tools.length || 86;
 const totalCategories = allCategories.length;
 
-// Category Icon Mapping - KORRIGIERTE JAVASCRIPT VERSION
-const categoryIcons = {
-  'Textgenerierung': 'T',
-  'Bildgenerierung': 'I',
-  'Videobearbeitung': 'V',
-  'Coding': 'C',
-  'Audiogenerierung': 'A',
-  'Design': 'D',
-  'Produktivität': 'P',
-  'Literaturrecherche': 'L',
-  'Multimodal': 'M'
-};
-
+// Category Icon Mapping - NUR JAVASCRIPT, KEIN TYPESCRIPT
 function getCategoryIcon(categoryName) {
-  return categoryIcons[categoryName] || 'T';
+  if (categoryName === 'Textgenerierung') return 'T';
+  if (categoryName === 'Bildgenerierung') return 'I';
+  if (categoryName === 'Videobearbeitung') return 'V';
+  if (categoryName === 'Coding') return 'C';
+  if (categoryName === 'Audiogenerierung') return 'A';
+  if (categoryName === 'Design') return 'D';
+  if (categoryName === 'Produktivität') return 'P';
+  if (categoryName === 'Literaturrecherche') return 'L';
+  if (categoryName === 'Multimodal') return 'M';
+  return 'T';
 }
 ---
 
@@ -963,7 +960,7 @@ function getCategoryIcon(categoryName) {
     </div>
   </section>
 
-  <!-- AdSense #1: Nach Hero -->
+  <!-- AdSense #1 -->
   <div class="ad-container">
     <ins class="adsbygoogle"
          style="display:block"
@@ -1033,7 +1030,7 @@ function getCategoryIcon(categoryName) {
     </div>
   </section>
 
-  <!-- AdSense #2: Zwischen Features und Tools -->
+  <!-- AdSense #2 -->
   <div class="ad-container ad-between-sections">
     <ins class="adsbygoogle"
          style="display:block; text-align:center;"
@@ -1122,7 +1119,7 @@ function getCategoryIcon(categoryName) {
     </div>
   </section>
 
-  <!-- AdSense #4: Vor Footer -->
+  <!-- AdSense #4 -->
   <div class="ad-container ad-pre-footer">
     <ins class="adsbygoogle"
          style="display:block"
@@ -1331,7 +1328,7 @@ function getCategoryIcon(categoryName) {
       }
 
       initAdSense();
-      console.log('🎨 Homepage with Enhanced Dark Mode initialized');
+      console.log('🎨 Homepage initialized - NO MORE TYPESCRIPT!');
     });
   </script>
 </body>
