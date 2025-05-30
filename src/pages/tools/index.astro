@@ -65,6 +65,7 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: relative;
     }
     
     .nav-logo {
@@ -89,6 +90,16 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     
     .nav-links a:hover {
       color: #0f172a;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      display: none;
+      background: none;
+      border: none;
+      color: #0f172a;
+      font-size: 1.5rem;
+      cursor: pointer;
     }
     
     /* Trust Banner */
@@ -523,20 +534,65 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     .footer {
       background: #0f172a;
       color: white;
-      padding: 3rem 0 2rem;
+      padding: 4rem 2rem 2rem;
       margin-top: 4rem;
     }
     
     .footer-container {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 0 2rem;
-      text-align: center;
     }
     
-    .footer p {
+    .footer-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 2rem;
+    }
+    
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 1rem;
+    }
+    
+    .footer-description {
       color: #94a3b8;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+    
+    .footer-section h4 {
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: white;
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
       margin-bottom: 0.5rem;
+    }
+    
+    .footer-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .footer-bottom {
+      border-top: 1px solid #374151;
+      padding-top: 2rem;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 0.9rem;
     }
     
     /* Utility Classes */
@@ -546,6 +602,33 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     
     /* Mobile Responsive */
     @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        z-index: 999;
+        border-top: 1px solid #e2e8f0;
+      }
+      
+      .nav-links.show {
+        display: flex;
+      }
+      
+      .nav-links a {
+        margin: 0.5rem 0;
+        padding: 0.5rem;
+      }
+      
+      .mobile-menu {
+        display: block;
+      }
+      
       .nav-container {
         padding: 0 1rem;
       }
@@ -593,6 +676,12 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
         grid-template-columns: 1fr;
       }
       
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+      }
+      
       .quick-filters {
         overflow-x: auto;
         padding-bottom: 0.5rem;
@@ -615,8 +704,11 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       <div class="nav-links">
         <a href="/">Home</a>
         <a href="/tools">Tools</a>
+        <a href="/impressum">Impressum</a>
         <a href="/kontakt">Kontakt</a>
+        <a href="/datenschutz">Datenschutz</a>
       </div>
+      <button class="mobile-menu">☰</button>
     </div>
   </nav>
 
@@ -837,8 +929,37 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-container">
-      <p>&copy; 2025 AI Tool Vault. Alle Rechte vorbehalten.</p>
-      <p>Entdecke die besten KI-Tools für Kreativität, Produktivität und Innovation.</p>
+      <div class="footer-content">
+        <div>
+          <div class="footer-logo">AI Tool Vault</div>
+          <p class="footer-description">
+            Die umfassendste Sammlung von KI-Tools für Kreativität, Produktivität und Innovation. 
+            Entdecke die Zukunft heute.
+          </p>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="/tools">Alle Tools</a></li>
+            <li><a href="/#categories">Kategorien</a></li>
+            <li><a href="/kontakt">Kontakt</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Rechtliches</h4>
+          <ul class="footer-links">
+            <li><a href="/impressum">Impressum</a></li>
+            <li><a href="/datenschutz">Datenschutz</a></li>
+            <li><a href="/kontakt">Support</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 AI Tool Vault. Alle Rechte vorbehalten.</p>
+      </div>
     </div>
   </footer>
 
@@ -1003,6 +1124,36 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
 
       handleURLParams();
       updateResultCount();
+
+      // ===== MOBILE MENU =====
+      const mobileMenuBtn = document.querySelector('.mobile-menu');
+      const navLinks = document.querySelector('.nav-links');
+      
+      if (mobileMenuBtn && navLinks) {
+        let menuOpen = false;
+        
+        mobileMenuBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          menuOpen = !menuOpen;
+          
+          if (menuOpen) {
+            navLinks.classList.add('show');
+            this.innerHTML = '✕';
+          } else {
+            navLinks.classList.remove('show');
+            this.innerHTML = '☰';
+          }
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function() {
+          if (menuOpen) {
+            navLinks.classList.remove('show');
+            mobileMenuBtn.innerHTML = '☰';
+            menuOpen = false;
+          }
+        });
+      }
 
       // ===== TRACKING =====
       // Details Button Tracking
