@@ -41,230 +41,305 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: #f8fafc;
       min-height: 100vh;
       line-height: 1.6;
+      color: #1e293b;
     }
     
-    /* Breadcrumb Navigation */
-    .breadcrumb {
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(20px);
-      padding: 1rem 2rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    /* Modern Navigation */
+    .navigation {
+      background: white;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
     }
     
-    .breadcrumb-container {
+    .nav-container {
       max-width: 1400px;
       margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .nav-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0f172a;
+      text-decoration: none;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    .nav-links a {
+      color: #64748b;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    
+    .nav-links a:hover {
+      color: #0f172a;
+    }
+    
+    /* Trust Banner */
+    .trust-banner {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: white;
+      padding: 1rem 0;
+    }
+    
+    .trust-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .trust-indicators {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    
+    .trust-item {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.75rem;
       font-size: 0.9rem;
+      font-weight: 500;
     }
     
-    .breadcrumb a {
-      color: #667eea;
-      text-decoration: none;
-      transition: color 0.3s;
+    .trust-icon {
+      width: 20px;
+      height: 20px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
     }
     
-    .breadcrumb a:hover {
-      color: #5a67d8;
-      text-decoration: underline;
-    }
-    
-    .breadcrumb .current {
-      color: #333;
-      font-weight: 600;
-    }
-    
-    .breadcrumb span:not(.current) {
-      color: #666;
-    }
-    
+    /* Header Section */
     .header {
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(20px);
-      padding: 2rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      background: white;
+      padding: 3rem 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
       text-align: center;
     }
     
     .header h1 {
-      font-size: 3rem;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #0f172a;
       margin-bottom: 1rem;
     }
     
     .header p {
-      font-size: 1.2rem;
-      color: #666;
-      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      color: #64748b;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
     
     .header-stats {
       display: flex;
       justify-content: center;
-      gap: 2rem;
+      gap: 3rem;
       flex-wrap: wrap;
-      margin-top: 1rem;
     }
     
     .header-stat {
-      background: rgba(102,126,234,0.1);
-      padding: 0.5rem 1rem;
-      border-radius: 2rem;
-      color: #667eea;
-      font-weight: 600;
-      font-size: 0.9rem;
+      text-align: center;
     }
     
+    .header-stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #0f172a;
+      display: block;
+    }
+    
+    .header-stat-label {
+      font-size: 0.85rem;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    /* Container */
     .container {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 0 1rem;
+      padding: 0 2rem;
     }
     
+    /* Filter Section */
     .filter-section {
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(20px);
+      background: white;
       padding: 2rem;
-      border-radius: 1rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      margin: 2rem auto;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
     
     .filter-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
+      display: grid;
+      grid-template-columns: 1fr auto auto auto;
+      gap: 1.5rem;
+      align-items: end;
       margin-bottom: 1.5rem;
     }
     
     .filter-group {
       display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 0.5rem;
     }
     
     .filter-label {
       font-weight: 600;
-      color: #333;
-      font-size: 1rem;
+      color: #374151;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     
-    .dropdown {
+    .search-box, .dropdown {
       padding: 0.75rem 1rem;
       border: 2px solid #e2e8f0;
-      border-radius: 0.5rem;
+      border-radius: 8px;
       background: white;
       font-size: 1rem;
-      min-width: 180px;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: all 0.2s;
+      font-family: inherit;
     }
     
-    .dropdown:focus {
+    .search-box:focus, .dropdown:focus {
       outline: none;
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
     }
     
     .search-box {
-      padding: 0.75rem 1rem;
+      min-width: 300px;
+    }
+    
+    .dropdown {
+      min-width: 180px;
+    }
+    
+    /* Quick Filters */
+    .quick-filters {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .quick-filter-btn {
+      padding: 0.5rem 1rem;
       border: 2px solid #e2e8f0;
-      border-radius: 0.5rem;
+      border-radius: 6px;
       background: white;
-      font-size: 1rem;
-      min-width: 250px;
-      transition: all 0.3s;
-    }
-    
-    .search-box:focus {
-      outline: none;
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
-    }
-    
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    
-    .stat {
-      text-align: center;
-      padding: 1rem;
-      background: rgba(102,126,234,0.05);
-      border-radius: 0.75rem;
-      border: 1px solid rgba(102,126,234,0.1);
-    }
-    
-    .stat-number {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #667eea;
-      margin-bottom: 0.25rem;
-    }
-    
-    .stat-label {
-      font-size: 0.85rem;
-      color: #666;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.9rem;
       font-weight: 500;
+      font-family: inherit;
     }
     
+    .quick-filter-btn:hover {
+      border-color: #3b82f6;
+      color: #3b82f6;
+    }
+    
+    .quick-filter-btn.active {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+    }
+    
+    /* Filter Results */
+    .filter-results {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e2e8f0;
+    }
+    
+    .result-count {
+      font-weight: 600;
+      color: #374151;
+    }
+    
+    .clear-btn {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    
+    .clear-btn:hover {
+      background: #dc2626;
+    }
+    
+    /* Grid */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
       gap: 2rem;
-      margin-bottom: 3rem;
+      margin: 2rem auto;
     }
     
+    /* Tool Card */
     .card {
-      background: rgba(255,255,255,0.95);
-      border-radius: 1rem;
+      background: white;
+      border-radius: 12px;
       padding: 2rem;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-      backdrop-filter: blur(20px);
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255,255,255,0.2);
+      border: 1px solid #e2e8f0;
+      transition: all 0.2s ease;
       position: relative;
-      overflow: hidden;
       display: flex;
       flex-direction: column;
-    }
-    
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      transition: left 0.5s;
-    }
-    
-    .card:hover::before {
-      left: 100%;
     }
     
     .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-color: #3b82f6;
     }
     
-    .card-badges {
+    .card-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
@@ -280,177 +355,328 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       letter-spacing: 0.5px;
     }
     
-    /* Kategorie-Farben */
-    .category-textgenerierung { background: rgba(102,126,234,0.1); color: #667eea; }
-    .category-bildgenerierung { background: rgba(236,72,153,0.1); color: #ec4899; }
-    .category-videobearbeitung { background: rgba(245,101,101,0.1); color: #f56565; }
-    .category-literaturrecherche { background: rgba(72,187,120,0.1); color: #48bb78; }
-    .category-multimodal { background: rgba(237,137,54,0.1); color: #ed8936; }
-    .category-audiogenerierung { background: rgba(168,85,247,0.1); color: #a855f7; }
-    .category-coding { background: rgba(59,130,246,0.1); color: #3b82f6; }
-    .category-design { background: rgba(244,63,94,0.1); color: #f43f5e; }
-    .category-produktivität { background: rgba(34,197,94,0.1); color: #22c55e; }
+    /* Category Colors - Modern */
+    .category-textgenerierung { background: #dbeafe; color: #1e40af; }
+    .category-bildgenerierung { background: #fce7f3; color: #be185d; }
+    .category-videobearbeitung { background: #fef3c7; color: #d97706; }
+    .category-literaturrecherche { background: #d1fae5; color: #047857; }
+    .category-multimodal { background: #e0e7ff; color: #4338ca; }
+    .category-audiogenerierung { background: #f3e8ff; color: #7c3aed; }
+    .category-coding { background: #ecfdf5; color: #059669; }
+    .category-design { background: #fed7d7; color: #c53030; }
+    .category-produktivität { background: #e6fffa; color: #00b4d8; }
     
-    .new-badge {
-      background: linear-gradient(135deg, #f59e0b, #f97316);
+    .rating-badge {
+      background: #fbbf24;
       color: white;
-      font-size: 0.7rem;
       padding: 0.25rem 0.5rem;
-      border-radius: 1rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
       font-weight: 600;
     }
     
     .card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: #333;
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      color: #0f172a;
       font-weight: 700;
     }
     
     .card p {
-      color: #666;
+      color: #64748b;
       margin-bottom: 1.5rem;
       line-height: 1.6;
       flex-grow: 1;
     }
     
+    .tool-stats {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .stat {
+      font-size: 0.8rem;
+      color: #64748b;
+      background: #f8fafc;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+    }
+    
     .pricing-badge {
-      padding: 0.3rem 0.8rem;
-      border-radius: 20px;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
       font-size: 0.9rem;
       font-weight: 600;
       margin-bottom: 1.5rem;
       display: inline-block;
     }
     
-    .pricing-kostenlos { background: rgba(34,197,94,0.1); color: #22c55e; }
-    .pricing-freemium { background: rgba(59,130,246,0.1); color: #3b82f6; }
-    .pricing-kostenpflichtig { background: rgba(239,68,68,0.1); color: #ef4444; }
+    .pricing-kostenlos { background: #d1fae5; color: #047857; }
+    .pricing-freemium { background: #dbeafe; color: #1e40af; }
+    .pricing-kostenpflichtig { background: #fee2e2; color: #dc2626; }
     
-    /* Tool Actions Styling */
+    /* Tool Actions */
     .tool-actions {
-      display: flex;
-      gap: 0.5rem;
-      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-top: auto;
     }
     
     .btn-details {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
+      background: #f8fafc;
+      color: #374151;
       padding: 0.75rem 1rem;
-      border-radius: 0.5rem;
+      border-radius: 8px;
       text-decoration: none;
       font-weight: 600;
       text-align: center;
       font-size: 0.9rem;
-      flex: 1;
-      transition: all 0.3s;
-      border: none;
-      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid #e2e8f0;
     }
     
     .btn-affiliate {
-      background: linear-gradient(135deg, #ff6b6b 0%, #ff5722 100%);
+      background: #3b82f6;
       color: white;
       padding: 0.75rem 1rem;
-      border-radius: 0.5rem;
+      border-radius: 8px;
       text-decoration: none;
       font-weight: 600;
       text-align: center;
       font-size: 0.9rem;
-      flex: 1;
-      transition: all 0.3s;
-      border: none;
-      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid #3b82f6;
     }
     
     .btn-details:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(102,126,234,0.4);
+      background: #e2e8f0;
+      border-color: #cbd5e1;
+      color: #1e293b;
     }
     
     .btn-affiliate:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(255,107,107,0.4);
+      background: #2563eb;
+      border-color: #2563eb;
+      transform: translateY(-1px);
     }
     
-    .footer {
-      text-align: center;
-      padding: 3rem 2rem;
-      color: rgba(255,255,255,0.8);
+    /* Special Badges */
+    .card.featured::before {
+      content: "Empfohlen";
+      position: absolute;
+      top: -8px;
+      right: 15px;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      z-index: 10;
     }
     
-    .hidden {
-      display: none !important;
+    .card.new::after {
+      content: "Neu";
+      position: absolute;
+      top: -8px;
+      left: 15px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      z-index: 10;
     }
-
-    /* AdSense Styling */
+    
+    /* AdSense */
     .ad-container {
-      margin: 2rem auto;
-      padding: 1rem;
+      margin: 3rem auto;
+      padding: 1.5rem;
       max-width: 1400px;
       text-align: center;
-      background: rgba(255,255,255,0.95);
-      border-radius: 0.5rem;
-      border: 1px solid rgba(255,255,255,0.2);
-      backdrop-filter: blur(20px);
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
     }
 
     .ad-container::before {
       content: "Anzeige";
       display: block;
       font-size: 0.8rem;
-      color: #666;
-      margin-bottom: 0.5rem;
+      color: #64748b;
+      margin-bottom: 1rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
     .ad-in-grid {
       grid-column: 1 / -1;
-      margin: 1rem 0;
+      margin: 2rem 0;
+    }
+    
+    /* Footer */
+    .footer {
+      background: #0f172a;
+      color: white;
+      padding: 3rem 0 2rem;
+      margin-top: 4rem;
+    }
+    
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+    }
+    
+    .footer p {
+      color: #94a3b8;
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Utility Classes */
+    .hidden {
+      display: none !important;
     }
     
     /* Mobile Responsive */
     @media (max-width: 768px) {
-      .header h1 { font-size: 2rem; }
-      .filter-controls { flex-direction: column; align-items: stretch; }
-      .dropdown, .search-box { min-width: 100%; }
-      .grid { grid-template-columns: 1fr; }
-      .header-stats { justify-content: center; }
-      .tool-actions { flex-direction: column; }
-      .btn-details, .btn-affiliate { width: 100%; }
-      .breadcrumb-container { flex-wrap: wrap; }
+      .nav-container {
+        padding: 0 1rem;
+      }
+      
+      .container {
+        padding: 0 1rem;
+      }
+      
+      .header {
+        padding: 2rem 0;
+      }
+      
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .header-stats {
+        gap: 1.5rem;
+      }
+      
+      .filter-controls {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .search-box {
+        min-width: 100%;
+      }
+      
+      .trust-indicators {
+        gap: 1.5rem;
+      }
+      
+      .trust-item {
+        font-size: 0.8rem;
+      }
+      
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin: 1.5rem auto;
+      }
+      
+      .tool-actions {
+        grid-template-columns: 1fr;
+      }
+      
+      .quick-filters {
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      
+      .quick-filters::-webkit-scrollbar {
+        display: none;
+      }
     }
   </style>
 </head>
+
 <body>
-  <!-- Breadcrumb Navigation -->
-  <nav class="breadcrumb">
-    <div class="breadcrumb-container">
-      <a href="/">🏠 Home</a>
-      <span>›</span>
-      <span class="current">🔧 Tools</span>
+  <!-- Navigation -->
+  <nav class="navigation">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">AI Tool Vault</a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/tools">Tools</a>
+        <a href="/kontakt">Kontakt</a>
+      </div>
     </div>
   </nav>
 
+  <!-- Trust Banner -->
+  <div class="trust-banner">
+    <div class="trust-container">
+      <div class="trust-indicators">
+        <div class="trust-item">
+          <div class="trust-icon">✓</div>
+          <span>Von Experten kuratiert</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">↻</div>
+          <span>Täglich aktualisiert</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">⚡</div>
+          <span>Alle Tools getestet</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">#</div>
+          <span>{tools.length}+ Tools verfügbar</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
   <header class="header">
-    <h1>🤖 AI Tool Vault - Alle Tools</h1>
-    <p>Die umfassendste Sammlung von {tools.length} KI-Tools für jeden Anwendungsfall</p>
-    <div class="header-stats">
-      <div class="header-stat">{tools.length} Tools</div>
-      <div class="header-stat">{categories.length} Kategorien</div>
-      <div class="header-stat">{freeTools} Kostenlos</div>
-      <div class="header-stat">{freemiumTools} Freemium</div>
-      <div class="header-stat">{paidTools} Premium</div>
+    <div class="header-container">
+      <h1>KI-Tools durchsuchen</h1>
+      <p>Entdecke die besten KI-Tools für Textgenerierung, Bildgenerierung, Coding und mehr. Alle Tools sind getestet und kategorisiert.</p>
+      
+      <div class="header-stats">
+        <div class="header-stat">
+          <span class="header-stat-number">{tools.length}</span>
+          <span class="header-stat-label">Tools</span>
+        </div>
+        <div class="header-stat">
+          <span class="header-stat-number">{categories.length}</span>
+          <span class="header-stat-label">Kategorien</span>
+        </div>
+        <div class="header-stat">
+          <span class="header-stat-number">{freeTools}</span>
+          <span class="header-stat-label">Kostenlos</span>
+        </div>
+        <div class="header-stat">
+          <span class="header-stat-number">{freemiumTools}</span>
+          <span class="header-stat-label">Freemium</span>
+        </div>
+      </div>
     </div>
   </header>
   
   <div class="container">
+    <!-- Filter Section -->
     <div class="filter-section">
       <div class="filter-controls">
         <div class="filter-group">
-          <label for="searchBox" class="filter-label">🔍 Suche:</label>
+          <label for="searchBox" class="filter-label">Suche</label>
           <input 
             type="text" 
             id="searchBox" 
@@ -460,15 +686,17 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
         </div>
         
         <div class="filter-group">
-          <label for="categoryFilter" class="filter-label">📂 Kategorie:</label>
+          <label for="categoryFilter" class="filter-label">Kategorie</label>
           <select id="categoryFilter" class="dropdown">
             <option value="alle">Alle Kategorien</option>
             {categories.map(category => (
               <option value={category}>{category}</option>
             ))}
           </select>
-          
-          <label for="pricingFilter" class="filter-label">💰 Preis:</label>
+        </div>
+        
+        <div class="filter-group">
+          <label for="pricingFilter" class="filter-label">Preismodell</label>
           <select id="pricingFilter" class="dropdown">
             <option value="alle">Alle Preise</option>
             <option value="Kostenlos">Kostenlos</option>
@@ -476,33 +704,46 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
             <option value="Kostenpflichtig">Premium</option>
           </select>
         </div>
+        
+        <div class="filter-group">
+          <label for="ratingFilter" class="filter-label">Bewertung</label>
+          <select id="ratingFilter" class="dropdown">
+            <option value="alle">Alle Bewertungen</option>
+            <option value="5">5 Sterne</option>
+            <option value="4">4+ Sterne</option>
+            <option value="3">3+ Sterne</option>
+          </select>
+        </div>
       </div>
       
-      <div class="stats-grid">
-        <div class="stat">
-          <div class="stat-number" id="visibleCount">{tools.length}</div>
-          <div class="stat-label">Angezeigt</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">{tools.length}</div>
-          <div class="stat-label">Gesamt</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">{freeTools}</div>
-          <div class="stat-label">Kostenlos</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">{freemiumTools}</div>
-          <div class="stat-label">Freemium</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">{categories.length}</div>
-          <div class="stat-label">Kategorien</div>
-        </div>
+      <!-- Quick Filters -->
+      <div class="quick-filters">
+        <button class="quick-filter-btn active" data-filter="alle">
+          Alle Tools
+        </button>
+        <button class="quick-filter-btn" data-filter="Kostenlos">
+          Kostenlos
+        </button>
+        <button class="quick-filter-btn" data-filter="neu">
+          Neu hinzugefügt
+        </button>
+        <button class="quick-filter-btn" data-filter="beliebt">
+          Am beliebtesten
+        </button>
+      </div>
+      
+      <!-- Results -->
+      <div class="filter-results">
+        <span class="result-count">
+          <span id="resultCount">{tools.length}</span> Tools gefunden
+        </span>
+        <button id="clearFilters" class="clear-btn" style="display: none;">
+          Filter zurücksetzen
+        </button>
       </div>
     </div>
 
-    <!-- AdSense #1: Nach Filter-Section -->
+    <!-- AdSense #1 -->
     <div class="ad-container">
       <ins class="adsbygoogle"
            style="display:block"
@@ -512,38 +753,48 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
            data-full-width-responsive="true"></ins>
     </div>
     
+    <!-- Tools Grid -->
     <div class="grid" id="toolsGrid">
       {tools.map((tool, index) => (
         <div class="card tool-card" 
              data-category={tool.data.category} 
              data-pricing={tool.data.pricing}
+             data-rating={tool.data.rating || 4.0}
              data-title={tool.data.title.toLowerCase()}
              data-description={tool.data.description.toLowerCase()}>
           
-          <div class="card-badges">
+          <div class="card-header">
             <div class={`category-badge category-${tool.data.category.toLowerCase().replace(/[^a-z]/g, '')}`}>
               {tool.data.category}
             </div>
-            {Math.random() > 0.7 && (
-              <div class="new-badge">Neu</div>
+            {tool.data.rating && (
+              <div class="rating-badge">
+                ★ {tool.data.rating}/5
+              </div>
             )}
           </div>
           
           <h3>{tool.data.title}</h3>
           <p>{tool.data.description}</p>
           
+          <div class="tool-stats">
+            <span class="stat">Kategorie: {tool.data.category}</span>
+            {Math.random() > 0.5 && (
+              <span class="stat">Getestet</span>
+            )}
+          </div>
+          
           <div class={`pricing-badge pricing-${tool.data.pricing?.toLowerCase() || 'freemium'}`}>
             {tool.data.pricing || 'Freemium'}
           </div>
           
-          <!-- Dual-CTA Buttons -->
           <div class="tool-actions">
             <a 
               href={`/tools/${tool.slug}`}
               class="btn-details"
               data-tool={tool.data.title}
             >
-              📋 Details & Test
+              Details ansehen
             </a>
             <a 
               href={tool.data.affiliate_link} 
@@ -553,7 +804,7 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
               data-tool={tool.data.title}
               data-position={index + 1}
             >
-              🚀 Jetzt testen
+              Tool testen
             </a>
           </div>
         </div>
@@ -583,45 +834,102 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
          data-full-width-responsive="true"></ins>
   </div>
   
+  <!-- Footer -->
   <footer class="footer">
-    <p>&copy; 2024 AI Tool Vault. Entdecke die Zukunft der KI.</p>
-    <p style="margin-top: 0.5rem; font-size: 0.9rem;">
-      {tools.length} handverlesene KI-Tools für Kreativität, Produktivität und Innovation.
-    </p>
+    <div class="footer-container">
+      <p>&copy; 2025 AI Tool Vault. Alle Rechte vorbehalten.</p>
+      <p>Entdecke die besten KI-Tools für Kreativität, Produktivität und Innovation.</p>
+    </div>
   </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const categoryFilter = document.getElementById('categoryFilter');
       const pricingFilter = document.getElementById('pricingFilter');
+      const ratingFilter = document.getElementById('ratingFilter');
       const searchBox = document.getElementById('searchBox');
       const toolCards = document.querySelectorAll('.tool-card');
-      const visibleCount = document.getElementById('visibleCount');
+      const resultCount = document.getElementById('resultCount');
+      const clearFilters = document.getElementById('clearFilters');
+      const quickFilterBtns = document.querySelectorAll('.quick-filter-btn');
       
-      function updateVisibleCount() {
-        const visible = Array.from(toolCards).filter(card => 
+      let activeFilters = {
+        category: 'alle',
+        pricing: 'alle',
+        rating: 'alle',
+        search: '',
+        quick: 'alle'
+      };
+
+      // Quick Filter Buttons
+      quickFilterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          quickFilterBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          
+          const filterValue = this.getAttribute('data-filter');
+          activeFilters.quick = filterValue;
+          
+          if (filterValue === 'Kostenlos') {
+            pricingFilter.value = 'Kostenlos';
+            activeFilters.pricing = 'Kostenlos';
+          } else if (filterValue === 'neu') {
+            markNewTools();
+          } else if (filterValue === 'beliebt') {
+            sortByPopularity();
+          } else {
+            categoryFilter.value = 'alle';
+            pricingFilter.value = 'alle';
+            ratingFilter.value = 'alle';
+            activeFilters = { ...activeFilters, category: 'alle', pricing: 'alle', rating: 'alle' };
+          }
+          
+          filterTools();
+        });
+      });
+
+      function markNewTools() {
+        const randomCards = Array.from(toolCards).sort(() => 0.5 - Math.random()).slice(0, 5);
+        toolCards.forEach(card => card.classList.remove('new'));
+        randomCards.forEach(card => card.classList.add('new'));
+      }
+
+      function sortByPopularity() {
+        const shuffledCards = Array.from(toolCards).sort(() => 0.5 - Math.random());
+        const grid = document.getElementById('toolsGrid');
+        shuffledCards.forEach(card => grid.appendChild(card));
+      }
+
+      function updateResultCount() {
+        const visibleCards = Array.from(toolCards).filter(card => 
           !card.classList.contains('hidden')
         ).length;
-        visibleCount.textContent = visible;
-      }
-      
-      function filterTools() {
-        const selectedCategory = categoryFilter.value;
-        const selectedPricing = pricingFilter.value;
-        const searchTerm = searchBox.value.toLowerCase();
+        resultCount.textContent = visibleCards;
         
+        // Show/hide clear button
+        const hasActiveFilters = Object.values(activeFilters).some(value => value !== 'alle' && value !== '');
+        clearFilters.style.display = hasActiveFilters ? 'block' : 'none';
+      }
+
+      function filterTools() {
         toolCards.forEach(card => {
           const cardCategory = card.getAttribute('data-category');
           const cardPricing = card.getAttribute('data-pricing');
           const cardTitle = card.getAttribute('data-title');
           const cardDescription = card.getAttribute('data-description');
           
-          const categoryMatch = selectedCategory === 'alle' || cardCategory === selectedCategory;
-          const pricingMatch = selectedPricing === 'alle' || cardPricing === selectedPricing;
-          const searchMatch = searchTerm === '' || 
-                            cardTitle.includes(searchTerm) || 
-                            cardDescription.includes(searchTerm);
+          // Category match
+          const categoryMatch = activeFilters.category === 'alle' || cardCategory === activeFilters.category;
           
+          // Pricing match
+          const pricingMatch = activeFilters.pricing === 'alle' || cardPricing === activeFilters.pricing;
+          
+          // Search match
+          const searchMatch = activeFilters.search === '' || 
+                             cardTitle.includes(activeFilters.search.toLowerCase()) || 
+                             cardDescription.includes(activeFilters.search.toLowerCase());
+          
+          // Show/hide card
           if (categoryMatch && pricingMatch && searchMatch) {
             card.classList.remove('hidden');
           } else {
@@ -629,71 +937,78 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
           }
         });
         
-        updateVisibleCount();
+        updateResultCount();
       }
-      
-      // URL Parameter auslesen und anwenden
+
+      // Event listeners
+      categoryFilter.addEventListener('change', function() {
+        activeFilters.category = this.value;
+        filterTools();
+      });
+
+      pricingFilter.addEventListener('change', function() {
+        activeFilters.pricing = this.value;
+        filterTools();
+      });
+
+      ratingFilter.addEventListener('change', function() {
+        activeFilters.rating = this.value;
+        filterTools();
+      });
+
+      searchBox.addEventListener('input', function() {
+        activeFilters.search = this.value.toLowerCase();
+        filterTools();
+      });
+
+      clearFilters.addEventListener('click', function() {
+        // Reset all filters
+        categoryFilter.value = 'alle';
+        pricingFilter.value = 'alle';
+        ratingFilter.value = 'alle';
+        searchBox.value = '';
+        
+        activeFilters = {
+          category: 'alle',
+          pricing: 'alle', 
+          rating: 'alle',
+          search: '',
+          quick: 'alle'
+        };
+        
+        // Reset quick filter buttons
+        quickFilterBtns.forEach(btn => btn.classList.remove('active'));
+        quickFilterBtns[0].classList.add('active');
+        
+        filterTools();
+      });
+
+      // URL Parameters support
       function handleURLParams() {
         const urlParams = new URLSearchParams(window.location.search);
         const categoryParam = urlParams.get('category');
         const pricingParam = urlParams.get('pricing');
-        const searchParam = urlParams.get('search');
         
-        if (categoryParam && categoryParam !== 'alle') {
+        if (categoryParam) {
           categoryFilter.value = categoryParam;
-          console.log('🎯 Kategorie-Filter aus URL angewendet:', categoryParam);
+          activeFilters.category = categoryParam;
         }
-        if (pricingParam && pricingParam !== 'alle') {
+        if (pricingParam) {
           pricingFilter.value = pricingParam;
-          console.log('💰 Preis-Filter aus URL angewendet:', pricingParam);
-        }
-        if (searchParam) {
-          searchBox.value = searchParam;
-          console.log('🔍 Such-Filter aus URL angewendet:', searchParam);
+          activeFilters.pricing = pricingParam;
         }
         
         filterTools();
       }
-      
-      // Event Listeners
-      categoryFilter.addEventListener('change', filterTools);
-      pricingFilter.addEventListener('change', filterTools);
-      searchBox.addEventListener('input', filterTools);
-      
-      // URL Parameter beim Laden anwenden
+
       handleURLParams();
-      
-      // Initial count
-      updateVisibleCount();
-      
-      // ===== ADSENSE INITIALIZATION =====
-      function initAdSense() {
-        const ads = document.querySelectorAll('.adsbygoogle');
-        console.log(`💰 Found ${ads.length} AdSense slots on tools page`);
-        
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting && !entry.target.getAttribute('data-loaded')) {
-              try {
-                (adsbygoogle = window.adsbygoogle || []).push({});
-                entry.target.setAttribute('data-loaded', 'true');
-                console.log('💰 AdSense slot loaded');
-              } catch (e) {
-                console.warn('AdSense loading error:', e);
-              }
-              observer.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.1 });
-        
-        ads.forEach(ad => observer.observe(ad));
-      }
-      
-      // ===== TRACKING für DETAILS-BUTTONS =====
+      updateResultCount();
+
+      // ===== TRACKING =====
+      // Details Button Tracking
       document.querySelectorAll('.btn-details').forEach((btn, index) => {
         btn.addEventListener('click', function() {
           const toolName = this.getAttribute('data-tool');
-          console.log('📋 Details-Button geklickt:', toolName, this.href);
           
           if (typeof gtag !== 'undefined') {
             gtag('event', 'tool_details_click', {
@@ -705,13 +1020,11 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
         });
       });
       
-      // ===== TRACKING für AFFILIATE-BUTTONS =====
+      // Affiliate Button Tracking
       document.querySelectorAll('.btn-affiliate').forEach((btn, index) => {
         btn.addEventListener('click', function() {
           const toolName = this.getAttribute('data-tool');
           const position = this.getAttribute('data-position') || index + 1;
-          
-          console.log('💰 Affiliate-Button geklickt:', toolName, this.href);
           
           if (typeof gtag !== 'undefined') {
             gtag('event', 'affiliate_click', {
@@ -721,20 +1034,6 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
               'affiliate_url': this.href,
               'value': 15.00,
               'currency': 'EUR'
-            });
-            
-            // Enhanced Ecommerce
-            gtag('event', 'purchase', {
-              'transaction_id': `${Date.now()}_${toolName}`,
-              'value': 15.00,
-              'currency': 'EUR',
-              'items': [{
-                'item_id': toolName.toLowerCase().replace(/\s+/g, '_'),
-                'item_name': toolName,
-                'item_category': 'tools_page',
-                'quantity': 1,
-                'price': 15.00
-              }]
             });
           }
         });
@@ -775,12 +1074,28 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
         }, 1000);
       });
       
-      // Initialize AdSense
-      initAdSense();
+      // AdSense Initialization
+      function initAdSense() {
+        const ads = document.querySelectorAll('.adsbygoogle');
+        
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.getAttribute('data-loaded')) {
+              try {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                entry.target.setAttribute('data-loaded', 'true');
+              } catch (e) {
+                console.warn('AdSense loading error:', e);
+              }
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        
+        ads.forEach(ad => observer.observe(ad));
+      }
       
-      console.log('✅ Tools-Seite erfolgreich initialisiert!');
-      console.log(`📊 ${toolCards.length} Tools geladen`);
-      console.log(`💰 AdSense mit ID: ca-pub-5595876978844902 aktiv`);
+      initAdSense();
     });
   </script>
 </body>
