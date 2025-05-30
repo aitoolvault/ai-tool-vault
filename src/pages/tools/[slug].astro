@@ -1,384 +1,5 @@
-/* Main Content */
-    .main-content {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 3rem;
-    }
-    
-    .content {
-      background: var(--card-bg);
-      padding: 3rem;
-      border-radius: 12px;
-      border: 1px solid var(--border-primary);
-      box-shadow: 0 1px 3px var(--shadow-light);
-    }
-    
-    .sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-
-    /* Pricing Card */
-    .pricing-card {
-      background: var(--card-bg);
-      padding: 2rem;
-      border-radius: 12px;
-      border: 1px solid var(--border-primary);
-      box-shadow: 0 1px 3px var(--shadow-light);
-      text-align: center;
-      position: sticky;
-      top: 100px;
-    }
-    
-    .pricing-tag {
-      background: var(--accent-primary);
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      display: inline-block;
-      margin-bottom: 1rem;
-    }
-    
-    .pricing-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      color: var(--text-primary);
-    }
-    
-    .pricing-description {
-      color: var(--text-secondary);
-      margin-bottom: 1.5rem;
-      line-height: 1.6;
-    }
-    
-    .pricing-cta {
-      background: var(--accent-primary);
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 700;
-      display: block;
-      text-align: center;
-      transition: all 0.3s;
-      margin-bottom: 1rem;
-    }
-    
-    .pricing-cta:hover {
-      background: var(--accent-secondary);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(59,130,246,0.3);
-    }
-    
-    .pricing-note {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-    }
-
-    /* Content Sections */
-    .section-title {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      color: var(--text-primary);
-    }
-    
-    .section-subtitle {
-      color: var(--text-secondary);
-      margin-bottom: 2rem;
-      font-size: 1.1rem;
-    }
-
-    /* Features Section */
-    .features-section {
-      margin: 3rem 0;
-    }
-    
-    .features-grid {
-      display: grid;
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    
-    .feature-item {
-      display: flex;
-      gap: 1rem;
-      padding: 1.5rem;
-      background: var(--bg-tertiary);
-      border-radius: 8px;
-      border: 1px solid var(--border-primary);
-      transition: all 0.3s;
-    }
-    
-    .feature-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px var(--shadow-light);
-      border-color: var(--accent-primary);
-    }
-    
-    .feature-icon {
-      width: 40px;
-      height: 40px;
-      background: var(--accent-primary);
-      color: white;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-weight: 600;
-    }
-    
-    .feature-content h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: var(--text-primary);
-    }
-    
-    .feature-content p {
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    /* Pros & Cons */
-    .pros-cons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin: 3rem 0;
-    }
-    
-    .pros, .cons {
-      padding: 2rem;
-      background: var(--bg-tertiary);
-      border-radius: 12px;
-      border: 1px solid var(--border-primary);
-    }
-    
-    .pros {
-      border-left: 4px solid var(--success-color);
-    }
-    
-    .cons {
-      border-left: 4px solid var(--error-color);
-    }
-    
-    .pros-title, .cons-title {
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    .pros-title {
-      color: var(--success-color);
-    }
-    
-    .cons-title {
-      color: var(--error-color);
-    }
-    
-    .pros-list, .cons-list {
-      list-style: none;
-    }
-    
-    .pros-list li, .cons-list li {
-      padding: 0.75rem 0;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      color: var(--text-secondary);
-    }
-    
-    .pros-list li::before {
-      content: "✅";
-      flex-shrink: 0;
-    }
-    
-    .cons-list li::before {
-      content: "❌";
-      flex-shrink: 0;
-    }
-
-    /* FAQ Section */
-    .faq-section {
-      margin: 3rem 0;
-    }
-    
-    .faq-item {
-      border-bottom: 1px solid var(--border-primary);
-      padding: 1.5rem 0;
-    }
-    
-    .faq-item:last-child {
-      border-bottom: none;
-    }
-    
-    .faq-question {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 0.75rem;
-    }
-    
-    .faq-answer {
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    /* Similar Tools */
-    .similar-tools {
-      background: var(--card-bg);
-      padding: 3rem 2rem;
-      margin: 3rem 0;
-      border-radius: 12px;
-      border: 1px solid var(--border-primary);
-      box-shadow: 0 1px 3px var(--shadow-light);
-    }
-    
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-    
-    .tool-card {
-      background: var(--bg-tertiary);
-      border-radius: 8px;
-      padding: 1.5rem;
-      border: 1px solid var(--border-primary);
-      transition: all 0.3s;
-    }
-    
-    .tool-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px var(--shadow-light);
-      border-color: var(--accent-primary);
-    }
-    
-    .tool-card h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: var(--text-primary);
-    }
-    
-    .tool-card p {
-      color: var(--text-secondary);
-      margin-bottom: 1rem;
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-    
-    .tool-card-cta {
-      background: var(--accent-primary);
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9rem;
-      display: inline-block;
-      transition: all 0.3s;
-    }
-    
-    .tool-card-cta:hover {
-      background: var(--accent-secondary);
-      transform: translateY(-1px);
-    }
-
-    /* AdSense */
-    .ad-container {
-      margin: 3rem auto;
-      padding: 1.5rem;
-      max-width: 1400px;
-      text-align: center;
-      background: var(--card-bg);
-      border-radius: 12px;
-      border: 1px solid var(--border-primary);
-    }
-
-    .ad-container::before {
-      content: "Anzeige";
-      display: block;
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .ad-sidebar {
-      margin: 0;
-      padding: 1rem;
-    }
-
-    /* Footer */
-    .footer {
-      background: var(--footer-bg);
-      color: white;
-      padding: 4rem 2rem 2rem;
-      margin-top: 4rem;
-    }
-    
-    .footer-container {
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-    
-    .footer-content {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 3rem;
-      margin-bottom: 2rem;
-    }
-    
-    .footer-logo {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: white;
-      margin-bottom: 1rem;
-    }
-    
-    .footer-description {
-      color: var(--footer-text);
-      margin-bottom: 2rem;
-      line-height: 1.6;
-    }
-    
-    .footer-section h4 {
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: white;
-    }
-    
-    .footer-links {
-      list-style: none;
-    }
-    
-    .footer-links li {
-      margin-bottom: 0.5rem;
-    }
-    
-    .footer-links a {
-      color: var(--footer-text);
-      text-decoration: none;
-      transition: color 0.3s;---
-import { getCollection, getEntry } from "astro:content";
+---
+import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
@@ -391,7 +12,7 @@ export async function getStaticPaths() {
 
 type Props = {
   tool: CollectionEntry<'tools'>;
-};
+}
 
 const { tool } = Astro.props;
 const { data } = tool;
@@ -408,72 +29,22 @@ const userCount = Math.floor(Math.random() * 90000) + 10000;
 const isPopular = userCount > 50000;
 const isNew = data.founded && parseInt(data.founded) >= 2023;
 
-// Logo-URLs für die Tools
-const getToolLogo = (toolName: string) => {
-  const logoMap: { [key: string]: string } = {
+// Vereinfachte Logo-URLs (Vercel-sicher)
+function getToolLogo(toolName: string): string {
+  const logoMap: Record<string, string> = {
     'ChatGPT': 'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg',
     'Claude': 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Anthropic_logo.svg',
     'DALL-E 3': 'https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg',
     'Midjourney': 'https://seeklogo.com/images/M/midjourney-logo-F8C82EA677-seeklogo.com.png',
     'GitHub Copilot': 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
-    'Stable Diffusion': 'https://stability.ai/favicon.ico',
-    'Canva AI': 'https://www.canva.com/favicon.ico',
-    'Adobe Firefly': 'https://www.adobe.com/favicon.ico',
-    'Google Bard': 'https://www.google.com/favicon.ico',
-    'Gemini': 'https://www.google.com/favicon.ico',
-    'Notion AI': 'https://www.notion.so/favicon.ico',
-    'Copy.ai': 'https://www.copy.ai/favicon.ico',
-    'Jasper AI': 'https://www.jasper.ai/favicon.ico',
-    'Grammarly': 'https://www.grammarly.com/favicon.ico',
-    'Writesonic': 'https://writesonic.com/favicon.ico',
-    'QuillBot': 'https://quillbot.com/favicon.ico',
-    'Rytr': 'https://rytr.me/favicon.ico',
-    'Wordtune': 'https://www.wordtune.com/favicon.ico',
-    'ElevenLabs': 'https://elevenlabs.io/favicon.ico',
-    'Murf AI': 'https://murf.ai/favicon.ico',
-    'Synthesia': 'https://www.synthesia.io/favicon.ico',
-    'HeyGen': 'https://www.heygen.com/favicon.ico',
-    'Runway ML': 'https://runwayml.com/favicon.ico',
-    'InVideo': 'https://invideo.io/favicon.ico',
-    'Lumen5': 'https://lumen5.com/favicon.ico',
-    'Pictory': 'https://pictory.ai/favicon.ico',
-    'Fliki': 'https://fliki.ai/favicon.ico',
-    'Steve AI': 'https://steve.ai/favicon.ico',
-    'Descript': 'https://www.descript.com/favicon.ico',
-    'GitHub Copilot': 'https://github.com/favicon.ico',
-    'Tabnine': 'https://www.tabnine.com/favicon.ico',
-    'Codeium': 'https://codeium.com/favicon.ico',
-    'Amazon CodeWhisperer': 'https://aws.amazon.com/favicon.ico',
-    'Replit Ghostwriter': 'https://replit.com/favicon.ico',
-    'OpenAI Codex': 'https://openai.com/favicon.ico',
-    'Beautiful.AI': 'https://www.beautiful.ai/favicon.ico',
-    'Calendly AI': 'https://calendly.com/favicon.ico',
-    'Otter.ai': 'https://otter.ai/favicon.ico',
-    'Mem': 'https://mem.ai/favicon.ico',
-    'Reclaim.ai': 'https://reclaim.ai/favicon.ico',
-    'Framer AI': 'https://www.framer.com/favicon.ico',
-    'Uizard': 'https://uizard.io/favicon.ico',
-    'Looka': 'https://looka.com/favicon.ico',
-    'AutoDraw': 'https://www.autodraw.com/favicon.ico',
-    'Figma AI': 'https://www.figma.com/favicon.ico',
-    'Leonardo AI': 'https://leonardo.ai/favicon.ico',
-    'Photosonic': 'https://photosonic.writesonic.com/favicon.ico',
-    'ClipDrop': 'https://clipdrop.co/favicon.ico',
-    'Artbreeder': 'https://www.artbreeder.com/favicon.ico',
-    'BlueWillow': 'https://bluewillow.ai/favicon.ico',
-    'Playground AI': 'https://playgroundai.com/favicon.ico',
-    'Speechelo': 'https://speechelo.com/favicon.ico',
-    'Soundraw': 'https://soundraw.io/favicon.ico',
-    'AIVA': 'https://www.aiva.ai/favicon.ico',
-    'Boomy': 'https://boomy.com/favicon.ico',
-    'Consensus': 'https://consensus.app/favicon.ico'
+    'Stable Diffusion': 'https://stability.ai/favicon.ico'
   };
   
   return logoMap[toolName] || `https://ui-avatars.com/api/?name=${encodeURIComponent(toolName)}&background=3b82f6&color=fff&size=100&rounded=true`;
-};
+}
 
-// FAQ generieren basierend auf Tool-Daten
-const generateFAQ = () => {
+// FAQ generieren
+function generateFAQ() {
   return [
     {
       question: `Ist ${data.title} kostenlos?`,
@@ -498,9 +69,10 @@ const generateFAQ = () => {
         `${data.title} ist aktuell als Web-Anwendung verfügbar und funktioniert perfekt im Browser auf allen Geräten.`
     }
   ];
-};
+}
 
 const faqItems = generateFAQ();
+const toolLogo = getToolLogo(data.title);
 ---
 
 <!DOCTYPE html>
@@ -509,24 +81,41 @@ const faqItems = generateFAQ();
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{data.title} Test & Erfahrungen 2025 - Lohnt sich das KI-Tool?</title>
-  <meta name="description" content="✅ {data.title} im Test: Funktionen, Preise & ehrliche Bewertung. {data.description} ➤ Jetzt kostenlos testen!">
-  <meta name="keywords" content="{data.title}, {data.title} Test, {data.title} Erfahrungen, {data.title} kostenlos, {data.category}, KI Tool">
+  <meta name="description" content={`✅ ${data.title} im Test: Funktionen, Preise & ehrliche Bewertung. ${data.description} ➤ Jetzt kostenlos testen!`}>
   
-  <!-- Open Graph -->
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="{data.title} - Das beste {data.category} Tool 2025">
-  <meta property="og:description" content="{data.description}">
-  <meta property="og:url" content="https://aitoolvault.com/tools/{tool.slug}">
-  <meta property="og:image" content="{getToolLogo(data.title)}">
-  
-  <!-- SEO -->
-  <link rel="canonical" href="https://aitoolvault.com/tools/{tool.slug}">
-  <meta name="robots" content="index, follow">
-  <meta name="author" content="AI Tool Vault Experten-Team">
+  <!-- Theme Script - MUST be before any styling to prevent FOUC -->
+  <script is:inline>
+    (function() {
+      function setTheme() {
+        var theme = 'light';
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          theme = localStorage.getItem('theme');
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          theme = 'dark';
+        }
+        
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+        
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem('theme', theme);
+        }
+      }
+      
+      setTheme();
+      
+      document.addEventListener('astro:after-swap', setTheme);
+    })();
+  </script>
   
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
-  <script>
+  <script is:inline>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
@@ -587,10 +176,7 @@ const faqItems = generateFAQ();
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      transition: background-color 0.3s ease, 
-                  color 0.3s ease, 
-                  border-color 0.3s ease,
-                  box-shadow 0.3s ease;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
     
     body {
@@ -613,29 +199,25 @@ const faqItems = generateFAQ();
       width: 60px;
       height: 60px;
       cursor: pointer;
-      transition: all 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.5rem;
       color: var(--text-primary);
       box-shadow: 0 4px 12px var(--shadow-light);
-      backdrop-filter: blur(10px);
     }
 
     .theme-toggle:hover {
       transform: translateY(-50%) scale(1.1);
-      box-shadow: 0 8px 20px var(--shadow-medium);
       border-color: var(--accent-primary);
     }
 
-    .theme-toggle:focus {
-      outline: 2px solid var(--accent-primary);
-      outline-offset: 2px;
+    .theme-toggle .sun-icon {
+      display: none;
     }
 
-    .theme-toggle .icon {
-      transition: all 0.3s ease;
+    .theme-toggle .moon-icon {
+      display: inline;
     }
 
     [data-theme="dark"] .theme-toggle .sun-icon {
@@ -646,44 +228,6 @@ const faqItems = generateFAQ();
       display: none;
     }
 
-    [data-theme="light"] .theme-toggle .sun-icon,
-    :root .theme-toggle .sun-icon {
-      display: none;
-    }
-
-    [data-theme="light"] .theme-toggle .moon-icon,
-    :root .theme-toggle .moon-icon {
-      display: inline;
-    }
-
-    @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .theme-toggle.rotating .icon {
-      animation: rotate 0.5s ease-in-out;
-    }
-
-    @media (max-width: 768px) {
-      .theme-toggle {
-        right: 1rem;
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        transition: none !important;
-        animation: none !important;
-      }
-      .theme-toggle.rotating .icon {
-        animation: none;
-      }
-    }
-    
     /* Navigation */
     .nav {
       position: fixed;
@@ -695,7 +239,6 @@ const faqItems = generateFAQ();
       border-bottom: 1px solid var(--border-primary);
       z-index: 1000;
       padding: 1rem 0;
-      transition: all 0.3s ease;
     }
     
     .nav-container {
@@ -724,7 +267,6 @@ const faqItems = generateFAQ();
       color: var(--text-secondary);
       text-decoration: none;
       font-weight: 500;
-      transition: color 0.3s;
     }
     
     .nav-links a:hover {
@@ -761,11 +303,9 @@ const faqItems = generateFAQ();
     .breadcrumb a {
       color: var(--accent-primary);
       text-decoration: none;
-      transition: color 0.3s;
     }
     
     .breadcrumb a:hover {
-      color: var(--accent-secondary);
       text-decoration: underline;
     }
     
@@ -912,15 +452,11 @@ const faqItems = generateFAQ();
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      transition: all 0.3s;
-      border: 2px solid var(--accent-primary);
     }
     
     .hero-cta:hover {
       background: var(--accent-secondary);
-      border-color: var(--accent-secondary);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(59,130,246,0.3);
     }
 
     /* Main Content */
@@ -934,11 +470,11 @@ const faqItems = generateFAQ();
     }
     
     .content {
-      background: white;
+      background: var(--card-bg);
       padding: 3rem;
       border-radius: 12px;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-primary);
+      box-shadow: 0 1px 3px var(--shadow-light);
     }
     
     .sidebar {
@@ -949,18 +485,18 @@ const faqItems = generateFAQ();
 
     /* Pricing Card */
     .pricing-card {
-      background: white;
+      background: var(--card-bg);
       padding: 2rem;
       border-radius: 12px;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-primary);
+      box-shadow: 0 1px 3px var(--shadow-light);
       text-align: center;
       position: sticky;
       top: 100px;
     }
     
     .pricing-tag {
-      background: #3b82f6;
+      background: var(--accent-primary);
       color: white;
       padding: 0.5rem 1rem;
       border-radius: 20px;
@@ -974,17 +510,17 @@ const faqItems = generateFAQ();
       font-size: 1.5rem;
       font-weight: 700;
       margin-bottom: 1rem;
-      color: #0f172a;
+      color: var(--text-primary);
     }
     
     .pricing-description {
-      color: #64748b;
+      color: var(--text-secondary);
       margin-bottom: 1.5rem;
       line-height: 1.6;
     }
     
     .pricing-cta {
-      background: #3b82f6;
+      background: var(--accent-primary);
       color: white;
       padding: 1rem 2rem;
       border-radius: 8px;
@@ -992,19 +528,17 @@ const faqItems = generateFAQ();
       font-weight: 700;
       display: block;
       text-align: center;
-      transition: all 0.3s;
       margin-bottom: 1rem;
     }
     
     .pricing-cta:hover {
-      background: #2563eb;
+      background: var(--accent-secondary);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(59,130,246,0.3);
     }
     
     .pricing-note {
       font-size: 0.9rem;
-      color: #64748b;
+      color: var(--text-secondary);
     }
 
     /* Content Sections */
@@ -1012,11 +546,11 @@ const faqItems = generateFAQ();
       font-size: 2rem;
       font-weight: 700;
       margin-bottom: 1rem;
-      color: #0f172a;
+      color: var(--text-primary);
     }
     
     .section-subtitle {
-      color: #64748b;
+      color: var(--text-secondary);
       margin-bottom: 2rem;
       font-size: 1.1rem;
     }
@@ -1036,22 +570,20 @@ const faqItems = generateFAQ();
       display: flex;
       gap: 1rem;
       padding: 1.5rem;
-      background: #f8fafc;
+      background: var(--bg-tertiary);
       border-radius: 8px;
-      border: 1px solid #e2e8f0;
-      transition: all 0.3s;
+      border: 1px solid var(--border-primary);
     }
     
     .feature-item:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      border-color: #3b82f6;
+      border-color: var(--accent-primary);
     }
     
     .feature-icon {
       width: 40px;
       height: 40px;
-      background: #3b82f6;
+      background: var(--accent-primary);
       color: white;
       border-radius: 8px;
       display: flex;
@@ -1065,11 +597,11 @@ const faqItems = generateFAQ();
       font-size: 1.1rem;
       font-weight: 600;
       margin-bottom: 0.5rem;
-      color: #0f172a;
+      color: var(--text-primary);
     }
     
     .feature-content p {
-      color: #64748b;
+      color: var(--text-secondary);
       font-size: 0.95rem;
       line-height: 1.6;
     }
@@ -1084,17 +616,17 @@ const faqItems = generateFAQ();
     
     .pros, .cons {
       padding: 2rem;
-      background: #f8fafc;
+      background: var(--bg-tertiary);
       border-radius: 12px;
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--border-primary);
     }
     
     .pros {
-      border-left: 4px solid #10b981;
+      border-left: 4px solid var(--success-color);
     }
     
     .cons {
-      border-left: 4px solid #ef4444;
+      border-left: 4px solid var(--error-color);
     }
     
     .pros-title, .cons-title {
@@ -1107,11 +639,11 @@ const faqItems = generateFAQ();
     }
     
     .pros-title {
-      color: #10b981;
+      color: var(--success-color);
     }
     
     .cons-title {
-      color: #ef4444;
+      color: var(--error-color);
     }
     
     .pros-list, .cons-list {
@@ -1125,6 +657,7 @@ const faqItems = generateFAQ();
       gap: 0.5rem;
       font-size: 0.95rem;
       line-height: 1.6;
+      color: var(--text-secondary);
     }
     
     .pros-list li::before {
@@ -1143,7 +676,7 @@ const faqItems = generateFAQ();
     }
     
     .faq-item {
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid var(--border-primary);
       padding: 1.5rem 0;
     }
     
@@ -1154,23 +687,23 @@ const faqItems = generateFAQ();
     .faq-question {
       font-size: 1.1rem;
       font-weight: 600;
-      color: #0f172a;
+      color: var(--text-primary);
       margin-bottom: 0.75rem;
     }
     
     .faq-answer {
-      color: #64748b;
+      color: var(--text-secondary);
       line-height: 1.6;
     }
 
     /* Similar Tools */
     .similar-tools {
-      background: white;
+      background: var(--card-bg);
       padding: 3rem 2rem;
       margin: 3rem 0;
       border-radius: 12px;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-primary);
+      box-shadow: 0 1px 3px var(--shadow-light);
     }
     
     .tools-grid {
@@ -1181,35 +714,33 @@ const faqItems = generateFAQ();
     }
     
     .tool-card {
-      background: #f8fafc;
+      background: var(--bg-tertiary);
       border-radius: 8px;
       padding: 1.5rem;
-      border: 1px solid #e2e8f0;
-      transition: all 0.3s;
+      border: 1px solid var(--border-primary);
     }
     
     .tool-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      border-color: #3b82f6;
+      border-color: var(--accent-primary);
     }
     
     .tool-card h3 {
       font-size: 1.1rem;
       font-weight: 600;
       margin-bottom: 0.5rem;
-      color: #0f172a;
+      color: var(--text-primary);
     }
     
     .tool-card p {
-      color: #64748b;
+      color: var(--text-secondary);
       margin-bottom: 1rem;
       font-size: 0.9rem;
       line-height: 1.6;
     }
     
     .tool-card-cta {
-      background: #3b82f6;
+      background: var(--accent-primary);
       color: white;
       padding: 0.5rem 1rem;
       border-radius: 6px;
@@ -1217,12 +748,10 @@ const faqItems = generateFAQ();
       font-weight: 600;
       font-size: 0.9rem;
       display: inline-block;
-      transition: all 0.3s;
     }
     
     .tool-card-cta:hover {
-      background: #2563eb;
-      transform: translateY(-1px);
+      background: var(--accent-secondary);
     }
 
     /* AdSense */
@@ -1231,16 +760,16 @@ const faqItems = generateFAQ();
       padding: 1.5rem;
       max-width: 1400px;
       text-align: center;
-      background: white;
+      background: var(--card-bg);
       border-radius: 12px;
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--border-primary);
     }
 
     .ad-container::before {
       content: "Anzeige";
       display: block;
       font-size: 0.8rem;
-      color: #64748b;
+      color: var(--text-secondary);
       margin-bottom: 1rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -1253,7 +782,7 @@ const faqItems = generateFAQ();
 
     /* Footer */
     .footer {
-      background: #0f172a;
+      background: var(--footer-bg);
       color: white;
       padding: 4rem 2rem 2rem;
       margin-top: 4rem;
@@ -1279,7 +808,7 @@ const faqItems = generateFAQ();
     }
     
     .footer-description {
-      color: #94a3b8;
+      color: var(--footer-text);
       margin-bottom: 2rem;
       line-height: 1.6;
     }
@@ -1299,9 +828,8 @@ const faqItems = generateFAQ();
     }
     
     .footer-links a {
-      color: #94a3b8;
+      color: var(--footer-text);
       text-decoration: none;
-      transition: color 0.3s;
     }
     
     .footer-links a:hover {
@@ -1309,27 +837,33 @@ const faqItems = generateFAQ();
     }
     
     .footer-bottom {
-      border-top: 1px solid #374151;
+      border-top: 1px solid var(--border-secondary);
       padding-top: 2rem;
       text-align: center;
-      color: #94a3b8;
+      color: var(--footer-text);
       font-size: 0.9rem;
     }
 
     /* Mobile Responsive */
     @media (max-width: 768px) {
+      .theme-toggle {
+        right: 1rem;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+      }
+
       .nav-links {
         display: none;
         position: absolute;
         top: 100%;
         left: 0;
         right: 0;
-        background: white;
+        background: var(--bg-secondary);
         flex-direction: column;
         padding: 1rem;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         z-index: 999;
-        border-top: 1px solid #e2e8f0;
+        border-top: 1px solid var(--border-primary);
       }
       
       .nav-links.show {
@@ -1386,564 +920,13 @@ const faqItems = generateFAQ();
 </head>
 
 <body>
+  <!-- Theme Toggle Button -->
+  <button class="theme-toggle" id="themeToggle" aria-label="Theme umschalten">
+    <span class="sun-icon">☀️</span>
+    <span class="moon-icon">🌙</span>
+  </button>
+
   <!-- Navigation -->
   <nav class="nav">
     <div class="nav-container">
-      <a href="/" class="nav-logo">AI Tool Vault</a>
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/tools">Tools</a></li>
-        <li><a href="/impressum">Impressum</a></li>
-        <li><a href="/kontakt">Kontakt</a></li>
-        <li><a href="/datenschutz">Datenschutz</a></li>
-      </ul>
-      <button class="mobile-menu">☰</button>
-    </div>
-  </nav>
-
-  <!-- Breadcrumb -->
-  <nav class="breadcrumb">
-    <div class="breadcrumb-container">
-      <a href="/">Home</a>
-      <span>›</span>
-      <a href="/tools">Tools</a>
-      <span>›</span>
-      <a href={`/tools?category=${encodeURIComponent(data.category)}`}>{data.category}</a>
-      <span>›</span>
-      <span class="current">{data.title}</span>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-container">
-      <img 
-        src={getToolLogo(data.title)} 
-        alt="{data.title} Logo" 
-        class="tool-logo"
-        onerror="this.src='https://ui-avatars.com/api/?name={encodeURIComponent(data.title)}&background=3b82f6&color=fff&size=100&rounded=true'"
-      />
-      
-      <div class="hero-content">
-        <div class="hero-badges">
-          {isPopular && <span class="badge badge-popular">🔥 Beliebt bei {Math.floor(userCount/1000)}k+ Nutzern</span>}
-          {data.pricing === "Kostenlos" && <span class="badge badge-free">✅ Komplett kostenlos</span>}
-          {data.free_trial && <span class="badge badge-free">🎁 Kostenlose Testversion</span>}
-          {isNew && <span class="badge badge-new">⭐ Neu 2025</span>}
-          <span class="badge badge-expert">👑 Experten-Empfehlung</span>
-        </div>
-        
-        <h1>{data.title} Test & Erfahrungen 2025</h1>
-        <p class="hero-description">{data.description}</p>
-        
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <span class="hero-stat-number">{expertRating.toFixed(1)}/5</span>
-            <span class="hero-stat-label">⭐ Experten-Rating</span>
-          </div>
-          <div class="hero-stat">
-            <span class="hero-stat-number">{Math.floor(userCount/1000)}k+</span>
-            <span class="hero-stat-label">👥 Aktive Nutzer</span>
-          </div>
-          <div class="hero-stat">
-            <span class="hero-stat-number">{data.pricing || "Freemium"}</span>
-            <span class="hero-stat-label">💰 Preismodell</span>
-          </div>
-          <div class="hero-stat">
-            <span class="hero-stat-number">{data.category}</span>
-            <span class="hero-stat-label">📂 Kategorie</span>
-          </div>
-        </div>
-      </div>
-      
-      <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="hero-cta">
-        🚀 Jetzt kostenlos testen →
-      </a>
-    </div>
-  </section>
-
-  <!-- AdSense #1 -->
-  <div class="ad-container">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-5595876978844902"
-         data-ad-slot="AUTO"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-  </div>
-
-  <!-- Main Content -->
-  <div class="main-content">
-    <div class="content">
-      <!-- Features Section -->
-      <div class="features-section">
-        <h2 class="section-title">{data.title} Features & Funktionen</h2>
-        <p class="section-subtitle">Alle wichtigen Features im Detail erklärt</p>
-        
-        <div class="features-grid">
-          {data.use_cases && data.use_cases.map(useCase => (
-            <div class="feature-item">
-              <div class="feature-icon">✨</div>
-              <div class="feature-content">
-                <h3>{useCase}</h3>
-                <p>Perfekt geeignet für {useCase.toLowerCase()} und verwandte Aufgaben. Hochwertige Ergebnisse durch modernste KI-Technologie.</p>
-              </div>
-            </div>
-          ))}
-          
-          {data.api_available && (
-            <div class="feature-item">
-              <div class="feature-icon">🔌</div>
-              <div class="feature-content">
-                <h3>API Verfügbar</h3>
-                <p>Integriere {data.title} nahtlos in deine bestehenden Workflows und Anwendungen über die leistungsstarke API.</p>
-              </div>
-            </div>
-          )}
-          
-          {data.mobile_app && (
-            <div class="feature-item">
-              <div class="feature-icon">📱</div>
-              <div class="feature-content">
-                <h3>Mobile App</h3>
-                <p>Nutze {data.title} auch unterwegs auf deinem Smartphone oder Tablet - vollständige Funktionalität überall verfügbar.</p>
-              </div>
-            </div>
-          )}
-          
-          <div class="feature-item">
-            <div class="feature-icon">🚀</div>
-            <div class="feature-content">
-              <h3>Einfache Bedienung</h3>
-              <p>Intuitive Benutzeroberfläche macht {data.title} auch für Anfänger perfekt zugänglich. Schneller Einstieg garantiert.</p>
-            </div>
-          </div>
-          
-          <div class="feature-item">
-            <div class="feature-icon">🎯</div>
-            <div class="feature-content">
-              <h3>Präzise Ergebnisse</h3>
-              <p>Hochqualitative Outputs durch modernste KI-Technologie. Konstant zuverlässige und professionelle Resultate.</p>
-            </div>
-          </div>
-          
-          <div class="feature-item">
-            <div class="feature-icon">⚡</div>
-            <div class="feature-content">
-              <h3>Blitzschnell</h3>
-              <p>Ergebnisse in Sekunden - spare wertvolle Zeit bei deinen Projekten und steigere deine Produktivität erheblich.</p>
-            </div>
-          </div>
-
-          {data.languages && data.languages.length > 0 && (
-            <div class="feature-item">
-              <div class="feature-icon">🌍</div>
-              <div class="feature-content">
-                <h3>Mehrsprachig</h3>
-                <p>Unterstützt {data.languages.join(', ')} und weitere Sprachen für eine globale Nutzung.</p>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
-      <!-- Pros & Cons Section -->
-      {(data.pros?.length > 0 || data.cons?.length > 0) && (
-        <div class="pros-cons">
-          <div class="pros">
-            <h3 class="pros-title">✅ Vorteile</h3>
-            <ul class="pros-list">
-              {data.pros?.map(pro => <li>{pro}</li>) || [
-                <li>Intuitive und benutzerfreundliche Oberfläche</li>,
-                <li>Hochqualitative Ergebnisse durch moderne KI</li>,
-                <li>Schnelle Verarbeitung und sofortige Resultate</li>,
-                <li>Regelmäßige Updates und neue Features</li>,
-                <li>Ausgezeichnete Preis-Leistungs-Verhältnis</li>
-              ]}
-            </ul>
-          </div>
-          
-          <div class="cons">
-            <h3 class="cons-title">❌ Nachteile</h3>
-            <ul class="cons-list">
-              {data.cons?.map(con => <li>{con}</li>) || [
-                <li>Erweiterte Features nur in Premium-Version</li>,
-                <li>Lernkurve für komplexere Funktionen</li>,
-                <li>Abhängigkeit von stabiler Internetverbindung</li>
-              ]}
-            </ul>
-          </div>
-        </div>
-      )}
-
-      <!-- FAQ Section -->
-      <div class="faq-section">
-        <h2 class="section-title">Häufige Fragen zu {data.title}</h2>
-        <p class="section-subtitle">Alle wichtigen Antworten auf einen Blick</p>
-        
-        <div class="faq-list">
-          {faqItems.map(faq => (
-            <div class="faq-item">
-              <h3 class="faq-question">{faq.question}</h3>
-              <p class="faq-answer">{faq.answer}</p>
-            </div>
-          ))}
-          
-          <div class="faq-item">
-            <h3 class="faq-question">Ist {data.title} sicher und datenschutzkonform?</h3>
-            <p class="faq-answer">
-              Ja, {data.title} verwendet moderne Sicherheitsstandards und ist DSGVO-konform. 
-              Deine Daten werden verschlüsselt übertragen und sicher gespeichert.
-            </p>
-          </div>
-          
-          <div class="faq-item">
-            <h3 class="faq-question">Gibt es Support für {data.title}?</h3>
-            <p class="faq-answer">
-              {data.title} bietet umfassenden Support über verschiedene Kanäle. 
-              Dokumentation, Tutorials und Community-Support stehen zur Verfügung.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Pricing Card -->
-      <div class="pricing-card">
-        <div class="pricing-tag">
-          {data.pricing === "Kostenlos" ? "🎁 KOMPLETT KOSTENLOS" :
-           data.pricing === "Freemium" ? "🚀 KOSTENLOSER START" :
-           "💰 PREMIUM TOOL"}
-        </div>
-        <h3 class="pricing-title">{data.title} jetzt testen</h3>
-        <p class="pricing-description">
-          {data.free_trial ? 
-            "Starte deine kostenlose Testversion und überzeuge dich selbst von der Qualität und den Möglichkeiten." :
-            data.pricing === "Kostenlos" ?
-            "Komplett kostenlos - keine versteckten Kosten, keine Kreditkarte erforderlich." :
-            "Sichere dir jetzt Zugang zu diesem Premium-Tool und revolutioniere deine Arbeit."}
-        </p>
-        <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="pricing-cta">
-          🎯 Jetzt {data.pricing === "Kostenlos" ? "kostenlos" : ""} starten
-        </a>
-        <p class="pricing-note">
-          ✅ Keine Kreditkarte erforderlich<br>
-          ✅ Sofortiger Zugang<br>
-          ✅ {data.pricing === "Kostenlos" ? "Für immer kostenlos" : "Jederzeit kündbar"}
-        </p>
-      </div>
-
-      <!-- AdSense Sidebar -->
-      <div class="ad-container ad-sidebar">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-5595876978844902"
-             data-ad-slot="AUTO"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-      </div>
-    </div>
-  </div>
-
-  <!-- Similar Tools -->
-  {similarTools.length > 0 && (
-    <section class="similar-tools">
-      <div style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
-        <h2 class="section-title">Ähnliche {data.category} Tools</h2>
-        <p class="section-subtitle">Weitere empfohlene Tools in der Kategorie {data.category}</p>
-        
-        <div class="tools-grid">
-          {similarTools.map(similarTool => (
-            <div class="tool-card">
-              <h3>{similarTool.data.title}</h3>
-              <p>{similarTool.data.description}</p>
-              <a href={`/tools/${similarTool.slug}`} class="tool-card-cta">
-                🔍 Details ansehen
-              </a>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- AdSense #2: Vor Footer -->
-  <div class="ad-container">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-5595876978844902"
-         data-ad-slot="AUTO"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-  </div>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-content">
-        <div>
-          <div class="footer-logo">AI Tool Vault</div>
-          <p class="footer-description">
-            Die umfassendste Sammlung von KI-Tools für Kreativität, Produktivität und Innovation. 
-            Entdecke die Zukunft heute.
-          </p>
-        </div>
-        
-        <div class="footer-section">
-          <h4>Navigation</h4>
-          <ul class="footer-links">
-            <li><a href="/tools">Alle Tools</a></li>
-            <li><a href="/#categories">Kategorien</a></li>
-            <li><a href="/kontakt">Kontakt</a></li>
-          </ul>
-        </div>
-        
-        <div class="footer-section">
-          <h4>Rechtliches</h4>
-          <ul class="footer-links">
-            <li><a href="/impressum">Impressum</a></li>
-            <li><a href="/datenschutz">Datenschutz</a></li>
-            <li><a href="/kontakt">Support</a></li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="footer-bottom">
-        <p>&copy; 2025 AI Tool Vault. Alle Rechte vorbehalten.</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- JavaScript für Tracking und AdSense -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      
-      // ===== MOBILE MENU =====
-      const mobileMenuBtn = document.querySelector('.mobile-menu');
-      const navLinks = document.querySelector('.nav-links');
-      
-      if (mobileMenuBtn && navLinks) {
-        let menuOpen = false;
-        
-        mobileMenuBtn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          menuOpen = !menuOpen;
-          
-          if (menuOpen) {
-            navLinks.classList.add('show');
-            this.innerHTML = '✕';
-          } else {
-            navLinks.classList.remove('show');
-            this.innerHTML = '☰';
-          }
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function() {
-          if (menuOpen) {
-            navLinks.classList.remove('show');
-            mobileMenuBtn.innerHTML = '☰';
-            menuOpen = false;
-          }
-        });
-      }
-
-      // ===== AFFILIATE LINK TRACKING =====
-      function trackAffiliateClick(element, position) {
-        const toolName = "{data.title}";
-        const category = "{data.category}";
-        
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'affiliate_click', {
-            'tool_name': toolName,
-            'category': category,
-            'position': position,
-            'source': 'tool_detail_page',
-            'value': 20.00,
-            'currency': 'EUR'
-          });
-          
-          // Enhanced Ecommerce Purchase Event
-          gtag('event', 'purchase', {
-            'transaction_id': `${Date.now()}_${toolName.replace(/\s+/g, '_')}`,
-            'value': 20.00,
-            'currency': 'EUR',
-            'items': [{
-              'item_id': toolName.toLowerCase().replace(/\s+/g, '_'),
-              'item_name': toolName,
-              'item_category': category,
-              'quantity': 1,
-              'price': 20.00
-            }]
-          });
-        }
-      }
-      
-      // Track all affiliate links
-      document.querySelectorAll('a[href*="{data.affiliate_link}"]').forEach((link, index) => {
-        link.addEventListener('click', function() {
-          const position = this.classList.contains('hero-cta') ? 'hero' :
-                          this.classList.contains('pricing-cta') ? 'sidebar' :
-                          `position-${index + 1}`;
-          
-          trackAffiliateClick(this, position);
-        });
-      });
-
-      // ===== SIMILAR TOOLS TRACKING =====
-      document.querySelectorAll('.tool-card-cta').forEach((link, index) => {
-        link.addEventListener('click', function() {
-          if (typeof gtag !== 'undefined') {
-            gtag('event', 'similar_tool_click', {
-              'source_tool': "{data.title}",
-              'target_tool': this.closest('.tool-card').querySelector('h3').textContent,
-              'position': index + 1
-            });
-          }
-        });
-      });
-
-      // ===== SCROLL DEPTH TRACKING =====
-      let maxScroll = 0;
-      let milestones = [25, 50, 75, 90];
-      
-      window.addEventListener('scroll', function() {
-        const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
-        
-        if (scrollPercent > maxScroll) {
-          maxScroll = scrollPercent;
-          
-          milestones.forEach(milestone => {
-            if (scrollPercent >= milestone && !window[`milestone_${milestone}_reached`]) {
-              window[`milestone_${milestone}_reached`] = true;
-              
-              if (typeof gtag !== 'undefined') {
-                gtag('event', 'scroll_depth', {
-                  'tool_name': "{data.title}",
-                  'scroll_depth': milestone,
-                  'page_type': 'tool_detail'
-                });
-              }
-            }
-          });
-        }
-      });
-
-      // ===== TIME ON PAGE TRACKING =====
-      let startTime = Date.now();
-      let timeLogged = false;
-      
-      window.addEventListener('beforeunload', function() {
-        if (!timeLogged) {
-          const timeSpent = Math.round((Date.now() - startTime) / 1000);
-          
-          if (typeof gtag !== 'undefined') {
-            gtag('event', 'time_on_tool_page', {
-              'tool_name': "{data.title}",
-              'time_seconds': timeSpent,
-              'category': "{data.category}",
-              'page_type': 'tool_detail'
-            });
-          }
-          
-          timeLogged = true;
-        }
-      });
-
-      // ===== ADSENSE INITIALIZATION =====
-      function initAdSense() {
-        const ads = document.querySelectorAll('.adsbygoogle');
-        
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting && !entry.target.getAttribute('data-loaded')) {
-              try {
-                (adsbygoogle = window.adsbygoogle || []).push({});
-                entry.target.setAttribute('data-loaded', 'true');
-              } catch (e) {
-                console.warn('AdSense loading error:', e);
-              }
-              observer.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.1 });
-        
-        ads.forEach(ad => observer.observe(ad));
-      }
-      
-      initAdSense();
-      
-      console.log(`✅ Tool detail page initialized for: {data.title}`);
-    });
-  </script>
-
-  <!-- Schema.org Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "{data.title}",
-    "description": "{data.description}",
-    "applicationCategory": "{data.category}",
-    "operatingSystem": "Web Browser",
-    "url": "https://aitoolvault.com/tools/{tool.slug}",
-    "image": "{getToolLogo(data.title)}",
-    "author": {
-      "@type": "Organization",
-      "name": "{data.company || data.title}"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "{expertRating.toFixed(1)}",
-      "ratingCount": "{Math.floor(userCount/100)}",
-      "bestRating": "5",
-      "worstRating": "1"
-    },
-    "offers": {
-      "@type": "Offer",
-      "price": "{data.pricing === 'Kostenlos' ? '0' : data.pricing === 'Freemium' ? '0' : '9.99'}",
-      "priceCurrency": "EUR",
-      "availability": "InStock",
-      "category": "{data.category}"
-    },
-    "featureList": {data.use_cases ? JSON.stringify(data.use_cases) : '["KI-gestützt", "Benutzerfreundlich", "Schnell"]'},
-    "datePublished": "{data.founded || '2024'}",
-    "review": {
-      "@type": "Review",
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": "{expertRating.toFixed(1)}",
-        "bestRating": "5"
-      },
-      "author": {
-        "@type": "Organization",
-        "name": "AI Tool Vault Experten-Team"
-      },
-      "reviewBody": "Ausführlicher Test von {data.title}: {data.description}"
-    }
-  }
-  </script>
-
-  <!-- FAQ Schema für Featured Snippets -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {faqItems.map((faq, index) => `
-        ${index > 0 ? ',' : ''}{
-          "@type": "Question",
-          "name": "${faq.question}",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "${faq.answer}"
-          }
-        }`).join('')}
-    ]
-  }
-  </script>
-
-</body>
-</html>
+      <a href="/" class="
