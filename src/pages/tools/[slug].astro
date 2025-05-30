@@ -1,5 +1,4 @@
 ---
-// src/pages/tools/[slug].astro - MONEY-MAKING MACHINE! 💰
 import { getCollection, getEntry } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
@@ -25,10 +24,104 @@ const similarTools = allTools
   .slice(0, 3);
 
 // Trust & Authority Elemente
-const expertRating = data.rating || (4.2 + Math.random() * 0.8); // 4.2-5.0
-const userCount = Math.floor(Math.random() * 90000) + 10000; // 10k-100k
+const expertRating = data.rating || (4.2 + Math.random() * 0.8);
+const userCount = Math.floor(Math.random() * 90000) + 10000;
 const isPopular = userCount > 50000;
 const isNew = data.founded && parseInt(data.founded) >= 2023;
+
+// Logo-URLs für die Tools
+const getToolLogo = (toolName: string) => {
+  const logoMap: { [key: string]: string } = {
+    'ChatGPT': 'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg',
+    'Claude': 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Anthropic_logo.svg',
+    'DALL-E 3': 'https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg',
+    'Midjourney': 'https://seeklogo.com/images/M/midjourney-logo-F8C82EA677-seeklogo.com.png',
+    'GitHub Copilot': 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
+    'Stable Diffusion': 'https://stability.ai/favicon.ico',
+    'Canva AI': 'https://www.canva.com/favicon.ico',
+    'Adobe Firefly': 'https://www.adobe.com/favicon.ico',
+    'Google Bard': 'https://www.google.com/favicon.ico',
+    'Gemini': 'https://www.google.com/favicon.ico',
+    'Notion AI': 'https://www.notion.so/favicon.ico',
+    'Copy.ai': 'https://www.copy.ai/favicon.ico',
+    'Jasper AI': 'https://www.jasper.ai/favicon.ico',
+    'Grammarly': 'https://www.grammarly.com/favicon.ico',
+    'Writesonic': 'https://writesonic.com/favicon.ico',
+    'QuillBot': 'https://quillbot.com/favicon.ico',
+    'Rytr': 'https://rytr.me/favicon.ico',
+    'Wordtune': 'https://www.wordtune.com/favicon.ico',
+    'ElevenLabs': 'https://elevenlabs.io/favicon.ico',
+    'Murf AI': 'https://murf.ai/favicon.ico',
+    'Synthesia': 'https://www.synthesia.io/favicon.ico',
+    'HeyGen': 'https://www.heygen.com/favicon.ico',
+    'Runway ML': 'https://runwayml.com/favicon.ico',
+    'InVideo': 'https://invideo.io/favicon.ico',
+    'Lumen5': 'https://lumen5.com/favicon.ico',
+    'Pictory': 'https://pictory.ai/favicon.ico',
+    'Fliki': 'https://fliki.ai/favicon.ico',
+    'Steve AI': 'https://steve.ai/favicon.ico',
+    'Descript': 'https://www.descript.com/favicon.ico',
+    'GitHub Copilot': 'https://github.com/favicon.ico',
+    'Tabnine': 'https://www.tabnine.com/favicon.ico',
+    'Codeium': 'https://codeium.com/favicon.ico',
+    'Amazon CodeWhisperer': 'https://aws.amazon.com/favicon.ico',
+    'Replit Ghostwriter': 'https://replit.com/favicon.ico',
+    'OpenAI Codex': 'https://openai.com/favicon.ico',
+    'Beautiful.AI': 'https://www.beautiful.ai/favicon.ico',
+    'Calendly AI': 'https://calendly.com/favicon.ico',
+    'Otter.ai': 'https://otter.ai/favicon.ico',
+    'Mem': 'https://mem.ai/favicon.ico',
+    'Reclaim.ai': 'https://reclaim.ai/favicon.ico',
+    'Framer AI': 'https://www.framer.com/favicon.ico',
+    'Uizard': 'https://uizard.io/favicon.ico',
+    'Looka': 'https://looka.com/favicon.ico',
+    'AutoDraw': 'https://www.autodraw.com/favicon.ico',
+    'Figma AI': 'https://www.figma.com/favicon.ico',
+    'Leonardo AI': 'https://leonardo.ai/favicon.ico',
+    'Photosonic': 'https://photosonic.writesonic.com/favicon.ico',
+    'ClipDrop': 'https://clipdrop.co/favicon.ico',
+    'Artbreeder': 'https://www.artbreeder.com/favicon.ico',
+    'BlueWillow': 'https://bluewillow.ai/favicon.ico',
+    'Playground AI': 'https://playgroundai.com/favicon.ico',
+    'Speechelo': 'https://speechelo.com/favicon.ico',
+    'Soundraw': 'https://soundraw.io/favicon.ico',
+    'AIVA': 'https://www.aiva.ai/favicon.ico',
+    'Boomy': 'https://boomy.com/favicon.ico',
+    'Consensus': 'https://consensus.app/favicon.ico'
+  };
+  
+  return logoMap[toolName] || `https://ui-avatars.com/api/?name=${encodeURIComponent(toolName)}&background=3b82f6&color=fff&size=100&rounded=true`;
+};
+
+// FAQ generieren basierend auf Tool-Daten
+const generateFAQ = () => {
+  return [
+    {
+      question: `Ist ${data.title} kostenlos?`,
+      answer: data.pricing === "Kostenlos" ? 
+        `Ja, ${data.title} ist komplett kostenlos nutzbar ohne versteckte Kosten.` :
+        data.pricing === "Freemium" ?
+        `${data.title} bietet eine kostenlose Basisversion. Für erweiterte Features gibt es Premium-Pläne.` :
+        `${data.title} ist ein Premium-Tool. ${data.free_trial ? "Es gibt jedoch eine kostenlose Testversion." : "Die Investition lohnt sich für professionelle Anwender."}`
+    },
+    {
+      question: `Für wen eignet sich ${data.title}?`,
+      answer: `${data.title} eignet sich perfekt für ${data.category.toLowerCase()}-Anwender${data.use_cases ? `, insbesondere für ${data.use_cases.slice(0,2).join(' und ')}.` : ', Kreative, Unternehmer und alle, die ihre Produktivität steigern möchten.'}`
+    },
+    {
+      question: `Wie schnell kann ich mit ${data.title} starten?`,
+      answer: `Der Einstieg ist sehr einfach - nach der Anmeldung kannst du sofort loslegen. Die intuitive Benutzeroberfläche ermöglicht auch Anfängern einen schnellen Start.`
+    },
+    {
+      question: `Gibt es eine mobile App für ${data.title}?`,
+      answer: data.mobile_app ? 
+        `Ja, ${data.title} bietet auch eine mobile App für iOS und Android.` :
+        `${data.title} ist aktuell als Web-Anwendung verfügbar und funktioniert perfekt im Browser auf allen Geräten.`
+    }
+  ];
+};
+
+const faqItems = generateFAQ();
 ---
 
 <!DOCTYPE html>
@@ -36,21 +129,34 @@ const isNew = data.founded && parseInt(data.founded) >= 2023;
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{data.title} Test & Erfahrungen 2024 - Lohnt sich das KI-Tool?</title>
+  <title>{data.title} Test & Erfahrungen 2025 - Lohnt sich das KI-Tool?</title>
   <meta name="description" content="✅ {data.title} im Test: Funktionen, Preise & ehrliche Bewertung. {data.description} ➤ Jetzt kostenlos testen!">
   <meta name="keywords" content="{data.title}, {data.title} Test, {data.title} Erfahrungen, {data.title} kostenlos, {data.category}, KI Tool">
   
-  <!-- Open Graph für Social Shares -->
+  <!-- Open Graph -->
   <meta property="og:type" content="article">
-  <meta property="og:title" content="{data.title} - Das beste {data.category} Tool 2024">
+  <meta property="og:title" content="{data.title} - Das beste {data.category} Tool 2025">
   <meta property="og:description" content="{data.description}">
   <meta property="og:url" content="https://aitoolvault.com/tools/{tool.slug}">
-  <meta property="og:image" content="/tools/{tool.slug}-preview.jpg">
+  <meta property="og:image" content="{getToolLogo(data.title)}">
   
-  <!-- Trust & SEO -->
+  <!-- SEO -->
   <link rel="canonical" href="https://aitoolvault.com/tools/{tool.slug}">
   <meta name="robots" content="index, follow">
   <meta name="author" content="AI Tool Vault Experten-Team">
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-EC62QPK5VL');
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5595876978844902"
+     crossorigin="anonymous"></script>
 
   <style>
     * {
@@ -62,94 +168,187 @@ const isNew = data.founded && parseInt(data.founded) >= 2023;
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       line-height: 1.6;
-      color: #333;
-      background: #fafbfc;
+      color: #1e293b;
+      background: #f8fafc;
     }
     
-    /* Hero Section - CONVERSION FOCUSED */
-    .hero {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 6rem 2rem 4rem;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .hero::before {
-      content: '';
-      position: absolute;
+    /* Navigation */
+    .nav {
+      position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      bottom: 0;
-      background: rgba(0,0,0,0.1);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid #e2e8f0;
+      z-index: 1000;
+      padding: 1rem 0;
+      transition: all 0.3s ease;
     }
     
-    .hero-container {
-      max-width: 1200px;
+    .nav-container {
+      max-width: 1400px;
       margin: 0 auto;
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
       align-items: center;
     }
     
-    .hero-content h1 {
-      font-size: clamp(2rem, 4vw, 3.5rem);
+    .nav-logo {
+      font-size: 1.5rem;
       font-weight: 800;
-      margin-bottom: 1rem;
-      line-height: 1.2;
+      color: #0f172a;
+      text-decoration: none;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      color: #64748b;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      color: #0f172a;
+    }
+    
+    .mobile-menu {
+      display: none;
+      background: none;
+      border: none;
+      color: #0f172a;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      background: white;
+      padding: 1rem 0;
+      margin-top: 70px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .breadcrumb-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .breadcrumb a {
+      color: #3b82f6;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .breadcrumb a:hover {
+      color: #2563eb;
+      text-decoration: underline;
+    }
+    
+    .breadcrumb .current {
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: white;
+      padding: 4rem 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .hero-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    .tool-logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 16px;
+      object-fit: cover;
+      border: 2px solid #e2e8f0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      background: white;
+    }
+    
+    .hero-content {
+      flex: 1;
     }
     
     .hero-badges {
       display: flex;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
       flex-wrap: wrap;
     }
     
     .badge {
-      padding: 0.5rem 1rem;
-      border-radius: 2rem;
-      font-size: 0.9rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
       font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     
     .badge-popular {
-      background: #ff6b6b;
-      color: white;
+      background: #fee2e2;
+      color: #dc2626;
     }
     
     .badge-free {
-      background: #51cf66;
-      color: white;
+      background: #d1fae5;
+      color: #047857;
     }
     
     .badge-new {
-      background: #ffd43b;
-      color: #333;
+      background: #fef3c7;
+      color: #d97706;
     }
     
     .badge-expert {
-      background: #845ef7;
-      color: white;
+      background: #e0e7ff;
+      color: #4338ca;
+    }
+    
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: #0f172a;
+      line-height: 1.2;
     }
     
     .hero-description {
       font-size: 1.2rem;
+      color: #64748b;
       margin-bottom: 2rem;
-      opacity: 0.95;
+      line-height: 1.6;
     }
     
     .hero-stats {
       display: flex;
       gap: 2rem;
       margin-bottom: 2rem;
+      flex-wrap: wrap;
     }
     
     .hero-stat {
@@ -157,195 +356,82 @@ const isNew = data.founded && parseInt(data.founded) >= 2023;
     }
     
     .hero-stat-number {
-      font-size: 1.8rem;
-      font-weight: 800;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0f172a;
       display: block;
     }
     
     .hero-stat-label {
-      font-size: 0.9rem;
-      opacity: 0.8;
+      font-size: 0.8rem;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     
-    /* MONEY-MAKING CTA BUTTONS */
-    .cta-group {
-      display: flex;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-    
-    .cta-primary {
-      background: #ff6b6b;
+    .hero-cta {
+      background: #3b82f6;
       color: white;
       padding: 1rem 2rem;
-      border-radius: 0.5rem;
+      border-radius: 8px;
       text-decoration: none;
       font-weight: 700;
       font-size: 1.1rem;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      box-shadow: 0 10px 30px rgba(255,107,107,0.3);
       transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
+      border: 2px solid #3b82f6;
     }
     
-    .cta-primary::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s;
-    }
-    
-    .cta-primary:hover::before {
-      left: 100%;
-    }
-    
-    .cta-primary:hover {
+    .hero-cta:hover {
+      background: #2563eb;
+      border-color: #2563eb;
       transform: translateY(-2px);
-      box-shadow: 0 15px 40px rgba(255,107,107,0.4);
+      box-shadow: 0 4px 12px rgba(59,130,246,0.3);
     }
-    
-    .cta-secondary {
-      background: rgba(255,255,255,0.2);
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: 0.5rem;
-      text-decoration: none;
-      font-weight: 600;
-      border: 2px solid rgba(255,255,255,0.3);
-      transition: all 0.3s;
-    }
-    
-    .cta-secondary:hover {
-      background: rgba(255,255,255,0.3);
-      border-color: rgba(255,255,255,0.5);
-    }
-    
-    /* Hero Visual */
-    .hero-visual {
-      text-align: center;
-    }
-    
-    .tool-mockup {
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(20px);
-      border-radius: 1rem;
-      padding: 2rem;
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-    
-    .tool-icon {
-      font-size: 4rem;
-      margin-bottom: 1rem;
-    }
-    
-    .trust-indicators {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 2rem;
-      flex-wrap: wrap;
-    }
-    
-    .trust-item {
-      text-align: center;
-      opacity: 0.9;
-    }
-    
-    /* CONTENT SECTIONS */
-    .container {
-      max-width: 1200px;
+
+    /* Main Content */
+    .main-content {
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 0 2rem;
-    }
-    
-    .section {
-      padding: 4rem 0;
-    }
-    
-    .section-white {
-      background: white;
-    }
-    
-    .section-gray {
-      background: #f8fafc;
-    }
-    
-    .section-title {
-      font-size: 2.5rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
-      color: #1a202c;
-    }
-    
-    .section-subtitle {
-      font-size: 1.2rem;
-      color: #666;
-      margin-bottom: 3rem;
-    }
-    
-    /* Features Grid */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin: 3rem 0;
-    }
-    
-    .feature-card {
-      background: white;
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-      transition: all 0.3s;
-    }
-    
-    .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    }
-    
-    .feature-icon {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-    
-    .feature-title {
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: #1a202c;
-    }
-    
-    /* Pricing Section - CONVERSION OPTIMIZED */
-    .pricing {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
       padding: 4rem 2rem;
-      text-align: center;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
     }
     
+    .content {
+      background: white;
+      padding: 3rem;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* Pricing Card */
     .pricing-card {
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(20px);
-      border-radius: 1rem;
-      padding: 3rem 2rem;
-      max-width: 500px;
-      margin: 0 auto;
-      border: 1px solid rgba(255,255,255,0.2);
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      text-align: center;
+      position: sticky;
+      top: 100px;
     }
     
     .pricing-tag {
-      background: #ff6b6b;
+      background: #3b82f6;
       color: white;
       padding: 0.5rem 1rem;
-      border-radius: 2rem;
+      border-radius: 20px;
       font-size: 0.9rem;
       font-weight: 600;
       display: inline-block;
@@ -353,63 +439,130 @@ const isNew = data.founded && parseInt(data.founded) >= 2023;
     }
     
     .pricing-title {
-      font-size: 2rem;
-      font-weight: 800;
+      font-size: 1.5rem;
+      font-weight: 700;
       margin-bottom: 1rem;
+      color: #0f172a;
     }
     
     .pricing-description {
-      margin-bottom: 2rem;
-      opacity: 0.9;
+      color: #64748b;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
     }
     
     .pricing-cta {
-      background: #ff6b6b;
+      background: #3b82f6;
       color: white;
-      padding: 1.2rem 3rem;
-      border-radius: 0.5rem;
+      padding: 1rem 2rem;
+      border-radius: 8px;
       text-decoration: none;
       font-weight: 700;
-      font-size: 1.2rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      box-shadow: 0 10px 30px rgba(255,107,107,0.3);
+      display: block;
+      text-align: center;
       transition: all 0.3s;
       margin-bottom: 1rem;
     }
     
     .pricing-cta:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 40px rgba(255,107,107,0.4);
+      background: #2563eb;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59,130,246,0.3);
     }
     
     .pricing-note {
       font-size: 0.9rem;
-      opacity: 0.8;
+      color: #64748b;
+    }
+
+    /* Content Sections */
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #0f172a;
     }
     
+    .section-subtitle {
+      color: #64748b;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    /* Features Section */
+    .features-section {
+      margin: 3rem 0;
+    }
+    
+    .features-grid {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .feature-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: #f8fafc;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s;
+    }
+    
+    .feature-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border-color: #3b82f6;
+    }
+    
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      background: #3b82f6;
+      color: white;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-weight: 600;
+    }
+    
+    .feature-content h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #0f172a;
+    }
+    
+    .feature-content p {
+      color: #64748b;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
     /* Pros & Cons */
     .pros-cons {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 3rem;
+      gap: 2rem;
       margin: 3rem 0;
     }
     
     .pros, .cons {
-      background: white;
       padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      background: #f8fafc;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
     }
     
     .pros {
-      border-left: 4px solid #51cf66;
+      border-left: 4px solid #10b981;
     }
     
     .cons {
-      border-left: 4px solid #ff6b6b;
+      border-left: 4px solid #ef4444;
     }
     
     .pros-title, .cons-title {
@@ -422,11 +575,11 @@ const isNew = data.founded && parseInt(data.founded) >= 2023;
     }
     
     .pros-title {
-      color: #51cf66;
+      color: #10b981;
     }
     
     .cons-title {
-      color: #ff6b6b;
+      color: #ef4444;
     }
     
     .pros-list, .cons-list {
@@ -434,10 +587,12 @@ const isNew = data.founded && parseInt(data.founded) >= 2023;
     }
     
     .pros-list li, .cons-list li {
-      padding: 0.5rem 0;
+      padding: 0.75rem 0;
       display: flex;
       align-items: flex-start;
       gap: 0.5rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
     }
     
     .pros-list li::before {
@@ -449,71 +604,10 @@ const isNew = data.founded && parseInt(data.founded) >= 2023;
       content: "❌";
       flex-shrink: 0;
     }
-    
-    /* Similar Tools - CROSS-SELLING */
-    .similar-tools {
-      background: #f8fafc;
-      padding: 4rem 2rem;
-    }
-    
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-    
-    .tool-card {
-      background: white;
-      border-radius: 1rem;
-      padding: 2rem;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-      transition: all 0.3s;
-      border: 1px solid #e2e8f0;
-    }
-    
-    .tool-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      border-color: #667eea;
-    }
-    
-    .tool-card-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: #1a202c;
-    }
-    
-    .tool-card-description {
-      color: #666;
-      margin-bottom: 1.5rem;
-      font-size: 0.95rem;
-    }
-    
-    .tool-card-cta {
-      background: #667eea;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.5rem;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.95rem;
-      transition: all 0.3s;
-    }
-    
-    .tool-card-cta:hover {
-      background: #5a67d8;
-      transform: translateY(-2px);
-    }
-    
+
     /* FAQ Section */
-    .faq {
-      padding: 4rem 2rem;
-      background: white;
+    .faq-section {
+      margin: 3rem 0;
     }
     
     .faq-item {
@@ -521,136 +615,293 @@ const isNew = data.founded && parseInt(data.founded) >= 2023;
       padding: 1.5rem 0;
     }
     
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+    
     .faq-question {
       font-size: 1.1rem;
       font-weight: 600;
-      color: #1a202c;
-      margin-bottom: 0.5rem;
+      color: #0f172a;
+      margin-bottom: 0.75rem;
     }
     
     .faq-answer {
-      color: #666;
+      color: #64748b;
       line-height: 1.6;
     }
-    
-    /* Bottom CTA - FINAL CONVERSION PUSH */
-    .bottom-cta {
-      background: linear-gradient(135deg, #ff6b6b 0%, #ff5722 100%);
-      color: white;
-      padding: 4rem 2rem;
-      text-align: center;
-    }
-    
-    .bottom-cta-title {
-      font-size: 2.5rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
-    }
-    
-    .bottom-cta-subtitle {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      opacity: 0.95;
-    }
-    
-    .bottom-cta-button {
+
+    /* Similar Tools */
+    .similar-tools {
       background: white;
-      color: #ff6b6b;
-      padding: 1.2rem 3rem;
-      border-radius: 0.5rem;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1.3rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      padding: 3rem 2rem;
+      margin: 3rem 0;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .tool-card {
+      background: #f8fafc;
+      border-radius: 8px;
+      padding: 1.5rem;
+      border: 1px solid #e2e8f0;
       transition: all 0.3s;
     }
     
-    .bottom-cta-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    .tool-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-color: #3b82f6;
     }
     
+    .tool-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #0f172a;
+    }
+    
+    .tool-card p {
+      color: #64748b;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    
+    .tool-card-cta {
+      background: #3b82f6;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+    
+    .tool-card-cta:hover {
+      background: #2563eb;
+      transform: translateY(-1px);
+    }
+
+    /* AdSense */
+    .ad-container {
+      margin: 3rem auto;
+      padding: 1.5rem;
+      max-width: 1400px;
+      text-align: center;
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .ad-container::before {
+      content: "Anzeige";
+      display: block;
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .ad-sidebar {
+      margin: 0;
+      padding: 1rem;
+    }
+
+    /* Footer */
+    .footer {
+      background: #0f172a;
+      color: white;
+      padding: 4rem 2rem 2rem;
+      margin-top: 4rem;
+    }
+    
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 2rem;
+    }
+    
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 1rem;
+    }
+    
+    .footer-description {
+      color: #94a3b8;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+    
+    .footer-section h4 {
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: white;
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .footer-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .footer-bottom {
+      border-top: 1px solid #374151;
+      padding-top: 2rem;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+
     /* Mobile Responsive */
     @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        z-index: 999;
+        border-top: 1px solid #e2e8f0;
+      }
+      
+      .nav-links.show {
+        display: flex;
+      }
+      
+      .nav-links li {
+        margin: 0.5rem 0;
+      }
+      
+      .mobile-menu {
+        display: block;
+      }
+      
       .hero-container {
         grid-template-columns: 1fr;
         text-align: center;
+        gap: 1rem;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
       }
       
       .hero-stats {
         justify-content: center;
+        gap: 1rem;
       }
       
-      .cta-group {
-        flex-direction: column;
-        align-items: center;
+      .main-content {
+        grid-template-columns: 1fr;
+        padding: 2rem 1rem;
+        gap: 2rem;
+      }
+      
+      .pricing-card {
+        position: static;
       }
       
       .pros-cons {
         grid-template-columns: 1fr;
       }
       
-      .trust-indicators {
-        gap: 1rem;
+      .tools-grid {
+        grid-template-columns: 1fr;
       }
-    }
-    
-    /* Urgency & Scarcity Elements */
-    .urgency-banner {
-      background: #ff6b6b;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-      font-weight: 600;
-      animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.8; }
-      100% { opacity: 1; }
-    }
-    
-    .limited-time {
-      background: #ffd43b;
-      color: #333;
-      padding: 0.5rem 1rem;
-      border-radius: 2rem;
-      font-weight: 600;
-      display: inline-block;
-      margin-bottom: 1rem;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-    
-    @keyframes glow {
-      from { box-shadow: 0 0 5px #ffd43b; }
-      to { box-shadow: 0 0 20px #ffd43b, 0 0 30px #ffd43b; }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
     }
   </style>
 </head>
 
 <body>
-  <!-- Urgency Banner -->
-  <div class="urgency-banner">
-    🔥 HEUTE NOCH: {data.title} kostenlos testen - Limitierte Aktion! 🔥
-  </div>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">AI Tool Vault</a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tools">Tools</a></li>
+        <li><a href="/impressum">Impressum</a></li>
+        <li><a href="/kontakt">Kontakt</a></li>
+        <li><a href="/datenschutz">Datenschutz</a></li>
+      </ul>
+      <button class="mobile-menu">☰</button>
+    </div>
+  </nav>
 
-  <!-- Hero Section - CONVERSION FOCUSED -->
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb">
+    <div class="breadcrumb-container">
+      <a href="/">Home</a>
+      <span>›</span>
+      <a href="/tools">Tools</a>
+      <span>›</span>
+      <a href={`/tools?category=${encodeURIComponent(data.category)}`}>{data.category}</a>
+      <span>›</span>
+      <span class="current">{data.title}</span>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
   <section class="hero">
     <div class="hero-container">
+      <img 
+        src={getToolLogo(data.title)} 
+        alt="{data.title} Logo" 
+        class="tool-logo"
+        onerror="this.src='https://ui-avatars.com/api/?name={encodeURIComponent(data.title)}&background=3b82f6&color=fff&size=100&rounded=true'"
+      />
+      
       <div class="hero-content">
         <div class="hero-badges">
           {isPopular && <span class="badge badge-popular">🔥 Beliebt bei {Math.floor(userCount/1000)}k+ Nutzern</span>}
           {data.pricing === "Kostenlos" && <span class="badge badge-free">✅ Komplett kostenlos</span>}
           {data.free_trial && <span class="badge badge-free">🎁 Kostenlose Testversion</span>}
-          {isNew && <span class="badge badge-new">⭐ Neu 2024</span>}
+          {isNew && <span class="badge badge-new">⭐ Neu 2025</span>}
           <span class="badge badge-expert">👑 Experten-Empfehlung</span>
         </div>
         
-        <h1>{data.title} Test & Erfahrungen 2024</h1>
+        <h1>{data.title} Test & Erfahrungen 2025</h1>
         <p class="hero-description">{data.description}</p>
         
         <div class="hero-stats">
@@ -666,140 +917,106 @@ const isNew = data.founded && parseInt(data.founded) >= 2023;
             <span class="hero-stat-number">{data.pricing || "Freemium"}</span>
             <span class="hero-stat-label">💰 Preismodell</span>
           </div>
-        </div>
-        
-        <div class="cta-group">
-          <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="cta-primary">
-            🚀 JETZT KOSTENLOS TESTEN
-          </a>
-          <a href="#features" class="cta-secondary">
-            📋 Alle Features ansehen
-          </a>
+          <div class="hero-stat">
+            <span class="hero-stat-number">{data.category}</span>
+            <span class="hero-stat-label">📂 Kategorie</span>
+          </div>
         </div>
       </div>
       
-      <div class="hero-visual">
-        <div class="tool-mockup">
-          <div class="tool-icon">
-            {data.category === 'Textgenerierung' ? '📝' :
-             data.category === 'Bildgenerierung' ? '🎨' :
-             data.category === 'Videobearbeitung' ? '🎬' :
-             data.category === 'Coding' ? '💻' :
-             data.category === 'Audiogenerierung' ? '🎵' :
-             data.category === 'Design' ? '🎯' :
-             data.category === 'Produktivität' ? '⚡' :
-             data.category === 'Literaturrecherche' ? '📚' :
-             data.category === 'Multimodal' ? '🔄' : '🤖'}
-          </div>
-          <h3>{data.category} Tool</h3>
-          <p>Kategorie: {data.category}</p>
-        </div>
-        
-        <div class="trust-indicators">
-          <div class="trust-item">
-            <div>🛡️</div>
-            <div>Sicher & Vertrauenswürdig</div>
-          </div>
-          <div class="trust-item">
-            <div>⚡</div>
-            <div>Sofort einsatzbereit</div>
-          </div>
-          <div class="trust-item">
-            <div>🎯</div>
-            <div>Experten-geprüft</div>
-          </div>
-        </div>
-      </div>
+      <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="hero-cta">
+        🚀 Jetzt kostenlos testen →
+      </a>
     </div>
   </section>
 
-  <!-- Features Section -->
-  <section class="section section-white" id="features">
-    <div class="container">
-      <h2 class="section-title">{data.title} Features & Funktionen</h2>
-      <p class="section-subtitle">Alle wichtigen Features im Detail erklärt</p>
-      
-      <div class="features-grid">
-        {data.use_cases && data.use_cases.map(useCase => (
-          <div class="feature-card">
-            <div class="feature-icon">✨</div>
-            <h3 class="feature-title">{useCase}</h3>
-            <p>Perfekt geeignet für {useCase.toLowerCase()} und verwandte Aufgaben.</p>
+  <!-- AdSense #1 -->
+  <div class="ad-container">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5595876978844902"
+         data-ad-slot="AUTO"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="content">
+      <!-- Features Section -->
+      <div class="features-section">
+        <h2 class="section-title">{data.title} Features & Funktionen</h2>
+        <p class="section-subtitle">Alle wichtigen Features im Detail erklärt</p>
+        
+        <div class="features-grid">
+          {data.use_cases && data.use_cases.map(useCase => (
+            <div class="feature-item">
+              <div class="feature-icon">✨</div>
+              <div class="feature-content">
+                <h3>{useCase}</h3>
+                <p>Perfekt geeignet für {useCase.toLowerCase()} und verwandte Aufgaben. Hochwertige Ergebnisse durch modernste KI-Technologie.</p>
+              </div>
+            </div>
+          ))}
+          
+          {data.api_available && (
+            <div class="feature-item">
+              <div class="feature-icon">🔌</div>
+              <div class="feature-content">
+                <h3>API Verfügbar</h3>
+                <p>Integriere {data.title} nahtlos in deine bestehenden Workflows und Anwendungen über die leistungsstarke API.</p>
+              </div>
+            </div>
+          )}
+          
+          {data.mobile_app && (
+            <div class="feature-item">
+              <div class="feature-icon">📱</div>
+              <div class="feature-content">
+                <h3>Mobile App</h3>
+                <p>Nutze {data.title} auch unterwegs auf deinem Smartphone oder Tablet - vollständige Funktionalität überall verfügbar.</p>
+              </div>
+            </div>
+          )}
+          
+          <div class="feature-item">
+            <div class="feature-icon">🚀</div>
+            <div class="feature-content">
+              <h3>Einfache Bedienung</h3>
+              <p>Intuitive Benutzeroberfläche macht {data.title} auch für Anfänger perfekt zugänglich. Schneller Einstieg garantiert.</p>
+            </div>
           </div>
-        ))}
-        
-        {data.api_available && (
-          <div class="feature-card">
-            <div class="feature-icon">🔌</div>
-            <h3 class="feature-title">API Verfügbar</h3>
-            <p>Integriere {data.title} nahtlos in deine bestehenden Workflows.</p>
+          
+          <div class="feature-item">
+            <div class="feature-icon">🎯</div>
+            <div class="feature-content">
+              <h3>Präzise Ergebnisse</h3>
+              <p>Hochqualitative Outputs durch modernste KI-Technologie. Konstant zuverlässige und professionelle Resultate.</p>
+            </div>
           </div>
-        )}
-        
-        {data.mobile_app && (
-          <div class="feature-card">
-            <div class="feature-icon">📱</div>
-            <h3 class="feature-title">Mobile App</h3>
-            <p>Nutze {data.title} auch unterwegs auf deinem Smartphone.</p>
+          
+          <div class="feature-item">
+            <div class="feature-icon">⚡</div>
+            <div class="feature-content">
+              <h3>Blitzschnell</h3>
+              <p>Ergebnisse in Sekunden - spare wertvolle Zeit bei deinen Projekten und steigere deine Produktivität erheblich.</p>
+            </div>
           </div>
-        )}
-        
-        <div class="feature-card">
-          <div class="feature-icon">🚀</div>
-          <h3 class="feature-title">Einfache Bedienung</h3>
-          <p>Intuitive Benutzeroberfläche - auch für Anfänger perfekt geeignet.</p>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">🎯</div>
-          <h3 class="feature-title">Präzise Ergebnisse</h3>
-          <p>Hochqualitative Outputs durch modernste KI-Technologie.</p>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">⚡</div>
-          <h3 class="feature-title">Blitzschnell</h3>
-          <p>Ergebnisse in Sekunden - spare wertvolle Zeit bei deinen Projekten.</p>
+
+          {data.languages && data.languages.length > 0 && (
+            <div class="feature-item">
+              <div class="feature-icon">🌍</div>
+              <div class="feature-content">
+                <h3>Mehrsprachig</h3>
+                <p>Unterstützt {data.languages.join(', ')} und weitere Sprachen für eine globale Nutzung.</p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Pricing CTA Section -->
-  <section class="pricing">
-    <div class="container">
-      <div class="pricing-card">
-        <div class="limited-time">⏰ Limitierte Zeit</div>
-        <div class="pricing-tag">
-          {data.pricing === "Kostenlos" ? "🎁 KOMPLETT KOSTENLOS" :
-           data.pricing === "Freemium" ? "🚀 KOSTENLOSER START" :
-           "💰 PREMIUM TOOL"}
-        </div>
-        <h2 class="pricing-title">{data.title} jetzt testen</h2>
-        <p class="pricing-description">
-          {data.free_trial ? 
-            "Starte deine kostenlose Testversion und überzeuge dich selbst von der Qualität." :
-            data.pricing === "Kostenlos" ?
-            "Komplett kostenlos - keine versteckten Kosten, keine Kreditkarte erforderlich." :
-            "Sichere dir jetzt Zugang zu diesem Premium-Tool und revolutioniere deine Arbeit."}
-        </p>
-        <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="pricing-cta">
-          🎯 JETZT {data.pricing === "Kostenlos" ? "KOSTENLOS" : "TESTEN"} STARTEN
-        </a>
-        <p class="pricing-note">
-          ✅ Keine Kreditkarte erforderlich • ✅ Sofortiger Zugang • ✅ Jederzeit kündbar
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pros & Cons Section -->
-  {(data.pros?.length > 0 || data.cons?.length > 0) && (
-    <section class="section section-white">
-      <div class="container">
-        <h2 class="section-title">{data.title} Vor- und Nachteile</h2>
-        <p class="section-subtitle">Unsere ehrliche Bewertung nach ausführlichem Test</p>
-        
+      <!-- Pros & Cons Section -->
+      {(data.pros?.length > 0 || data.cons?.length > 0) && (
         <div class="pros-cons">
           <div class="pros">
             <h3 class="pros-title">✅ Vorteile</h3>
@@ -808,7 +1025,8 @@ const isNew = data.founded && parseInt(data.founded) >= 2023;
                 <li>Intuitive und benutzerfreundliche Oberfläche</li>,
                 <li>Hochqualitative Ergebnisse durch moderne KI</li>,
                 <li>Schnelle Verarbeitung und sofortige Resultate</li>,
-                <li>Regelmäßige Updates und neue Features</li>
+                <li>Regelmäßige Updates und neue Features</li>,
+                <li>Ausgezeichnete Preis-Leistungs-Verhältnis</li>
               ]}
             </ul>
           </div>
@@ -819,27 +1037,96 @@ const isNew = data.founded && parseInt(data.founded) >= 2023;
               {data.cons?.map(con => <li>{con}</li>) || [
                 <li>Erweiterte Features nur in Premium-Version</li>,
                 <li>Lernkurve für komplexere Funktionen</li>,
-                <li>Abhängigkeit von Internetverbindung</li>
+                <li>Abhängigkeit von stabiler Internetverbindung</li>
               ]}
             </ul>
           </div>
         </div>
-      </div>
-    </section>
-  )}
+      )}
 
-  <!-- Similar Tools - CROSS-SELLING -->
+      <!-- FAQ Section -->
+      <div class="faq-section">
+        <h2 class="section-title">Häufige Fragen zu {data.title}</h2>
+        <p class="section-subtitle">Alle wichtigen Antworten auf einen Blick</p>
+        
+        <div class="faq-list">
+          {faqItems.map(faq => (
+            <div class="faq-item">
+              <h3 class="faq-question">{faq.question}</h3>
+              <p class="faq-answer">{faq.answer}</p>
+            </div>
+          ))}
+          
+          <div class="faq-item">
+            <h3 class="faq-question">Ist {data.title} sicher und datenschutzkonform?</h3>
+            <p class="faq-answer">
+              Ja, {data.title} verwendet moderne Sicherheitsstandards und ist DSGVO-konform. 
+              Deine Daten werden verschlüsselt übertragen und sicher gespeichert.
+            </p>
+          </div>
+          
+          <div class="faq-item">
+            <h3 class="faq-question">Gibt es Support für {data.title}?</h3>
+            <p class="faq-answer">
+              {data.title} bietet umfassenden Support über verschiedene Kanäle. 
+              Dokumentation, Tutorials und Community-Support stehen zur Verfügung.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Pricing Card -->
+      <div class="pricing-card">
+        <div class="pricing-tag">
+          {data.pricing === "Kostenlos" ? "🎁 KOMPLETT KOSTENLOS" :
+           data.pricing === "Freemium" ? "🚀 KOSTENLOSER START" :
+           "💰 PREMIUM TOOL"}
+        </div>
+        <h3 class="pricing-title">{data.title} jetzt testen</h3>
+        <p class="pricing-description">
+          {data.free_trial ? 
+            "Starte deine kostenlose Testversion und überzeuge dich selbst von der Qualität und den Möglichkeiten." :
+            data.pricing === "Kostenlos" ?
+            "Komplett kostenlos - keine versteckten Kosten, keine Kreditkarte erforderlich." :
+            "Sichere dir jetzt Zugang zu diesem Premium-Tool und revolutioniere deine Arbeit."}
+        </p>
+        <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="pricing-cta">
+          🎯 Jetzt {data.pricing === "Kostenlos" ? "kostenlos" : ""} starten
+        </a>
+        <p class="pricing-note">
+          ✅ Keine Kreditkarte erforderlich<br>
+          ✅ Sofortiger Zugang<br>
+          ✅ {data.pricing === "Kostenlos" ? "Für immer kostenlos" : "Jederzeit kündbar"}
+        </p>
+      </div>
+
+      <!-- AdSense Sidebar -->
+      <div class="ad-container ad-sidebar">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-5595876978844902"
+             data-ad-slot="AUTO"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+      </div>
+    </div>
+  </div>
+
+  <!-- Similar Tools -->
   {similarTools.length > 0 && (
     <section class="similar-tools">
-      <div class="container">
+      <div style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
         <h2 class="section-title">Ähnliche {data.category} Tools</h2>
         <p class="section-subtitle">Weitere empfohlene Tools in der Kategorie {data.category}</p>
         
         <div class="tools-grid">
           {similarTools.map(similarTool => (
             <div class="tool-card">
-              <h3 class="tool-card-title">{similarTool.data.title}</h3>
-              <p class="tool-card-description">{similarTool.data.description}</p>
+              <h3>{similarTool.data.title}</h3>
+              <p>{similarTool.data.description}</p>
               <a href={`/tools/${similarTool.slug}`} class="tool-card-cta">
                 🔍 Details ansehen
               </a>
@@ -850,156 +1137,169 @@ const isNew = data.founded && parseInt(data.founded) >= 2023;
     </section>
   )}
 
-  <!-- FAQ Section - SEO BOOST -->
-  <section class="faq">
-    <div class="container">
-      <h2 class="section-title">Häufige Fragen zu {data.title}</h2>
-      <p class="section-subtitle">Alle wichtigen Antworten auf einen Blick</p>
-      
-      <div class="faq-list">
-        <div class="faq-item">
-          <h3 class="faq-question">Ist {data.title} kostenlos?</h3>
-          <p class="faq-answer">
-            {data.pricing === "Kostenlos" ? 
-              `Ja, ${data.title} ist komplett kostenlos nutzbar ohne versteckte Kosten.` :
-              data.pricing === "Freemium" ?
-              `${data.title} bietet eine kostenlose Basisversion. Für erweiterte Features gibt es Premium-Pläne.` :
-              `${data.title} ist ein Premium-Tool. ${data.free_trial ? "Es gibt jedoch eine kostenlose Testversion." : "Investition lohnt sich für professionelle Anwender."}`
-            }
+  <!-- AdSense #2: Vor Footer -->
+  <div class="ad-container">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5595876978844902"
+         data-ad-slot="AUTO"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-content">
+        <div>
+          <div class="footer-logo">AI Tool Vault</div>
+          <p class="footer-description">
+            Die umfassendste Sammlung von KI-Tools für Kreativität, Produktivität und Innovation. 
+            Entdecke die Zukunft heute.
           </p>
         </div>
         
-        <div class="faq-item">
-          <h3 class="faq-question">Für wen eignet sich {data.title}?</h3>
-          <p class="faq-answer">
-            {data.title} eignet sich perfekt für {data.category.toLowerCase()}-Anwender, 
-            {data.use_cases ? ` insbesondere für ${data.use_cases.slice(0,2).join(' und ')}.` : 
-            ' Kreative, Unternehmer und alle, die ihre Produktivität steigern möchten.'}
-          </p>
+        <div class="footer-section">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="/tools">Alle Tools</a></li>
+            <li><a href="/#categories">Kategorien</a></li>
+            <li><a href="/kontakt">Kontakt</a></li>
+          </ul>
         </div>
         
-        <div class="faq-item">
-          <h3 class="faq-question">Wie schnell kann ich mit {data.title} starten?</h3>
-          <p class="faq-answer">
-            Der Einstieg ist sehr einfach - nach der Anmeldung kannst du sofort loslegen. 
-            Die intuitive Benutzeroberfläche ermöglicht auch Anfängern einen schnellen Start.
-          </p>
-        </div>
-        
-        <div class="faq-item">
-          <h3 class="faq-question">Gibt es eine mobile App für {data.title}?</h3>
-          <p class="faq-answer">
-            {data.mobile_app ? 
-              `Ja, ${data.title} bietet auch eine mobile App für iOS und Android.` :
-              `${data.title} ist aktuell als Web-Anwendung verfügbar und funktioniert perfekt im Browser auf allen Geräten.`
-            }
-          </p>
-        </div>
-        
-        <div class="faq-item">
-          <h3 class="faq-question">Ist {data.title} sicher und datenschutzkonform?</h3>
-          <p class="faq-answer">
-            Ja, {data.title} verwendet moderne Sicherheitsstandards und ist DSGVO-konform. 
-            Deine Daten werden verschlüsselt übertragen und sicher gespeichert.
-          </p>
+        <div class="footer-section">
+          <h4>Rechtliches</h4>
+          <ul class="footer-links">
+            <li><a href="/impressum">Impressum</a></li>
+            <li><a href="/datenschutz">Datenschutz</a></li>
+            <li><a href="/kontakt">Support</a></li>
+          </ul>
         </div>
       </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 AI Tool Vault. Alle Rechte vorbehalten.</p>
+      </div>
     </div>
-  </section>
+  </footer>
 
-  <!-- Bottom CTA - FINAL CONVERSION PUSH -->
-  <section class="bottom-cta">
-    <div class="container">
-      <h2 class="bottom-cta-title">Bereit für {data.title}?</h2>
-      <p class="bottom-cta-subtitle">
-        Schließe dich {Math.floor(userCount/1000)}k+ zufriedenen Nutzern an und revolutioniere deine {data.category.toLowerCase()}-Arbeit noch heute!
-      </p>
-      <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="bottom-cta-button">
-        🚀 {data.title} JETZT STARTEN
-      </a>
-    </div>
-  </section>
-
-  <!-- MONEY-MAKING JavaScript -->
+  <!-- JavaScript für Tracking und AdSense -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Track alle Affiliate-Link Klicks für Revenue-Optimierung
+      
+      // ===== MOBILE MENU =====
+      const mobileMenuBtn = document.querySelector('.mobile-menu');
+      const navLinks = document.querySelector('.nav-links');
+      
+      if (mobileMenuBtn && navLinks) {
+        let menuOpen = false;
+        
+        mobileMenuBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          menuOpen = !menuOpen;
+          
+          if (menuOpen) {
+            navLinks.classList.add('show');
+            this.innerHTML = '✕';
+          } else {
+            navLinks.classList.remove('show');
+            this.innerHTML = '☰';
+          }
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function() {
+          if (menuOpen) {
+            navLinks.classList.remove('show');
+            mobileMenuBtn.innerHTML = '☰';
+            menuOpen = false;
+          }
+        });
+      }
+
+      // ===== AFFILIATE LINK TRACKING =====
       function trackAffiliateClick(element, position) {
         const toolName = "{data.title}";
         const category = "{data.category}";
         
-        console.log(`💰 AFFILIATE CLICK: ${toolName} - Position: ${position}`);
-        
-        // Google Analytics Event
         if (typeof gtag !== 'undefined') {
           gtag('event', 'affiliate_click', {
             'tool_name': toolName,
             'category': category,
             'position': position,
-            'value': 1 // Für Revenue-Tracking
+            'source': 'tool_detail_page',
+            'value': 20.00,
+            'currency': 'EUR'
           });
-        }
-        
-        // Plausible Analytics
-        if (typeof plausible !== 'undefined') {
-          plausible('Affiliate Click', {
-            props: {
-              tool: toolName,
-              category: category,
-              position: position
-            }
+          
+          // Enhanced Ecommerce Purchase Event
+          gtag('event', 'purchase', {
+            'transaction_id': `${Date.now()}_${toolName.replace(/\s+/g, '_')}`,
+            'value': 20.00,
+            'currency': 'EUR',
+            'items': [{
+              'item_id': toolName.toLowerCase().replace(/\s+/g, '_'),
+              'item_name': toolName,
+              'item_category': category,
+              'quantity': 1,
+              'price': 20.00
+            }]
           });
         }
       }
       
-      // Track Hauptbuttons
+      // Track all affiliate links
       document.querySelectorAll('a[href*="{data.affiliate_link}"]').forEach((link, index) => {
         link.addEventListener('click', function() {
-          const position = this.classList.contains('cta-primary') ? 'hero' :
-                          this.classList.contains('pricing-cta') ? 'pricing' :
-                          this.classList.contains('bottom-cta-button') ? 'bottom' :
+          const position = this.classList.contains('hero-cta') ? 'hero' :
+                          this.classList.contains('pricing-cta') ? 'sidebar' :
                           `position-${index + 1}`;
           
           trackAffiliateClick(this, position);
         });
       });
-      
-      // Scroll-based CTA Visibility (für A/B Testing)
-      let bottomCtaVisible = false;
-      const bottomCta = document.querySelector('.bottom-cta');
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && !bottomCtaVisible) {
-            bottomCtaVisible = true;
-            console.log('💰 Bottom CTA in viewport - high conversion opportunity');
-            
-            // Optional: Trigger zusätzliche Conversion-Optimierungen
-            if (typeof gtag !== 'undefined') {
-              gtag('event', 'bottom_cta_view', {
-                'tool_name': "{data.title}",
-                'scroll_depth': Math.round((window.scrollY / document.body.scrollHeight) * 100)
-              });
-            }
+
+      // ===== SIMILAR TOOLS TRACKING =====
+      document.querySelectorAll('.tool-card-cta').forEach((link, index) => {
+        link.addEventListener('click', function() {
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'similar_tool_click', {
+              'source_tool': "{data.title}",
+              'target_tool': this.closest('.tool-card').querySelector('h3').textContent,
+              'position': index + 1
+            });
           }
         });
-      }, { threshold: 0.5 });
+      });
+
+      // ===== SCROLL DEPTH TRACKING =====
+      let maxScroll = 0;
+      let milestones = [25, 50, 75, 90];
       
-      if (bottomCta) {
-        observer.observe(bottomCta);
-      }
-      
-      // Exit-Intent Detection (für weitere Conversion-Optimierung)
-      document.addEventListener('mouseleave', function(e) {
-        if (e.clientY < 0) {
-          console.log('🎯 Exit intent detected - potential conversion loss');
+      window.addEventListener('scroll', function() {
+        const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+        
+        if (scrollPercent > maxScroll) {
+          maxScroll = scrollPercent;
           
-          // Hier könntest du Exit-Intent Popups triggern
-          // Oder finale Conversion-Push Mechanismen
+          milestones.forEach(milestone => {
+            if (scrollPercent >= milestone && !window[`milestone_${milestone}_reached`]) {
+              window[`milestone_${milestone}_reached`] = true;
+              
+              if (typeof gtag !== 'undefined') {
+                gtag('event', 'scroll_depth', {
+                  'tool_name': "{data.title}",
+                  'scroll_depth': milestone,
+                  'page_type': 'tool_detail'
+                });
+              }
+            }
+          });
         }
       });
-      
-      // Time on Page Tracking (für Engagement-Messung)
+
+      // ===== TIME ON PAGE TRACKING =====
       let startTime = Date.now();
       let timeLogged = false;
       
@@ -1011,43 +1311,43 @@ const isNew = data.founded && parseInt(data.founded) >= 2023;
             gtag('event', 'time_on_tool_page', {
               'tool_name': "{data.title}",
               'time_seconds': timeSpent,
-              'category': "{data.category}"
+              'category': "{data.category}",
+              'page_type': 'tool_detail'
             });
           }
           
-          console.log(`⏱️ Time on ${data.title} page: ${timeSpent} seconds`);
           timeLogged = true;
         }
       });
-      
-      // Scroll Depth Tracking (für Content-Optimierung)
-      let maxScroll = 0;
-      
-      window.addEventListener('scroll', function() {
-        const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+
+      // ===== ADSENSE INITIALIZATION =====
+      function initAdSense() {
+        const ads = document.querySelectorAll('.adsbygoogle');
         
-        if (scrollPercent > maxScroll) {
-          maxScroll = scrollPercent;
-          
-          // Track wichtige Scroll-Meilensteine
-          if ([25, 50, 75, 90].includes(scrollPercent)) {
-            if (typeof gtag !== 'undefined') {
-              gtag('event', 'scroll_depth', {
-                'tool_name': "{data.title}",
-                'scroll_depth': scrollPercent
-              });
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.getAttribute('data-loaded')) {
+              try {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                entry.target.setAttribute('data-loaded', 'true');
+              } catch (e) {
+                console.warn('AdSense loading error:', e);
+              }
+              observer.unobserve(entry.target);
             }
-            
-            console.log(`📊 User scrolled ${scrollPercent}% through ${data.title} page`);
-          }
-        }
-      });
+          });
+        }, { threshold: 0.1 });
+        
+        ads.forEach(ad => observer.observe(ad));
+      }
       
-      console.log(`💰 Revenue tracking initialized for ${data.title}`);
+      initAdSense();
+      
+      console.log(`✅ Tool detail page initialized for: {data.title}`);
     });
   </script>
 
-  <!-- Schema.org Structured Data für Rich Snippets -->
+  <!-- Schema.org Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -1057,6 +1357,7 @@ const isNew = data.founded && parseInt(data.founded) >= 2023;
     "applicationCategory": "{data.category}",
     "operatingSystem": "Web Browser",
     "url": "https://aitoolvault.com/tools/{tool.slug}",
+    "image": "{getToolLogo(data.title)}",
     "author": {
       "@type": "Organization",
       "name": "{data.company || data.title}"
@@ -1099,30 +1400,15 @@ const isNew = data.founded && parseInt(data.founded) >= 2023;
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Ist {data.title} kostenlos?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "{data.pricing === 'Kostenlos' ? `Ja, ${data.title} ist komplett kostenlos nutzbar.` : data.pricing === 'Freemium' ? `${data.title} bietet eine kostenlose Basisversion.` : `${data.title} ist ein Premium-Tool mit ${data.free_trial ? 'kostenloser Testversion' : 'verschiedenen Preisplänen'}.`}"
-        }
-      },
-      {
-        "@type": "Question", 
-        "name": "Für wen eignet sich {data.title}?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "{data.title} eignet sich für {data.category.toLowerCase()}-Anwender, Kreative, Unternehmer und alle, die ihre Produktivität steigern möchten."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Wie funktioniert {data.title}?", 
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "{data.title} ist ein KI-gestütztes {data.category} Tool mit intuitiver Benutzeroberfläche. Nach der Anmeldung können Sie sofort loslegen."
-        }
-      }
+      {faqItems.map((faq, index) => `
+        ${index > 0 ? ',' : ''}{
+          "@type": "Question",
+          "name": "${faq.question}",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "${faq.answer}"
+          }
+        }`).join('')}
     ]
   }
   </script>
