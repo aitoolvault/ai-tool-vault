@@ -144,6 +144,16 @@ const totalCategories = allCategories.length;
       transform: translateY(-1px);
     }
     
+    /* Mobile Menu */
+    .mobile-menu {
+      display: none;
+      background: none;
+      border: none;
+      color: #0f172a;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
     /* Hero Section */
     .hero {
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
@@ -250,102 +260,102 @@ const totalCategories = allCategories.length;
     
     /* Features Grid */
     .features {
-  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-  position: relative;
-  overflow: hidden;
-}
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      position: relative;
+      overflow: hidden;
+    }
 
-.features::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(59,130,246,0.03) 0%, transparent 70%);
-  animation: float 20s ease-in-out infinite;
-}
+    .features::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(59,130,246,0.03) 0%, transparent 70%);
+      animation: float 20s ease-in-out infinite;
+    }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(180deg); }
-}
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(180deg); }
+    }
 
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2.5rem;
-  position: relative;
-  z-index: 2;
-}
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+      position: relative;
+      z-index: 2;
+    }
 
-.feature-card {
-  background: white;
-  padding: 3rem 2rem;
-  border-radius: 16px;
-  text-align: center;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid #f1f5f9;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
+    .feature-card {
+      background: white;
+      padding: 3rem 2rem;
+      border-radius: 16px;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid #f1f5f9;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
 
-.feature-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(59,130,246,0.05), transparent);
-  transition: left 0.6s;
-}
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59,130,246,0.05), transparent);
+      transition: left 0.6s;
+    }
 
-.feature-card:hover::before {
-  left: 100%;
-}
+    .feature-card:hover::before {
+      left: 100%;
+    }
 
-.feature-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  border-color: rgba(59,130,246,0.2);
-}
+    .feature-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      border-color: rgba(59,130,246,0.2);
+    }
 
-.feature-icon {
-  width: 70px;
-  height: 70px;
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  color: white;
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 2rem auto;
-  font-size: 1.75rem;
-  font-weight: 600;
-  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.4);
-  transition: all 0.3s;
-}
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem auto;
+      font-size: 1.75rem;
+      font-weight: 600;
+      box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.4);
+      transition: all 0.3s;
+    }
 
-.feature-card:hover .feature-icon {
-  transform: scale(1.1) rotate(5deg);
-  box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.5);
-}
+    .feature-card:hover .feature-icon {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.5);
+    }
 
-.feature-title {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 1.25rem;
-  color: #0f172a;
-  line-height: 1.3;
-}
+    .feature-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      color: #0f172a;
+      line-height: 1.3;
+    }
 
-.feature-description {
-  color: #64748b;
-  line-height: 1.7;
-  font-size: 1rem;
-}
+    .feature-description {
+      color: #64748b;
+      line-height: 1.7;
+      font-size: 1rem;
+    }
     
     /* Tools Grid */
     .tools-grid {
@@ -584,7 +594,7 @@ const totalCategories = allCategories.length;
     
     .footer-content {
       display: grid;
-      grid-template-columns: 2fr 1fr;
+      grid-template-columns: 2fr 1fr 1fr;
       gap: 3rem;
       margin-bottom: 2rem;
     }
@@ -674,21 +684,29 @@ const totalCategories = allCategories.length;
     .ad-pre-footer::before {
       color: #94a3b8;
     }
-
-    /* Mobile Menu */
-    .mobile-menu {
-      display: none;
-      background: none;
-      border: none;
-      color: #0f172a;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
     
     /* Mobile Responsive */
     @media (max-width: 768px) {
       .nav-links {
         display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        z-index: 999;
+        border-top: 1px solid #e2e8f0;
+      }
+      
+      .nav-links.show {
+        display: flex;
+      }
+      
+      .nav-links li {
+        margin: 0.5rem 0;
       }
       
       .mobile-menu {
@@ -735,19 +753,19 @@ const totalCategories = allCategories.length;
 <body>
   <!-- Navigation -->
   <nav class="nav">
-  <div class="nav-container">
-    <a href="/" class="nav-logo">AI Tool Vault</a>
-    <ul class="nav-links">
-      <li><a href="/">Home</a></li>
-      <li><a href="/tools">Tools</a></li>
-      <li><a href="/impressum">Impressum</a></li>
-      <li><a href="/kontakt">Kontakt</a></li>
-      <li><a href="/datenschutz">Datenschutz</a></li>
-    </ul>
-    <a href="/tools" class="nav-cta">Tools entdecken</a>
-    <button class="mobile-menu">☰</button>
-  </div>
-</nav>
+    <div class="nav-container">
+      <a href="/" class="nav-logo">AI Tool Vault</a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tools">Tools</a></li>
+        <li><a href="/impressum">Impressum</a></li>
+        <li><a href="/kontakt">Kontakt</a></li>
+        <li><a href="/datenschutz">Datenschutz</a></li>
+      </ul>
+      <a href="/tools" class="nav-cta">Tools entdecken</a>
+      <button class="mobile-menu">☰</button>
+    </div>
+  </nav>
 
   <!-- Hero Section -->
   <section class="hero">
@@ -973,40 +991,40 @@ const totalCategories = allCategories.length;
 
   <!-- Footer -->
   <footer class="footer">
-  <div class="footer-container">
-    <div class="footer-content">
-      <div>
-        <div class="footer-logo">AI Tool Vault</div>
-        <p class="footer-description">
-          Die umfassendste Sammlung von KI-Tools für Kreativität, Produktivität und Innovation. 
-          Entdecke die Zukunft heute.
-        </p>
+    <div class="footer-container">
+      <div class="footer-content">
+        <div>
+          <div class="footer-logo">AI Tool Vault</div>
+          <p class="footer-description">
+            Die umfassendste Sammlung von KI-Tools für Kreativität, Produktivität und Innovation. 
+            Entdecke die Zukunft heute.
+          </p>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="/tools">Alle Tools</a></li>
+            <li><a href="#categories">Kategorien</a></li>
+            <li><a href="/kontakt">Kontakt</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Rechtliches</h4>
+          <ul class="footer-links">
+            <li><a href="/impressum">Impressum</a></li>
+            <li><a href="/datenschutz">Datenschutz</a></li>
+            <li><a href="/kontakt">Support</a></li>
+          </ul>
+        </div>
       </div>
       
-      <div class="footer-section">
-        <h4>Navigation</h4>
-        <ul class="footer-links">
-          <li><a href="/tools">Alle Tools</a></li>
-          <li><a href="#categories">Kategorien</a></li>
-          <li><a href="/kontakt">Kontakt</a></li>
-        </ul>
-      </div>
-      
-      <div class="footer-section">
-        <h4>Rechtliches</h4>
-        <ul class="footer-links">
-          <li><a href="/impressum">Impressum</a></li>
-          <li><a href="/datenschutz">Datenschutz</a></li>
-          <li><a href="/kontakt">Support</a></li>
-        </ul>
+      <div class="footer-bottom">
+        <p>&copy; 2025 AI Tool Vault. Alle Rechte vorbehalten.</p>
       </div>
     </div>
-    
-    <div class="footer-bottom">
-      <p>&copy; 2025 AI Tool Vault. Alle Rechte vorbehalten.</p>
-    </div>
-  </div>
-</footer>
+  </footer>
 
   <!-- JavaScript für Tracking und AdSense -->
   <script>
@@ -1180,19 +1198,10 @@ const totalCategories = allCategories.length;
           menuOpen = !menuOpen;
           
           if (menuOpen) {
-            navLinks.style.display = 'flex';
-            navLinks.style.position = 'absolute';
-            navLinks.style.top = '100%';
-            navLinks.style.left = '0';
-            navLinks.style.right = '0';
-            navLinks.style.background = 'white';
-            navLinks.style.flexDirection = 'column';
-            navLinks.style.padding = '1rem';
-            navLinks.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
-            navLinks.style.zIndex = '999';
+            navLinks.classList.add('show');
             this.innerHTML = '✕';
           } else {
-            navLinks.style.display = 'none';
+            navLinks.classList.remove('show');
             this.innerHTML = '☰';
           }
         });
@@ -1200,7 +1209,7 @@ const totalCategories = allCategories.length;
         // Close menu when clicking outside
         document.addEventListener('click', function() {
           if (menuOpen) {
-            navLinks.style.display = 'none';
+            navLinks.classList.remove('show');
             mobileMenuBtn.innerHTML = '☰';
             menuOpen = false;
           }
