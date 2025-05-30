@@ -1094,19 +1094,17 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
             </a>
           </div>
         </div>
-
-        {/* AdSense #2: Nach jedem 6. Tool */}
-        {(index + 1) % 6 === 0 && (
-          <div class="ad-container ad-in-grid">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-format="fluid"
-                 data-ad-layout-key="-fb+5w+4e-db+86"
-                 data-ad-client="ca-pub-5595876978844902"
-                 data-ad-slot="AUTO"></ins>
-          </div>
-        )}
       ))}
+
+      <!-- AdSense #2: In Grid -->
+      <div class="ad-container ad-in-grid">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-format="fluid"
+             data-ad-layout-key="-fb+5w+4e-db+86"
+             data-ad-client="ca-pub-5595876978844902"
+             data-ad-slot="AUTO"></ins>
+      </div>
     </div>
   </div>
   
