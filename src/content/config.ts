@@ -6,7 +6,6 @@ const apiPricingSchema = z.object({
     name: z.string(),
     input_price: z.number(),
     output_price: z.number(),
-    currency: z.string().default("EUR"),
     per_million_tokens: z.boolean().default(true),
     context_window: z.string(),
     popular: z.boolean().default(false),
@@ -18,7 +17,6 @@ const apiPricingSchema = z.object({
 const pricingPlanSchema = z.object({
   name: z.string(),
   price: z.union([z.number(), z.string()]), // Für "Auf Anfrage"
-  currency: z.string().default("EUR"),
   billing_cycle: z.enum(["monthly", "yearly", "one-time", "usage-based"]),
   per_user: z.boolean().default(false),
   minimum_users: z.number().optional(),
