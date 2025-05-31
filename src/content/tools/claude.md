@@ -34,8 +34,8 @@ pricing_details:
       
   paid_plans:
     - name: "Claude Pro"
-      price: 18
-      currency: "EUR"
+      price: 1
+      currency: "€"
       billing_cycle: "monthly"
       features:
         - "Claude 3 Opus & 3.5 Sonnet Zugang"
