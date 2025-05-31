@@ -68,6 +68,23 @@ function generateFAQ() {
 
 const faqItems = generateFAQ();
 const toolLogo = getToolLogo(data.title);
+
+// Pricing Helper Functions
+function formatPrice(price, currency = "EUR") {
+  if (typeof price === "string") return price;
+  if (price === 0) return "Kostenlos";
+  return `${price}${currency}`;
+}
+
+function formatBillingCycle(cycle) {
+  const cycles = {
+    "monthly": "pro Monat",
+    "yearly": "pro Jahr", 
+    "one-time": "einmalig",
+    "usage-based": "nutzungsabhängig"
+  };
+  return cycles[cycle] || cycle;
+}
 ---
 
 <!DOCTYPE html>
@@ -478,6 +495,26 @@ const toolLogo = getToolLogo(data.title);
       background: rgba(67, 56, 202, 0.2);
       color: #a5b4fc;
     }
+
+    .badge-api {
+      background: #f3e8ff;
+      color: #7c3aed;
+    }
+
+    [data-theme="dark"] .badge-api {
+      background: rgba(124, 58, 237, 0.2);
+      color: #c4b5fd;
+    }
+
+    .badge-security {
+      background: #ecfdf5;
+      color: #047857;
+    }
+
+    [data-theme="dark"] .badge-security {
+      background: rgba(4, 120, 87, 0.2);
+      color: #6ee7b7;
+    }
     
     .hero h1 {
       font-size: 2.5rem;
@@ -628,6 +665,461 @@ const toolLogo = getToolLogo(data.title);
       color: var(--text-secondary);
       margin-bottom: 2rem;
       font-size: 1.1rem;
+    }
+
+    /* DETAILED PRICING SECTIONS */
+    .pricing-overview {
+      background: var(--card-bg);
+      padding: 3rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-primary);
+      margin: 3rem 0;
+      box-shadow: 0 1px 3px var(--shadow-light);
+    }
+
+    .pricing-plans {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .plan-card {
+      background: var(--bg-tertiary);
+      padding: 2rem;
+      border-radius: 12px;
+      border: 2px solid var(--border-primary);
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .plan-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px var(--shadow-light);
+    }
+
+    .plan-card.popular {
+      border-color: var(--accent-primary);
+      box-shadow: 0 4px 12px var(--shadow-light);
+      transform: scale(1.02);
+    }
+
+    .plan-card.popular::before {
+      content: "Beliebt";
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent-primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      box-shadow: 0 2px 8px var(--shadow-light);
+    }
+
+    .plan-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .plan-price {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent-primary);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 0.25rem;
+    }
+
+    .plan-price .currency {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+    }
+
+    .plan-cycle {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .plan-features {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .plan-features li {
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .plan-features li::before {
+      content: "✅";
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .plan-limitations {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .plan-limitations li {
+      padding: 0.4rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .plan-limitations li::before {
+      content: "⚠️";
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .plan-note {
+      background: var(--bg-secondary);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      border-left: 3px solid var(--accent-primary);
+    }
+
+    .plan-cta {
+      background: var(--accent-primary);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      text-align: center;
+      display: block;
+      transition: all 0.3s ease;
+    }
+
+    .plan-cta:hover {
+      background: var(--accent-secondary);
+      transform: translateY(-2px);
+    }
+
+    /* API PRICING SECTION */
+    .api-pricing {
+      background: var(--card-bg);
+      padding: 3rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-primary);
+      margin: 3rem 0;
+      box-shadow: 0 1px 3px var(--shadow-light);
+    }
+
+    .api-models {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .api-model {
+      background: var(--bg-tertiary);
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-primary);
+      position: relative;
+    }
+
+    .api-model.popular {
+      border-color: var(--accent-primary);
+      box-shadow: 0 2px 8px var(--shadow-light);
+    }
+
+    .api-model.popular::before {
+      content: "Empfohlen";
+      position: absolute;
+      top: -8px;
+      right: 1rem;
+      background: var(--accent-primary);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .api-model-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .api-model-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .api-model-context {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      background: var(--bg-secondary);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      border: 1px solid var(--border-primary);
+    }
+
+    .api-pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .api-price-item {
+      text-align: center;
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      border: 1px solid var(--border-primary);
+    }
+
+    .api-price-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
+    }
+
+    .api-price-value {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+    }
+
+    .api-price-unit {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+
+    .api-model-note {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-style: italic;
+      margin-top: 1rem;
+      padding: 0.75rem;
+      background: var(--bg-secondary);
+      border-radius: 6px;
+      border-left: 3px solid var(--warning-color);
+    }
+
+    /* COMPARISON METRICS SECTION */
+    .comparison-section {
+      background: var(--card-bg);
+      padding: 3rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-primary);
+      margin: 3rem 0;
+      box-shadow: 0 1px 3px var(--shadow-light);
+    }
+
+    .comparison-table {
+      overflow-x: auto;
+      margin-top: 2rem;
+    }
+
+    .comparison-table table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px var(--shadow-light);
+    }
+
+    .comparison-table th {
+      background: var(--accent-primary);
+      color: white;
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .comparison-table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-primary);
+      font-size: 0.9rem;
+    }
+
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .comparison-table tr:nth-child(even) {
+      background: var(--bg-tertiary);
+    }
+
+    .metric-label {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .metric-value {
+      color: var(--text-secondary);
+    }
+
+    .metric-value.highlight {
+      color: var(--accent-primary);
+      font-weight: 600;
+    }
+
+    /* SPECIAL FEATURES SECTION */
+    .special-features {
+      background: var(--card-bg);
+      padding: 3rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-primary);
+      margin: 3rem 0;
+      box-shadow: 0 1px 3px var(--shadow-light);
+    }
+
+    .special-features-grid {
+      display: grid;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .special-feature {
+      background: var(--bg-tertiary);
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-primary);
+      position: relative;
+    }
+
+    .special-feature::before {
+      content: "⭐";
+      position: absolute;
+      top: -8px;
+      left: 1rem;
+      background: var(--warning-color);
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+
+    .special-feature h4 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .special-feature p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* SECURITY FEATURES */
+    .security-features {
+      background: var(--card-bg);
+      padding: 3rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-primary);
+      margin: 3rem 0;
+      box-shadow: 0 1px 3px var(--shadow-light);
+    }
+
+    .security-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .security-item {
+      background: var(--bg-tertiary);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-primary);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .security-item::before {
+      content: "🔒";
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .security-item span {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* VALUE SCORING */
+    .value-scoring {
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      color: white;
+      padding: 3rem;
+      border-radius: 12px;
+      margin: 3rem 0;
+      text-align: center;
+    }
+
+    .value-scores {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .value-score {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+    }
+
+    .score-number {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .score-label {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .score-description {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      line-height: 1.4;
     }
 
     .features-section {
@@ -963,6 +1455,22 @@ const toolLogo = getToolLogo(data.title);
       .pricing-card {
         position: static;
       }
+
+      .pricing-plans {
+        grid-template-columns: 1fr;
+      }
+
+      .comparison-table {
+        font-size: 0.8rem;
+      }
+
+      .api-pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .value-scores {
+        grid-template-columns: 1fr;
+      }
       
       .pros-cons {
         grid-template-columns: 1fr;
@@ -1018,7 +1526,9 @@ const toolLogo = getToolLogo(data.title);
           {isPopular && <span class="badge badge-popular">Beliebt</span>}
           {data.pricing === "Kostenlos" && <span class="badge badge-free">Kostenlos</span>}
           {isNew && <span class="badge badge-new">Neu</span>}
-          <span class="badge badge-expert">Expertenempfehlung</span>
+          {data.featured && <span class="badge badge-expert">Expertenempfehlung</span>}
+          {data.api_available && <span class="badge badge-api">API verfügbar</span>}
+          {data.security_features && data.security_features.length > 0 && <span class="badge badge-security">Sicher</span>}
         </div>
         
         <h1>{data.title}</h1>
@@ -1037,6 +1547,12 @@ const toolLogo = getToolLogo(data.title);
             <span class="hero-stat-number">{data.category}</span>
             <span class="hero-stat-label">Kategorie</span>
           </div>
+          {data.founded && (
+            <div class="hero-stat">
+              <span class="hero-stat-number">{data.founded}</span>
+              <span class="hero-stat-label">Gegründet</span>
+            </div>
+          )}
         </div>
       </div>
       
@@ -1062,6 +1578,53 @@ const toolLogo = getToolLogo(data.title);
       
       <p>{data.title} ist ein innovatives KI-Tool aus der Kategorie {data.category}. {data.description}</p>
       
+      {data.company && (
+        <p>Das Tool wird von <strong>{data.company}</strong> entwickelt{data.founded && `, einem Unternehmen das ${data.founded} gegründet wurde`}.</p>
+      )}
+
+      <!-- VALUE SCORING (falls verfügbar) -->
+      {(data.price_per_feature_score || data.value_for_money) && (
+        <div class="value-scoring">
+          <h3>Bewertung & Preis-Leistung</h3>
+          <div class="value-scores">
+            {data.price_per_feature_score && (
+              <div class="value-score">
+                <span class="score-number">{data.price_per_feature_score}/10</span>
+                <div class="score-label">Feature-Score</div>
+                <div class="score-description">Funktionen pro Euro</div>
+              </div>
+            )}
+            {data.value_for_money && (
+              <div class="value-score">
+                <span class="score-number">{data.value_for_money}/10</span>
+                <div class="score-label">Preis-Leistung</div>
+                <div class="score-description">Gesamtbewertung</div>
+              </div>
+            )}
+            <div class="value-score">
+              <span class="score-number">★ {expertRating.toFixed(1)}</span>
+              <div class="score-label">Expertenbewertung</div>
+              <div class="score-description">Unser Testurteil</div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <!-- SPECIAL FEATURES -->
+      {data.special_features && data.special_features.length > 0 && (
+        <div class="special-features">
+          <h3>Besondere Features</h3>
+          <div class="special-features-grid">
+            {data.special_features.map(feature => (
+              <div class="special-feature">
+                <h4>{feature.name}</h4>
+                <p>{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div class="features-section">
         <h3>Hauptfunktionen</h3>
         <div class="features-grid">
@@ -1088,8 +1651,52 @@ const toolLogo = getToolLogo(data.title);
               <p>Intuitive Benutzeroberfläche für Anfänger und Profis gleichermaßen</p>
             </div>
           </div>
+
+          {data.api_available && (
+            <div class="feature-item">
+              <div class="feature-icon">🔌</div>
+              <div class="feature-content">
+                <h3>API Integration</h3>
+                <p>Nahtlose Integration in bestehende Systeme über moderne APIs</p>
+              </div>
+            </div>
+          )}
+
+          {data.mobile_app && (
+            <div class="feature-item">
+              <div class="feature-icon">📱</div>
+              <div class="feature-content">
+                <h3>Mobile App</h3>
+                <p>Vollständige Funktionalität auf iOS und Android Geräten</p>
+              </div>
+            </div>
+          )}
+
+          {data.languages && data.languages.length > 3 && (
+            <div class="feature-item">
+              <div class="feature-icon">🌍</div>
+              <div class="feature-content">
+                <h3>Mehrsprachig</h3>
+                <p>Unterstützt {data.languages.length} Sprachen für globale Nutzung</p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
+
+      <!-- SECURITY FEATURES -->
+      {data.security_features && data.security_features.length > 0 && (
+        <div class="security-features">
+          <h3>Sicherheit & Compliance</h3>
+          <div class="security-grid">
+            {data.security_features.map(feature => (
+              <div class="security-item">
+                <span>{feature}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div class="pros-cons">
         <div class="pros">
@@ -1120,6 +1727,25 @@ const toolLogo = getToolLogo(data.title);
         </div>
       </div>
 
+      <!-- USE CASES -->
+      {data.use_cases && data.use_cases.length > 0 && (
+        <div class="features-section">
+          <h3>Anwendungsfälle</h3>
+          <p class="section-subtitle">{data.title} eignet sich besonders für:</p>
+          <div class="features-grid">
+            {data.use_cases.map((useCase, index) => (
+              <div class="feature-item">
+                <div class="feature-icon">{String(index + 1)}</div>
+                <div class="feature-content">
+                  <h3>{useCase}</h3>
+                  <p>Professionelle Anwendung für optimale Ergebnisse</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div class="faq-section">
         <h3>Häufig gestellte Fragen</h3>
         {faqItems.map(faq => (
@@ -1149,6 +1775,14 @@ const toolLogo = getToolLogo(data.title);
         <p class="pricing-note">
           {data.free_trial ? "✅ Kostenlose Testversion verfügbar" : "💡 Direkt loslegen"}
         </p>
+        
+        {data.price_category && (
+          <p class="pricing-note" style="margin-top: 1rem;">
+            <strong>Preiskategorie:</strong> {data.price_category === "budget" ? "Budget-freundlich" : 
+                                            data.price_category === "mid-range" ? "Mittelklasse" :
+                                            data.price_category === "premium" ? "Premium" : "Enterprise"}
+          </p>
+        )}
       </div>
 
       <div class="ad-container ad-sidebar">
@@ -1161,6 +1795,252 @@ const toolLogo = getToolLogo(data.title);
       </div>
     </div>
   </div>
+
+  <!-- DETAILED PRICING SECTION -->
+  {data.pricing_details && (
+    <div class="pricing-overview">
+      <h3>Detaillierte Preisübersicht</h3>
+      <p>Alle Preispläne und Features im Überblick</p>
+      
+      <div class="pricing-plans">
+        {/* FREE PLAN */}
+        {data.pricing_details.free_plan && data.pricing_details.free_plan.available && (
+          <div class="plan-card">
+            <h4 class="plan-name">Kostenlose Version</h4>
+            <div class="plan-price">
+              <span>0</span>
+              <span class="currency">€</span>
+            </div>
+            <div class="plan-cycle">{formatBillingCycle(data.pricing_details.free_plan.billing_cycle)}</div>
+            
+            <ul class="plan-features">
+              {data.pricing_details.free_plan.features.map(feature => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+            
+            {data.pricing_details.free_plan.limitations && data.pricing_details.free_plan.limitations.length > 0 && (
+              <ul class="plan-limitations">
+                {data.pricing_details.free_plan.limitations.map(limitation => (
+                  <li>{limitation}</li>
+                ))}
+              </ul>
+            )}
+            
+            <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="plan-cta">
+              Kostenlos starten
+            </a>
+          </div>
+        )}
+        
+        {/* PAID PLANS */}
+        {data.pricing_details.paid_plans && data.pricing_details.paid_plans.map(plan => (
+          <div class={`plan-card ${plan.popular ? 'popular' : ''}`}>
+            <h4 class="plan-name">{plan.name}</h4>
+            <div class="plan-price">
+              <span>{formatPrice(plan.price)}</span>
+              <span class="currency">{plan.currency || 'EUR'}</span>
+            </div>
+            <div class="plan-cycle">
+              {formatBillingCycle(plan.billing_cycle)}
+              {plan.per_user && ' pro Nutzer'}
+              {plan.minimum_users && ` (min. ${plan.minimum_users} Nutzer)`}
+            </div>
+            
+            <ul class="plan-features">
+              {plan.features.map(feature => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+            
+            {plan.limitations && plan.limitations.length > 0 && (
+              <ul class="plan-limitations">
+                {plan.limitations.map(limitation => (
+                  <li>{limitation}</li>
+                ))}
+              </ul>
+            )}
+            
+            {plan.note && (
+              <div class="plan-note">{plan.note}</div>
+            )}
+            
+            <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="plan-cta">
+              {plan.popular ? 'Jetzt upgraden' : 'Plan wählen'}
+            </a>
+          </div>
+        ))}
+      </div>
+      
+      {data.last_price_update && (
+        <p style="text-align: center; margin-top: 2rem; color: var(--text-secondary); font-size: 0.9rem;">
+          Preise zuletzt aktualisiert: {data.last_price_update}
+        </p>
+      )}
+    </div>
+  )}
+
+  <!-- API PRICING SECTION -->
+  {data.api_pricing && data.api_pricing.models && (
+    <div class="api-pricing">
+      <h3>API Preise für Entwickler</h3>
+      <p>Direkter Zugang zur KI über moderne APIs</p>
+      
+      <div class="api-models">
+        {data.api_pricing.models.map(model => (
+          <div class={`api-model ${model.popular ? 'popular' : ''}`}>
+            <div class="api-model-header">
+              <h4 class="api-model-name">{model.name}</h4>
+              <span class="api-model-context">{model.context_window}</span>
+            </div>
+            
+            <div class="api-pricing-grid">
+              <div class="api-price-item">
+                <div class="api-price-label">Input</div>
+                <div class="api-price-value">{model.input_price}€</div>
+                <div class="api-price-unit">pro {model.per_million_tokens ? 'Million Token' : 'Request'}</div>
+              </div>
+              
+              <div class="api-price-item">
+                <div class="api-price-label">Output</div>
+                <div class="api-price-value">{model.output_price}€</div>
+                <div class="api-price-unit">pro {model.per_million_tokens ? 'Million Token' : 'Request'}</div>
+              </div>
+            </div>
+            
+            {model.note && (
+              <div class="api-model-note">{model.note}</div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <!-- COMPARISON METRICS -->
+  {data.comparison_metrics && (
+    <div class="comparison-section">
+      <h3>Vergleichstabelle</h3>
+      <p>Detaillierter Vergleich aller verfügbaren Pläne</p>
+      
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              {data.pricing_details?.free_plan?.available && <th>Kostenlos</th>}
+              {data.pricing_details?.paid_plans?.map(plan => (
+                <th>{plan.name}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {/* Nachrichten pro Tag */}
+            {data.comparison_metrics.messages_per_day && (
+              <tr>
+                <td class="metric-label">Nachrichten pro Tag</td>
+                {Object.entries(data.comparison_metrics.messages_per_day).map(([plan, value]) => (
+                  <td class="metric-value">{value}</td>
+                ))}
+              </tr>
+            )}
+            
+            {/* Requests pro Monat */}
+            {data.comparison_metrics.requests_per_month && (
+              <tr>
+                <td class="metric-label">Requests pro Monat</td>
+                {Object.entries(data.comparison_metrics.requests_per_month).map(([plan, value]) => (
+                  <td class="metric-value">{value}</td>
+                ))}
+              </tr>
+            )}
+            
+            {/* Verfügbare Modelle */}
+            {data.comparison_metrics.models_included && (
+              <tr>
+                <td class="metric-label">Verfügbare Modelle</td>
+                {Object.entries(data.comparison_metrics.models_included).map(([plan, models]) => (
+                  <td class="metric-value">
+                    {Array.isArray(models) ? models.join(', ') : models}
+                  </td>
+                ))}
+              </tr>
+            )}
+            
+            {/* Kontextfenster */}
+            {data.comparison_metrics.context_window && (
+              <tr>
+                <td class="metric-label">Kontextfenster</td>
+                {Object.entries(data.comparison_metrics.context_window).map(([plan, value]) => (
+                  <td class="metric-value">{value}</td>
+                ))}
+              </tr>
+            )}
+            
+            {/* Datei-Upload Limit */}
+            {data.comparison_metrics.file_upload_limit && (
+              <tr>
+                <td class="metric-label">Datei-Upload Limit</td>
+                {Object.entries(data.comparison_metrics.file_upload_limit).map(([plan, value]) => (
+                  <td class="metric-value">{value}</td>
+                ))}
+              </tr>
+            )}
+            
+            {/* Support Level */}
+            {data.comparison_metrics.support_level && (
+              <tr>
+                <td class="metric-label">Support-Level</td>
+                {Object.entries(data.comparison_metrics.support_level).map(([plan, value]) => (
+                  <td class="metric-value">{value}</td>
+                ))}
+              </tr>
+            )}
+            
+            {/* Storage Limit */}
+            {data.comparison_metrics.storage_limit && (
+              <tr>
+                <td class="metric-label">Speicher-Limit</td>
+                {Object.entries(data.comparison_metrics.storage_limit).map(([plan, value]) => (
+                  <td class="metric-value">{value}</td>
+                ))}
+              </tr>
+            )}
+            
+            {/* Team Members */}
+            {data.comparison_metrics.team_members && (
+              <tr>
+                <td class="metric-label">Team-Mitglieder</td>
+                {Object.entries(data.comparison_metrics.team_members).map(([plan, value]) => (
+                  <td class="metric-value">{value}</td>
+                ))}
+              </tr>
+            )}
+            
+            {/* API Calls per Month */}
+            {data.comparison_metrics.api_calls_per_month && (
+              <tr>
+                <td class="metric-label">API-Calls pro Monat</td>
+                {Object.entries(data.comparison_metrics.api_calls_per_month).map(([plan, value]) => (
+                  <td class="metric-value">{value}</td>
+                ))}
+              </tr>
+            )}
+            
+            {/* Concurrent Users */}
+            {data.comparison_metrics.concurrent_users && (
+              <tr>
+                <td class="metric-label">Gleichzeitige Nutzer</td>
+                {Object.entries(data.comparison_metrics.concurrent_users).map(([plan, value]) => (
+                  <td class="metric-value">{value}</td>
+                ))}
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )}
 
   <div class="similar-tools">
     <h3>Ähnliche Tools</h3>
@@ -1310,13 +2190,20 @@ const toolLogo = getToolLogo(data.title);
         });
       }
 
+      // Enhanced Affiliate Tracking
       var affiliateButtons = document.querySelectorAll('a[href*="' + document.querySelector('.hero-cta').href.split('?')[0] + '"]');
       affiliateButtons.forEach(function(btn, index) {
         btn.addEventListener('click', function() {
+          var buttonType = 'unknown';
+          if (this.classList.contains('hero-cta')) buttonType = 'hero';
+          else if (this.classList.contains('pricing-cta')) buttonType = 'sidebar';
+          else if (this.classList.contains('plan-cta')) buttonType = 'pricing_plan';
+          
           if (typeof gtag !== 'undefined') {
             gtag('event', 'affiliate_click', {
               'tool_name': document.querySelector('h1').textContent,
               'source': 'tool_detail_page',
+              'button_type': buttonType,
               'position': index + 1,
               'affiliate_url': this.href,
               'value': 25.00,
@@ -1326,8 +2213,103 @@ const toolLogo = getToolLogo(data.title);
         });
       });
 
+      // Plan Comparison Tracking
+      var planCards = document.querySelectorAll('.plan-card');
+      planCards.forEach(function(card, index) {
+        var planName = card.querySelector('.plan-name')?.textContent || 'Unknown Plan';
+        var ctaButton = card.querySelector('.plan-cta');
+        
+        if (ctaButton) {
+          ctaButton.addEventListener('click', function() {
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'pricing_plan_click', {
+                'tool_name': document.querySelector('h1').textContent,
+                'plan_name': planName,
+                'plan_position': index + 1,
+                'is_popular': card.classList.contains('popular')
+              });
+            }
+          });
+        }
+      });
+
+      // API Model Interest Tracking
+      var apiModels = document.querySelectorAll('.api-model');
+      apiModels.forEach(function(model, index) {
+        model.addEventListener('click', function() {
+          var modelName = this.querySelector('.api-model-name')?.textContent || 'Unknown Model';
+          
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'api_model_interest', {
+              'tool_name': document.querySelector('h1').textContent,
+              'model_name': modelName,
+              'model_position': index + 1
+            });
+          }
+        });
+      });
+
+      // FAQ Interaction Tracking
+      var faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(function(item, index) {
+        item.addEventListener('click', function() {
+          var question = this.querySelector('.faq-question')?.textContent || 'Unknown Question';
+          
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'faq_interaction', {
+              'tool_name': document.querySelector('h1').textContent,
+              'question': question.substring(0, 50), // Limit length
+              'position': index + 1
+            });
+          }
+        });
+      });
+
+      // Similar Tools Tracking
+      var similarToolCards = document.querySelectorAll('.tool-card');
+      similarToolCards.forEach(function(card, index) {
+        var toolName = card.querySelector('h3')?.textContent || 'Unknown Tool';
+        var ctaButton = card.querySelector('.tool-card-cta');
+        
+        if (ctaButton) {
+          ctaButton.addEventListener('click', function() {
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'similar_tool_click', {
+                'source_tool': document.querySelector('h1').textContent,
+                'target_tool': toolName,
+                'position': index + 1
+              });
+            }
+          });
+        }
+      });
+
+      // Scroll Depth Tracking
+      var scrollDepths = [25, 50, 75, 90];
+      var scrollDepthReached = [];
+      
+      function trackScrollDepth() {
+        var scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+        
+        scrollDepths.forEach(function(depth) {
+          if (scrollPercent >= depth && scrollDepthReached.indexOf(depth) === -1) {
+            scrollDepthReached.push(depth);
+            
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'scroll_depth', {
+                'tool_name': document.querySelector('h1').textContent,
+                'scroll_depth': depth,
+                'page_type': 'tool_detail'
+              });
+            }
+          }
+        });
+      }
+      
+      window.addEventListener('scroll', trackScrollDepth);
+
       initAdSense();
-      console.log('🎨 Tool Detail Page - NO JSX, NO TYPESCRIPT!');
+      console.log('🎨 Enhanced Tool Detail Page with Full Config Support');
     });
   </script>
 </body>
