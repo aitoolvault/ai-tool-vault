@@ -18,7 +18,7 @@ pricing_details:
   free_plan:
     available: true
     price: 0
-    currency: "EUR"
+    currency: "€"
     billing_cycle: "monthly"
     features:
       - "Claude 3.5 Sonnet Zugang"
@@ -51,7 +51,7 @@ pricing_details:
     
     - name: "Claude Team"
       price: 22.50
-      currency: "EUR"
+      currency: "€"
       billing_cycle: "monthly"
       per_user: true
       minimum_users: 5
@@ -68,7 +68,6 @@ pricing_details:
     
     - name: "Claude Enterprise"
       price: "Auf Anfrage"
-      currency: "EUR"
       billing_cycle: "monthly"
       features:
         - "Erweiterte Sicherheit und Compliance"
