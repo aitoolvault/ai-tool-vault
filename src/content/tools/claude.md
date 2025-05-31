@@ -34,7 +34,7 @@ pricing_details:
       
   paid_plans:
     - name: "Claude Pro"
-      price: 1
+      price: 18
       currency: "€"
       billing_cycle: "monthly"
       features:
