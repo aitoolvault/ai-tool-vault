@@ -30,7 +30,7 @@ const pricingPlanSchema = z.object({
 const freePlanSchema = z.object({
   available: z.boolean(),
   price: z.number().default(0),
-  currency: z.string().default("EUR"),
+  currency: z.string(),
   billing_cycle: z.string(),
   features: z.array(z.string()),
   limitations: z.array(z.string()).optional()
