@@ -69,11 +69,17 @@ function generateFAQ() {
 const faqItems = generateFAQ();
 const toolLogo = getToolLogo(data.title);
 
-// Pricing Helper Functions
-function formatPrice(price, currency = "EUR") {
+// REPARIERTE PRICING HELPER FUNCTIONS
+function formatPrice(price, currency = "€") {
   if (typeof price === "string") return price;
   if (price === 0) return "Kostenlos";
-  return `${price}${currency}`;
+  
+  // Wenn es eine Nummer ist, formatiere sie richtig
+  if (typeof price === "number") {
+    return `${price}${currency}`;
+  }
+  
+  return price;
 }
 
 function formatBillingCycle(cycle) {
@@ -84,6 +90,25 @@ function formatBillingCycle(cycle) {
     "usage-based": "nutzungsabhängig"
   };
   return cycles[cycle] || cycle;
+}
+
+// REPARIERTE API PRICING FUNKTION
+function formatApiPrice(price, currency) {
+  // Wenn currency bereits definiert ist, verwende nur das
+  if (currency === "EUR" || currency === "€") {
+    return `${price}€`;
+  }
+  return `${price}${currency || '€'}`;
+}
+
+// CURRENCY MAPPER
+function mapCurrency(currency) {
+  const currencyMap = {
+    "EUR": "€",
+    "USD": "$",
+    "GBP": "£"
+  };
+  return currencyMap[currency] || currency;
 }
 ---
 
@@ -193,6 +218,7 @@ function formatBillingCycle(cycle) {
       background: var(--bg-primary);
     }
 
+    /* Theme Toggle */
     .theme-toggle {
       position: fixed;
       top: 50%;
@@ -205,14 +231,6 @@ function formatBillingCycle(cycle) {
       padding: 10px;
       border-radius: 25px;
       transition: all 0.3s ease;
-    }
-
-    .theme-toggle:hover {
-      background: rgba(0, 0, 0, 0.05);
-    }
-
-    [data-theme="dark"] .theme-toggle:hover {
-      background: rgba(255, 255, 255, 0.1);
     }
 
     .theme-switch {
@@ -241,7 +259,6 @@ function formatBillingCycle(cycle) {
       box-shadow: 
         2px 2px 6px rgba(0, 0, 0, 0.2),
         -1px -1px 3px rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(0, 0, 0, 0.05);
     }
 
     .theme-switch::after {
@@ -253,7 +270,6 @@ function formatBillingCycle(cycle) {
       font-size: 12px;
       opacity: 1;
       transition: all 0.3s ease;
-      z-index: 1;
     }
 
     [data-theme="dark"] .theme-switch {
@@ -261,15 +277,11 @@ function formatBillingCycle(cycle) {
       box-shadow: 
         inset 2px 2px 5px rgba(0, 0, 0, 0.3),
         inset -2px -2px 5px rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.1);
     }
 
     [data-theme="dark"] .theme-switch::before {
       transform: translateX(30px);
       background: linear-gradient(145deg, #1f2937, #374151);
-      box-shadow: 
-        2px 2px 6px rgba(0, 0, 0, 0.4),
-        -1px -1px 3px rgba(255, 255, 255, 0.1);
     }
 
     [data-theme="dark"] .theme-switch::after {
@@ -278,54 +290,7 @@ function formatBillingCycle(cycle) {
       right: auto;
     }
 
-    .theme-toggle:hover .theme-switch {
-      transform: scale(1.05);
-    }
-
-    .theme-toggle:active .theme-switch {
-      transform: scale(0.95);
-    }
-
-    .theme-toggle:focus {
-      outline: 2px solid var(--accent-primary);
-      outline-offset: 4px;
-      border-radius: 25px;
-    }
-
-    @media (max-width: 768px) {
-      .theme-toggle {
-        right: 1rem;
-        padding: 8px;
-      }
-
-      .theme-switch {
-        width: 50px;
-        height: 25px;
-        border-radius: 12.5px;
-      }
-
-      .theme-switch::before {
-        width: 18px;
-        height: 18px;
-        top: 2.5px;
-        left: 2.5px;
-      }
-
-      .theme-switch::after {
-        font-size: 10px;
-        right: 6px;
-      }
-
-      [data-theme="dark"] .theme-switch::before {
-        transform: translateX(25px);
-      }
-
-      [data-theme="dark"] .theme-switch::after {
-        left: 6px;
-        right: auto;
-      }
-    }
-
+    /* Navigation */
     .nav {
       position: fixed;
       top: 0;
@@ -379,6 +344,7 @@ function formatBillingCycle(cycle) {
       cursor: pointer;
     }
 
+    /* Breadcrumb */
     .breadcrumb {
       background: var(--bg-secondary);
       padding: 1rem 0;
@@ -401,15 +367,12 @@ function formatBillingCycle(cycle) {
       text-decoration: none;
     }
     
-    .breadcrumb a:hover {
-      text-decoration: underline;
-    }
-    
     .breadcrumb .current {
       color: var(--text-secondary);
       font-weight: 500;
     }
 
+    /* Hero Section */
     .hero {
       background: var(--bg-secondary);
       padding: 4rem 0;
@@ -456,65 +419,20 @@ function formatBillingCycle(cycle) {
       letter-spacing: 0.5px;
     }
     
-    .badge-popular {
-      background: #fee2e2;
-      color: #dc2626;
-    }
+    /* Badge Colors */
+    .badge-popular { background: #fee2e2; color: #dc2626; }
+    .badge-free { background: #d1fae5; color: #047857; }
+    .badge-new { background: #fef3c7; color: #d97706; }
+    .badge-expert { background: #e0e7ff; color: #4338ca; }
+    .badge-api { background: #f3e8ff; color: #7c3aed; }
+    .badge-security { background: #ecfdf5; color: #047857; }
 
-    [data-theme="dark"] .badge-popular {
-      background: rgba(220, 38, 38, 0.2);
-      color: #f87171;
-    }
-    
-    .badge-free {
-      background: #d1fae5;
-      color: #047857;
-    }
-
-    [data-theme="dark"] .badge-free {
-      background: rgba(4, 120, 87, 0.2);
-      color: #34d399;
-    }
-    
-    .badge-new {
-      background: #fef3c7;
-      color: #d97706;
-    }
-
-    [data-theme="dark"] .badge-new {
-      background: rgba(217, 119, 6, 0.2);
-      color: #fbbf24;
-    }
-    
-    .badge-expert {
-      background: #e0e7ff;
-      color: #4338ca;
-    }
-
-    [data-theme="dark"] .badge-expert {
-      background: rgba(67, 56, 202, 0.2);
-      color: #a5b4fc;
-    }
-
-    .badge-api {
-      background: #f3e8ff;
-      color: #7c3aed;
-    }
-
-    [data-theme="dark"] .badge-api {
-      background: rgba(124, 58, 237, 0.2);
-      color: #c4b5fd;
-    }
-
-    .badge-security {
-      background: #ecfdf5;
-      color: #047857;
-    }
-
-    [data-theme="dark"] .badge-security {
-      background: rgba(4, 120, 87, 0.2);
-      color: #6ee7b7;
-    }
+    [data-theme="dark"] .badge-popular { background: rgba(220, 38, 38, 0.2); color: #f87171; }
+    [data-theme="dark"] .badge-free { background: rgba(4, 120, 87, 0.2); color: #34d399; }
+    [data-theme="dark"] .badge-new { background: rgba(217, 119, 6, 0.2); color: #fbbf24; }
+    [data-theme="dark"] .badge-expert { background: rgba(67, 56, 202, 0.2); color: #a5b4fc; }
+    [data-theme="dark"] .badge-api { background: rgba(124, 58, 237, 0.2); color: #c4b5fd; }
+    [data-theme="dark"] .badge-security { background: rgba(4, 120, 87, 0.2); color: #6ee7b7; }
     
     .hero h1 {
       font-size: 2.5rem;
@@ -567,6 +485,7 @@ function formatBillingCycle(cycle) {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
+      transition: all 0.3s ease;
     }
     
     .hero-cta:hover {
@@ -574,6 +493,7 @@ function formatBillingCycle(cycle) {
       transform: translateY(-2px);
     }
 
+    /* Main Content Layout */
     .main-content {
       max-width: 1400px;
       margin: 0 auto;
@@ -597,6 +517,7 @@ function formatBillingCycle(cycle) {
       gap: 2rem;
     }
 
+    /* Pricing Card in Sidebar */
     .pricing-card {
       background: var(--card-bg);
       padding: 2rem;
@@ -642,6 +563,7 @@ function formatBillingCycle(cycle) {
       display: block;
       text-align: center;
       margin-bottom: 1rem;
+      transition: all 0.3s ease;
     }
     
     .pricing-cta:hover {
@@ -654,6 +576,7 @@ function formatBillingCycle(cycle) {
       color: var(--text-secondary);
     }
 
+    /* Section Styling */
     .section-title {
       font-size: 2rem;
       font-weight: 700;
@@ -726,6 +649,7 @@ function formatBillingCycle(cycle) {
       margin-bottom: 0.5rem;
     }
 
+    /* REPARIERTE PLAN PRICE STYLING */
     .plan-price {
       font-size: 2.5rem;
       font-weight: 800;
@@ -816,7 +740,7 @@ function formatBillingCycle(cycle) {
       transform: translateY(-2px);
     }
 
-    /* API PRICING SECTION */
+    /* API PRICING SECTION - REPARIERT */
     .api-pricing {
       background: var(--card-bg);
       padding: 3rem;
@@ -903,6 +827,7 @@ function formatBillingCycle(cycle) {
       margin-bottom: 0.5rem;
     }
 
+    /* REPARIERTER API PRICE VALUE */
     .api-price-value {
       font-size: 1.3rem;
       font-weight: 700;
@@ -985,6 +910,49 @@ function formatBillingCycle(cycle) {
     .metric-value.highlight {
       color: var(--accent-primary);
       font-weight: 600;
+    }
+
+    /* VALUE SCORING */
+    .value-scoring {
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      color: white;
+      padding: 3rem;
+      border-radius: 12px;
+      margin: 3rem 0;
+      text-align: center;
+    }
+
+    .value-scores {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .value-score {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+    }
+
+    .score-number {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .score-label {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .score-description {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      line-height: 1.4;
     }
 
     /* SPECIAL FEATURES SECTION */
@@ -1079,49 +1047,7 @@ function formatBillingCycle(cycle) {
       line-height: 1.4;
     }
 
-    /* VALUE SCORING */
-    .value-scoring {
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-      color: white;
-      padding: 3rem;
-      border-radius: 12px;
-      margin: 3rem 0;
-      text-align: center;
-    }
-
-    .value-scores {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-
-    .value-score {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 2rem;
-      border-radius: 12px;
-      backdrop-filter: blur(10px);
-    }
-
-    .score-number {
-      font-size: 3rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-      display: block;
-    }
-
-    .score-label {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-
-    .score-description {
-      font-size: 0.9rem;
-      opacity: 0.9;
-      line-height: 1.4;
-    }
-
+    /* MAIN CONTENT FEATURES */
     .features-section {
       margin: 3rem 0;
     }
@@ -1139,6 +1065,7 @@ function formatBillingCycle(cycle) {
       background: var(--bg-tertiary);
       border-radius: 8px;
       border: 1px solid var(--border-primary);
+      transition: all 0.3s ease;
     }
     
     .feature-item:hover {
@@ -1172,6 +1099,7 @@ function formatBillingCycle(cycle) {
       line-height: 1.6;
     }
 
+    /* PROS & CONS */
     .pros-cons {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1235,6 +1163,7 @@ function formatBillingCycle(cycle) {
       flex-shrink: 0;
     }
 
+    /* FAQ SECTION */
     .faq-section {
       margin: 3rem 0;
     }
@@ -1260,6 +1189,7 @@ function formatBillingCycle(cycle) {
       line-height: 1.6;
     }
 
+    /* SIMILAR TOOLS */
     .similar-tools {
       background: var(--card-bg);
       padding: 3rem 2rem;
@@ -1281,6 +1211,7 @@ function formatBillingCycle(cycle) {
       border-radius: 8px;
       padding: 1.5rem;
       border: 1px solid var(--border-primary);
+      transition: all 0.3s ease;
     }
     
     .tool-card:hover {
@@ -1311,12 +1242,14 @@ function formatBillingCycle(cycle) {
       font-weight: 600;
       font-size: 0.9rem;
       display: inline-block;
+      transition: all 0.3s ease;
     }
     
     .tool-card-cta:hover {
       background: var(--accent-secondary);
     }
 
+    /* ADSENSE */
     .ad-container {
       margin: 3rem auto;
       padding: 1.5rem;
@@ -1342,6 +1275,7 @@ function formatBillingCycle(cycle) {
       padding: 1rem;
     }
 
+    /* FOOTER */
     .footer {
       background: var(--footer-bg);
       color: white;
@@ -1405,7 +1339,30 @@ function formatBillingCycle(cycle) {
       font-size: 0.9rem;
     }
 
+    /* RESPONSIVE DESIGN */
     @media (max-width: 768px) {
+      .theme-toggle {
+        right: 1rem;
+        padding: 8px;
+      }
+
+      .theme-switch {
+        width: 50px;
+        height: 25px;
+        border-radius: 12.5px;
+      }
+
+      .theme-switch::before {
+        width: 18px;
+        height: 18px;
+        top: 2.5px;
+        left: 2.5px;
+      }
+
+      [data-theme="dark"] .theme-switch::before {
+        transform: translateX(25px);
+      }
+
       .nav-links {
         display: none;
         position: absolute;
@@ -1833,13 +1790,19 @@ function formatBillingCycle(cycle) {
           </div>
         )}
         
-        {/* PAID PLANS */}
+        {/* PAID PLANS - REPARIERT */}
         {data.pricing_details.paid_plans && data.pricing_details.paid_plans.map(plan => (
           <div class={`plan-card ${plan.popular ? 'popular' : ''}`}>
             <h4 class="plan-name">{plan.name}</h4>
             <div class="plan-price">
-              <span>{formatPrice(plan.price)}</span>
-              <span class="currency">{plan.currency || 'EUR'}</span>
+              {typeof plan.price === 'string' ? (
+                <span>{plan.price}</span>
+              ) : (
+                <>
+                  <span>{plan.price}</span>
+                  <span class="currency">{mapCurrency(plan.currency) || '€'}</span>
+                </>
+              )}
             </div>
             <div class="plan-cycle">
               {formatBillingCycle(plan.billing_cycle)}
@@ -1880,7 +1843,7 @@ function formatBillingCycle(cycle) {
     </div>
   )}
 
-  <!-- API PRICING SECTION -->
+  <!-- API PRICING SECTION - KOMPLETT REPARIERT -->
   {data.api_pricing && data.api_pricing.models && (
     <div class="api-pricing">
       <h3>API Preise für Entwickler</h3>
@@ -1897,13 +1860,13 @@ function formatBillingCycle(cycle) {
             <div class="api-pricing-grid">
               <div class="api-price-item">
                 <div class="api-price-label">Input</div>
-                <div class="api-price-value">{model.input_price}€</div>
+                <div class="api-price-value">{formatApiPrice(model.input_price, model.currency)}</div>
                 <div class="api-price-unit">pro {model.per_million_tokens ? 'Million Token' : 'Request'}</div>
               </div>
               
               <div class="api-price-item">
                 <div class="api-price-label">Output</div>
-                <div class="api-price-value">{model.output_price}€</div>
+                <div class="api-price-value">{formatApiPrice(model.output_price, model.currency)}</div>
                 <div class="api-price-unit">pro {model.per_million_tokens ? 'Million Token' : 'Request'}</div>
               </div>
             </div>
@@ -2309,7 +2272,7 @@ function formatBillingCycle(cycle) {
       window.addEventListener('scroll', trackScrollDepth);
 
       initAdSense();
-      console.log('🎨 Enhanced Tool Detail Page with Full Config Support');
+      console.log('🎨 Enhanced Tool Detail Page - PREISE REPARIERT!');
     });
   </script>
 </body>
