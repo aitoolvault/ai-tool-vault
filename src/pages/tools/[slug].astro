@@ -8,6 +8,7 @@
         <p>Ergebnisse in Sekundenschnelle durch optimierte KI-Algorithmen</p>
       </div>
     </div>
+)}
 
     <div class="feature-item">
       <div class="feature-icon">🎯</div>
@@ -16,6 +17,7 @@
         <p>Hochqualitative Ausgaben durch fortschrittliche Trainingsmodelle</p>
       </div>
     </div>
+)}
 
     <div class="feature-item">
       <div class="feature-icon">🔧</div>
@@ -24,6 +26,7 @@
         <p>Intuitive Benutzeroberfläche für Anfänger und Profis gleichermaßen</p>
       </div>
     </div>
+)}
 
     {data.api_available && (
       <div class="feature-item">
@@ -32,10 +35,12 @@
           <h3>API Integration</h3>
           <p>Nahtlose Integration in bestehende Systeme über moderne APIs</p>
         </div>
-      </div>
+      </div>)}
+
     )}
   </div>
 </div>
+)}
 
           {data.mobile_app && (
             <div class="feature-item">
@@ -45,6 +50,7 @@
                 <p>Vollständige Funktionalität auf iOS und Android Geräten</p>
               </div>
             </div>
+)}
 
           {data.languages && data.languages.length > 3 && (
             <div class="feature-item">
@@ -53,10 +59,12 @@
                 <h3>Mehrsprachig</h3>
                 <p>Unterstützt {data.languages.length} Sprachen für globale Nutzung</p>
               </div>
-            </div>
+            </div>)}
+
           )}
         </div>
       </div>
+)}
 
       <!-- SECURITY FEATURES -->
       {data.security_features && data.security_features.length > 0 && (
@@ -69,7 +77,8 @@
               </div>
             ))}
           </div>
-        </div>
+        </div>)}
+
       )}
       <div class="pros-cons">
       <div class="pros-cons">
@@ -107,17 +116,20 @@
         </div>
       ))}
     </div>
-  </div>
+  </div>)}
+
 )}
                 <div class="feature-icon">{String(index + 1)}</div>
                 <div class="feature-content">
                   <h3>{useCase}</h3>
                   <p>Professionelle Anwendung für optimale Ergebnisse</p>
                 </div>
-              </div>
+              </div>)}
+
             ))}
           </div>
-        </div>
+        </div>)}
+
       )}
 
       <div class="faq-section">
@@ -126,10 +138,12 @@
           <div class="faq-item">
             <h4 class="faq-question" data-faq={index}>{faq.question}</h4>
             <div class="faq-answer" data-answer={index}>{faq.answer}</div>
-          </div>
+          </div>)}
+
         ))}
       </div>
     </div>
+)}
 
     <div class="sidebar">
       <!-- Enhanced Pricing Card -->
@@ -223,7 +237,8 @@
              data-ad-client="ca-pub-5595876978844902
              data-ad-slot="AUTO"></ins>
       </div>
-    </div>
+    </div>)}
+
   </div>
 
   <!-- DETAILED PRICING SECTION -->
@@ -343,14 +358,16 @@
                 <div class="api-price-unit">pro {model.per_million_tokens ? 'Million Token' : 'Request'}</div>'
               </div>
             </div>
-            
+            )}
+
             {model.note && (
               <div class="api-model-note">{model.note}</div>
             )}
           </div>
         ))}
       </div>
-    </div>
+    </div>)}
+
   )}
 
   <!-- COMPARISON METRICS -->
@@ -411,7 +428,8 @@
           </tbody>
         </table>
       </div>
-    </div>
+    </div>)}
+
   )}
 
   <div class="similar-tools">
@@ -430,6 +448,7 @@
       ))}
     </div>
   </div>
+)}
 
   <div class="ad-container">
     <ins class="adsbygoogle
@@ -469,11 +488,13 @@
           </ul>
         </div>
       </div>
-      
+      )}
+
       <div class="footer-bottom">
         <p>&copy; 2025 AI Tool Vault. Alle Rechte vorbehalten.</p>
       </div>
-    </div>
+    </div>)}
+
   </footer>
 
   <script>
@@ -2498,6 +2519,7 @@ function mapCurrency(currency) {
       <span class="current">{data.title}</span>
     </div>
   </div>
+)}
 
   <section class="hero">
     <div class="hero-container">
@@ -2537,7 +2559,8 @@ function mapCurrency(currency) {
           )}
         </div>
       </div>
-      
+      )}
+
       <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
         <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="hero-cta">
           Tool testen →
@@ -2546,7 +2569,8 @@ function mapCurrency(currency) {
           🤍
         </button>
       </div>
-    </div>
+    </div>)}
+
   </section>
 
   <div class="ad-container">
@@ -2579,22 +2603,26 @@ function mapCurrency(currency) {
                 <span class="score-number">{data.price_per_feature_score}/10</span>
                 <div class="score-label">Feature-Score</div>
                 <div class="score-description">Funktionen pro Euro</div>
-              </div>
+              </div>)}
+
             )}
             {data.value_for_money && (
               <div class="value-score">
                 <span class="score-number">{data.value_for_money}/10</span>
                 <div class="score-label">Preis-Leistung</div>
                 <div class="score-description">Gesamtbewertung</div>
-              </div>
+              </div>)}
+
             )}
             <div class="value-score">
               <span class="score-number">★ {expertRating.toFixed(1)}</span>
               <div class="score-label">Expertenbewertung</div>
               <div class="score-description">Unser Testurteil</div>
-            </div>
+            </div>)}
+
           </div>
-        </div>
+        </div>)}
+
       )}
 
       <!-- SPECIAL FEATURES -->
@@ -2609,7 +2637,8 @@ function mapCurrency(currency) {
               </div>
             ))}
           </div>
-        </div>
+        </div>)}
+
       )}
 
       <div class="features-section"><div class="features-section">
@@ -2622,7 +2651,8 @@ function mapCurrency(currency) {
               <p>Ergebnisse in Sekundenschnelle durch optimierte KI-Algorithmen</p>
             </div>
           </div>
-          
+          )}
+
           <div class="feature-item">
             <div class="feature-icon">🎯</div>
             <div class="feature-content">
@@ -2630,7 +2660,8 @@ function mapCurrency(currency) {
               <p>Hochqualitative Ausgaben durch fortschrittliche Trainingsmodelle</p>
             </div>
           </div>
-          
+          )}
+
           <div class="feature-item">
             <div class="feature-icon">🔧</div>
             <div class="feature-content">
@@ -2638,6 +2669,7 @@ function mapCurrency(currency) {
               <p>Intuitive Benutzeroberfläche für Anfänger und Profis gleichermaßen</p>
             </div>
           </div>
+)}
 
           {data.api_available && (
             <div class="feature-item">
@@ -2646,7 +2678,8 @@ function mapCurrency(currency) {
                 <h3>API Integration</h3>
                 <p>Nahtlose Integration in bestehende Systeme über moderne APIs</p>
               </div>
-            </div>
+            </div>)}
+
           )}
 
           {data.mobile_app && (
@@ -2656,7 +2689,8 @@ function mapCurrency(currency) {
                 <h3>Mobile App</h3>
                 <p>Vollständige Funktionalität auf iOS und Android Geräten</p>
               </div>
-            </div>
+            </div>)}
+
           )}
 
           {data.languages && data.languages.length > 3 && (
@@ -2666,10 +2700,12 @@ function mapCurrency(currency) {
                 <h3>Mehrsprachig</h3>
                 <p>Unterstützt {data.languages.length} Sprachen für globale Nutzung</p>
               </div>
-            </div>
+            </div>)}
+
           )}
         </div>
       </div>
+)}
 
       <!-- SECURITY FEATURES -->
       {data.security_features && data.security_features.length > 0 && (
@@ -2682,7 +2718,8 @@ function mapCurrency(currency) {
               </div>
             ))}
           </div>
-        </div>
+        </div>)}
+
       )}
 
       <div class="pros-cons" id="pros-cons">
@@ -2713,6 +2750,7 @@ function mapCurrency(currency) {
           </ul>
         </div>
       </div>
+)}
 
       <!-- USE CASES -->
       {data.use_cases && data.use_cases.length > 0 && (
@@ -2727,10 +2765,12 @@ function mapCurrency(currency) {
                   <h3>{useCase}</h3>
                   <p>Professionelle Anwendung für optimale Ergebnisse</p>
                 </div>
-              </div>
+              </div>)}
+
             ))}
           </div>
-        </div>
+        </div>)}
+
       )}
 
       <div class="faq-section" id="faq">
@@ -2739,10 +2779,12 @@ function mapCurrency(currency) {
           <div class="faq-item">
             <h4 class="faq-question" data-faq={index}>{faq.question}</h4>
             <div class="faq-answer" data-answer={index}>{faq.answer}</div>
-          </div>
+          </div>)}
+
         ))}
       </div>
     </div>
+)}
 
     <div class="sidebar">
       <!-- Enhanced Pricing Card -->
@@ -2836,7 +2878,8 @@ function mapCurrency(currency) {
              data-ad-client="ca-pub-5595876978844902
              data-ad-slot="AUTO"></ins>
       </div>
-    </div>
+    </div>)}
+
   </div>
 
   <!-- DETAILED PRICING SECTION -->
@@ -2956,14 +2999,16 @@ function mapCurrency(currency) {
                 <div class="api-price-unit">pro {model.per_million_tokens ? 'Million Token' : 'Request'}</div>'
               </div>
             </div>
-            
+            )}
+
             {model.note && (
               <div class="api-model-note">{model.note}</div>
             )}
           </div>
         ))}
       </div>
-    </div>
+    </div>)}
+
   )}
 
   <!-- COMPARISON METRICS -->
@@ -3078,7 +3123,8 @@ function mapCurrency(currency) {
           </tbody>
         </table>
       </div>
-    </div>
+    </div>)}
+
   )}
 
   <div class="similar-tools">
@@ -3097,6 +3143,7 @@ function mapCurrency(currency) {
       ))}
     </div>
   </div>
+)}
 
   <div class="ad-container">
     <ins class="adsbygoogle
@@ -3136,11 +3183,13 @@ function mapCurrency(currency) {
           </ul>
         </div>
       </div>
-      
+      )}
+
       <div class="footer-bottom">
         <p>&copy; 2025 AI Tool Vault. Alle Rechte vorbehalten.</p>
       </div>
-    </div>
+    </div>)}
+
   </footer>
 
   <script>
