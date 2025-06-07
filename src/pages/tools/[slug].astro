@@ -308,7 +308,7 @@
       </div>
       
       {data.last_price_update && (
-        <p style="text-align: center; margin-top: 2rem; color: var(--text-secondary); font-size: 0.9rem;">
+        <p style="text-align: center; margin-top: 2rem; color: var(--text-secondary); font-size: 0.9rem">
           Preise zuletzt aktualisiert: {data.last_price_update}
         </p>
       )}
@@ -797,16 +797,24 @@ export async function getStaticPaths() {
 const { tool } = Astro.props;
 const { data } = tool;
 
+// Alle Tools für "Ähnliche Tools" laden
 const allTools = await getCollection("tools");
 const similarTools = allTools
   .filter(t => t.data.category === data.category && t.slug !== tool.slug)
   .slice(0, 6);
 
+// Related tools by category
+const relatedByCategory = allTools
+  .filter(t => t.data.category === data.category && t.slug !== tool.slug)
+  .slice(0, 3);
+
+// Trust & Authority Elemente
 const expertRating = data.rating || (4.2 + Math.random() * 0.8);
 const userCount = Math.floor(Math.random() * 90000) + 10000;
 const isPopular = userCount > 50000;
 const isNew = data.founded && parseInt(data.founded) >= 2023;
 
+// Enhanced Logo URLs
 function getToolLogo(toolName) {
   const logoMap = {
     'ChatGPT': 'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg',
@@ -820,6 +828,7 @@ function getToolLogo(toolName) {
   return logoMap[toolName] || `https://ui-avatars.com/api/?name=${encodeURIComponent(toolName)}&background=3b82f6&color=fff&size=100&rounded=true`;
 }
 
+// Enhanced FAQ generation
 function generateFAQ() {
   return [
     {
@@ -855,6 +864,18 @@ function generateFAQ() {
 
 const faqItems = generateFAQ();
 const toolLogo = getToolLogo(data.title);
+
+// PRICING HELPER FUNCTIONS
+function formatPrice(price, currency = "€") {
+  if (typeof price === "string") return price;
+  if (price === 0) return "Kostenlos";
+  
+  if (typeof price === "number") {
+    return `${price}${currency}`;
+  }
+  
+  return price;
+}
 
 function formatBillingCycle(cycle) {
   const cycles = {
@@ -2900,7 +2921,7 @@ function mapCurrency(currency) {
       </div>
       
       {data.last_price_update && (
-        <p style="text-align: center; margin-top: 2rem; color: var(--text-secondary); font-size: 0.9rem;">
+        <p style="text-align: center; margin-top: 2rem; color: var(--text-secondary); font-size: 0.9rem">
           Preise zuletzt aktualisiert: {data.last_price_update}
         </p>
       )}
