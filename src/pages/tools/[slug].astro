@@ -1,39 +1,41 @@
 <div class="features-section">
-        <h3>Hauptfunktionen</h3>
-        <div class="features-grid">
-          <div class="feature-item">
-            <div class="feature-icon">⚡</div>
-            <div class="feature-content">
-              <h3>Schnelle Verarbeitung</h3>
-              <p>Ergebnisse in Sekundenschnelle durch optimierte KI-Algorithmen</p>
-            </div>
-          </div>
-          
-          <div class="feature-item">
-            <div class="feature-icon">🎯</div>
-            <div class="feature-content">
-              <h3>Präzise Ergebnisse</h3>
-              <p>Hochqualitative Ausgaben durch fortschrittliche Trainingsmodelle</p>
-            </div>
-          </div>
-          
-          <div class="feature-item">
-            <div class="feature-icon">🔧</div>
-            <div class="feature-content">
-              <h3>Einfache Bedienung</h3>
-              <p>Intuitive Benutzeroberfläche für Anfänger und Profis gleichermaßen</p>
-            </div>
-          </div>
+  <h3>Hauptfunktionen</h3>
+  <div class="features-grid">
+    <div class="feature-item">
+      <div class="feature-icon">⚡</div>
+      <div class="feature-content">
+        <h3>Schnelle Verarbeitung</h3>
+        <p>Ergebnisse in Sekundenschnelle durch optimierte KI-Algorithmen</p>
+      </div>
+    </div>
 
-          {data.api_available && (
-            <div class="feature-item">
-              <div class="feature-icon">🔌</div>
-              <div class="feature-content">
-                <h3>API Integration</h3>
-                <p>Nahtlose Integration in bestehende Systeme über moderne APIs</p>
-              </div>
-            </div>
-          )}
+    <div class="feature-item">
+      <div class="feature-icon">🎯</div>
+      <div class="feature-content">
+        <h3>Präzise Ergebnisse</h3>
+        <p>Hochqualitative Ausgaben durch fortschrittliche Trainingsmodelle</p>
+      </div>
+    </div>
+
+    <div class="feature-item">
+      <div class="feature-icon">🔧</div>
+      <div class="feature-content">
+        <h3>Einfache Bedienung</h3>
+        <p>Intuitive Benutzeroberfläche für Anfänger und Profis gleichermaßen</p>
+      </div>
+    </div>
+
+    {data.api_available && (
+      <div class="feature-item">
+        <div class="feature-icon">🔌</div>
+        <div class="feature-content">
+          <h3>API Integration</h3>
+          <p>Nahtlose Integration in bestehende Systeme über moderne APIs</p>
+        </div>
+      </div>
+    )}
+  </div>
+</div>
 
           {data.mobile_app && (
             <div class="feature-item">
