@@ -1,34 +1,34 @@
-<div class="features-section">
+<div class="features-section">"
         <h3>Hauptfunktionen</h3>
-        <div class="features-grid">
-          <div class="feature-item">
-            <div class="feature-icon">⚡</div>
-            <div class="feature-content">
+        <div class="features-grid">"
+          <div class="feature-item">"
+            <div class="feature-icon">⚡</div>"
+            <div class="feature-content">"
               <h3>Schnelle Verarbeitung</h3>
               <p>Ergebnisse in Sekundenschnelle durch optimierte KI-Algorithmen</p>
             </div>
           </div>
           
-          <div class="feature-item">
-            <div class="feature-icon">🎯</div>
-            <div class="feature-content">
+          <div class="feature-item">"
+            <div class="feature-icon">🎯</div>"
+            <div class="feature-content">"
               <h3>Präzise Ergebnisse</h3>
               <p>Hochqualitative Ausgaben durch fortschrittliche Trainingsmodelle</p>
             </div>
           </div>
           
-          <div class="feature-item">
-            <div class="feature-icon">🔧</div>
-            <div class="feature-content">
+          <div class="feature-item">"
+            <div class="feature-icon">🔧</div>"
+            <div class="feature-content">"
               <h3>Einfache Bedienung</h3>
               <p>Intuitive Benutzeroberfläche für Anfänger und Profis gleichermaßen</p>
             </div>
           </div>
 
           {data.api_available && (
-            <div class="feature-item">
-              <div class="feature-icon">🔌</div>
-              <div class="feature-content">
+            <div class="feature-item">"
+              <div class="feature-icon">🔌</div>"
+              <div class="feature-content">"
                 <h3>API Integration</h3>
                 <p>Nahtlose Integration in bestehende Systeme über moderne APIs</p>
               </div>
@@ -36,9 +36,9 @@
           )}
 
           {data.mobile_app && (
-            <div class="feature-item">
-              <div class="feature-icon">📱</div>
-              <div class="feature-content">
+            <div class="feature-item">"
+              <div class="feature-icon">📱</div>"
+              <div class="feature-content">"
                 <h3>Mobile App</h3>
                 <p>Vollständige Funktionalität auf iOS und Android Geräten</p>
               </div>
@@ -46,9 +46,9 @@
           )}
 
           {data.languages && data.languages.length > 3 && (
-            <div class="feature-item">
-              <div class="feature-icon">🌍</div>
-              <div class="feature-content">
+            <div class="feature-item">"
+              <div class="feature-icon">🌍</div>"
+              <div class="feature-content">"
                 <h3>Mehrsprachig</h3>
                 <p>Unterstützt {data.languages.length} Sprachen für globale Nutzung</p>
               </div>
@@ -59,11 +59,11 @@
 
       <!-- SECURITY FEATURES -->
       {data.security_features && data.security_features.length > 0 && (
-        <div class="security-features">
+        <div class="security-features">"
           <h3>Sicherheit & Compliance</h3>
-          <div class="security-grid">
+          <div class="security-grid">"
             {data.security_features.map(feature => (
-              <div class="security-item">
+              <div class="security-item">"
                 <span>{feature}</span>
               </div>
             ))}
@@ -71,10 +71,10 @@
         </div>
       )}
 
-      <div class="pros-cons">
-        <div class="pros">
-          <h3 class="pros-title">✅ Vorteile</h3>
-          <ul class="pros-list">
+      <div class="pros-cons">"
+        <div class="pros">"
+          <h3 class="pros-title">✅ Vorteile</h3>"
+          <ul class="pros-list">"
             {data.pros ? data.pros.map(pro => <li>{pro}</li>) : (
               <>
                 <li>Intuitive Benutzeroberfläche</li>
@@ -86,9 +86,9 @@
           </ul>
         </div>
         
-        <div class="cons">
-          <h3 class="cons-title">❌ Nachteile</h3>
-          <ul class="cons-list">
+        <div class="cons">"
+          <h3 class="cons-title">❌ Nachteile</h3>"
+          <ul class="cons-list">"
             {data.cons ? data.cons.map(con => <li>{con}</li>) : (
               <>
                 <li>Lernkurve für Anfänger</li>
@@ -102,14 +102,14 @@
 
       <!-- USE CASES -->
       {data.use_cases && data.use_cases.length > 0 && (
-        <div class="features-section">
+        <div class="features-section">"
           <h3>Anwendungsfälle</h3>
-          <p class="section-subtitle">{data.title} eignet sich besonders für:</p>
-          <div class="features-grid">
+          <p class="section-subtitle">{data.title} eignet sich besonders für:</p>"
+          <div class="features-grid">"
             {data.use_cases.map((useCase, index) => (
-              <div class="feature-item">
-                <div class="feature-icon">{String(index + 1)}</div>
-                <div class="feature-content">
+              <div class="feature-item">"
+                <div class="feature-icon">{String(index + 1)}</div>"
+                <div class="feature-content">"
                   <h3>{useCase}</h3>
                   <p>Professionelle Anwendung für optimale Ergebnisse</p>
                 </div>
@@ -119,144 +119,144 @@
         </div>
       )}
 
-      <div class="faq-section">
+      <div class="faq-section">"
         <h3>Häufig gestellte Fragen</h3>
         {faqItems.map((faq, index) => (
-          <div class="faq-item">
-            <h4 class="faq-question" data-faq={index}>{faq.question}</h4>
-            <div class="faq-answer" data-answer={index}>{faq.answer}</div>
+          <div class="faq-item">"
+            <h4 class="faq-question" data-faq={index}>{faq.question}</h4>"
+            <div class="faq-answer" data-answer={index}>{faq.answer}</div>"
           </div>
         ))}
       </div>
     </div>
 
-    <div class="sidebar">
+    <div class="sidebar">"
       <!-- Enhanced Pricing Card -->
-      <div class="pricing-card">
-        <div class="pricing-tag">{data.pricing || 'Freemium'}</div>
-        <h3 class="pricing-title">{data.title} testen</h3>
-        <p class="pricing-description">
-          {data.pricing === "Kostenlos" ? 
-            "Komplett kostenlos nutzbar" :
-            data.pricing === "Freemium" ?
-            "Kostenlos testen, dann upgraden" :
-            "Premium Tool für Profis"
+      <div class="pricing-card">"
+        <div class="pricing-tag">{data.pricing || 'Freemium'}</div>'"
+        <h3 class="pricing-title">{data.title} testen</h3>"
+        <p class="pricing-description">"
+          {data.pricing === "Kostenlos" ? "
+            "Komplett kostenlos nutzbar" :"
+            data.pricing === "Freemium" ?"
+            "Kostenlos testen, dann upgraden" :"
+            "Premium Tool für Profis""
           }
         </p>
-        <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="pricing-cta">
+        <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="pricing-cta">"
           Jetzt testen
         </a>
-        <p class="pricing-note">
-          {data.free_trial ? "✅ Kostenlose Testversion verfügbar" : "💡 Direkt loslegen"}
+        <p class="pricing-note">"
+          {data.free_trial ? "✅ Kostenlose Testversion verfügbar" : "💡 Direkt loslegen"}"
         </p>
         
         {data.price_category && (
-          <p class="pricing-note" style="margin-top: 1rem;">
-            <strong>Preiskategorie:</strong> {data.price_category === "budget" ? "Budget-freundlich" : 
-                                            data.price_category === "mid-range" ? "Mittelklasse" :
-                                            data.price_category === "premium" ? "Premium" : "Enterprise"}
+          <p class="pricing-note" style="margin-top: 1rem;">"
+            <strong>Preiskategorie:</strong> {data.price_category === "budget" ? "Budget-freundlich" : "
+                                            data.price_category === "mid-range" ? "Mittelklasse" :"
+                                            data.price_category === "premium" ? "Premium" : "Enterprise"}"
           </p>
         )}
       </div>
 
       <!-- Table of Contents -->
-      <div class="table-of-contents">
+      <div class="table-of-contents">"
         <h3>Inhaltsverzeichnis</h3>
-        <ul class="toc-list">
-          <li class="toc-item">
-            <a href="#overview" class="toc-link">Überblick</a>
+        <ul class="toc-list">"
+          <li class="toc-item">"
+            <a href="#overview" class="toc-link">Überblick</a>"
           </li>
-          <li class="toc-item">
-            <a href="#features" class="toc-link">Features</a>
+          <li class="toc-item">"
+            <a href="#features" class="toc-link">Features</a>"
           </li>
-          <li class="toc-item">
-            <a href="#pricing" class="toc-link">Preise</a>
+          <li class="toc-item">"
+            <a href="#pricing" class="toc-link">Preise</a>"
           </li>
-          <li class="toc-item">
-            <a href="#pros-cons" class="toc-link">Vor- & Nachteile</a>
+          <li class="toc-item">"
+            <a href="#pros-cons" class="toc-link">Vor- & Nachteile</a>"
           </li>
-          <li class="toc-item">
-            <a href="#use-cases" class="toc-link">Anwendungsfälle</a>
+          <li class="toc-item">"
+            <a href="#use-cases" class="toc-link">Anwendungsfälle</a>"
           </li>
-          <li class="toc-item">
-            <a href="#faq" class="toc-link">FAQ</a>
+          <li class="toc-item">"
+            <a href="#faq" class="toc-link">FAQ</a>"
           </li>
         </ul>
       </div>
 
       <!-- Quick Actions -->
-      <div class="quick-actions">
+      <div class="quick-actions">"
         <h3>Schnellaktionen</h3>
-        <a href={data.affiliate_link} target="_blank" class="quick-action-btn">
+        <a href={data.affiliate_link} target="_blank" class="quick-action-btn">"
           🚀 Tool direkt testen
         </a>
-        <a href="/tools" class="quick-action-btn">
+        <a href="/tools" class="quick-action-btn">"
           🔍 Ähnliche Tools finden
         </a>
-        <button class="quick-action-btn" onclick="window.print()">
+        <button class="quick-action-btn" onclick="window.print()">"
           📄 Seite drucken
         </button>
-        <button class="quick-action-btn" onclick="navigator.share && navigator.share({title: document.title, url: window.location.href})">
+        <button class="quick-action-btn" onclick="navigator.share && navigator.share({title: document.title, url: window.location.href})">"
           📤 Tool teilen
         </button>
       </div>
 
       <!-- Tool Comparison Widget -->
-      <div class="comparison-widget">
+      <div class="comparison-widget">"
         <h3>Tool-Vergleich</h3>
-        <div class="compare-checkbox-wrapper">
-          <input type="checkbox" class="compare-checkbox" data-tool={data.title} />
-          <label class="compare-label">Zu Vergleich hinzufügen</label>
+        <div class="compare-checkbox-wrapper">"
+          <input type="checkbox" class="compare-checkbox" data-tool={data.title} />"
+          <label class="compare-label">Zu Vergleich hinzufügen</label>"
         </div>
-        <button class="compare-btn" id="compareBtn">
+        <button class="compare-btn" id="compareBtn">"
           Vergleich starten (0)
         </button>
       </div>
 
       <!-- AdSense Sidebar -->
-      <div class="ad-container ad-sidebar">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-format="auto"
-             data-full-width-responsive="true"
-             data-ad-client="ca-pub-5595876978844902"
-             data-ad-slot="AUTO"></ins>
+      <div class="ad-container ad-sidebar">"
+        <ins class="adsbygoogle""
+             style="display:block""
+             data-ad-format="auto""
+             data-full-width-responsive="true""
+             data-ad-client="ca-pub-5595876978844902""
+             data-ad-slot="AUTO"></ins>"
       </div>
     </div>
   </div>
 
   <!-- DETAILED PRICING SECTION -->
   {data.pricing_details && (
-    <div class="pricing-overview">
+    <div class="pricing-overview">"
       <h3>Detaillierte Preisübersicht</h3>
       <p>Alle Preispläne und Features im Überblick</p>
       
-      <div class="pricing-plans">
+      <div class="pricing-plans">"
         {/* FREE PLAN */}
         {data.pricing_details.free_plan && data.pricing_details.free_plan.available && (
-          <div class="plan-card">
-            <h4 class="plan-name">Kostenlose Version</h4>
-            <div class="plan-price">
+          <div class="plan-card">"
+            <h4 class="plan-name">Kostenlose Version</h4>"
+            <div class="plan-price">"
               <span>0</span>
-              <span class="currency">€</span>
+              <span class="currency">€</span>"
             </div>
-            <div class="plan-cycle">{formatBillingCycle(data.pricing_details.free_plan.billing_cycle)}</div>
+            <div class="plan-cycle">{formatBillingCycle(data.pricing_details.free_plan.billing_cycle)}</div>"
             
-            <ul class="plan-features">
+            <ul class="plan-features">"
               {data.pricing_details.free_plan.features.map(feature => (
                 <li>{feature}</li>
               ))}
             </ul>
             
             {data.pricing_details.free_plan.limitations && data.pricing_details.free_plan.limitations.length > 0 && (
-              <ul class="plan-limitations">
+              <ul class="plan-limitations">"
                 {data.pricing_details.free_plan.limitations.map(limitation => (
                   <li>{limitation}</li>
                 ))}
               </ul>
             )}
             
-            <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="plan-cta">
+            <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="plan-cta">"
               Kostenlos starten
             </a>
           </div>
@@ -264,32 +264,32 @@
         
         {/* PAID PLANS */}
         {data.pricing_details.paid_plans && data.pricing_details.paid_plans.map(plan => (
-          <div class={`plan-card ${plan.popular ? 'popular' : ''}`}>
-            <h4 class="plan-name">{plan.name}</h4>
-            <div class="plan-price">
-              {typeof plan.price === 'string' ? (
+          <div class={`plan-card ${plan.popular ? 'popular' : ''}`}>`'
+            <h4 class="plan-name">{plan.name}</h4>"
+            <div class="plan-price">"
+              {typeof plan.price === 'string' ? ('
                 <span>{plan.price}</span>
               ) : (
                 <>
                   <span>{plan.price}</span>
-                  <span class="currency">{mapCurrency(plan.currency) || '€'}</span>
+                  <span class="currency">{mapCurrency(plan.currency) || '€'}</span>'"
                 </>
               )}
             </div>
-            <div class="plan-cycle">
+            <div class="plan-cycle">"
               {formatBillingCycle(plan.billing_cycle)}
-              {plan.per_user && ' pro Nutzer'}
-              {plan.minimum_users && ` (min. ${plan.minimum_users} Nutzer)`}
+              {plan.per_user && ' pro Nutzer'}'
+              {plan.minimum_users && ` (min. ${plan.minimum_users} Nutzer)`}`
             </div>
             
-            <ul class="plan-features">
+            <ul class="plan-features">"
               {plan.features.map(feature => (
                 <li>{feature}</li>
               ))}
             </ul>
             
             {plan.limitations && plan.limitations.length > 0 && (
-              <ul class="plan-limitations">
+              <ul class="plan-limitations">"
                 {plan.limitations.map(limitation => (
                   <li>{limitation}</li>
                 ))}
@@ -297,18 +297,18 @@
             )}
             
             {plan.note && (
-              <div class="plan-note">{plan.note}</div>
+              <div class="plan-note">{plan.note}</div>"
             )}
             
-            <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="plan-cta">
-              {plan.popular ? 'Jetzt upgraden' : 'Plan wählen'}
+            <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="plan-cta">"
+              {plan.popular ? 'Jetzt upgraden' : 'Plan wählen'}'
             </a>
           </div>
         ))}
       </div>
       
       {data.last_price_update && (
-        <p style="text-align: center; margin-top: 2rem; color: var(--text-secondary); font-size: 0.9rem">
+        <p style="text-align: center; margin-top: 2rem; color: var(--text-secondary); font-size: 0.9rem;">"
           Preise zuletzt aktualisiert: {data.last_price_update}
         </p>
       )}
@@ -317,34 +317,34 @@
 
   <!-- API PRICING SECTION -->
   {data.api_pricing && data.api_pricing.models && (
-    <div class="api-pricing">
+    <div class="api-pricing">"
       <h3>API Preise für Entwickler</h3>
       <p>Direkter Zugang zur KI über moderne APIs</p>
       
-      <div class="api-models">
+      <div class="api-models">"
         {data.api_pricing.models.map(model => (
-          <div class={`api-model ${model.popular ? 'popular' : ''}`}>
-            <div class="api-model-header">
-              <h4 class="api-model-name">{model.name}</h4>
-              <span class="api-model-context">{model.context_window}</span>
+          <div class={`api-model ${model.popular ? 'popular' : ''}`}>`'
+            <div class="api-model-header">"
+              <h4 class="api-model-name">{model.name}</h4>"
+              <span class="api-model-context">{model.context_window}</span>"
             </div>
             
-            <div class="api-pricing-grid">
-              <div class="api-price-item">
-                <div class="api-price-label">Input</div>
-                <div class="api-price-value">{formatApiPrice(model.input_price, model.currency)}</div>
-                <div class="api-price-unit">pro {model.per_million_tokens ? 'Million Token' : 'Request'}</div>
+            <div class="api-pricing-grid">"
+              <div class="api-price-item">"
+                <div class="api-price-label">Input</div>"
+                <div class="api-price-value">{formatApiPrice(model.input_price, model.currency)}</div>"
+                <div class="api-price-unit">pro {model.per_million_tokens ? 'Million Token' : 'Request'}</div>'"
               </div>
               
-              <div class="api-price-item">
-                <div class="api-price-label">Output</div>
-                <div class="api-price-value">{formatApiPrice(model.output_price, model.currency)}</div>
-                <div class="api-price-unit">pro {model.per_million_tokens ? 'Million Token' : 'Request'}</div>
+              <div class="api-price-item">"
+                <div class="api-price-label">Output</div>"
+                <div class="api-price-value">{formatApiPrice(model.output_price, model.currency)}</div>"
+                <div class="api-price-unit">pro {model.per_million_tokens ? 'Million Token' : 'Request'}</div>'"
               </div>
             </div>
             
             {model.note && (
-              <div class="api-model-note">{model.note}</div>
+              <div class="api-model-note">{model.note}</div>"
             )}
           </div>
         ))}
@@ -354,11 +354,11 @@
 
   <!-- COMPARISON METRICS -->
   {data.comparison_metrics && (
-    <div class="comparison-section">
+    <div class="comparison-section">"
       <h3>Vergleichstabelle</h3>
       <p>Detaillierter Vergleich aller verfügbaren Pläne</p>
       
-      <div class="comparison-table">
+      <div class="comparison-table">"
         <table>
           <thead>
             <tr>
@@ -372,28 +372,28 @@
           <tbody>
             {data.comparison_metrics.messages_per_day && (
               <tr>
-                <td class="metric-label">Nachrichten pro Tag</td>
+                <td class="metric-label">Nachrichten pro Tag</td>"
                 {Object.entries(data.comparison_metrics.messages_per_day).map(([plan, value]) => (
-                  <td class="metric-value">{value}</td>
+                  <td class="metric-value">{value}</td>"
                 ))}
               </tr>
             )}
             
             {data.comparison_metrics.requests_per_month && (
               <tr>
-                <td class="metric-label">Requests pro Monat</td>
+                <td class="metric-label">Requests pro Monat</td>"
                 {Object.entries(data.comparison_metrics.requests_per_month).map(([plan, value]) => (
-                  <td class="metric-value">{value}</td>
+                  <td class="metric-value">{value}</td>"
                 ))}
               </tr>
             )}
             
             {data.comparison_metrics.models_included && (
               <tr>
-                <td class="metric-label">Verfügbare Modelle</td>
+                <td class="metric-label">Verfügbare Modelle</td>"
                 {Object.entries(data.comparison_metrics.models_included).map(([plan, models]) => (
-                  <td class="metric-value">
-                    {Array.isArray(models) ? models.join(', ') : models}
+                  <td class="metric-value">"
+                    {Array.isArray(models) ? models.join(', ') : models}'
                   </td>
                 ))}
               </tr>
@@ -401,9 +401,9 @@
             
             {data.comparison_metrics.support_level && (
               <tr>
-                <td class="metric-label">Support-Level</td>
+                <td class="metric-label">Support-Level</td>"
                 {Object.entries(data.comparison_metrics.support_level).map(([plan, value]) => (
-                  <td class="metric-value">{value}</td>
+                  <td class="metric-value">{value}</td>"
                 ))}
               </tr>
             )}
@@ -413,16 +413,16 @@
     </div>
   )}
 
-  <div class="similar-tools">
+  <div class="similar-tools">"
     <h3>Ähnliche Tools aus der Kategorie {data.category}</h3>
     <p>Weitere empfehlenswerte KI-Tools</p>
     
-    <div class="tools-grid">
+    <div class="tools-grid">"
       {similarTools.map(tool => (
-        <div class="tool-card">
+        <div class="tool-card">"
           <h3>{tool.data.title}</h3>
           <p>{tool.data.description}</p>
-          <a href={`/tools/${tool.slug}`} class="tool-card-cta">
+          <a href={`/tools/${tool.slug}`} class="tool-card-cta">`"
             Mehr erfahren
           </a>
         </div>
@@ -430,65 +430,65 @@
     </div>
   </div>
 
-  <div class="ad-container">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-5595876978844902"
-         data-ad-slot="AUTO"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
+  <div class="ad-container">"
+    <ins class="adsbygoogle""
+         style="display:block""
+         data-ad-client="ca-pub-5595876978844902""
+         data-ad-slot="AUTO""
+         data-ad-format="auto""
+         data-full-width-responsive="true"></ins>"
   </div>
 
-  <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-content">
+  <footer class="footer">"
+    <div class="footer-container">"
+      <div class="footer-content">"
         <div>
-          <div class="footer-logo">AI Tool Vault</div>
-          <p class="footer-description">
+          <div class="footer-logo">AI Tool Vault</div>"
+          <p class="footer-description">"
             Die umfassendste Sammlung von KI-Tools für Kreativität, Produktivität und Innovation. 
             Entdecke die Zukunft heute.
           </p>
         </div>
         
-        <div class="footer-section">
+        <div class="footer-section">"
           <h4>Navigation</h4>
-          <ul class="footer-links">
-            <li><a href="/tools">Alle Tools</a></li>
-            <li><a href="/#categories">Kategorien</a></li>
-            <li><a href="/kontakt">Kontakt</a></li>
+          <ul class="footer-links">"
+            <li><a href="/tools">Alle Tools</a></li>"
+            <li><a href="/#categories">Kategorien</a></li>"
+            <li><a href="/kontakt">Kontakt</a></li>"
           </ul>
         </div>
         
-        <div class="footer-section">
+        <div class="footer-section">"
           <h4>Rechtliches</h4>
-          <ul class="footer-links">
-            <li><a href="/impressum">Impressum</a></li>
-            <li><a href="/datenschutz">Datenschutz</a></li>
-            <li><a href="/kontakt">Support</a></li>
+          <ul class="footer-links">"
+            <li><a href="/impressum">Impressum</a></li>"
+            <li><a href="/datenschutz">Datenschutz</a></li>"
+            <li><a href="/kontakt">Support</a></li>"
           </ul>
         </div>
       </div>
       
-      <div class="footer-bottom">
+      <div class="footer-bottom">"
         <p>&copy; 2025 AI Tool Vault. Alle Rechte vorbehalten.</p>
       </div>
     </div>
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {'
       // ===== THEME TOGGLE =====
-      var themeToggle = document.getElementById('themeToggle');
+      var themeToggle = document.getElementById('themeToggle');'
       var html = document.documentElement;
       
-      var savedTheme = localStorage.getItem('theme') || 'light';
-      html.setAttribute('data-theme', savedTheme);
+      var savedTheme = localStorage.getItem('theme') || 'light';'
+      html.setAttribute('data-theme', savedTheme);'
       
       function updateToggleButton(theme) {
-        var button = document.getElementById('themeToggle');
+        var button = document.getElementById('themeToggle');'
         if (button) {
-          button.setAttribute('aria-label', 
-            theme === 'dark' ? 'Zu hellem Modus wechseln' : 'Zu dunklem Modus wechseln'
+          button.setAttribute('aria-label', '
+            theme === 'dark' ? 'Zu hellem Modus wechseln' : 'Zu dunklem Modus wechseln''
           );
         }
       }
@@ -496,18 +496,18 @@
       updateToggleButton(savedTheme);
       
       if (themeToggle) {
-        themeToggle.addEventListener('click', function() {
-          var currentTheme = html.getAttribute('data-theme');
-          var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        themeToggle.addEventListener('click', function() {'
+          var currentTheme = html.getAttribute('data-theme');'
+          var newTheme = currentTheme === 'dark' ? 'light' : 'dark';'
           
-          html.setAttribute('data-theme', newTheme);
-          localStorage.setItem('theme', newTheme);
+          html.setAttribute('data-theme', newTheme);'
+          localStorage.setItem('theme', newTheme);'
           updateToggleButton(newTheme);
           
-          if (typeof gtag !== 'undefined') {
-            gtag('event', 'theme_change', {
-              'theme_mode': newTheme,
-              'source': 'tool_page_toggle'
+          if (typeof gtag !== 'undefined') {'
+            gtag('event', 'theme_change', {'
+              'theme_mode': newTheme,'
+              'source': 'tool_page_toggle''
             });
           }
         });
@@ -515,68 +515,68 @@
 
       // ===== ENHANCED BOOKMARKS =====
       function initializeBookmarks() {
-        var favorites = JSON.parse(localStorage.getItem('favoriteTools') || '[]');
-        var toolName = document.querySelector('.hero-bookmark').getAttribute('data-tool');
-        var bookmarkBtn = document.querySelector('.hero-bookmark');
+        var favorites = JSON.parse(localStorage.getItem('favoriteTools') || '[]');'
+        var toolName = document.querySelector('.hero-bookmark').getAttribute('data-tool');'
+        var bookmarkBtn = document.querySelector('.hero-bookmark');'
         
         if (favorites.includes(toolName)) {
-          bookmarkBtn.textContent = '❤️';
-          bookmarkBtn.classList.add('favorited');
+          bookmarkBtn.textContent = '❤️';'
+          bookmarkBtn.classList.add('favorited');'
         }
       }
       
       function toggleBookmark(btn) {
-        var toolName = btn.getAttribute('data-tool');
-        var favorites = JSON.parse(localStorage.getItem('favoriteTools') || '[]');
+        var toolName = btn.getAttribute('data-tool');'
+        var favorites = JSON.parse(localStorage.getItem('favoriteTools') || '[]');'
         
         if (favorites.includes(toolName)) {
           favorites = favorites.filter(function(tool) { return tool !== toolName; });
-          btn.textContent = '🤍';
-          btn.classList.remove('favorited');
+          btn.textContent = '🤍';'
+          btn.classList.remove('favorited');'
         } else {
           favorites.push(toolName);
-          btn.textContent = '❤️';
-          btn.classList.add('favorited');
+          btn.textContent = '❤️';'
+          btn.classList.add('favorited');'
         }
         
-        localStorage.setItem('favoriteTools', JSON.stringify(favorites));
+        localStorage.setItem('favoriteTools', JSON.stringify(favorites));'
         
         // Show feedback
-        btn.style.transform = 'scale(1.2)';
+        btn.style.transform = 'scale(1.2)';'
         setTimeout(function() {
-          btn.style.transform = 'scale(1)';
+          btn.style.transform = 'scale(1)';'
         }, 200);
       }
       
       // Handle bookmark clicks
-      document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('hero-bookmark')) {
+      document.addEventListener('click', function(e) {'
+        if (e.target.classList.contains('hero-bookmark')) {'
           toggleBookmark(e.target);
         }
       });
 
       // ===== ENHANCED FAQ ACCORDION =====
       function setupFAQ() {
-        var faqQuestions = document.querySelectorAll('.faq-question');
+        var faqQuestions = document.querySelectorAll('.faq-question');'
         
         faqQuestions.forEach(function(question) {
-          question.addEventListener('click', function() {
-            var index = this.getAttribute('data-faq');
-            var answer = document.querySelector(`[data-answer="${index}"]`);
-            var isActive = this.classList.contains('active');
+          question.addEventListener('click', function() {'
+            var index = this.getAttribute('data-faq');'
+            var answer = document.querySelector(`[data-answer="${index}"]`);`"
+            var isActive = this.classList.contains('active');'
             
             // Close all other FAQs
             faqQuestions.forEach(function(q) {
-              q.classList.remove('active');
+              q.classList.remove('active');'
             });
-            document.querySelectorAll('.faq-answer').forEach(function(a) {
-              a.classList.remove('active');
+            document.querySelectorAll('.faq-answer').forEach(function(a) {'
+              a.classList.remove('active');'
             });
             
             // Toggle current FAQ
             if (!isActive) {
-              this.classList.add('active');
-              answer.classList.add('active');
+              this.classList.add('active');'
+              answer.classList.add('active');'
             }
           });
         });
@@ -584,20 +584,20 @@
 
       // ===== TABLE OF CONTENTS NAVIGATION =====
       function setupTableOfContents() {
-        var tocLinks = document.querySelectorAll('.toc-link');
-        var sections = ['overview', 'features', 'pricing', 'pros-cons', 'use-cases', 'faq'];
+        var tocLinks = document.querySelectorAll('.toc-link');'
+        var sections = ['overview', 'features', 'pricing', 'pros-cons', 'use-cases', 'faq'];'
         
         // Smooth scrolling for TOC links
         tocLinks.forEach(function(link) {
-          link.addEventListener('click', function(e) {
+          link.addEventListener('click', function(e) {'
             e.preventDefault();
-            var targetId = this.getAttribute('href').substring(1);
+            var targetId = this.getAttribute('href').substring(1);'
             var targetElement = document.getElementById(targetId);
             
             if (targetElement) {
               targetElement.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+                behavior: 'smooth','
+                block: 'start''
               });
             }
           });
@@ -609,34 +609,34 @@
           
           sections.forEach(function(sectionId) {
             var section = document.getElementById(sectionId);
-            var link = document.querySelector(`[href="#${sectionId}"]`);
+            var link = document.querySelector(`[href="#${sectionId}"]`);`"
             
             if (section && link) {
               var sectionTop = section.offsetTop;
               var sectionBottom = sectionTop + section.offsetHeight;
               
               if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                document.querySelectorAll('.toc-link').forEach(function(l) {
-                  l.classList.remove('active');
+                document.querySelectorAll('.toc-link').forEach(function(l) {'
+                  l.classList.remove('active');'
                 });
-                link.classList.add('active');
+                link.classList.add('active');'
               }
             }
           });
         }
         
-        window.addEventListener('scroll', updateActiveTOC);
+        window.addEventListener('scroll', updateActiveTOC);'
       }
 
       // ===== TOOL COMPARISON SYSTEM =====
       function setupToolComparison() {
-        var compareCheckbox = document.querySelector('.compare-checkbox');
-        var compareBtn = document.getElementById('compareBtn');
+        var compareCheckbox = document.querySelector('.compare-checkbox');'
+        var compareBtn = document.getElementById('compareBtn');'
         
         if (compareCheckbox && compareBtn) {
-          compareCheckbox.addEventListener('change', function() {
-            var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');
-            var toolName = this.getAttribute('data-tool');
+          compareCheckbox.addEventListener('change', function() {'
+            var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');'
+            var toolName = this.getAttribute('data-tool');'
             
             if (this.checked) {
               if (!selectedTools.includes(toolName)) {
@@ -648,13 +648,13 @@
               });
             }
             
-            localStorage.setItem('selectedTools', JSON.stringify(selectedTools));
+            localStorage.setItem('selectedTools', JSON.stringify(selectedTools));'
             updateCompareButton(selectedTools.length);
           });
           
           // Initialize compare button
-          var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');
-          var toolName = compareCheckbox.getAttribute('data-tool');
+          var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');'
+          var toolName = compareCheckbox.getAttribute('data-tool');'
           if (selectedTools.includes(toolName)) {
             compareCheckbox.checked = true;
           }
@@ -663,52 +663,52 @@
         
         function updateCompareButton(count) {
           if (compareBtn) {
-            compareBtn.textContent = `Vergleich starten (${count})`;
-            compareBtn.style.display = count > 0 ? 'block' : 'none';
+            compareBtn.textContent = `Vergleich starten (${count})`;`
+            compareBtn.style.display = count > 0 ? 'block' : 'none';'
           }
         }
         
           if (compareBtn) {
-          compareBtn.addEventListener('click', function() {
-            var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');
+          compareBtn.addEventListener('click', function() {'
+            var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');'
             
-            if (typeof gtag !== 'undefined') {
-              gtag('event', 'tool_comparison_start', {
-                'tool_count': selectedTools.length,
-                'tools': selectedTools.join(','),
-                'source': 'tool_detail_page'
+            if (typeof gtag !== 'undefined') {'
+              gtag('event', 'tool_comparison_start', {'
+                'tool_count': selectedTools.length,'
+                'tools': selectedTools.join(','),'
+                'source': 'tool_detail_page''
               });
             }
             
-            alert(`Vergleich wird gestartet mit: ${selectedTools.join(', ')}`);
+            alert(`Vergleich wird gestartet mit: ${selectedTools.join(', ')}`);`'
           });
         }
       }
 
       // ===== ENHANCED MOBILE MENU =====
-      var mobileMenuBtn = document.querySelector('.mobile-menu');
-      var navLinks = document.querySelector('.nav-links');
+      var mobileMenuBtn = document.querySelector('.mobile-menu');'
+      var navLinks = document.querySelector('.nav-links');'
       
       if (mobileMenuBtn && navLinks) {
         var menuOpen = false;
         
-        mobileMenuBtn.addEventListener('click', function(e) {
+        mobileMenuBtn.addEventListener('click', function(e) {'
           e.stopPropagation();
           menuOpen = !menuOpen;
           
           if (menuOpen) {
-            navLinks.classList.add('show');
-            this.innerHTML = '✕';
+            navLinks.classList.add('show');'
+            this.innerHTML = '✕';'
           } else {
-            navLinks.classList.remove('show');
-            this.innerHTML = '☰';
+            navLinks.classList.remove('show');'
+            this.innerHTML = '☰';'
           }
         });
         
-        document.addEventListener('click', function() {
+        document.addEventListener('click', function() {'
           if (menuOpen) {
-            navLinks.classList.remove('show');
-            mobileMenuBtn.innerHTML = '☰';
+            navLinks.classList.remove('show');'
+            mobileMenuBtn.innerHTML = '☰';'
             menuOpen = false;
           }
         });
@@ -717,43 +717,43 @@
       // ===== ENHANCED TRACKING =====
       
       // Enhanced Affiliate Tracking
-      var affiliateButtons = document.querySelectorAll('a[href*="' + document.querySelector('.hero-cta').href.split('?')[0] + '"]');
+      var affiliateButtons = document.querySelectorAll('a[href*="' + document.querySelector('.hero-cta').href.split('?')[0] + '"]');'"
       affiliateButtons.forEach(function(btn, index) {
-        btn.addEventListener('click', function() {
-          var buttonType = 'unknown';
-          if (this.classList.contains('hero-cta')) buttonType = 'hero';
-          else if (this.classList.contains('pricing-cta')) buttonType = 'sidebar';
-          else if (this.classList.contains('plan-cta')) buttonType = 'pricing_plan';
-          else if (this.classList.contains('quick-action-btn')) buttonType = 'quick_action';
+        btn.addEventListener('click', function() {'
+          var buttonType = 'unknown';'
+          if (this.classList.contains('hero-cta')) buttonType = 'hero';'
+          else if (this.classList.contains('pricing-cta')) buttonType = 'sidebar';'
+          else if (this.classList.contains('plan-cta')) buttonType = 'pricing_plan';'
+          else if (this.classList.contains('quick-action-btn')) buttonType = 'quick_action';'
           
-          if (typeof gtag !== 'undefined') {
-            gtag('event', 'affiliate_click', {
-              'tool_name': document.querySelector('h1').textContent,
-              'source': 'tool_detail_page',
-              'button_type': buttonType,
-              'position': index + 1,
-              'affiliate_url': this.href,
-              'value': 25.00,
-              'currency': 'EUR'
+          if (typeof gtag !== 'undefined') {'
+            gtag('event', 'affiliate_click', {'
+              'tool_name': document.querySelector('h1').textContent,'
+              'source': 'tool_detail_page','
+              'button_type': buttonType,'
+              'position': index + 1,'
+              'affiliate_url': this.href,'
+              'value': 25.00,'
+              'currency': 'EUR''
             });
           }
         });
       });
 
       // Plan Comparison Tracking
-      var planCards = document.querySelectorAll('.plan-card');
+      var planCards = document.querySelectorAll('.plan-card');'
       planCards.forEach(function(card, index) {
-        var planName = card.querySelector('.plan-name')?.textContent || 'Unknown Plan';
-        var ctaButton = card.querySelector('.plan-cta');
+        var planName = card.querySelector('.plan-name')?.textContent || 'Unknown Plan';'
+        var ctaButton = card.querySelector('.plan-cta');'
         
         if (ctaButton) {
-          ctaButton.addEventListener('click', function() {
-            if (typeof gtag !== 'undefined') {
-              gtag('event', 'pricing_plan_click', {
-                'tool_name': document.querySelector('h1').textContent,
-                'plan_name': planName,
-                'plan_position': index + 1,
-                'is_popular': card.classList.contains('popular')
+          ctaButton.addEventListener('click', function() {'
+            if (typeof gtag !== 'undefined') {'
+              gtag('event', 'pricing_plan_click', {'
+                'tool_name': document.querySelector('h1').textContent,'
+                'plan_name': planName,'
+                'plan_position': index + 1,'
+                'is_popular': card.classList.contains('popular')'
               });
             }
           });
@@ -761,33 +761,33 @@
       });
 
       // FAQ Interaction Tracking
-      var faqItems = document.querySelectorAll('.faq-item');
+      var faqItems = document.querySelectorAll('.faq-item');'
       faqItems.forEach(function(item, index) {
-        item.addEventListener('click', function() {
-          var question = this.querySelector('.faq-question')?.textContent || 'Unknown Question';
+        item.addEventListener('click', function() {'
+          var question = this.querySelector('.faq-question')?.textContent || 'Unknown Question';'
           
-          if (typeof gtag !== 'undefined') {
-            gtag('event', 'faq_interaction', {
-              'tool_name': document.querySelector('h1').textContent,
-              'question': question.substring(0, 50),
-              'position': index + 1
+          if (typeof gtag !== 'undefined') {'
+            gtag('event', 'faq_interaction', {'
+              'tool_name': document.querySelector('h1').textContent,'
+              'question': question.substring(0, 50),'
+              'position': index + 1'
             });
           }
         });
       });
 
       // Similar Tools Tracking
-      var similarToolCards = document.querySelectorAll('.tool-card');
+      var similarToolCards = document.querySelectorAll('.tool-card');'
       similarToolCards.forEach(function(card, index) {
-        var toolName = card.querySelector('h3')?.textContent || 'Unknown Tool';
-        var ctaButton = card.querySelector('.tool-card-cta');
+        var toolName = card.querySelector('h3')?.textContent || 'Unknown Tool';'
+        var ctaButton = card.querySelector('.tool-card-cta');'
         
         if (ctaButton) {
-          ctaButton.addEventListener('click---
-import { getCollection } from "astro:content";
+          ctaButton.addEventListener('click---'
+import { getCollection } from "astro:content";"
 
 export async function getStaticPaths() {
-  const tools = await getCollection("tools");
+  const tools = await getCollection("tools");"
   return tools.map(tool => ({
     params: { slug: tool.slug },
     props: { tool }
@@ -797,8 +797,8 @@ export async function getStaticPaths() {
 const { tool } = Astro.props;
 const { data } = tool;
 
-// Alle Tools für "Ähnliche Tools" laden
-const allTools = await getCollection("tools");
+// Alle Tools für "Ähnliche Tools" laden"
+const allTools = await getCollection("tools");"
 const similarTools = allTools
   .filter(t => t.data.category === data.category && t.slug !== tool.slug)
   .slice(0, 6);
@@ -817,47 +817,47 @@ const isNew = data.founded && parseInt(data.founded) >= 2023;
 // Enhanced Logo URLs
 function getToolLogo(toolName) {
   const logoMap = {
-    'ChatGPT': 'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg',
-    'Claude': 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Anthropic_logo.svg',
-    'DALL-E 3': 'https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg',
-    'Midjourney': 'https://seeklogo.com/images/M/midjourney-logo-F8C82EA677-seeklogo.com.png',
-    'GitHub Copilot': 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
-    'Stable Diffusion': 'https://stability.ai/favicon.ico'
+    'ChatGPT': 'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg','
+    'Claude': 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Anthropic_logo.svg','
+    'DALL-E 3': 'https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg','
+    'Midjourney': 'https://seeklogo.com/images/M/midjourney-logo-F8C82EA677-seeklogo.com.png','
+    'GitHub Copilot': 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png','
+    'Stable Diffusion': 'https://stability.ai/favicon.ico''
   };
   
-  return logoMap[toolName] || `https://ui-avatars.com/api/?name=${encodeURIComponent(toolName)}&background=3b82f6&color=fff&size=100&rounded=true`;
+  return logoMap[toolName] || `https://ui-avatars.com/api/?name=${encodeURIComponent(toolName)}&background=3b82f6&color=fff&size=100&rounded=true`;`
 }
 
 // Enhanced FAQ generation
 function generateFAQ() {
   return [
     {
-      question: `Ist ${data.title} kostenlos?`,
-      answer: data.pricing === "Kostenlos" ? 
-        `Ja, ${data.title} ist komplett kostenlos nutzbar ohne versteckte Kosten.` :
-        data.pricing === "Freemium" ?
-        `${data.title} bietet eine kostenlose Basisversion. Für erweiterte Features gibt es Premium-Pläne.` :
-        `${data.title} ist ein Premium-Tool. ${data.free_trial ? "Es gibt jedoch eine kostenlose Testversion." : "Die Investition lohnt sich für professionelle Anwender."}`
+      question: `Ist ${data.title} kostenlos?`,`
+      answer: data.pricing === "Kostenlos" ? "
+        `Ja, ${data.title} ist komplett kostenlos nutzbar ohne versteckte Kosten.` :`
+        data.pricing === "Freemium" ?"
+        `${data.title} bietet eine kostenlose Basisversion. Für erweiterte Features gibt es Premium-Pläne.` :`
+        `${data.title} ist ein Premium-Tool. ${data.free_trial ? "Es gibt jedoch eine kostenlose Testversion." : "Die Investition lohnt sich für professionelle Anwender."}``"
     },
     {
-      question: `Für wen eignet sich ${data.title}?`,
-      answer: `${data.title} eignet sich perfekt für ${data.category.toLowerCase()}-Anwender${data.use_cases ? `, insbesondere für ${data.use_cases.slice(0,2).join(' und ')}.` : ', Kreative, Unternehmer und alle, die ihre Produktivität steigern möchten.'}`
+      question: `Für wen eignet sich ${data.title}?`,`
+      answer: `${data.title} eignet sich perfekt für ${data.category.toLowerCase()}-Anwender${data.use_cases ? `, insbesondere für ${data.use_cases.slice(0,2).join(' und ')}.` : ', Kreative, Unternehmer und alle, die ihre Produktivität steigern möchten.'}``'
     },
     {
-      question: `Wie schnell kann ich mit ${data.title} starten?`,
-      answer: `Der Einstieg ist sehr einfach - nach der Anmeldung kannst du sofort loslegen. Die intuitive Benutzeroberfläche ermöglicht auch Anfängern einen schnellen Start.`
+      question: `Wie schnell kann ich mit ${data.title} starten?`,`
+      answer: `Der Einstieg ist sehr einfach - nach der Anmeldung kannst du sofort loslegen. Die intuitive Benutzeroberfläche ermöglicht auch Anfängern einen schnellen Start.``
     },
     {
-      question: `Gibt es eine mobile App für ${data.title}?`,
+      question: `Gibt es eine mobile App für ${data.title}?`,`
       answer: data.mobile_app ? 
-        `Ja, ${data.title} bietet auch eine mobile App für iOS und Android.` :
-        `${data.title} ist aktuell als Web-Anwendung verfügbar und funktioniert perfekt im Browser auf allen Geräten.`
+        `Ja, ${data.title} bietet auch eine mobile App für iOS und Android.` :`
+        `${data.title} ist aktuell als Web-Anwendung verfügbar und funktioniert perfekt im Browser auf allen Geräten.``
     },
     {
-      question: `Kann ich ${data.title} in mein Unternehmen integrieren?`,
+      question: `Kann ich ${data.title} in mein Unternehmen integrieren?`,`
       answer: data.api_available ?
-        `Ja, ${data.title} bietet eine API für die Integration in bestehende Systeme und Workflows.` :
-        `${data.title} kann über Standard-Integrationen in die meisten Business-Workflows eingebunden werden.`
+        `Ja, ${data.title} bietet eine API für die Integration in bestehende Systeme und Workflows.` :`
+        `${data.title} kann über Standard-Integrationen in die meisten Business-Workflows eingebunden werden.``
     }
   ];
 }
@@ -866,12 +866,12 @@ const faqItems = generateFAQ();
 const toolLogo = getToolLogo(data.title);
 
 // PRICING HELPER FUNCTIONS
-function formatPrice(price, currency = "€") {
-  if (typeof price === "string") return price;
-  if (price === 0) return "Kostenlos";
+function formatPrice(price, currency = "€") {"
+  if (typeof price === "string") return price;"
+  if (price === 0) return "Kostenlos";"
   
-  if (typeof price === "number") {
-    return `${price}${currency}`;
+  if (typeof price === "number") {"
+    return `${price}${currency}`;`
   }
   
   return price;
@@ -879,77 +879,77 @@ function formatPrice(price, currency = "€") {
 
 function formatBillingCycle(cycle) {
   const cycles = {
-    "monthly": "pro Monat",
-    "yearly": "pro Jahr", 
-    "one-time": "einmalig",
-    "usage-based": "nutzungsabhängig"
+    "monthly": "pro Monat","
+    "yearly": "pro Jahr", "
+    "one-time": "einmalig","
+    "usage-based": "nutzungsabhängig""
   };
   return cycles[cycle] || cycle;
 }
 
 function formatApiPrice(price, currency) {
-  if (currency === "EUR" || currency === "€") {
-    return `${price}€`;
+  if (currency === "EUR" || currency === "€") {"
+    return `${price}€`;`
   }
-  return `${price}${currency || '€'}`;
+  return `${price}${currency || '€'}`;`'
 }
 
 function mapCurrency(currency) {
   const currencyMap = {
-    "EUR": "€",
-    "USD": "$",
-    "GBP": "£"
+    "EUR": "€","
+    "USD": "$","
+    "GBP": "£""
   };
   return currencyMap[currency] || currency;
 }
 ---
 
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de">"
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />"
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />"
   <title>{data.title} Test & Erfahrungen 2025 - Lohnt sich das KI-Tool?</title>
-  <meta name="description" content={`✅ ${data.title} im Test: Funktionen, Preise & ehrliche Bewertung. ${data.description} ➤ Jetzt kostenlos testen!`}>
+  <meta name="description" content={`✅ ${data.title} im Test: Funktionen, Preise & ehrliche Bewertung. ${data.description} ➤ Jetzt kostenlos testen!`}>`"
   
   <script is:inline>
     (function() {
       function setTheme() {
-        var theme = 'light';
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          theme = localStorage.getItem('theme');
-        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          theme = 'dark';
+        var theme = 'light';'
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {'
+          theme = localStorage.getItem('theme');'
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {'
+          theme = 'dark';'
         }
         
-        if (theme === 'dark') {
-          document.documentElement.classList.add('dark');
-          document.documentElement.setAttribute('data-theme', 'dark');
+        if (theme === 'dark') {'
+          document.documentElement.classList.add('dark');'
+          document.documentElement.setAttribute('data-theme', 'dark');'
         } else {
-          document.documentElement.classList.remove('dark');
-          document.documentElement.setAttribute('data-theme', 'light');
+          document.documentElement.classList.remove('dark');'
+          document.documentElement.setAttribute('data-theme', 'light');'
         }
         
-        if (typeof localStorage !== 'undefined') {
-          localStorage.setItem('theme', theme);
+        if (typeof localStorage !== 'undefined') {'
+          localStorage.setItem('theme', theme);'
         }
       }
       
       setTheme();
-      document.addEventListener('astro:after-swap', setTheme);
+      document.addEventListener('astro:after-swap', setTheme);'
     })();
   </script>
   
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>"
   <script is:inline>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-EC62QPK5VL');
+    gtag('js', new Date());'
+    gtag('config', 'G-EC62QPK5VL');'
   </script>
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5595876978844902"
-     crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5595876978844902""
+     crossorigin="anonymous"></script>"
 
   <style>
     :root {
@@ -974,7 +974,7 @@ function mapCurrency(currency) {
       --footer-text: #94a3b8;
     }
 
-    [data-theme="dark"] {
+    [data-theme="dark"] {"
       --bg-primary: #0f172a;
       --bg-secondary: #1e293b;
       --bg-tertiary: #334155;
@@ -1004,7 +1004,7 @@ function mapCurrency(currency) {
     }
     
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;'
       line-height: 1.6;
       color: var(--text-primary);
       background: var(--bg-primary);
@@ -1039,7 +1039,7 @@ function mapCurrency(currency) {
     }
 
     .theme-switch::before {
-      content: '';
+      content: '';'
       position: absolute;
       top: 3px;
       left: 3px;
@@ -1054,7 +1054,7 @@ function mapCurrency(currency) {
     }
 
     .theme-switch::after {
-      content: '☀️';
+      content: '☀️';'
       position: absolute;
       top: 50%;
       right: 8px;
@@ -1064,20 +1064,20 @@ function mapCurrency(currency) {
       transition: all 0.3s ease;
     }
 
-    [data-theme="dark"] .theme-switch {
+    [data-theme="dark"] .theme-switch {"
       background: linear-gradient(145deg, #374151, #4b5563);
       box-shadow: 
         inset 2px 2px 5px rgba(0, 0, 0, 0.3),
         inset -2px -2px 5px rgba(255, 255, 255, 0.1);
     }
 
-    [data-theme="dark"] .theme-switch::before {
+    [data-theme="dark"] .theme-switch::before {"
       transform: translateX(30px);
       background: linear-gradient(145deg, #1f2937, #374151);
     }
 
-    [data-theme="dark"] .theme-switch::after {
-      content: '🌙';
+    [data-theme="dark"] .theme-switch::after {"
+      content: '🌙';'
       left: 8px;
       right: auto;
     }
@@ -1219,12 +1219,12 @@ function mapCurrency(currency) {
     .badge-api { background: #f3e8ff; color: #7c3aed; }
     .badge-security { background: #ecfdf5; color: #047857; }
 
-    [data-theme="dark"] .badge-popular { background: rgba(220, 38, 38, 0.2); color: #f87171; }
-    [data-theme="dark"] .badge-free { background: rgba(4, 120, 87, 0.2); color: #34d399; }
-    [data-theme="dark"] .badge-new { background: rgba(217, 119, 6, 0.2); color: #fbbf24; }
-    [data-theme="dark"] .badge-expert { background: rgba(67, 56, 202, 0.2); color: #a5b4fc; }
-    [data-theme="dark"] .badge-api { background: rgba(124, 58, 237, 0.2); color: #c4b5fd; }
-    [data-theme="dark"] .badge-security { background: rgba(4, 120, 87, 0.2); color: #6ee7b7; }
+    [data-theme="dark"] .badge-popular { background: rgba(220, 38, 38, 0.2); color: #f87171; }"
+    [data-theme="dark"] .badge-free { background: rgba(4, 120, 87, 0.2); color: #34d399; }"
+    [data-theme="dark"] .badge-new { background: rgba(217, 119, 6, 0.2); color: #fbbf24; }"
+    [data-theme="dark"] .badge-expert { background: rgba(67, 56, 202, 0.2); color: #a5b4fc; }"
+    [data-theme="dark"] .badge-api { background: rgba(124, 58, 237, 0.2); color: #c4b5fd; }"
+    [data-theme="dark"] .badge-security { background: rgba(4, 120, 87, 0.2); color: #6ee7b7; }"
     
     .hero h1 {
       font-size: 2.5rem;
@@ -1283,7 +1283,7 @@ function mapCurrency(currency) {
     }
     
     .hero-cta::before {
-      content: '';
+      content: '';'
       position: absolute;
       top: 0;
       left: -100%;
@@ -1370,7 +1370,7 @@ function mapCurrency(currency) {
     }
     
     .pricing-card::before {
-      content: '';
+      content: '';'
       position: absolute;
       top: 0;
       left: 0;
@@ -1419,7 +1419,7 @@ function mapCurrency(currency) {
     }
     
     .pricing-cta::before {
-      content: '';
+      content: '';'
       position: absolute;
       top: 0;
       left: -100%;
@@ -1630,7 +1630,7 @@ function mapCurrency(currency) {
     }
 
     .plan-card.popular::before {
-      content: "Beliebt";
+      content: "Beliebt";"
       position: absolute;
       top: -12px;
       left: 50%;
@@ -1688,7 +1688,7 @@ function mapCurrency(currency) {
     }
 
     .plan-features li::before {
-      content: "✅";
+      content: "✅";"
       flex-shrink: 0;
       margin-top: 0.1rem;
     }
@@ -1709,7 +1709,7 @@ function mapCurrency(currency) {
     }
 
     .plan-limitations li::before {
-      content: "⚠️";
+      content: "⚠️";"
       flex-shrink: 0;
       margin-top: 0.1rem;
     }
@@ -1771,7 +1771,7 @@ function mapCurrency(currency) {
     }
 
     .api-model.popular::before {
-      content: "Empfohlen";
+      content: "Empfohlen";"
       position: absolute;
       top: -8px;
       right: 1rem;
@@ -1980,7 +1980,7 @@ function mapCurrency(currency) {
     }
 
     .special-feature::before {
-      content: "⭐";
+      content: "⭐";"
       position: absolute;
       top: -8px;
       left: 1rem;
@@ -2036,7 +2036,7 @@ function mapCurrency(currency) {
     }
 
     .security-item::before {
-      content: "🔒";
+      content: "🔒";"
       font-size: 1.5rem;
       flex-shrink: 0;
     }
@@ -2154,12 +2154,12 @@ function mapCurrency(currency) {
     }
     
     .pros-list li::before {
-      content: "✅";
+      content: "✅";"
       flex-shrink: 0;
     }
     
     .cons-list li::before {
-      content: "❌";
+      content: "❌";"
       flex-shrink: 0;
     }
 
@@ -2189,7 +2189,7 @@ function mapCurrency(currency) {
     }
     
     .faq-question::after {
-      content: '+';
+      content: '+';'
       font-size: 1.5rem;
       font-weight: 300;
       transition: transform 0.3s ease;
@@ -2285,7 +2285,7 @@ function mapCurrency(currency) {
     }
 
     .ad-container::before {
-      content: "Anzeige";
+      content: "Anzeige";"
       display: block;
       font-size: 0.8rem;
       color: var(--text-secondary);
@@ -2383,7 +2383,7 @@ function mapCurrency(currency) {
         left: 2.5px;
       }
 
-      [data-theme="dark"] .theme-switch::before {
+      [data-theme="dark"] .theme-switch::before {"
         transform: translateX(25px);
       }
 
@@ -2470,127 +2470,127 @@ function mapCurrency(currency) {
 </head>
 
 <body>
-  <button class="theme-toggle" id="themeToggle" aria-label="Theme umschalten">
-    <div class="theme-switch"></div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Theme umschalten">"
+    <div class="theme-switch"></div>"
   </button>
 
-  <nav class="nav">
-    <div class="nav-container">
-      <a href="/" class="nav-logo">AI Tool Vault</a>
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/tools">Tools</a></li>
-        <li><a href="/impressum">Impressum</a></li>
-        <li><a href="/kontakt">Kontakt</a></li>
-        <li><a href="/datenschutz">Datenschutz</a></li>
+  <nav class="nav">"
+    <div class="nav-container">"
+      <a href="/" class="nav-logo">AI Tool Vault</a>"
+      <ul class="nav-links">"
+        <li><a href="/">Home</a></li>"
+        <li><a href="/tools">Tools</a></li>"
+        <li><a href="/impressum">Impressum</a></li>"
+        <li><a href="/kontakt">Kontakt</a></li>"
+        <li><a href="/datenschutz">Datenschutz</a></li>"
       </ul>
-      <button class="mobile-menu">☰</button>
+      <button class="mobile-menu">☰</button>"
     </div>
   </nav>
 
-  <div class="breadcrumb">
-    <div class="breadcrumb-container">
-      <a href="/">Home</a>
+  <div class="breadcrumb">"
+    <div class="breadcrumb-container">"
+      <a href="/">Home</a>"
       <span>→</span>
-      <a href="/tools">Tools</a>
+      <a href="/tools">Tools</a>"
       <span>→</span>
-      <span class="current">{data.title}</span>
+      <span class="current">{data.title}</span>"
     </div>
   </div>
 
-  <section class="hero">
-    <div class="hero-container">
-      <img src={toolLogo} alt={`${data.title} Logo`} class="tool-logo" />
+  <section class="hero">"
+    <div class="hero-container">"
+      <img src={toolLogo} alt={`${data.title} Logo`} class="tool-logo" />`"
       
-      <div class="hero-content">
-        <div class="hero-badges">
-          {isPopular && <span class="badge badge-popular">Beliebt</span>}
-          {data.pricing === "Kostenlos" && <span class="badge badge-free">Kostenlos</span>}
-          {isNew && <span class="badge badge-new">Neu</span>}
-          {data.featured && <span class="badge badge-expert">Expertenempfehlung</span>}
-          {data.api_available && <span class="badge badge-api">API verfügbar</span>}
-          {data.security_features && data.security_features.length > 0 && <span class="badge badge-security">Sicher</span>}
+      <div class="hero-content">"
+        <div class="hero-badges">"
+          {isPopular && <span class="badge badge-popular">Beliebt</span>}"
+          {data.pricing === "Kostenlos" && <span class="badge badge-free">Kostenlos</span>}"
+          {isNew && <span class="badge badge-new">Neu</span>}"
+          {data.featured && <span class="badge badge-expert">Expertenempfehlung</span>}"
+          {data.api_available && <span class="badge badge-api">API verfügbar</span>}"
+          {data.security_features && data.security_features.length > 0 && <span class="badge badge-security">Sicher</span>}"
         </div>
         
         <h1>{data.title}</h1>
-        <p class="hero-description">{data.description}</p>
+        <p class="hero-description">{data.description}</p>"
         
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <span class="hero-stat-number">★ {expertRating.toFixed(1)}</span>
-            <span class="hero-stat-label">Bewertung</span>
+        <div class="hero-stats">"
+          <div class="hero-stat">"
+            <span class="hero-stat-number">★ {expertRating.toFixed(1)}</span>"
+            <span class="hero-stat-label">Bewertung</span>"
           </div>
-          <div class="hero-stat">
-            <span class="hero-stat-number">{userCount.toLocaleString()}</span>
-            <span class="hero-stat-label">Nutzer</span>
+          <div class="hero-stat">"
+            <span class="hero-stat-number">{userCount.toLocaleString()}</span>"
+            <span class="hero-stat-label">Nutzer</span>"
           </div>
-          <div class="hero-stat">
-            <span class="hero-stat-number">{data.category}</span>
-            <span class="hero-stat-label">Kategorie</span>
+          <div class="hero-stat">"
+            <span class="hero-stat-number">{data.category}</span>"
+            <span class="hero-stat-label">Kategorie</span>"
           </div>
           {data.founded && (
-            <div class="hero-stat">
-              <span class="hero-stat-number">{data.founded}</span>
-              <span class="hero-stat-label">Gegründet</span>
+            <div class="hero-stat">"
+              <span class="hero-stat-number">{data.founded}</span>"
+              <span class="hero-stat-label">Gegründet</span>"
             </div>
           )}
         </div>
       </div>
       
-      <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
-        <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="hero-cta">
+      <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">"
+        <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="hero-cta">"
           Tool testen →
         </a>
-        <button class="hero-bookmark" data-tool={data.title}>
+        <button class="hero-bookmark" data-tool={data.title}>"
           🤍
         </button>
       </div>
     </div>
   </section>
 
-  <div class="ad-container">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-5595876978844902"
-         data-ad-slot="AUTO"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
+  <div class="ad-container">"
+    <ins class="adsbygoogle""
+         style="display:block""
+         data-ad-client="ca-pub-5595876978844902""
+         data-ad-slot="AUTO""
+         data-ad-format="auto""
+         data-full-width-responsive="true"></ins>"
   </div>
 
-  <div class="main-content">
-    <div class="content">
-      <h2 class="section-title">Was ist {data.title}?</h2>
-      <p class="section-subtitle">Eine ausführliche Analyse des KI-Tools</p>
+  <div class="main-content">"
+    <div class="content">"
+      <h2 class="section-title">Was ist {data.title}?</h2>"
+      <p class="section-subtitle">Eine ausführliche Analyse des KI-Tools</p>"
       
       <p>{data.title} ist ein innovatives KI-Tool aus der Kategorie {data.category}. {data.description}</p>
       
       {data.company && (
-        <p>Das Tool wird von <strong>{data.company}</strong> entwickelt{data.founded && `, einem Unternehmen das ${data.founded} gegründet wurde`}.</p>
+        <p>Das Tool wird von <strong>{data.company}</strong> entwickelt{data.founded && `, einem Unternehmen das ${data.founded} gegründet wurde`}.</p>`
       )}
 
       <!-- VALUE SCORING (falls verfügbar) -->
       {(data.price_per_feature_score || data.value_for_money) && (
-        <div class="value-scoring">
+        <div class="value-scoring">"
           <h3>Bewertung & Preis-Leistung</h3>
-          <div class="value-scores">
+          <div class="value-scores">"
             {data.price_per_feature_score && (
-              <div class="value-score">
-                <span class="score-number">{data.price_per_feature_score}/10</span>
-                <div class="score-label">Feature-Score</div>
-                <div class="score-description">Funktionen pro Euro</div>
+              <div class="value-score">"
+                <span class="score-number">{data.price_per_feature_score}/10</span>"
+                <div class="score-label">Feature-Score</div>"
+                <div class="score-description">Funktionen pro Euro</div>"
               </div>
             )}
             {data.value_for_money && (
-              <div class="value-score">
-                <span class="score-number">{data.value_for_money}/10</span>
-                <div class="score-label">Preis-Leistung</div>
-                <div class="score-description">Gesamtbewertung</div>
+              <div class="value-score">"
+                <span class="score-number">{data.value_for_money}/10</span>"
+                <div class="score-label">Preis-Leistung</div>"
+                <div class="score-description">Gesamtbewertung</div>"
               </div>
             )}
-            <div class="value-score">
-              <span class="score-number">★ {expertRating.toFixed(1)}</span>
-              <div class="score-label">Expertenbewertung</div>
-              <div class="score-description">Unser Testurteil</div>
+            <div class="value-score">"
+              <span class="score-number">★ {expertRating.toFixed(1)}</span>"
+              <div class="score-label">Expertenbewertung</div>"
+              <div class="score-description">Unser Testurteil</div>"
             </div>
           </div>
         </div>
@@ -2598,11 +2598,11 @@ function mapCurrency(currency) {
 
       <!-- SPECIAL FEATURES -->
       {data.special_features && data.special_features.length > 0 && (
-        <div class="special-features">
+        <div class="special-features">"
           <h3>Besondere Features</h3>
-          <div class="special-features-grid">
+          <div class="special-features-grid">"
             {data.special_features.map(feature => (
-              <div class="special-feature">
+              <div class="special-feature">"
                 <h4>{feature.name}</h4>
                 <p>{feature.description}</p>
               </div>
@@ -2611,37 +2611,37 @@ function mapCurrency(currency) {
         </div>
       )}
 
-      <div class="features-section"><div class="features-section">
-        <h3 id="features">Hauptfunktionen</h3>
-        <div class="features-grid">
-          <div class="feature-item">
-            <div class="feature-icon">⚡</div>
-            <div class="feature-content">
+      <div class="features-section"><div class="features-section">"
+        <h3 id="features">Hauptfunktionen</h3>"
+        <div class="features-grid">"
+          <div class="feature-item">"
+            <div class="feature-icon">⚡</div>"
+            <div class="feature-content">"
               <h3>Schnelle Verarbeitung</h3>
               <p>Ergebnisse in Sekundenschnelle durch optimierte KI-Algorithmen</p>
             </div>
           </div>
           
-          <div class="feature-item">
-            <div class="feature-icon">🎯</div>
-            <div class="feature-content">
+          <div class="feature-item">"
+            <div class="feature-icon">🎯</div>"
+            <div class="feature-content">"
               <h3>Präzise Ergebnisse</h3>
               <p>Hochqualitative Ausgaben durch fortschrittliche Trainingsmodelle</p>
             </div>
           </div>
           
-          <div class="feature-item">
-            <div class="feature-icon">🔧</div>
-            <div class="feature-content">
+          <div class="feature-item">"
+            <div class="feature-icon">🔧</div>"
+            <div class="feature-content">"
               <h3>Einfache Bedienung</h3>
               <p>Intuitive Benutzeroberfläche für Anfänger und Profis gleichermaßen</p>
             </div>
           </div>
 
           {data.api_available && (
-            <div class="feature-item">
-              <div class="feature-icon">🔌</div>
-              <div class="feature-content">
+            <div class="feature-item">"
+              <div class="feature-icon">🔌</div>"
+              <div class="feature-content">"
                 <h3>API Integration</h3>
                 <p>Nahtlose Integration in bestehende Systeme über moderne APIs</p>
               </div>
@@ -2649,9 +2649,9 @@ function mapCurrency(currency) {
           )}
 
           {data.mobile_app && (
-            <div class="feature-item">
-              <div class="feature-icon">📱</div>
-              <div class="feature-content">
+            <div class="feature-item">"
+              <div class="feature-icon">📱</div>"
+              <div class="feature-content">"
                 <h3>Mobile App</h3>
                 <p>Vollständige Funktionalität auf iOS und Android Geräten</p>
               </div>
@@ -2659,9 +2659,9 @@ function mapCurrency(currency) {
           )}
 
           {data.languages && data.languages.length > 3 && (
-            <div class="feature-item">
-              <div class="feature-icon">🌍</div>
-              <div class="feature-content">
+            <div class="feature-item">"
+              <div class="feature-icon">🌍</div>"
+              <div class="feature-content">"
                 <h3>Mehrsprachig</h3>
                 <p>Unterstützt {data.languages.length} Sprachen für globale Nutzung</p>
               </div>
@@ -2672,11 +2672,11 @@ function mapCurrency(currency) {
 
       <!-- SECURITY FEATURES -->
       {data.security_features && data.security_features.length > 0 && (
-        <div class="security-features">
+        <div class="security-features">"
           <h3>Sicherheit & Compliance</h3>
-          <div class="security-grid">
+          <div class="security-grid">"
             {data.security_features.map(feature => (
-              <div class="security-item">
+              <div class="security-item">"
                 <span>{feature}</span>
               </div>
             ))}
@@ -2684,10 +2684,10 @@ function mapCurrency(currency) {
         </div>
       )}
 
-      <div class="pros-cons" id="pros-cons">
-        <div class="pros">
-          <h3 class="pros-title">✅ Vorteile</h3>
-          <ul class="pros-list">
+      <div class="pros-cons" id="pros-cons">"
+        <div class="pros">"
+          <h3 class="pros-title">✅ Vorteile</h3>"
+          <ul class="pros-list">"
             {data.pros ? data.pros.map(pro => <li>{pro}</li>) : (
               <>
                 <li>Intuitive Benutzeroberfläche</li>
@@ -2699,9 +2699,9 @@ function mapCurrency(currency) {
           </ul>
         </div>
         
-        <div class="cons">
-          <h3 class="cons-title">❌ Nachteile</h3>
-          <ul class="cons-list">
+        <div class="cons">"
+          <h3 class="cons-title">❌ Nachteile</h3>"
+          <ul class="cons-list">"
             {data.cons ? data.cons.map(con => <li>{con}</li>) : (
               <>
                 <li>Lernkurve für Anfänger</li>
@@ -2715,14 +2715,14 @@ function mapCurrency(currency) {
 
       <!-- USE CASES -->
       {data.use_cases && data.use_cases.length > 0 && (
-        <div class="features-section" id="use-cases">
+        <div class="features-section" id="use-cases">"
           <h3>Anwendungsfälle</h3>
-          <p class="section-subtitle">{data.title} eignet sich besonders für:</p>
-          <div class="features-grid">
+          <p class="section-subtitle">{data.title} eignet sich besonders für:</p>"
+          <div class="features-grid">"
             {data.use_cases.map((useCase, index) => (
-              <div class="feature-item">
-                <div class="feature-icon">{String(index + 1)}</div>
-                <div class="feature-content">
+              <div class="feature-item">"
+                <div class="feature-icon">{String(index + 1)}</div>"
+                <div class="feature-content">"
                   <h3>{useCase}</h3>
                   <p>Professionelle Anwendung für optimale Ergebnisse</p>
                 </div>
@@ -2732,144 +2732,144 @@ function mapCurrency(currency) {
         </div>
       )}
 
-      <div class="faq-section" id="faq">
+      <div class="faq-section" id="faq">"
         <h3>Häufig gestellte Fragen</h3>
         {faqItems.map((faq, index) => (
-          <div class="faq-item">
-            <h4 class="faq-question" data-faq={index}>{faq.question}</h4>
-            <div class="faq-answer" data-answer={index}>{faq.answer}</div>
+          <div class="faq-item">"
+            <h4 class="faq-question" data-faq={index}>{faq.question}</h4>"
+            <div class="faq-answer" data-answer={index}>{faq.answer}</div>"
           </div>
         ))}
       </div>
     </div>
 
-    <div class="sidebar">
+    <div class="sidebar">"
       <!-- Enhanced Pricing Card -->
-      <div class="pricing-card">
-        <div class="pricing-tag">{data.pricing || 'Freemium'}</div>
-        <h3 class="pricing-title">{data.title} testen</h3>
-        <p class="pricing-description">
-          {data.pricing === "Kostenlos" ? 
-            "Komplett kostenlos nutzbar" :
-            data.pricing === "Freemium" ?
-            "Kostenlos testen, dann upgraden" :
-            "Premium Tool für Profis"
+      <div class="pricing-card">"
+        <div class="pricing-tag">{data.pricing || 'Freemium'}</div>'"
+        <h3 class="pricing-title">{data.title} testen</h3>"
+        <p class="pricing-description">"
+          {data.pricing === "Kostenlos" ? "
+            "Komplett kostenlos nutzbar" :"
+            data.pricing === "Freemium" ?"
+            "Kostenlos testen, dann upgraden" :"
+            "Premium Tool für Profis""
           }
         </p>
-        <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="pricing-cta">
+        <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="pricing-cta">"
           Jetzt testen
         </a>
-        <p class="pricing-note">
-          {data.free_trial ? "✅ Kostenlose Testversion verfügbar" : "💡 Direkt loslegen"}
+        <p class="pricing-note">"
+          {data.free_trial ? "✅ Kostenlose Testversion verfügbar" : "💡 Direkt loslegen"}"
         </p>
         
         {data.price_category && (
-          <p class="pricing-note" style="margin-top: 1rem;">
-            <strong>Preiskategorie:</strong> {data.price_category === "budget" ? "Budget-freundlich" : 
-                                            data.price_category === "mid-range" ? "Mittelklasse" :
-                                            data.price_category === "premium" ? "Premium" : "Enterprise"}
+          <p class="pricing-note" style="margin-top: 1rem;">"
+            <strong>Preiskategorie:</strong> {data.price_category === "budget" ? "Budget-freundlich" : "
+                                            data.price_category === "mid-range" ? "Mittelklasse" :"
+                                            data.price_category === "premium" ? "Premium" : "Enterprise"}"
           </p>
         )}
       </div>
 
       <!-- Table of Contents -->
-      <div class="table-of-contents">
+      <div class="table-of-contents">"
         <h3>Inhaltsverzeichnis</h3>
-        <ul class="toc-list">
-          <li class="toc-item">
-            <a href="#overview" class="toc-link">Überblick</a>
+        <ul class="toc-list">"
+          <li class="toc-item">"
+            <a href="#overview" class="toc-link">Überblick</a>"
           </li>
-          <li class="toc-item">
-            <a href="#features" class="toc-link">Features</a>
+          <li class="toc-item">"
+            <a href="#features" class="toc-link">Features</a>"
           </li>
-          <li class="toc-item">
-            <a href="#pricing" class="toc-link">Preise</a>
+          <li class="toc-item">"
+            <a href="#pricing" class="toc-link">Preise</a>"
           </li>
-          <li class="toc-item">
-            <a href="#pros-cons" class="toc-link">Vor- & Nachteile</a>
+          <li class="toc-item">"
+            <a href="#pros-cons" class="toc-link">Vor- & Nachteile</a>"
           </li>
-          <li class="toc-item">
-            <a href="#use-cases" class="toc-link">Anwendungsfälle</a>
+          <li class="toc-item">"
+            <a href="#use-cases" class="toc-link">Anwendungsfälle</a>"
           </li>
-          <li class="toc-item">
-            <a href="#faq" class="toc-link">FAQ</a>
+          <li class="toc-item">"
+            <a href="#faq" class="toc-link">FAQ</a>"
           </li>
         </ul>
       </div>
 
       <!-- Quick Actions -->
-      <div class="quick-actions">
+      <div class="quick-actions">"
         <h3>Schnellaktionen</h3>
-        <a href={data.affiliate_link} target="_blank" class="quick-action-btn">
+        <a href={data.affiliate_link} target="_blank" class="quick-action-btn">"
           🚀 Tool direkt testen
         </a>
-        <a href="/tools" class="quick-action-btn">
+        <a href="/tools" class="quick-action-btn">"
           🔍 Ähnliche Tools finden
         </a>
-        <button class="quick-action-btn" onclick="window.print()">
+        <button class="quick-action-btn" onclick="window.print()">"
           📄 Seite drucken
         </button>
-        <button class="quick-action-btn" onclick="navigator.share && navigator.share({title: document.title, url: window.location.href})">
+        <button class="quick-action-btn" onclick="navigator.share && navigator.share({title: document.title, url: window.location.href})">"
           📤 Tool teilen
         </button>
       </div>
 
       <!-- Tool Comparison Widget -->
-      <div class="comparison-widget">
+      <div class="comparison-widget">"
         <h3>Tool-Vergleich</h3>
-        <div class="compare-checkbox-wrapper">
-          <input type="checkbox" class="compare-checkbox" data-tool={data.title} />
-          <label class="compare-label">Zu Vergleich hinzufügen</label>
+        <div class="compare-checkbox-wrapper">"
+          <input type="checkbox" class="compare-checkbox" data-tool={data.title} />"
+          <label class="compare-label">Zu Vergleich hinzufügen</label>"
         </div>
-        <button class="compare-btn" id="compareBtn">
+        <button class="compare-btn" id="compareBtn">"
           Vergleich starten (0)
         </button>
       </div>
 
       <!-- AdSense Sidebar -->
-      <div class="ad-container ad-sidebar">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-format="auto"
-             data-full-width-responsive="true"
-             data-ad-client="ca-pub-5595876978844902"
-             data-ad-slot="AUTO"></ins>
+      <div class="ad-container ad-sidebar">"
+        <ins class="adsbygoogle""
+             style="display:block""
+             data-ad-format="auto""
+             data-full-width-responsive="true""
+             data-ad-client="ca-pub-5595876978844902""
+             data-ad-slot="AUTO"></ins>"
       </div>
     </div>
   </div>
 
   <!-- DETAILED PRICING SECTION -->
   {data.pricing_details && (
-    <div class="pricing-overview" id="pricing">
+    <div class="pricing-overview" id="pricing">"
       <h3>Detaillierte Preisübersicht</h3>
       <p>Alle Preispläne und Features im Überblick</p>
       
-      <div class="pricing-plans">
+      <div class="pricing-plans">"
         {/* FREE PLAN */}
         {data.pricing_details.free_plan && data.pricing_details.free_plan.available && (
-          <div class="plan-card">
-            <h4 class="plan-name">Kostenlose Version</h4>
-            <div class="plan-price">
+          <div class="plan-card">"
+            <h4 class="plan-name">Kostenlose Version</h4>"
+            <div class="plan-price">"
               <span>0</span>
-              <span class="currency">€</span>
+              <span class="currency">€</span>"
             </div>
-            <div class="plan-cycle">{formatBillingCycle(data.pricing_details.free_plan.billing_cycle)}</div>
+            <div class="plan-cycle">{formatBillingCycle(data.pricing_details.free_plan.billing_cycle)}</div>"
             
-            <ul class="plan-features">
+            <ul class="plan-features">"
               {data.pricing_details.free_plan.features.map(feature => (
                 <li>{feature}</li>
               ))}
             </ul>
             
             {data.pricing_details.free_plan.limitations && data.pricing_details.free_plan.limitations.length > 0 && (
-              <ul class="plan-limitations">
+              <ul class="plan-limitations">"
                 {data.pricing_details.free_plan.limitations.map(limitation => (
                   <li>{limitation}</li>
                 ))}
               </ul>
             )}
             
-            <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="plan-cta">
+            <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="plan-cta">"
               Kostenlos starten
             </a>
           </div>
@@ -2877,32 +2877,32 @@ function mapCurrency(currency) {
         
         {/* PAID PLANS */}
         {data.pricing_details.paid_plans && data.pricing_details.paid_plans.map(plan => (
-          <div class={`plan-card ${plan.popular ? 'popular' : ''}`}>
-            <h4 class="plan-name">{plan.name}</h4>
-            <div class="plan-price">
-              {typeof plan.price === 'string' ? (
+          <div class={`plan-card ${plan.popular ? 'popular' : ''}`}>`'
+            <h4 class="plan-name">{plan.name}</h4>"
+            <div class="plan-price">"
+              {typeof plan.price === 'string' ? ('
                 <span>{plan.price}</span>
               ) : (
                 <>
                   <span>{plan.price}</span>
-                  <span class="currency">{mapCurrency(plan.currency) || '€'}</span>
+                  <span class="currency">{mapCurrency(plan.currency) || '€'}</span>'"
                 </>
               )}
             </div>
-            <div class="plan-cycle">
+            <div class="plan-cycle">"
               {formatBillingCycle(plan.billing_cycle)}
-              {plan.per_user && ' pro Nutzer'}
-              {plan.minimum_users && ` (min. ${plan.minimum_users} Nutzer)`}
+              {plan.per_user && ' pro Nutzer'}'
+              {plan.minimum_users && ` (min. ${plan.minimum_users} Nutzer)`}`
             </div>
             
-            <ul class="plan-features">
+            <ul class="plan-features">"
               {plan.features.map(feature => (
                 <li>{feature}</li>
               ))}
             </ul>
             
             {plan.limitations && plan.limitations.length > 0 && (
-              <ul class="plan-limitations">
+              <ul class="plan-limitations">"
                 {plan.limitations.map(limitation => (
                   <li>{limitation}</li>
                 ))}
@@ -2910,18 +2910,18 @@ function mapCurrency(currency) {
             )}
             
             {plan.note && (
-              <div class="plan-note">{plan.note}</div>
+              <div class="plan-note">{plan.note}</div>"
             )}
             
-            <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="plan-cta">
-              {plan.popular ? 'Jetzt upgraden' : 'Plan wählen'}
+            <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="plan-cta">"
+              {plan.popular ? 'Jetzt upgraden' : 'Plan wählen'}'
             </a>
           </div>
         ))}
       </div>
       
       {data.last_price_update && (
-        <p style="text-align: center; margin-top: 2rem; color: var(--text-secondary); font-size: 0.9rem">
+        <p style="text-align: center; margin-top: 2rem; color: var(--text-secondary); font-size: 0.9rem;">"
           Preise zuletzt aktualisiert: {data.last_price_update}
         </p>
       )}
@@ -2930,34 +2930,34 @@ function mapCurrency(currency) {
 
   <!-- API PRICING SECTION -->
   {data.api_pricing && data.api_pricing.models && (
-    <div class="api-pricing">
+    <div class="api-pricing">"
       <h3>API Preise für Entwickler</h3>
       <p>Direkter Zugang zur KI über moderne APIs</p>
       
-      <div class="api-models">
+      <div class="api-models">"
         {data.api_pricing.models.map(model => (
-          <div class={`api-model ${model.popular ? 'popular' : ''}`}>
-            <div class="api-model-header">
-              <h4 class="api-model-name">{model.name}</h4>
-              <span class="api-model-context">{model.context_window}</span>
+          <div class={`api-model ${model.popular ? 'popular' : ''}`}>`'
+            <div class="api-model-header">"
+              <h4 class="api-model-name">{model.name}</h4>"
+              <span class="api-model-context">{model.context_window}</span>"
             </div>
             
-            <div class="api-pricing-grid">
-              <div class="api-price-item">
-                <div class="api-price-label">Input</div>
-                <div class="api-price-value">{formatApiPrice(model.input_price, model.currency)}</div>
-                <div class="api-price-unit">pro {model.per_million_tokens ? 'Million Token' : 'Request'}</div>
+            <div class="api-pricing-grid">"
+              <div class="api-price-item">"
+                <div class="api-price-label">Input</div>"
+                <div class="api-price-value">{formatApiPrice(model.input_price, model.currency)}</div>"
+                <div class="api-price-unit">pro {model.per_million_tokens ? 'Million Token' : 'Request'}</div>'"
               </div>
               
-              <div class="api-price-item">
-                <div class="api-price-label">Output</div>
-                <div class="api-price-value">{formatApiPrice(model.output_price, model.currency)}</div>
-                <div class="api-price-unit">pro {model.per_million_tokens ? 'Million Token' : 'Request'}</div>
+              <div class="api-price-item">"
+                <div class="api-price-label">Output</div>"
+                <div class="api-price-value">{formatApiPrice(model.output_price, model.currency)}</div>"
+                <div class="api-price-unit">pro {model.per_million_tokens ? 'Million Token' : 'Request'}</div>'"
               </div>
             </div>
             
             {model.note && (
-              <div class="api-model-note">{model.note}</div>
+              <div class="api-model-note">{model.note}</div>"
             )}
           </div>
         ))}
@@ -2967,11 +2967,11 @@ function mapCurrency(currency) {
 
   <!-- COMPARISON METRICS -->
   {data.comparison_metrics && (
-    <div class="comparison-section">
+    <div class="comparison-section">"
       <h3>Vergleichstabelle</h3>
       <p>Detaillierter Vergleich aller verfügbaren Pläne</p>
       
-      <div class="comparison-table">
+      <div class="comparison-table">"
         <table>
           <thead>
             <tr>
@@ -2985,28 +2985,28 @@ function mapCurrency(currency) {
           <tbody>
             {data.comparison_metrics.messages_per_day && (
               <tr>
-                <td class="metric-label">Nachrichten pro Tag</td>
+                <td class="metric-label">Nachrichten pro Tag</td>"
                 {Object.entries(data.comparison_metrics.messages_per_day).map(([plan, value]) => (
-                  <td class="metric-value">{value}</td>
+                  <td class="metric-value">{value}</td>"
                 ))}
               </tr>
             )}
             
             {data.comparison_metrics.requests_per_month && (
               <tr>
-                <td class="metric-label">Requests pro Monat</td>
+                <td class="metric-label">Requests pro Monat</td>"
                 {Object.entries(data.comparison_metrics.requests_per_month).map(([plan, value]) => (
-                  <td class="metric-value">{value}</td>
+                  <td class="metric-value">{value}</td>"
                 ))}
               </tr>
             )}
             
             {data.comparison_metrics.models_included && (
               <tr>
-                <td class="metric-label">Verfügbare Modelle</td>
+                <td class="metric-label">Verfügbare Modelle</td>"
                 {Object.entries(data.comparison_metrics.models_included).map(([plan, models]) => (
-                  <td class="metric-value">
-                    {Array.isArray(models) ? models.join(', ') : models}
+                  <td class="metric-value">"
+                    {Array.isArray(models) ? models.join(', ') : models}'
                   </td>
                 ))}
               </tr>
@@ -3014,63 +3014,63 @@ function mapCurrency(currency) {
             
             {data.comparison_metrics.context_window && (
               <tr>
-                <td class="metric-label">Kontextfenster</td>
+                <td class="metric-label">Kontextfenster</td>"
                 {Object.entries(data.comparison_metrics.context_window).map(([plan, value]) => (
-                  <td class="metric-value">{value}</td>
+                  <td class="metric-value">{value}</td>"
                 ))}
               </tr>
             )}
             
             {data.comparison_metrics.file_upload_limit && (
               <tr>
-                <td class="metric-label">Datei-Upload Limit</td>
+                <td class="metric-label">Datei-Upload Limit</td>"
                 {Object.entries(data.comparison_metrics.file_upload_limit).map(([plan, value]) => (
-                  <td class="metric-value">{value}</td>
+                  <td class="metric-value">{value}</td>"
                 ))}
               </tr>
             )}
             
             {data.comparison_metrics.support_level && (
               <tr>
-                <td class="metric-label">Support-Level</td>
+                <td class="metric-label">Support-Level</td>"
                 {Object.entries(data.comparison_metrics.support_level).map(([plan, value]) => (
-                  <td class="metric-value">{value}</td>
+                  <td class="metric-value">{value}</td>"
                 ))}
               </tr>
             )}
             
             {data.comparison_metrics.storage_limit && (
               <tr>
-                <td class="metric-label">Speicher-Limit</td>
+                <td class="metric-label">Speicher-Limit</td>"
                 {Object.entries(data.comparison_metrics.storage_limit).map(([plan, value]) => (
-                  <td class="metric-value">{value}</td>
+                  <td class="metric-value">{value}</td>"
                 ))}
               </tr>
             )}
             
             {data.comparison_metrics.team_members && (
               <tr>
-                <td class="metric-label">Team-Mitglieder</td>
+                <td class="metric-label">Team-Mitglieder</td>"
                 {Object.entries(data.comparison_metrics.team_members).map(([plan, value]) => (
-                  <td class="metric-value">{value}</td>
+                  <td class="metric-value">{value}</td>"
                 ))}
               </tr>
             )}
             
             {data.comparison_metrics.api_calls_per_month && (
               <tr>
-                <td class="metric-label">API-Calls pro Monat</td>
+                <td class="metric-label">API-Calls pro Monat</td>"
                 {Object.entries(data.comparison_metrics.api_calls_per_month).map(([plan, value]) => (
-                  <td class="metric-value">{value}</td>
+                  <td class="metric-value">{value}</td>"
                 ))}
               </tr>
             )}
             
             {data.comparison_metrics.concurrent_users && (
               <tr>
-                <td class="metric-label">Gleichzeitige Nutzer</td>
+                <td class="metric-label">Gleichzeitige Nutzer</td>"
                 {Object.entries(data.comparison_metrics.concurrent_users).map(([plan, value]) => (
-                  <td class="metric-value">{value}</td>
+                  <td class="metric-value">{value}</td>"
                 ))}
               </tr>
             )}
@@ -3080,16 +3080,16 @@ function mapCurrency(currency) {
     </div>
   )}
 
-  <div class="similar-tools">
+  <div class="similar-tools">"
     <h3>Ähnliche Tools aus der Kategorie {data.category}</h3>
     <p>Weitere empfehlenswerte KI-Tools</p>
     
-    <div class="tools-grid">
+    <div class="tools-grid">"
       {similarTools.map(tool => (
-        <div class="tool-card">
+        <div class="tool-card">"
           <h3>{tool.data.title}</h3>
           <p>{tool.data.description}</p>
-          <a href={`/tools/${tool.slug}`} class="tool-card-cta">
+          <a href={`/tools/${tool.slug}`} class="tool-card-cta">`"
             Mehr erfahren
           </a>
         </div>
@@ -3097,65 +3097,65 @@ function mapCurrency(currency) {
     </div>
   </div>
 
-  <div class="ad-container">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-5595876978844902"
-         data-ad-slot="AUTO"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
+  <div class="ad-container">"
+    <ins class="adsbygoogle""
+         style="display:block""
+         data-ad-client="ca-pub-5595876978844902""
+         data-ad-slot="AUTO""
+         data-ad-format="auto""
+         data-full-width-responsive="true"></ins>"
   </div>
 
-  <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-content">
+  <footer class="footer">"
+    <div class="footer-container">"
+      <div class="footer-content">"
         <div>
-          <div class="footer-logo">AI Tool Vault</div>
-          <p class="footer-description">
+          <div class="footer-logo">AI Tool Vault</div>"
+          <p class="footer-description">"
             Die umfassendste Sammlung von KI-Tools für Kreativität, Produktivität und Innovation. 
             Entdecke die Zukunft heute.
           </p>
         </div>
         
-        <div class="footer-section">
+        <div class="footer-section">"
           <h4>Navigation</h4>
-          <ul class="footer-links">
-            <li><a href="/tools">Alle Tools</a></li>
-            <li><a href="/#categories">Kategorien</a></li>
-            <li><a href="/kontakt">Kontakt</a></li>
+          <ul class="footer-links">"
+            <li><a href="/tools">Alle Tools</a></li>"
+            <li><a href="/#categories">Kategorien</a></li>"
+            <li><a href="/kontakt">Kontakt</a></li>"
           </ul>
         </div>
         
-        <div class="footer-section">
+        <div class="footer-section">"
           <h4>Rechtliches</h4>
-          <ul class="footer-links">
-            <li><a href="/impressum">Impressum</a></li>
-            <li><a href="/datenschutz">Datenschutz</a></li>
-            <li><a href="/kontakt">Support</a></li>
+          <ul class="footer-links">"
+            <li><a href="/impressum">Impressum</a></li>"
+            <li><a href="/datenschutz">Datenschutz</a></li>"
+            <li><a href="/kontakt">Support</a></li>"
           </ul>
         </div>
       </div>
       
-      <div class="footer-bottom">
+      <div class="footer-bottom">"
         <p>&copy; 2025 AI Tool Vault. Alle Rechte vorbehalten.</p>
       </div>
     </div>
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {'
       // ===== THEME TOGGLE =====
-      var themeToggle = document.getElementById('themeToggle');
+      var themeToggle = document.getElementById('themeToggle');'
       var html = document.documentElement;
       
-      var savedTheme = localStorage.getItem('theme') || 'light';
-      html.setAttribute('data-theme', savedTheme);
+      var savedTheme = localStorage.getItem('theme') || 'light';'
+      html.setAttribute('data-theme', savedTheme);'
       
       function updateToggleButton(theme) {
-        var button = document.getElementById('themeToggle');
+        var button = document.getElementById('themeToggle');'
         if (button) {
-          button.setAttribute('aria-label', 
-            theme === 'dark' ? 'Zu hellem Modus wechseln' : 'Zu dunklem Modus wechseln'
+          button.setAttribute('aria-label', '
+            theme === 'dark' ? 'Zu hellem Modus wechseln' : 'Zu dunklem Modus wechseln''
           );
         }
       }
@@ -3163,18 +3163,18 @@ function mapCurrency(currency) {
       updateToggleButton(savedTheme);
       
       if (themeToggle) {
-        themeToggle.addEventListener('click', function() {
-          var currentTheme = html.getAttribute('data-theme');
-          var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        themeToggle.addEventListener('click', function() {'
+          var currentTheme = html.getAttribute('data-theme');'
+          var newTheme = currentTheme === 'dark' ? 'light' : 'dark';'
           
-          html.setAttribute('data-theme', newTheme);
-          localStorage.setItem('theme', newTheme);
+          html.setAttribute('data-theme', newTheme);'
+          localStorage.setItem('theme', newTheme);'
           updateToggleButton(newTheme);
           
-          if (typeof gtag !== 'undefined') {
-            gtag('event', 'theme_change', {
-              'theme_mode': newTheme,
-              'source': 'tool_page_toggle'
+          if (typeof gtag !== 'undefined') {'
+            gtag('event', 'theme_change', {'
+              'theme_mode': newTheme,'
+              'source': 'tool_page_toggle''
             });
           }
         });
@@ -3182,68 +3182,68 @@ function mapCurrency(currency) {
 
       // ===== ENHANCED BOOKMARKS =====
       function initializeBookmarks() {
-        var favorites = JSON.parse(localStorage.getItem('favoriteTools') || '[]');
-        var toolName = document.querySelector('.hero-bookmark').getAttribute('data-tool');
-        var bookmarkBtn = document.querySelector('.hero-bookmark');
+        var favorites = JSON.parse(localStorage.getItem('favoriteTools') || '[]');'
+        var toolName = document.querySelector('.hero-bookmark').getAttribute('data-tool');'
+        var bookmarkBtn = document.querySelector('.hero-bookmark');'
         
         if (favorites.includes(toolName)) {
-          bookmarkBtn.textContent = '❤️';
-          bookmarkBtn.classList.add('favorited');
+          bookmarkBtn.textContent = '❤️';'
+          bookmarkBtn.classList.add('favorited');'
         }
       }
       
       function toggleBookmark(btn) {
-        var toolName = btn.getAttribute('data-tool');
-        var favorites = JSON.parse(localStorage.getItem('favoriteTools') || '[]');
+        var toolName = btn.getAttribute('data-tool');'
+        var favorites = JSON.parse(localStorage.getItem('favoriteTools') || '[]');'
         
         if (favorites.includes(toolName)) {
           favorites = favorites.filter(function(tool) { return tool !== toolName; });
-          btn.textContent = '🤍';
-          btn.classList.remove('favorited');
+          btn.textContent = '🤍';'
+          btn.classList.remove('favorited');'
         } else {
           favorites.push(toolName);
-          btn.textContent = '❤️';
-          btn.classList.add('favorited');
+          btn.textContent = '❤️';'
+          btn.classList.add('favorited');'
         }
         
-        localStorage.setItem('favoriteTools', JSON.stringify(favorites));
+        localStorage.setItem('favoriteTools', JSON.stringify(favorites));'
         
         // Show feedback
-        btn.style.transform = 'scale(1.2)';
+        btn.style.transform = 'scale(1.2)';'
         setTimeout(function() {
-          btn.style.transform = 'scale(1)';
+          btn.style.transform = 'scale(1)';'
         }, 200);
       }
       
       // Handle bookmark clicks
-      document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('hero-bookmark')) {
+      document.addEventListener('click', function(e) {'
+        if (e.target.classList.contains('hero-bookmark')) {'
           toggleBookmark(e.target);
         }
       });
 
       // ===== ENHANCED FAQ ACCORDION =====
       function setupFAQ() {
-        var faqQuestions = document.querySelectorAll('.faq-question');
+        var faqQuestions = document.querySelectorAll('.faq-question');'
         
         faqQuestions.forEach(function(question) {
-          question.addEventListener('click', function() {
-            var index = this.getAttribute('data-faq');
-            var answer = document.querySelector(`[data-answer="${index}"]`);
-            var isActive = this.classList.contains('active');
+          question.addEventListener('click', function() {'
+            var index = this.getAttribute('data-faq');'
+            var answer = document.querySelector(`[data-answer="${index}"]`);`"
+            var isActive = this.classList.contains('active');'
             
             // Close all other FAQs
             faqQuestions.forEach(function(q) {
-              q.classList.remove('active');
+              q.classList.remove('active');'
             });
-            document.querySelectorAll('.faq-answer').forEach(function(a) {
-              a.classList.remove('active');
+            document.querySelectorAll('.faq-answer').forEach(function(a) {'
+              a.classList.remove('active');'
             });
             
             // Toggle current FAQ
             if (!isActive) {
-              this.classList.add('active');
-              answer.classList.add('active');
+              this.classList.add('active');'
+              answer.classList.add('active');'
             }
           });
         });
@@ -3251,20 +3251,20 @@ function mapCurrency(currency) {
 
       // ===== TABLE OF CONTENTS NAVIGATION =====
       function setupTableOfContents() {
-        var tocLinks = document.querySelectorAll('.toc-link');
-        var sections = ['overview', 'features', 'pricing', 'pros-cons', 'use-cases', 'faq'];
+        var tocLinks = document.querySelectorAll('.toc-link');'
+        var sections = ['overview', 'features', 'pricing', 'pros-cons', 'use-cases', 'faq'];'
         
         // Smooth scrolling for TOC links
         tocLinks.forEach(function(link) {
-          link.addEventListener('click', function(e) {
+          link.addEventListener('click', function(e) {'
             e.preventDefault();
-            var targetId = this.getAttribute('href').substring(1);
+            var targetId = this.getAttribute('href').substring(1);'
             var targetElement = document.getElementById(targetId);
             
             if (targetElement) {
               targetElement.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+                behavior: 'smooth','
+                block: 'start''
               });
             }
           });
@@ -3276,34 +3276,34 @@ function mapCurrency(currency) {
           
           sections.forEach(function(sectionId) {
             var section = document.getElementById(sectionId);
-            var link = document.querySelector(`[href="#${sectionId}"]`);
+            var link = document.querySelector(`[href="#${sectionId}"]`);`"
             
             if (section && link) {
               var sectionTop = section.offsetTop;
               var sectionBottom = sectionTop + section.offsetHeight;
               
               if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                document.querySelectorAll('.toc-link').forEach(function(l) {
-                  l.classList.remove('active');
+                document.querySelectorAll('.toc-link').forEach(function(l) {'
+                  l.classList.remove('active');'
                 });
-                link.classList.add('active');
+                link.classList.add('active');'
               }
             }
           });
         }
         
-        window.addEventListener('scroll', updateActiveTOC);
+        window.addEventListener('scroll', updateActiveTOC);'
       }
 
       // ===== TOOL COMPARISON SYSTEM =====
       function setupToolComparison() {
-        var compareCheckbox = document.querySelector('.compare-checkbox');
-        var compareBtn = document.getElementById('compareBtn');
+        var compareCheckbox = document.querySelector('.compare-checkbox');'
+        var compareBtn = document.getElementById('compareBtn');'
         
         if (compareCheckbox && compareBtn) {
-          compareCheckbox.addEventListener('change', function() {
-            var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');
-            var toolName = this.getAttribute('data-tool');
+          compareCheckbox.addEventListener('change', function() {'
+            var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');'
+            var toolName = this.getAttribute('data-tool');'
             
             if (this.checked) {
               if (!selectedTools.includes(toolName)) {
@@ -3315,13 +3315,13 @@ function mapCurrency(currency) {
               });
             }
             
-            localStorage.setItem('selectedTools', JSON.stringify(selectedTools));
+            localStorage.setItem('selectedTools', JSON.stringify(selectedTools));'
             updateCompareButton(selectedTools.length);
           });
           
           // Initialize compare button
-          var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');
-          var toolName = compareCheckbox.getAttribute('data-tool');
+          var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');'
+          var toolName = compareCheckbox.getAttribute('data-tool');'
           if (selectedTools.includes(toolName)) {
             compareCheckbox.checked = true;
           }
@@ -3330,52 +3330,52 @@ function mapCurrency(currency) {
         
         function updateCompareButton(count) {
           if (compareBtn) {
-            compareBtn.textContent = `Vergleich starten (${count})`;
-            compareBtn.style.display = count > 0 ? 'block' : 'none';
+            compareBtn.textContent = `Vergleich starten (${count})`;`
+            compareBtn.style.display = count > 0 ? 'block' : 'none';'
           }
         }
         
         if (compareBtn) {
-          compareBtn.addEventListener('click', function() {
-            var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');
+          compareBtn.addEventListener('click', function() {'
+            var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');'
             
-            if (typeof gtag !== 'undefined') {
-              gtag('event', 'tool_comparison_start', {
-                'tool_count': selectedTools.length,
-                'tools': selectedTools.join(','),
-                'source': 'tool_detail_page'
+            if (typeof gtag !== 'undefined') {'
+              gtag('event', 'tool_comparison_start', {'
+                'tool_count': selectedTools.length,'
+                'tools': selectedTools.join(','),'
+                'source': 'tool_detail_page''
               });
             }
             
-            alert(`Vergleich wird gestartet mit: ${selectedTools.join(', ')}`);
+            alert(`Vergleich wird gestartet mit: ${selectedTools.join(', ')}`);`'
           });
         }
       }
 
       // ===== ENHANCED MOBILE MENU =====
-      var mobileMenuBtn = document.querySelector('.mobile-menu');
-      var navLinks = document.querySelector('.nav-links');
+      var mobileMenuBtn = document.querySelector('.mobile-menu');'
+      var navLinks = document.querySelector('.nav-links');'
       
       if (mobileMenuBtn && navLinks) {
         var menuOpen = false;
         
-        mobileMenuBtn.addEventListener('click', function(e) {
+        mobileMenuBtn.addEventListener('click', function(e) {'
           e.stopPropagation();
           menuOpen = !menuOpen;
           
           if (menuOpen) {
-            navLinks.classList.add('show');
-            this.innerHTML = '✕';
+            navLinks.classList.add('show');'
+            this.innerHTML = '✕';'
           } else {
-            navLinks.classList.remove('show');
-            this.innerHTML = '☰';
+            navLinks.classList.remove('show');'
+            this.innerHTML = '☰';'
           }
         });
         
-        document.addEventListener('click', function() {
+        document.addEventListener('click', function() {'
           if (menuOpen) {
-            navLinks.classList.remove('show');
-            mobileMenuBtn.innerHTML = '☰';
+            navLinks.classList.remove('show');'
+            mobileMenuBtn.innerHTML = '☰';'
             menuOpen = false;
           }
         });
@@ -3384,43 +3384,43 @@ function mapCurrency(currency) {
       // ===== ENHANCED TRACKING =====
       
       // Enhanced Affiliate Tracking
-      var affiliateButtons = document.querySelectorAll('a[href*="' + document.querySelector('.hero-cta').href.split('?')[0] + '"]');
+      var affiliateButtons = document.querySelectorAll('a[href*="' + document.querySelector('.hero-cta').href.split('?')[0] + '"]');'"
       affiliateButtons.forEach(function(btn, index) {
-        btn.addEventListener('click', function() {
-          var buttonType = 'unknown';
-          if (this.classList.contains('hero-cta')) buttonType = 'hero';
-          else if (this.classList.contains('pricing-cta')) buttonType = 'sidebar';
-          else if (this.classList.contains('plan-cta')) buttonType = 'pricing_plan';
-          else if (this.classList.contains('quick-action-btn')) buttonType = 'quick_action';
+        btn.addEventListener('click', function() {'
+          var buttonType = 'unknown';'
+          if (this.classList.contains('hero-cta')) buttonType = 'hero';'
+          else if (this.classList.contains('pricing-cta')) buttonType = 'sidebar';'
+          else if (this.classList.contains('plan-cta')) buttonType = 'pricing_plan';'
+          else if (this.classList.contains('quick-action-btn')) buttonType = 'quick_action';'
           
-          if (typeof gtag !== 'undefined') {
-            gtag('event', 'affiliate_click', {
-              'tool_name': document.querySelector('h1').textContent,
-              'source': 'tool_detail_page',
-              'button_type': buttonType,
-              'position': index + 1,
-              'affiliate_url': this.href,
-              'value': 25.00,
-              'currency': 'EUR'
+          if (typeof gtag !== 'undefined') {'
+            gtag('event', 'affiliate_click', {'
+              'tool_name': document.querySelector('h1').textContent,'
+              'source': 'tool_detail_page','
+              'button_type': buttonType,'
+              'position': index + 1,'
+              'affiliate_url': this.href,'
+              'value': 25.00,'
+              'currency': 'EUR''
             });
           }
         });
       });
 
       // Plan Comparison Tracking
-      var planCards = document.querySelectorAll('.plan-card');
+      var planCards = document.querySelectorAll('.plan-card');'
       planCards.forEach(function(card, index) {
-        var planName = card.querySelector('.plan-name')?.textContent || 'Unknown Plan';
-        var ctaButton = card.querySelector('.plan-cta');
+        var planName = card.querySelector('.plan-name')?.textContent || 'Unknown Plan';'
+        var ctaButton = card.querySelector('.plan-cta');'
         
         if (ctaButton) {
-          ctaButton.addEventListener('click', function() {
-            if (typeof gtag !== 'undefined') {
-              gtag('event', 'pricing_plan_click', {
-                'tool_name': document.querySelector('h1').textContent,
-                'plan_name': planName,
-                'plan_position': index + 1,
-                'is_popular': card.classList.contains('popular')
+          ctaButton.addEventListener('click', function() {'
+            if (typeof gtag !== 'undefined') {'
+              gtag('event', 'pricing_plan_click', {'
+                'tool_name': document.querySelector('h1').textContent,'
+                'plan_name': planName,'
+                'plan_position': index + 1,'
+                'is_popular': card.classList.contains('popular')'
               });
             }
           });
@@ -3428,50 +3428,50 @@ function mapCurrency(currency) {
       });
 
       // API Model Interest Tracking
-      var apiModels = document.querySelectorAll('.api-model');
+      var apiModels = document.querySelectorAll('.api-model');'
       apiModels.forEach(function(model, index) {
-        model.addEventListener('click', function() {
-          var modelName = this.querySelector('.api-model-name')?.textContent || 'Unknown Model';
+        model.addEventListener('click', function() {'
+          var modelName = this.querySelector('.api-model-name')?.textContent || 'Unknown Model';'
           
-          if (typeof gtag !== 'undefined') {
-            gtag('event', 'api_model_interest', {
-              'tool_name': document.querySelector('h1').textContent,
-              'model_name': modelName,
-              'model_position': index + 1
+          if (typeof gtag !== 'undefined') {'
+            gtag('event', 'api_model_interest', {'
+              'tool_name': document.querySelector('h1').textContent,'
+              'model_name': modelName,'
+              'model_position': index + 1'
             });
           }
         });
       });
 
       // FAQ Interaction Tracking
-      var faqItems = document.querySelectorAll('.faq-item');
+      var faqItems = document.querySelectorAll('.faq-item');'
       faqItems.forEach(function(item, index) {
-        item.addEventListener('click', function() {
-          var question = this.querySelector('.faq-question')?.textContent || 'Unknown Question';
+        item.addEventListener('click', function() {'
+          var question = this.querySelector('.faq-question')?.textContent || 'Unknown Question';'
           
-          if (typeof gtag !== 'undefined') {
-            gtag('event', 'faq_interaction', {
-              'tool_name': document.querySelector('h1').textContent,
-              'question': question.substring(0, 50),
-              'position': index + 1
+          if (typeof gtag !== 'undefined') {'
+            gtag('event', 'faq_interaction', {'
+              'tool_name': document.querySelector('h1').textContent,'
+              'question': question.substring(0, 50),'
+              'position': index + 1'
             });
           }
         });
       });
 
       // Similar Tools Tracking
-      var similarToolCards = document.querySelectorAll('.tool-card');
+      var similarToolCards = document.querySelectorAll('.tool-card');'
       similarToolCards.forEach(function(card, index) {
-        var toolName = card.querySelector('h3')?.textContent || 'Unknown Tool';
-        var ctaButton = card.querySelector('.tool-card-cta');
+        var toolName = card.querySelector('h3')?.textContent || 'Unknown Tool';'
+        var ctaButton = card.querySelector('.tool-card-cta');'
         
         if (ctaButton) {
-          ctaButton.addEventListener('click', function() {
-            if (typeof gtag !== 'undefined') {
-              gtag('event', 'similar_tool_click', {
-                'source_tool': document.querySelector('h1').textContent,
-                'target_tool': toolName,
-                'position': index + 1
+          ctaButton.addEventListener('click', function() {'
+            if (typeof gtag !== 'undefined') {'
+              gtag('event', 'similar_tool_click', {'
+                'source_tool': document.querySelector('h1').textContent,'
+                'target_tool': toolName,'
+                'position': index + 1'
               });
             }
           });
@@ -3489,22 +3489,22 @@ function mapCurrency(currency) {
           if (scrollPercent >= depth && scrollDepthReached.indexOf(depth) === -1) {
             scrollDepthReached.push(depth);
             
-            if (typeof gtag !== 'undefined') {
-              gtag('event', 'scroll_depth', {
-                'tool_name': document.querySelector('h1').textContent,
-                'scroll_depth': depth,
-                'page_type': 'tool_detail'
+            if (typeof gtag !== 'undefined') {'
+              gtag('event', 'scroll_depth', {'
+                'tool_name': document.querySelector('h1').textContent,'
+                'scroll_depth': depth,'
+                'page_type': 'tool_detail''
               });
             }
           }
         });
       }
       
-      window.addEventListener('scroll', trackScrollDepth);
+      window.addEventListener('scroll', trackScrollDepth);'
 
       // Reading Progress Tracking
       function trackReadingProgress() {
-        var contentElement = document.querySelector('.content');
+        var contentElement = document.querySelector('.content');'
         if (!contentElement) return;
         
         var contentTop = contentElement.offsetTop;
@@ -3521,13 +3521,13 @@ function mapCurrency(currency) {
           
           // Track reading milestones
           [25, 50, 75, 100].forEach(function(milestone) {
-            if (readProgress >= milestone && !window['reading_' + milestone]) {
-              window['reading_' + milestone] = true;
+            if (readProgress >= milestone && !window['reading_' + milestone]) {'
+              window['reading_' + milestone] = true;'
               
-              if (typeof gtag !== 'undefined') {
-                gtag('event', 'reading_progress', {
-                  'tool_name': document.querySelector('h1').textContent,
-                  'progress_percent': milestone
+              if (typeof gtag !== 'undefined') {'
+                gtag('event', 'reading_progress', {'
+                  'tool_name': document.querySelector('h1').textContent,'
+                  'progress_percent': milestone'
                 });
               }
             }
@@ -3535,19 +3535,19 @@ function mapCurrency(currency) {
         }
       }
       
-      window.addEventListener('scroll', trackReadingProgress);
+      window.addEventListener('scroll', trackReadingProgress);'
 
       // ===== ADSENSE INITIALIZATION =====
       function initAdSense() {
-        var ads = document.querySelectorAll('.adsbygoogle');
+        var ads = document.querySelectorAll('.adsbygoogle');'
         var observer = new IntersectionObserver(function(entries) {
           entries.forEach(function(entry) {
-            if (entry.isIntersecting && !entry.target.getAttribute('data-loaded')) {
+            if (entry.isIntersecting && !entry.target.getAttribute('data-loaded')) {'
               try {
                 (adsbygoogle = window.adsbygoogle || []).push({});
-                entry.target.setAttribute('data-loaded', 'true');
+                entry.target.setAttribute('data-loaded', 'true');'
               } catch (e) {
-                console.warn('AdSense loading error:', e);
+                console.warn('AdSense loading error:', e);'
               }
               observer.unobserve(entry.target);
             }
@@ -3562,15 +3562,15 @@ function mapCurrency(currency) {
       // ===== PERFORMANCE MONITORING =====
       function trackPerformance() {
         // Track page load time
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function() {'
           setTimeout(function() {
             var loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
             
-            if (typeof gtag !== 'undefined') {
-              gtag('event', 'page_load_time', {
-                'tool_name': document.querySelector('h1').textContent,
-                'load_time_ms': loadTime,
-                'page_type': 'tool_detail'
+            if (typeof gtag !== 'undefined') {'
+              gtag('event', 'page_load_time', {'
+                'tool_name': document.querySelector('h1').textContent,'
+                'load_time_ms': loadTime,'
+                'page_type': 'tool_detail''
               });
             }
           }, 0);
@@ -3592,19 +3592,19 @@ function mapCurrency(currency) {
           }, 30000); // 30 seconds of inactivity
         }
         
-        ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(function(event) {
+        ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(function(event) {'
           document.addEventListener(event, resetInactivityTimer, true);
         });
         
         // Track time on page when leaving
-        window.addEventListener('beforeunload', function() {
+        window.addEventListener('beforeunload', function() {'
           var timeOnPage = Math.round((Date.now() - startTime) / 1000);
           
-          if (typeof gtag !== 'undefined') {
-            gtag('event', 'time_on_page', {
-              'tool_name': document.querySelector('h1').textContent,
-              'time_seconds': timeOnPage,
-              'was_active': isActive
+          if (typeof gtag !== 'undefined') {'
+            gtag('event', 'time_on_page', {'
+              'tool_name': document.querySelector('h1').textContent,'
+              'time_seconds': timeOnPage,'
+              'was_active': isActive'
             });
           }
         });
@@ -3613,14 +3613,14 @@ function mapCurrency(currency) {
       // ===== SEARCH FUNCTIONALITY =====
       function setupSearch() {
         // Quick search in page content
-        var searchBtn = document.querySelector('.search-btn');
+        var searchBtn = document.querySelector('.search-btn');'
         if (searchBtn) {
-          searchBtn.addEventListener('click', function() {
-            var searchTerm = prompt('Suche auf dieser Seite:');
+          searchBtn.addEventListener('click', function() {'
+            var searchTerm = prompt('Suche auf dieser Seite:');'
             if (searchTerm) {
               var found = window.find(searchTerm);
               if (!found) {
-                alert('Begriff nicht gefunden.');
+                alert('Begriff nicht gefunden.');'
               }
             }
           });
@@ -3630,21 +3630,21 @@ function mapCurrency(currency) {
       // ===== COPY TO CLIPBOARD FUNCTIONALITY =====
       function setupCopyFeatures() {
         // Add copy buttons to code blocks
-        var codeBlocks = document.querySelectorAll('pre code');
+        var codeBlocks = document.querySelectorAll('pre code');'
         codeBlocks.forEach(function(block) {
-          var copyBtn = document.createElement('button');
-          copyBtn.textContent = 'Kopieren';
-          copyBtn.className = 'copy-btn';
-          copyBtn.addEventListener('click', function() {
+          var copyBtn = document.createElement('button');'
+          copyBtn.textContent = 'Kopieren';'
+          copyBtn.className = 'copy-btn';'
+          copyBtn.addEventListener('click', function() {'
             navigator.clipboard.writeText(block.textContent).then(function() {
-              copyBtn.textContent = 'Kopiert!';
+              copyBtn.textContent = 'Kopiert!';'
               setTimeout(function() {
-                copyBtn.textContent = 'Kopieren';
+                copyBtn.textContent = 'Kopieren';'
               }, 2000);
             });
           });
           
-          block.parentNode.style.position = 'relative';
+          block.parentNode.style.position = 'relative';'
           block.parentNode.appendChild(copyBtn);
         });
       }
@@ -3652,21 +3652,21 @@ function mapCurrency(currency) {
       // ===== ACCESSIBILITY IMPROVEMENTS =====
       function setupAccessibility() {
         // Add skip links
-        var skipLink = document.createElement('a');
-        skipLink.href = '#main-content';
-        skipLink.textContent = 'Zum Hauptinhalt springen';
-        skipLink.className = 'skip-link';
+        var skipLink = document.createElement('a');'
+        skipLink.href = '#main-content';'
+        skipLink.textContent = 'Zum Hauptinhalt springen';'
+        skipLink.className = 'skip-link';'
         document.body.insertBefore(skipLink, document.body.firstChild);
         
         // Improve focus management
-        document.addEventListener('keydown', function(e) {
-          if (e.key === 'Tab') {
-            document.body.classList.add('keyboard-nav');
+        document.addEventListener('keydown', function(e) {'
+          if (e.key === 'Tab') {'
+            document.body.classList.add('keyboard-nav');'
           }
         });
         
-        document.addEventListener('mousedown', function() {
-          document.body.classList.remove('keyboard-nav');
+        document.addEventListener('mousedown', function() {'
+          document.body.classList.remove('keyboard-nav');'
         });
       }
 
@@ -3683,9 +3683,9 @@ function mapCurrency(currency) {
         trackEngagement();
         initAdSense();
         
-        console.log('🚀 Enhanced Tool Detail Page initialized successfully');
+        console.log('🚀 Enhanced Tool Detail Page initialized successfully');'
       } catch (error) {
-        console.error('Error initializing tool detail page:', error);
+        console.error('Error initializing tool detail page:', error);'
       }
     });
   </script>
@@ -3742,7 +3742,7 @@ function mapCurrency(currency) {
     }
     
     .loading::after {
-      content: '';
+      content: '';'
       position: absolute;
       top: 50%;
       left: 50%;
