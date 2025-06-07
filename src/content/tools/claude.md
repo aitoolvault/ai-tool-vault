@@ -78,13 +78,13 @@ pricing_details:
         - "Längere Kontextfenster"
         - "Höhere Rate Limits"
 
-# API-PREISE (separat)
+# API-PREISE (separat) - REPARIERT
 api_pricing:
   models:
     - name: "Claude 3.5 Sonnet"
       input_price: 2.70
       output_price: 13.50
-      currency: "EUR"
+      currency: "€"
       per_million_tokens: true
       context_window: "200k tokens"
       popular: true
@@ -92,7 +92,7 @@ api_pricing:
     - name: "Claude 3 Opus"
       input_price: 13.50
       output_price: 67.50
-      currency: "EUR" 
+      currency: "€"
       per_million_tokens: true
       context_window: "200k tokens"
       note: "Höchste Intelligenz"
@@ -100,7 +100,7 @@ api_pricing:
     - name: "Claude 3 Haiku"
       input_price: 0.225
       output_price: 1.125
-      currency: "EUR"
+      currency: "€"
       per_million_tokens: true
       context_window: "200k tokens"
       note: "Schnellstes Modell"
@@ -138,9 +138,9 @@ comparison_metrics:
     enterprise: "Dedicated Support + Onboarding"
 
 # BEWERTUNGSMETRIKEN
-price_per_feature_score: 9.2  # Sehr gut für Preis-Leistung
-value_for_money: 9.5          # Ausgezeichnetes Preis-Leistungs-Verhältnis
-price_category: "mid-range"   # Moderate Preise für Premium-KI
+price_per_feature_score: 9.2
+value_for_money: 9.5
+price_category: "mid-range"
 last_price_update: "2025-01-20"
 
 # ZUSÄTZLICHE METADATEN
