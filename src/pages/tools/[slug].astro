@@ -871,7 +871,7 @@ function formatPrice(price, currency = "€") {
   if (price === 0) return "Kostenlos";
   
   if (typeof price === "number") {
-    return `${price}${currency}`;`
+    return `${price}${currency}`;
   }
   
   return price;
@@ -882,7 +882,7 @@ function formatBillingCycle(cycle) {
     "monthly": "pro Monat",
     "yearly": "pro Jahr", 
     "one-time": "einmalig",
-    "usage-based": "nutzungsabhängig
+    "usage-based": "nutzungsabhängig",
   };
   return cycles[cycle] || cycle;
 }
@@ -898,7 +898,7 @@ function mapCurrency(currency) {
   const currencyMap = {
     "EUR": "€",
     "USD": "$",
-    "GBP": "£
+    "GBP": "£",
   }; // Removed potential stray quote if one was here
   return currencyMap[currency] || currency;
 }
