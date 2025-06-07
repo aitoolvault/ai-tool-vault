@@ -292,6 +292,7 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       display: flex;
       gap: 2rem;
       align-items: center;
+      list-style: none;
     }
     
     .nav-links a {
@@ -508,6 +509,7 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       font-size: 0.9rem;
       font-weight: 500;
       font-family: inherit;
+      transition: all 0.3s ease;
     }
     
     .quick-filter-btn:hover {
@@ -545,29 +547,11 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       font-size: 0.9rem;
       font-weight: 500;
       font-family: inherit;
+      transition: all 0.3s ease;
     }
     
     .clear-btn:hover {
       opacity: 0.9;
-    }
-    
-    /* Compare Button */
-    .compare-btn {
-      background: var(--accent-primary);
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      margin-top: 1rem;
-      font-family: inherit;
-      transition: all 0.3s ease;
-    }
-    
-    .compare-btn:hover {
-      background: var(--accent-secondary);
-      transform: translateY(-2px);
     }
     
     /* Grid */
@@ -764,6 +748,7 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       text-align: center;
       font-size: 0.9rem;
       border: 2px solid var(--border-primary);
+      transition: all 0.3s ease;
     }
     
     .btn-affiliate {
@@ -776,6 +761,7 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       text-align: center;
       font-size: 0.9rem;
       border: 2px solid var(--accent-primary);
+      transition: all 0.3s ease;
     }
     
     .btn-details:hover {
@@ -830,7 +816,7 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       border-color: var(--accent-primary);
     }
     
-    .usage-stats, .recommendations {
+    .usage-stats, .recommendations, .comparison-widget {
       background: var(--card-bg);
       padding: 1.5rem;
       border-radius: 12px;
@@ -838,7 +824,7 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
       border: 1px solid var(--border-primary);
     }
     
-    .usage-stats h3, .recommendations h3 {
+    .usage-stats h3, .recommendations h3, .comparison-widget h3 {
       color: var(--text-primary);
       margin-bottom: 1rem;
       font-size: 1.1rem;
@@ -872,4 +858,1086 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
     
     .recommended-tool h4 {
       margin-bottom: 0.5rem;
-      color: var
+      color: var(--text-primary);
+      font-size: 1rem;
+    }
+
+    .recommended-tool p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .quick-action-btn {
+      display: block;
+      width: 100%;
+      padding: 0.5rem 1rem;
+      background: var(--accent-primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      text-align: center;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+    }
+    
+    .quick-action-btn:hover {
+      background: var(--accent-secondary);
+      transform: translateY(-1px);
+    }
+
+    /* Comparison Widget */
+    .compare-checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+      border: 1px solid var(--border-primary);
+    }
+    
+    .compare-checkbox {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+    
+    .compare-label {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+    
+    .compare-btn {
+      background: var(--warning-color);
+      color: white;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s ease;
+      display: none;
+    }
+    
+    .compare-btn:hover {
+      background: #d97706;
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--footer-bg);
+      color: white;
+      padding: 4rem 2rem 2rem;
+      margin-top: 4rem;
+    }
+    
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 2rem;
+    }
+    
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 1rem;
+    }
+    
+    .footer-description {
+      color: var(--footer-text);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+    
+    .footer-section h4 {
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: white;
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .footer-links a {
+      color: var(--footer-text);
+      text-decoration: none;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .footer-bottom {
+      border-top: 1px solid var(--border-secondary);
+      padding-top: 2rem;
+      text-align: center;
+      color: var(--footer-text);
+      font-size: 0.9rem;
+    }
+
+    /* Ad Container */
+    .ad-container {
+      margin: 3rem auto;
+      padding: 1.5rem;
+      max-width: 1200px;
+      text-align: center;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border-primary);
+    }
+
+    .ad-container::before {
+      content: "Anzeige";
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Search Suggestions */
+    .search-suggestions {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--card-bg);
+      border: 1px solid var(--border-primary);
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      max-height: 200px;
+      overflow-y: auto;
+      z-index: 100;
+      display: none;
+    }
+
+    .suggestion-item {
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border-primary);
+      transition: background-color 0.2s ease;
+    }
+
+    .suggestion-item:hover {
+      background: var(--bg-tertiary);
+    }
+
+    .suggestion-item:last-child {
+      border-bottom: none;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .sidebar {
+        order: -1;
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-secondary);
+        flex-direction: column;
+        padding: 1rem;
+        z-index: 999;
+        border-top: 1px solid var(--border-primary);
+      }
+      
+      .nav-links.show {
+        display: flex;
+      }
+      
+      .mobile-menu {
+        display: block;
+      }
+      
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .filter-controls {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .search-box {
+        min-width: auto;
+      }
+      
+      .header-stats {
+        gap: 2rem;
+      }
+      
+      .trust-indicators {
+        gap: 2rem;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+      }
+      
+      .theme-toggle {
+        right: 1rem;
+      }
+
+      .tool-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle" aria-label="Theme umschalten">
+    <div class="theme-switch"></div>
+  </button>
+
+  <nav class="navigation">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">AI Tool Vault</a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tools">Tools</a></li>
+        <li><a href="/impressum">Impressum</a></li>
+        <li><a href="/kontakt">Kontakt</a></li>
+        <li><a href="/datenschutz">Datenschutz</a></li>
+      </ul>
+      <button class="mobile-menu">☰</button>
+    </div>
+  </nav>
+
+  <section class="trust-banner">
+    <div class="trust-container">
+      <div class="trust-indicators">
+        <div class="trust-item">
+          <div class="trust-icon">✓</div>
+          <span>Täglich aktualisiert</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">{tools.length}</div>
+          <span>KI-Tools getestet</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">⭐</div>
+          <span>Expertenbewertet</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">{freeTools}</div>
+          <span>Kostenlose Tools</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="header">
+    <div class="header-container">
+      <h1>Alle {tools.length} KI-Tools durchsuchen</h1>
+      <p>Finde das perfekte KI-Tool für deine Bedürfnisse. Von kostenlosen bis hin zu Enterprise-Lösungen.</p>
+      
+      <div class="header-stats">
+        <div class="header-stat">
+          <span class="header-stat-number">{tools.length}</span>
+          <span class="header-stat-label">KI-Tools</span>
+        </div>
+        <div class="header-stat">
+          <span class="header-stat-number">{categories.length}</span>
+          <span class="header-stat-label">Kategorien</span>
+        </div>
+        <div class="header-stat">
+          <span class="header-stat-number">{freeTools}</span>
+          <span class="header-stat-label">Kostenlos</span>
+        </div>
+        <div class="header-stat">
+          <span class="header-stat-number">{freemiumTools}</span>
+          <span class="header-stat-label">Freemium</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-container">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5595876978844902"
+         data-ad-slot="AUTO"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+
+  <main class="container">
+    <div class="main-content">
+      <!-- Filter Section -->
+      <section class="filter-section">
+        <div class="filter-controls">
+          <div class="filter-group">
+            <label class="filter-label">Suche</label>
+            <input type="text" class="search-box" id="searchInput" placeholder="Tool suchen..." />
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Kategorie</label>
+            <select class="dropdown" id="categoryFilter">
+              <option value="">Alle Kategorien</option>
+              {categories.map(cat => <option value={cat}>{cat}</option>)}
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Preis</label>
+            <select class="dropdown" id="pricingFilter">
+              <option value="">Alle Preise</option>
+              <option value="Kostenlos">Kostenlos</option>
+              <option value="Freemium">Freemium</option>
+              <option value="Kostenpflichtig">Kostenpflichtig</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Features</label>
+            <select class="dropdown" id="featureFilter">
+              <option value="">Alle Features</option>
+              <option value="api">API verfügbar</option>
+              <option value="mobile">Mobile App</option>
+              <option value="trial">Kostenlose Testversion</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Sortierung</label>
+            <select class="dropdown" id="sortFilter">
+              <option value="name">Name A-Z</option>
+              <option value="rating">Bewertung</option>
+              <option value="category">Kategorie</option>
+              <option value="pricing">Preis</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="quick-filters">
+          <button class="quick-filter-btn" data-filter="featured">🌟 Featured</button>
+          <button class="quick-filter-btn" data-filter="free">💰 Kostenlos</button>
+          <button class="quick-filter-btn" data-filter="new">🆕 Neu</button>
+          <button class="quick-filter-btn" data-filter="popular">🔥 Beliebt</button>
+          <button class="quick-filter-btn" data-filter="api">🔌 API</button>
+        </div>
+
+        <div class="filter-results">
+          <span class="result-count" id="resultCount">{tools.length} Tools gefunden</span>
+          <button class="clear-btn" id="clearFilters">Filter zurücksetzen</button>
+        </div>
+      </section>
+
+      <!-- Tools Grid -->
+      <div class="grid" id="toolsGrid">
+        {tools.map((tool, index) => (
+          <div class="card" 
+               data-category={tool.data.category} 
+               data-pricing={tool.data.pricing}
+               data-featured={tool.data.featured || false}
+               data-api={tool.data.api_available || false}
+               data-mobile={tool.data.mobile_app || false}
+               data-trial={tool.data.free_trial || false}
+               data-name={tool.data.title}
+               data-rating={tool.data.rating || 4.0}>
+            
+            <button class="bookmark-btn" data-tool={tool.data.title}>🤍</button>
+            <input type="checkbox" class="compare-checkbox" data-tool={tool.data.title} />
+            
+            <div class="card-header">
+              <span class={`category-badge category-${tool.data.category.toLowerCase().replace(/[^a-z]/g, '')}`}>{tool.data.category}</span>
+              {tool.data.rating && <span class="rating-badge">⭐ {tool.data.rating}</span>}
+            </div>
+            
+            <h3>{tool.data.title}</h3>
+            <p>{tool.data.description}</p>
+            
+            {tool.data.rating && (
+              <div class="tool-rating">
+                <span class="stars">{'★'.repeat(Math.floor(tool.data.rating))}{'☆'.repeat(5-Math.floor(tool.data.rating))}</span>
+                <span class="rating-number">{tool.data.rating}</span>
+              </div>
+            )}
+            
+            <div class="tool-stats">
+              <span class={`stat pricing-${tool.data.pricing.toLowerCase()}`}>{tool.data.pricing}</span>
+              {tool.data.api_available && <span class="stat">🔌 API</span>}
+              {tool.data.mobile_app && <span class="stat">📱 Mobile</span>}
+              {tool.data.free_trial && <span class="stat">🆓 Trial</span>}
+              {tool.data.founded && <span class="stat">📅 {tool.data.founded}</span>}
+            </div>
+            
+            <div class={`pricing-badge pricing-${tool.data.pricing.toLowerCase().replace(/[^a-z]/g, '')}`}>
+              {tool.data.pricing}
+            </div>
+            
+            <div class="tool-actions">
+              <a href={`/tools/${tool.slug}`} class="btn-details">Details ansehen</a>
+              <a href={tool.data.affiliate_link} 
+                 target="_blank" 
+                 rel="noopener noreferrer" 
+                 class="btn-affiliate"
+                 data-tool={tool.data.title}
+                 data-position={index + 1}>
+                Tool testen
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="ad-container">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-5595876978844902"
+             data-ad-slot="AUTO"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <!-- Quick Navigation -->
+      <div class="quick-nav">
+        <h3>Schnellnavigation</h3>
+        <div class="quick-nav-items">
+          {categories.slice(0, 8).map(cat => (
+            <button onclick={`filterByCategory('${cat}')`}>{cat.split(' ')[0]}</button>
+          ))}
+        </div>
+      </div>
+
+      <!-- Comparison Widget -->
+      <div class="comparison-widget">
+        <h3>Tool-Vergleich</h3>
+        <div class="compare-checkbox-wrapper">
+          <input type="checkbox" class="compare-checkbox" id="compare-toggle">
+          <label class="compare-label" for="compare-toggle">Vergleichsmodus aktivieren</label>
+        </div>
+        <button class="compare-btn" id="compareSelected">Vergleichen (0)</button>
+      </div>
+
+      <!-- Usage Stats -->
+      <div class="usage-stats">
+        <h3>Tool-Statistiken</h3>
+        <div class="stat-item">
+          <span class="stat-label">Kostenlose Tools:</span>
+          <span class="stat-value">{freeTools}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Freemium Tools:</span>
+          <span class="stat-value">{freemiumTools}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Premium Tools:</span>
+          <span class="stat-value">{paidTools}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Mit API:</span>
+          <span class="stat-value">{tools.filter(t => t.data.api_available).length}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Mobile Apps:</span>
+          <span class="stat-value">{tools.filter(t => t.data.mobile_app).length}</span>
+        </div>
+      </div>
+
+      <!-- Recommendations -->
+      <div class="recommendations">
+        <h3>Empfohlene Tools</h3>
+        {tools.filter(t => t.data.featured).slice(0, 3).map(tool => (
+          <div class="recommended-tool">
+            <h4>{tool.data.title}</h4>
+            <p>{tool.data.description.substring(0, 80)}...</p>
+            <a href={`/tools/${tool.slug}`} class="quick-action-btn">Mehr erfahren</a>
+          </div>
+        ))}
+      </div>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-content">
+        <div>
+          <div class="footer-logo">AI Tool Vault</div>
+          <p class="footer-description">
+            Die umfassendste Sammlung von KI-Tools für Kreativität, Produktivität und Innovation. 
+            Entdecke die Zukunft heute.
+          </p>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="/tools">Alle Tools</a></li>
+            <li><a href="/#categories">Kategorien</a></li>
+            <li><a href="/kontakt">Kontakt</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Rechtliches</h4>
+          <ul class="footer-links">
+            <li><a href="/impressum">Impressum</a></li>
+            <li><a href="/datenschutz">Datenschutz</a></li>
+            <li><a href="/kontakt">Support</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 AI Tool Vault. Alle Rechte vorbehalten.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Theme Toggle
+      var themeToggle = document.getElementById('themeToggle');
+      var html = document.documentElement;
+      
+      var savedTheme = localStorage.getItem('theme') || 'light';
+      html.setAttribute('data-theme', savedTheme);
+      
+      if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+          var currentTheme = html.getAttribute('data-theme');
+          var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          
+          html.setAttribute('data-theme', newTheme);
+          localStorage.setItem('theme', newTheme);
+          
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'theme_change', {
+              'theme_mode': newTheme,
+              'source': 'tools_page'
+            });
+          }
+        });
+      }
+
+      // Mobile Menu
+      var mobileMenuBtn = document.querySelector('.mobile-menu');
+      var navLinks = document.querySelector('.nav-links');
+      
+      if (mobileMenuBtn && navLinks) {
+        var menuOpen = false;
+        
+        mobileMenuBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          menuOpen = !menuOpen;
+          
+          if (menuOpen) {
+            navLinks.classList.add('show');
+            this.innerHTML = '✕';
+          } else {
+            navLinks.classList.remove('show');
+            this.innerHTML = '☰';
+          }
+        });
+        
+        document.addEventListener('click', function() {
+          if (menuOpen) {
+            navLinks.classList.remove('show');
+            mobileMenuBtn.innerHTML = '☰';
+            menuOpen = false;
+          }
+        });
+      }
+
+      // Filter Functionality
+      var searchInput = document.getElementById('searchInput');
+      var categoryFilter = document.getElementById('categoryFilter');
+      var pricingFilter = document.getElementById('pricingFilter');
+      var featureFilter = document.getElementById('featureFilter');
+      var sortFilter = document.getElementById('sortFilter');
+      var clearFilters = document.getElementById('clearFilters');
+      var toolsGrid = document.getElementById('toolsGrid');
+      var resultCount = document.getElementById('resultCount');
+      var quickFilterBtns = document.querySelectorAll('.quick-filter-btn');
+
+      // Get all tool cards
+      var allCards = Array.from(toolsGrid.children);
+      var activeFilters = {};
+
+      function applyFilters() {
+        var visibleCards = allCards.filter(function(card) {
+          // Search filter
+          if (activeFilters.search) {
+            var title = card.dataset.name.toLowerCase();
+            var category = card.dataset.category.toLowerCase();
+            var searchTerm = activeFilters.search.toLowerCase();
+            if (!title.includes(searchTerm) && !category.includes(searchTerm)) {
+              return false;
+            }
+          }
+
+          // Category filter
+          if (activeFilters.category && card.dataset.category !== activeFilters.category) {
+            return false;
+          }
+
+          // Pricing filter
+          if (activeFilters.pricing && card.dataset.pricing !== activeFilters.pricing) {
+            return false;
+          }
+
+          // Feature filter
+          if (activeFilters.feature) {
+            switch (activeFilters.feature) {
+              case 'api':
+                if (card.dataset.api !== 'true') return false;
+                break;
+              case 'mobile':
+                if (card.dataset.mobile !== 'true') return false;
+                break;
+              case 'trial':
+                if (card.dataset.trial !== 'true') return false;
+                break;
+            }
+          }
+
+          // Quick filters
+          if (activeFilters.quick) {
+            switch (activeFilters.quick) {
+              case 'featured':
+                if (card.dataset.featured !== 'true') return false;
+                break;
+              case 'free':
+                if (card.dataset.pricing !== 'Kostenlos') return false;
+                break;
+              case 'new':
+                // Tools from 2023+ are considered "new"
+                var statElements = card.querySelectorAll('.stat');
+                var isNew = false;
+                statElements.forEach(function(stat) {
+                  if (stat.textContent.includes('2023') || stat.textContent.includes('2024') || stat.textContent.includes('2025')) {
+                    isNew = true;
+                  }
+                });
+                if (!isNew) return false;
+                break;
+              case 'popular':
+                var rating = parseFloat(card.dataset.rating);
+                if (rating < 4.5) return false;
+                break;
+              case 'api':
+                if (card.dataset.api !== 'true') return false;
+                break;
+            }
+          }
+
+          return true;
+        });
+
+        // Hide all cards
+        allCards.forEach(function(card) {
+          card.style.display = 'none';
+        });
+
+        // Sort visible cards
+        if (activeFilters.sort) {
+          visibleCards.sort(function(a, b) {
+            switch (activeFilters.sort) {
+              case 'name':
+                return a.dataset.name.localeCompare(b.dataset.name);
+              case 'rating':
+                return parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating);
+              case 'category':
+                return a.dataset.category.localeCompare(b.dataset.category);
+              case 'pricing':
+                var priceOrder = {'Kostenlos': 1, 'Freemium': 2, 'Kostenpflichtig': 3};
+                return priceOrder[a.dataset.pricing] - priceOrder[b.dataset.pricing];
+              default:
+                return 0;
+            }
+          });
+        }
+
+        // Show visible cards
+        visibleCards.forEach(function(card) {
+          card.style.display = 'flex';
+        });
+
+        // Update result count
+        resultCount.textContent = visibleCards.length + ' Tools gefunden';
+      }
+
+      // Event Listeners
+      if (searchInput) {
+        searchInput.addEventListener('input', function() {
+          activeFilters.search = this.value;
+          applyFilters();
+        });
+      }
+
+      if (categoryFilter) {
+        categoryFilter.addEventListener('change', function() {
+          activeFilters.category = this.value;
+          applyFilters();
+        });
+      }
+
+      if (pricingFilter) {
+        pricingFilter.addEventListener('change', function() {
+          activeFilters.pricing = this.value;
+          applyFilters();
+        });
+      }
+
+      if (featureFilter) {
+        featureFilter.addEventListener('change', function() {
+          activeFilters.feature = this.value;
+          applyFilters();
+        });
+      }
+
+      if (sortFilter) {
+        sortFilter.addEventListener('change', function() {
+          activeFilters.sort = this.value;
+          applyFilters();
+        });
+      }
+
+      // Quick Filters
+      quickFilterBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var filter = this.dataset.filter;
+          
+          // Toggle active state
+          quickFilterBtns.forEach(function(b) { b.classList.remove('active'); });
+          
+          if (activeFilters.quick === filter) {
+            activeFilters.quick = '';
+          } else {
+            activeFilters.quick = filter;
+            this.classList.add('active');
+          }
+          
+          applyFilters();
+        });
+      });
+
+      // Clear Filters
+      if (clearFilters) {
+        clearFilters.addEventListener('click', function() {
+          activeFilters = {};
+          searchInput.value = '';
+          categoryFilter.value = '';
+          pricingFilter.value = '';
+          featureFilter.value = '';
+          sortFilter.value = 'name';
+          quickFilterBtns.forEach(function(btn) { btn.classList.remove('active'); });
+          applyFilters();
+        });
+      }
+
+      // Bookmark functionality
+      var bookmarkBtns = document.querySelectorAll('.bookmark-btn');
+      var bookmarkedTools = JSON.parse(localStorage.getItem('bookmarkedTools') || '[]');
+
+      // Initialize bookmark states
+      bookmarkBtns.forEach(function(btn) {
+        var toolName = btn.dataset.tool;
+        if (bookmarkedTools.includes(toolName)) {
+          btn.textContent = '❤️';
+          btn.classList.add('favorited');
+        }
+      });
+
+      bookmarkBtns.forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          var toolName = this.dataset.tool;
+          var index = bookmarkedTools.indexOf(toolName);
+          
+          if (index > -1) {
+            bookmarkedTools.splice(index, 1);
+            this.textContent = '🤍';
+            this.classList.remove('favorited');
+          } else {
+            bookmarkedTools.push(toolName);
+            this.textContent = '❤️';
+            this.classList.add('favorited');
+          }
+          
+          localStorage.setItem('bookmarkedTools', JSON.stringify(bookmarkedTools));
+          
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'bookmark_toggle', {
+              'tool_name': toolName,
+              'action': index > -1 ? 'remove' : 'add',
+              'source': 'tools_page'
+            });
+          }
+        });
+      });
+
+      // Comparison functionality
+      var compareCheckboxes = document.querySelectorAll('.compare-checkbox:not(#compare-toggle)');
+      var compareToggle = document.getElementById('compare-toggle');
+      var compareBtn = document.getElementById('compareSelected');
+      var selectedForComparison = [];
+
+      function updateCompareButton() {
+        compareBtn.textContent = 'Vergleichen (' + selectedForComparison.length + ')';
+        compareBtn.style.display = selectedForComparison.length > 0 ? 'block' : 'none';
+      }
+
+      if (compareToggle) {
+        compareToggle.addEventListener('change', function() {
+          var isCompareMode = this.checked;
+          compareCheckboxes.forEach(function(checkbox) {
+            checkbox.style.display = isCompareMode ? 'block' : 'none';
+          });
+          
+          if (!isCompareMode) {
+            selectedForComparison = [];
+            compareCheckboxes.forEach(function(checkbox) {
+              checkbox.checked = false;
+            });
+            updateCompareButton();
+          }
+        });
+      }
+
+      compareCheckboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+          var toolName = this.dataset.tool;
+          
+          if (this.checked) {
+            if (selectedForComparison.length < 4) {
+              selectedForComparison.push(toolName);
+            } else {
+              this.checked = false;
+              alert('Du kannst maximal 4 Tools vergleichen.');
+            }
+          } else {
+            var index = selectedForComparison.indexOf(toolName);
+            if (index > -1) {
+              selectedForComparison.splice(index, 1);
+            }
+          }
+          
+          updateCompareButton();
+        });
+      });
+
+      if (compareBtn) {
+        compareBtn.addEventListener('click', function() {
+          if (selectedForComparison.length < 2) {
+            alert('Wähle mindestens 2 Tools zum Vergleichen aus.');
+            return;
+          }
+          
+          var compareUrl = '/compare?tools=' + selectedForComparison.join(',');
+          window.location.href = compareUrl;
+          
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'tools_compare', {
+              'tools_count': selectedForComparison.length,
+              'tools': selectedForComparison.join(','),
+              'source': 'tools_page'
+            });
+          }
+        });
+      }
+
+      // Affiliate link tracking
+      var affiliateLinks = document.querySelectorAll('.btn-affiliate');
+      affiliateLinks.forEach(function(link, index) {
+        link.addEventListener('click', function() {
+          var toolName = this.dataset.tool;
+          var position = this.dataset.position || index + 1;
+          
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'affiliate_click', {
+              'tool_name': toolName,
+              'position': position,
+              'affiliate_url': this.href,
+              'source': 'tools_page',
+              'value': 10.00,
+              'currency': 'EUR'
+            });
+          }
+        });
+      });
+
+      // Details link tracking
+      var detailsLinks = document.querySelectorAll('.btn-details');
+      detailsLinks.forEach(function(link, index) {
+        link.addEventListener('click', function() {
+          var toolName = this.closest('.card').dataset.name;
+          
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'tool_details_click', {
+              'tool_name': toolName,
+              'position': index + 1,
+              'source': 'tools_page'
+            });
+          }
+        });
+      });
+
+      // Global filter function for quick nav
+      window.filterByCategory = function(category) {
+        categoryFilter.value = category;
+        activeFilters.category = category;
+        applyFilters();
+        
+        // Scroll to results
+        toolsGrid.scrollIntoView({ behavior: 'smooth' });
+        
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'category_filter', {
+            'category': category,
+            'source': 'quick_nav'
+          });
+        }
+      };
+
+      // URL parameter handling
+      var urlParams = new URLSearchParams(window.location.search);
+      var categoryParam = urlParams.get('category');
+      var searchParam = urlParams.get('search');
+      var pricingParam = urlParams.get('pricing');
+      
+      if (categoryParam) {
+        categoryFilter.value = categoryParam;
+        activeFilters.category = categoryParam;
+      }
+      
+      if (searchParam) {
+        searchInput.value = searchParam;
+        activeFilters.search = searchParam;
+      }
+      
+      if (pricingParam) {
+        pricingFilter.value = pricingParam;
+        activeFilters.pricing = pricingParam;
+      }
+
+      // Apply initial filters if any URL parameters
+      if (categoryParam || searchParam || pricingParam) {
+        applyFilters();
+      }
+
+      // AdSense initialization
+      function initAdSense() {
+        var ads = document.querySelectorAll('.adsbygoogle');
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting && !entry.target.getAttribute('data-loaded')) {
+              try {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                entry.target.setAttribute('data-loaded', 'true');
+              } catch (e) {
+                console.warn('AdSense loading error:', e);
+              }
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        
+        ads.forEach(function(ad) {
+          observer.observe(ad);
+        });
+      }
+
+      // Initialize AdSense
+      initAdSense();
+
+      // Search suggestions
+      var searchSuggestions = {tools.map(t => `"${t.data.title}"`).join(', ')};
+      
+      // Simple auto-complete for search
+      if (searchInput) {
+        var suggestionsList = document.createElement('div');
+        suggestionsList.className = 'search-suggestions';
+        
+        searchInput.parentNode.style.position = 'relative';
+        searchInput.parentNode.appendChild(suggestionsList);
+        
+        searchInput.addEventListener('input', function() {
+          var query = this.value.toLowerCase();
+          if (query.length < 2) {
+            suggestionsList.style.display = 'none';
+            return;
+          }
+          
+          var toolNames = [{tools.map(t => `"${t.data.title}"`).join(', ')}];
+          var matches = toolNames.filter(function(tool) {
+            return tool.toLowerCase().includes(query);
+          }).slice(0, 5);
+          
+          if (matches.length > 0) {
+            suggestionsList.innerHTML = matches.map(function(match) {
+              return '<div class="suggestion-item">' + match + '</div>';
+            }).join('');
+            suggestionsList.style.display = 'block';
+            
+            // Add click handlers to suggestions
+            suggestionsList.querySelectorAll('.suggestion-item').forEach(function(item) {
+              item.addEventListener('click', function() {
+                searchInput.value = this.textContent;
+                activeFilters.search = this.textContent;
+                applyFilters();
+                suggestionsList.style.display = 'none';
+              });
+            });
+          } else {
+            suggestionsList.style.display = 'none';
+          }
+        });
+        
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!searchInput.contains(e.target) && !suggestionsList.contains(e.target)) {
+            suggestionsList.style.display = 'none';
+          }
+        });
+      }
+
+      console.log('🎨 Tools page loaded successfully!');
+      console.log('📊 Tools available:', {tools.length});
+      console.log('📂 Categories:', {categories.length});
+    });
+  </script>
+</body>
+</html>
