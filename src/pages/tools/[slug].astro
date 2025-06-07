@@ -1,4 +1,789 @@
----
+<div class="features-section">
+        <h3>Hauptfunktionen</h3>
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-icon">⚡</div>
+            <div class="feature-content">
+              <h3>Schnelle Verarbeitung</h3>
+              <p>Ergebnisse in Sekundenschnelle durch optimierte KI-Algorithmen</p>
+            </div>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">🎯</div>
+            <div class="feature-content">
+              <h3>Präzise Ergebnisse</h3>
+              <p>Hochqualitative Ausgaben durch fortschrittliche Trainingsmodelle</p>
+            </div>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">🔧</div>
+            <div class="feature-content">
+              <h3>Einfache Bedienung</h3>
+              <p>Intuitive Benutzeroberfläche für Anfänger und Profis gleichermaßen</p>
+            </div>
+          </div>
+
+          {data.api_available && (
+            <div class="feature-item">
+              <div class="feature-icon">🔌</div>
+              <div class="feature-content">
+                <h3>API Integration</h3>
+                <p>Nahtlose Integration in bestehende Systeme über moderne APIs</p>
+              </div>
+            </div>
+          )}
+
+          {data.mobile_app && (
+            <div class="feature-item">
+              <div class="feature-icon">📱</div>
+              <div class="feature-content">
+                <h3>Mobile App</h3>
+                <p>Vollständige Funktionalität auf iOS und Android Geräten</p>
+              </div>
+            </div>
+          )}
+
+          {data.languages && data.languages.length > 3 && (
+            <div class="feature-item">
+              <div class="feature-icon">🌍</div>
+              <div class="feature-content">
+                <h3>Mehrsprachig</h3>
+                <p>Unterstützt {data.languages.length} Sprachen für globale Nutzung</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <!-- SECURITY FEATURES -->
+      {data.security_features && data.security_features.length > 0 && (
+        <div class="security-features">
+          <h3>Sicherheit & Compliance</h3>
+          <div class="security-grid">
+            {data.security_features.map(feature => (
+              <div class="security-item">
+                <span>{feature}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div class="pros-cons">
+        <div class="pros">
+          <h3 class="pros-title">✅ Vorteile</h3>
+          <ul class="pros-list">
+            {data.pros ? data.pros.map(pro => <li>{pro}</li>) : (
+              <>
+                <li>Intuitive Benutzeroberfläche</li>
+                <li>Schnelle Verarbeitung</li>
+                <li>Hochwertige Ergebnisse</li>
+                <li>Regelmäßige Updates</li>
+              </>
+            )}
+          </ul>
+        </div>
+        
+        <div class="cons">
+          <h3 class="cons-title">❌ Nachteile</h3>
+          <ul class="cons-list">
+            {data.cons ? data.cons.map(con => <li>{con}</li>) : (
+              <>
+                <li>Lernkurve für Anfänger</li>
+                <li>Internet-Verbindung erforderlich</li>
+                <li>Begrenzte kostenlose Features</li>
+              </>
+            )}
+          </ul>
+        </div>
+      </div>
+
+      <!-- USE CASES -->
+      {data.use_cases && data.use_cases.length > 0 && (
+        <div class="features-section">
+          <h3>Anwendungsfälle</h3>
+          <p class="section-subtitle">{data.title} eignet sich besonders für:</p>
+          <div class="features-grid">
+            {data.use_cases.map((useCase, index) => (
+              <div class="feature-item">
+                <div class="feature-icon">{String(index + 1)}</div>
+                <div class="feature-content">
+                  <h3>{useCase}</h3>
+                  <p>Professionelle Anwendung für optimale Ergebnisse</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div class="faq-section">
+        <h3>Häufig gestellte Fragen</h3>
+        {faqItems.map((faq, index) => (
+          <div class="faq-item">
+            <h4 class="faq-question" data-faq={index}>{faq.question}</h4>
+            <div class="faq-answer" data-answer={index}>{faq.answer}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <!-- Enhanced Pricing Card -->
+      <div class="pricing-card">
+        <div class="pricing-tag">{data.pricing || 'Freemium'}</div>
+        <h3 class="pricing-title">{data.title} testen</h3>
+        <p class="pricing-description">
+          {data.pricing === "Kostenlos" ? 
+            "Komplett kostenlos nutzbar" :
+            data.pricing === "Freemium" ?
+            "Kostenlos testen, dann upgraden" :
+            "Premium Tool für Profis"
+          }
+        </p>
+        <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="pricing-cta">
+          Jetzt testen
+        </a>
+        <p class="pricing-note">
+          {data.free_trial ? "✅ Kostenlose Testversion verfügbar" : "💡 Direkt loslegen"}
+        </p>
+        
+        {data.price_category && (
+          <p class="pricing-note" style="margin-top: 1rem;">
+            <strong>Preiskategorie:</strong> {data.price_category === "budget" ? "Budget-freundlich" : 
+                                            data.price_category === "mid-range" ? "Mittelklasse" :
+                                            data.price_category === "premium" ? "Premium" : "Enterprise"}
+          </p>
+        )}
+      </div>
+
+      <!-- Table of Contents -->
+      <div class="table-of-contents">
+        <h3>Inhaltsverzeichnis</h3>
+        <ul class="toc-list">
+          <li class="toc-item">
+            <a href="#overview" class="toc-link">Überblick</a>
+          </li>
+          <li class="toc-item">
+            <a href="#features" class="toc-link">Features</a>
+          </li>
+          <li class="toc-item">
+            <a href="#pricing" class="toc-link">Preise</a>
+          </li>
+          <li class="toc-item">
+            <a href="#pros-cons" class="toc-link">Vor- & Nachteile</a>
+          </li>
+          <li class="toc-item">
+            <a href="#use-cases" class="toc-link">Anwendungsfälle</a>
+          </li>
+          <li class="toc-item">
+            <a href="#faq" class="toc-link">FAQ</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <h3>Schnellaktionen</h3>
+        <a href={data.affiliate_link} target="_blank" class="quick-action-btn">
+          🚀 Tool direkt testen
+        </a>
+        <a href="/tools" class="quick-action-btn">
+          🔍 Ähnliche Tools finden
+        </a>
+        <button class="quick-action-btn" onclick="window.print()">
+          📄 Seite drucken
+        </button>
+        <button class="quick-action-btn" onclick="navigator.share && navigator.share({title: document.title, url: window.location.href})">
+          📤 Tool teilen
+        </button>
+      </div>
+
+      <!-- Tool Comparison Widget -->
+      <div class="comparison-widget">
+        <h3>Tool-Vergleich</h3>
+        <div class="compare-checkbox-wrapper">
+          <input type="checkbox" class="compare-checkbox" data-tool={data.title} />
+          <label class="compare-label">Zu Vergleich hinzufügen</label>
+        </div>
+        <button class="compare-btn" id="compareBtn">
+          Vergleich starten (0)
+        </button>
+      </div>
+
+      <!-- AdSense Sidebar -->
+      <div class="ad-container ad-sidebar">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-format="auto"
+             data-full-width-responsive="true"
+             data-ad-client="ca-pub-5595876978844902"
+             data-ad-slot="AUTO"></ins>
+      </div>
+    </div>
+  </div>
+
+  <!-- DETAILED PRICING SECTION -->
+  {data.pricing_details && (
+    <div class="pricing-overview">
+      <h3>Detaillierte Preisübersicht</h3>
+      <p>Alle Preispläne und Features im Überblick</p>
+      
+      <div class="pricing-plans">
+        {/* FREE PLAN */}
+        {data.pricing_details.free_plan && data.pricing_details.free_plan.available && (
+          <div class="plan-card">
+            <h4 class="plan-name">Kostenlose Version</h4>
+            <div class="plan-price">
+              <span>0</span>
+              <span class="currency">€</span>
+            </div>
+            <div class="plan-cycle">{formatBillingCycle(data.pricing_details.free_plan.billing_cycle)}</div>
+            
+            <ul class="plan-features">
+              {data.pricing_details.free_plan.features.map(feature => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+            
+            {data.pricing_details.free_plan.limitations && data.pricing_details.free_plan.limitations.length > 0 && (
+              <ul class="plan-limitations">
+                {data.pricing_details.free_plan.limitations.map(limitation => (
+                  <li>{limitation}</li>
+                ))}
+              </ul>
+            )}
+            
+            <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="plan-cta">
+              Kostenlos starten
+            </a>
+          </div>
+        )}
+        
+        {/* PAID PLANS */}
+        {data.pricing_details.paid_plans && data.pricing_details.paid_plans.map(plan => (
+          <div class={`plan-card ${plan.popular ? 'popular' : ''}`}>
+            <h4 class="plan-name">{plan.name}</h4>
+            <div class="plan-price">
+              {typeof plan.price === 'string' ? (
+                <span>{plan.price}</span>
+              ) : (
+                <>
+                  <span>{plan.price}</span>
+                  <span class="currency">{mapCurrency(plan.currency) || '€'}</span>
+                </>
+              )}
+            </div>
+            <div class="plan-cycle">
+              {formatBillingCycle(plan.billing_cycle)}
+              {plan.per_user && ' pro Nutzer'}
+              {plan.minimum_users && ` (min. ${plan.minimum_users} Nutzer)`}
+            </div>
+            
+            <ul class="plan-features">
+              {plan.features.map(feature => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+            
+            {plan.limitations && plan.limitations.length > 0 && (
+              <ul class="plan-limitations">
+                {plan.limitations.map(limitation => (
+                  <li>{limitation}</li>
+                ))}
+              </ul>
+            )}
+            
+            {plan.note && (
+              <div class="plan-note">{plan.note}</div>
+            )}
+            
+            <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="plan-cta">
+              {plan.popular ? 'Jetzt upgraden' : 'Plan wählen'}
+            </a>
+          </div>
+        ))}
+      </div>
+      
+      {data.last_price_update && (
+        <p style="text-align: center; margin-top: 2rem; color: var(--text-secondary); font-size: 0.9rem;">
+          Preise zuletzt aktualisiert: {data.last_price_update}
+        </p>
+      )}
+    </div>
+  )}
+
+  <!-- API PRICING SECTION -->
+  {data.api_pricing && data.api_pricing.models && (
+    <div class="api-pricing">
+      <h3>API Preise für Entwickler</h3>
+      <p>Direkter Zugang zur KI über moderne APIs</p>
+      
+      <div class="api-models">
+        {data.api_pricing.models.map(model => (
+          <div class={`api-model ${model.popular ? 'popular' : ''}`}>
+            <div class="api-model-header">
+              <h4 class="api-model-name">{model.name}</h4>
+              <span class="api-model-context">{model.context_window}</span>
+            </div>
+            
+            <div class="api-pricing-grid">
+              <div class="api-price-item">
+                <div class="api-price-label">Input</div>
+                <div class="api-price-value">{formatApiPrice(model.input_price, model.currency)}</div>
+                <div class="api-price-unit">pro {model.per_million_tokens ? 'Million Token' : 'Request'}</div>
+              </div>
+              
+              <div class="api-price-item">
+                <div class="api-price-label">Output</div>
+                <div class="api-price-value">{formatApiPrice(model.output_price, model.currency)}</div>
+                <div class="api-price-unit">pro {model.per_million_tokens ? 'Million Token' : 'Request'}</div>
+              </div>
+            </div>
+            
+            {model.note && (
+              <div class="api-model-note">{model.note}</div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <!-- COMPARISON METRICS -->
+  {data.comparison_metrics && (
+    <div class="comparison-section">
+      <h3>Vergleichstabelle</h3>
+      <p>Detaillierter Vergleich aller verfügbaren Pläne</p>
+      
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              {data.pricing_details?.free_plan?.available && <th>Kostenlos</th>}
+              {data.pricing_details?.paid_plans?.map(plan => (
+                <th>{plan.name}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.comparison_metrics.messages_per_day && (
+              <tr>
+                <td class="metric-label">Nachrichten pro Tag</td>
+                {Object.entries(data.comparison_metrics.messages_per_day).map(([plan, value]) => (
+                  <td class="metric-value">{value}</td>
+                ))}
+              </tr>
+            )}
+            
+            {data.comparison_metrics.requests_per_month && (
+              <tr>
+                <td class="metric-label">Requests pro Monat</td>
+                {Object.entries(data.comparison_metrics.requests_per_month).map(([plan, value]) => (
+                  <td class="metric-value">{value}</td>
+                ))}
+              </tr>
+            )}
+            
+            {data.comparison_metrics.models_included && (
+              <tr>
+                <td class="metric-label">Verfügbare Modelle</td>
+                {Object.entries(data.comparison_metrics.models_included).map(([plan, models]) => (
+                  <td class="metric-value">
+                    {Array.isArray(models) ? models.join(', ') : models}
+                  </td>
+                ))}
+              </tr>
+            )}
+            
+            {data.comparison_metrics.support_level && (
+              <tr>
+                <td class="metric-label">Support-Level</td>
+                {Object.entries(data.comparison_metrics.support_level).map(([plan, value]) => (
+                  <td class="metric-value">{value}</td>
+                ))}
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )}
+
+  <div class="similar-tools">
+    <h3>Ähnliche Tools aus der Kategorie {data.category}</h3>
+    <p>Weitere empfehlenswerte KI-Tools</p>
+    
+    <div class="tools-grid">
+      {similarTools.map(tool => (
+        <div class="tool-card">
+          <h3>{tool.data.title}</h3>
+          <p>{tool.data.description}</p>
+          <a href={`/tools/${tool.slug}`} class="tool-card-cta">
+            Mehr erfahren
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="ad-container">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5595876978844902"
+         data-ad-slot="AUTO"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-content">
+        <div>
+          <div class="footer-logo">AI Tool Vault</div>
+          <p class="footer-description">
+            Die umfassendste Sammlung von KI-Tools für Kreativität, Produktivität und Innovation. 
+            Entdecke die Zukunft heute.
+          </p>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="/tools">Alle Tools</a></li>
+            <li><a href="/#categories">Kategorien</a></li>
+            <li><a href="/kontakt">Kontakt</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Rechtliches</h4>
+          <ul class="footer-links">
+            <li><a href="/impressum">Impressum</a></li>
+            <li><a href="/datenschutz">Datenschutz</a></li>
+            <li><a href="/kontakt">Support</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 AI Tool Vault. Alle Rechte vorbehalten.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // ===== THEME TOGGLE =====
+      var themeToggle = document.getElementById('themeToggle');
+      var html = document.documentElement;
+      
+      var savedTheme = localStorage.getItem('theme') || 'light';
+      html.setAttribute('data-theme', savedTheme);
+      
+      function updateToggleButton(theme) {
+        var button = document.getElementById('themeToggle');
+        if (button) {
+          button.setAttribute('aria-label', 
+            theme === 'dark' ? 'Zu hellem Modus wechseln' : 'Zu dunklem Modus wechseln'
+          );
+        }
+      }
+      
+      updateToggleButton(savedTheme);
+      
+      if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+          var currentTheme = html.getAttribute('data-theme');
+          var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          
+          html.setAttribute('data-theme', newTheme);
+          localStorage.setItem('theme', newTheme);
+          updateToggleButton(newTheme);
+          
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'theme_change', {
+              'theme_mode': newTheme,
+              'source': 'tool_page_toggle'
+            });
+          }
+        });
+      }
+
+      // ===== ENHANCED BOOKMARKS =====
+      function initializeBookmarks() {
+        var favorites = JSON.parse(localStorage.getItem('favoriteTools') || '[]');
+        var toolName = document.querySelector('.hero-bookmark').getAttribute('data-tool');
+        var bookmarkBtn = document.querySelector('.hero-bookmark');
+        
+        if (favorites.includes(toolName)) {
+          bookmarkBtn.textContent = '❤️';
+          bookmarkBtn.classList.add('favorited');
+        }
+      }
+      
+      function toggleBookmark(btn) {
+        var toolName = btn.getAttribute('data-tool');
+        var favorites = JSON.parse(localStorage.getItem('favoriteTools') || '[]');
+        
+        if (favorites.includes(toolName)) {
+          favorites = favorites.filter(function(tool) { return tool !== toolName; });
+          btn.textContent = '🤍';
+          btn.classList.remove('favorited');
+        } else {
+          favorites.push(toolName);
+          btn.textContent = '❤️';
+          btn.classList.add('favorited');
+        }
+        
+        localStorage.setItem('favoriteTools', JSON.stringify(favorites));
+        
+        // Show feedback
+        btn.style.transform = 'scale(1.2)';
+        setTimeout(function() {
+          btn.style.transform = 'scale(1)';
+        }, 200);
+      }
+      
+      // Handle bookmark clicks
+      document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('hero-bookmark')) {
+          toggleBookmark(e.target);
+        }
+      });
+
+      // ===== ENHANCED FAQ ACCORDION =====
+      function setupFAQ() {
+        var faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(function(question) {
+          question.addEventListener('click', function() {
+            var index = this.getAttribute('data-faq');
+            var answer = document.querySelector(`[data-answer="${index}"]`);
+            var isActive = this.classList.contains('active');
+            
+            // Close all other FAQs
+            faqQuestions.forEach(function(q) {
+              q.classList.remove('active');
+            });
+            document.querySelectorAll('.faq-answer').forEach(function(a) {
+              a.classList.remove('active');
+            });
+            
+            // Toggle current FAQ
+            if (!isActive) {
+              this.classList.add('active');
+              answer.classList.add('active');
+            }
+          });
+        });
+      }
+
+      // ===== TABLE OF CONTENTS NAVIGATION =====
+      function setupTableOfContents() {
+        var tocLinks = document.querySelectorAll('.toc-link');
+        var sections = ['overview', 'features', 'pricing', 'pros-cons', 'use-cases', 'faq'];
+        
+        // Smooth scrolling for TOC links
+        tocLinks.forEach(function(link) {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var targetId = this.getAttribute('href').substring(1);
+            var targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+              targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+          });
+        });
+        
+        // Highlight active section
+        function updateActiveTOC() {
+          var scrollPosition = window.scrollY + 200;
+          
+          sections.forEach(function(sectionId) {
+            var section = document.getElementById(sectionId);
+            var link = document.querySelector(`[href="#${sectionId}"]`);
+            
+            if (section && link) {
+              var sectionTop = section.offsetTop;
+              var sectionBottom = sectionTop + section.offsetHeight;
+              
+              if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                document.querySelectorAll('.toc-link').forEach(function(l) {
+                  l.classList.remove('active');
+                });
+                link.classList.add('active');
+              }
+            }
+          });
+        }
+        
+        window.addEventListener('scroll', updateActiveTOC);
+      }
+
+      // ===== TOOL COMPARISON SYSTEM =====
+      function setupToolComparison() {
+        var compareCheckbox = document.querySelector('.compare-checkbox');
+        var compareBtn = document.getElementById('compareBtn');
+        
+        if (compareCheckbox && compareBtn) {
+          compareCheckbox.addEventListener('change', function() {
+            var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');
+            var toolName = this.getAttribute('data-tool');
+            
+            if (this.checked) {
+              if (!selectedTools.includes(toolName)) {
+                selectedTools.push(toolName);
+              }
+            } else {
+              selectedTools = selectedTools.filter(function(tool) { 
+                return tool !== toolName; 
+              });
+            }
+            
+            localStorage.setItem('selectedTools', JSON.stringify(selectedTools));
+            updateCompareButton(selectedTools.length);
+          });
+          
+          // Initialize compare button
+          var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');
+          var toolName = compareCheckbox.getAttribute('data-tool');
+          if (selectedTools.includes(toolName)) {
+            compareCheckbox.checked = true;
+          }
+          updateCompareButton(selectedTools.length);
+        }
+        
+        function updateCompareButton(count) {
+          if (compareBtn) {
+            compareBtn.textContent = `Vergleich starten (${count})`;
+            compareBtn.style.display = count > 0 ? 'block' : 'none';
+          }
+        }
+        
+        if (compareBtn) {
+          compareBtn.addEventListener('click', function() {
+            var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');
+            
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'tool_comparison_start', {
+                'tool_count': selectedTools.length,
+                'tools': selectedTools.join(','),
+                'source': 'tool_detail_page'
+              });
+            }
+            
+            alert(`Vergleich wird gestartet mit: ${selectedTools.join(', ')}`);
+          });
+        }
+      }
+
+      // ===== ENHANCED MOBILE MENU =====
+      var mobileMenuBtn = document.querySelector('.mobile-menu');
+      var navLinks = document.querySelector('.nav-links');
+      
+      if (mobileMenuBtn && navLinks) {
+        var menuOpen = false;
+        
+        mobileMenuBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          menuOpen = !menuOpen;
+          
+          if (menuOpen) {
+            navLinks.classList.add('show');
+            this.innerHTML = '✕';
+          } else {
+            navLinks.classList.remove('show');
+            this.innerHTML = '☰';
+          }
+        });
+        
+        document.addEventListener('click', function() {
+          if (menuOpen) {
+            navLinks.classList.remove('show');
+            mobileMenuBtn.innerHTML = '☰';
+            menuOpen = false;
+          }
+        });
+      }
+
+      // ===== ENHANCED TRACKING =====
+      
+      // Enhanced Affiliate Tracking
+      var affiliateButtons = document.querySelectorAll('a[href*="' + document.querySelector('.hero-cta').href.split('?')[0] + '"]');
+      affiliateButtons.forEach(function(btn, index) {
+        btn.addEventListener('click', function() {
+          var buttonType = 'unknown';
+          if (this.classList.contains('hero-cta')) buttonType = 'hero';
+          else if (this.classList.contains('pricing-cta')) buttonType = 'sidebar';
+          else if (this.classList.contains('plan-cta')) buttonType = 'pricing_plan';
+          else if (this.classList.contains('quick-action-btn')) buttonType = 'quick_action';
+          
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'affiliate_click', {
+              'tool_name': document.querySelector('h1').textContent,
+              'source': 'tool_detail_page',
+              'button_type': buttonType,
+              'position': index + 1,
+              'affiliate_url': this.href,
+              'value': 25.00,
+              'currency': 'EUR'
+            });
+          }
+        });
+      });
+
+      // Plan Comparison Tracking
+      var planCards = document.querySelectorAll('.plan-card');
+      planCards.forEach(function(card, index) {
+        var planName = card.querySelector('.plan-name')?.textContent || 'Unknown Plan';
+        var ctaButton = card.querySelector('.plan-cta');
+        
+        if (ctaButton) {
+          ctaButton.addEventListener('click', function() {
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'pricing_plan_click', {
+                'tool_name': document.querySelector('h1').textContent,
+                'plan_name': planName,
+                'plan_position': index + 1,
+                'is_popular': card.classList.contains('popular')
+              });
+            }
+          });
+        }
+      });
+
+      // FAQ Interaction Tracking
+      var faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(function(item, index) {
+        item.addEventListener('click', function() {
+          var question = this.querySelector('.faq-question')?.textContent || 'Unknown Question';
+          
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'faq_interaction', {
+              'tool_name': document.querySelector('h1').textContent,
+              'question': question.substring(0, 50),
+              'position': index + 1
+            });
+          }
+        });
+      });
+
+      // Similar Tools Tracking
+      var similarToolCards = document.querySelectorAll('.tool-card');
+      similarToolCards.forEach(function(card, index) {
+        var toolName = card.querySelector('h3')?.textContent || 'Unknown Tool';
+        var ctaButton = card.querySelector('.tool-card-cta');
+        
+        if (ctaButton) {
+          ctaButton.addEventListener('click---
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -16,6 +801,11 @@ const { data } = tool;
 const allTools = await getCollection("tools");
 const similarTools = allTools
   .filter(t => t.data.category === data.category && t.slug !== tool.slug)
+  .slice(0, 6);
+
+// Related tools by category
+const relatedByCategory = allTools
+  .filter(t => t.data.category === data.category && t.slug !== tool.slug)
   .slice(0, 3);
 
 // Trust & Authority Elemente
@@ -24,7 +814,7 @@ const userCount = Math.floor(Math.random() * 90000) + 10000;
 const isPopular = userCount > 50000;
 const isNew = data.founded && parseInt(data.founded) >= 2023;
 
-// Vereinfachte Logo-URLs (Vercel-sicher)
+// Enhanced Logo URLs
 function getToolLogo(toolName) {
   const logoMap = {
     'ChatGPT': 'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg',
@@ -38,7 +828,7 @@ function getToolLogo(toolName) {
   return logoMap[toolName] || `https://ui-avatars.com/api/?name=${encodeURIComponent(toolName)}&background=3b82f6&color=fff&size=100&rounded=true`;
 }
 
-// FAQ generieren
+// Enhanced FAQ generation
 function generateFAQ() {
   return [
     {
@@ -62,6 +852,12 @@ function generateFAQ() {
       answer: data.mobile_app ? 
         `Ja, ${data.title} bietet auch eine mobile App für iOS und Android.` :
         `${data.title} ist aktuell als Web-Anwendung verfügbar und funktioniert perfekt im Browser auf allen Geräten.`
+    },
+    {
+      question: `Kann ich ${data.title} in mein Unternehmen integrieren?`,
+      answer: data.api_available ?
+        `Ja, ${data.title} bietet eine API für die Integration in bestehende Systeme und Workflows.` :
+        `${data.title} kann über Standard-Integrationen in die meisten Business-Workflows eingebunden werden.`
     }
   ];
 }
@@ -69,12 +865,11 @@ function generateFAQ() {
 const faqItems = generateFAQ();
 const toolLogo = getToolLogo(data.title);
 
-// REPARIERTE PRICING HELPER FUNCTIONS
+// PRICING HELPER FUNCTIONS
 function formatPrice(price, currency = "€") {
   if (typeof price === "string") return price;
   if (price === 0) return "Kostenlos";
   
-  // Wenn es eine Nummer ist, formatiere sie richtig
   if (typeof price === "number") {
     return `${price}${currency}`;
   }
@@ -92,16 +887,13 @@ function formatBillingCycle(cycle) {
   return cycles[cycle] || cycle;
 }
 
-// REPARIERTE API PRICING FUNKTION
 function formatApiPrice(price, currency) {
-  // Wenn currency bereits definiert ist, verwende nur das
   if (currency === "EUR" || currency === "€") {
     return `${price}€`;
   }
   return `${price}${currency || '€'}`;
 }
 
-// CURRENCY MAPPER
 function mapCurrency(currency) {
   const currencyMap = {
     "EUR": "€",
@@ -486,11 +1278,56 @@ function mapCurrency(currency) {
       align-items: center;
       gap: 0.5rem;
       transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .hero-cta:hover::before {
+      left: 100%;
     }
     
     .hero-cta:hover {
       background: var(--accent-secondary);
       transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+    }
+
+    /* Bookmark Button in Hero */
+    .hero-bookmark {
+      background: var(--bg-tertiary);
+      border: 2px solid var(--border-primary);
+      padding: 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 60px;
+      height: 60px;
+    }
+    
+    .hero-bookmark:hover {
+      border-color: var(--accent-primary);
+      transform: scale(1.1);
+    }
+    
+    .hero-bookmark.favorited {
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+      color: white;
     }
 
     /* Main Content Layout */
@@ -515,9 +1352,12 @@ function mapCurrency(currency) {
       display: flex;
       flex-direction: column;
       gap: 2rem;
+      position: sticky;
+      top: 120px;
+      height: fit-content;
     }
 
-    /* Pricing Card in Sidebar */
+    /* Enhanced Pricing Card */
     .pricing-card {
       background: var(--card-bg);
       padding: 2rem;
@@ -525,8 +1365,18 @@ function mapCurrency(currency) {
       border: 1px solid var(--border-primary);
       box-shadow: 0 1px 3px var(--shadow-light);
       text-align: center;
-      position: sticky;
-      top: 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
     }
     
     .pricing-tag {
@@ -554,7 +1404,7 @@ function mapCurrency(currency) {
     }
     
     .pricing-cta {
-      background: var(--accent-primary);
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
       color: white;
       padding: 1rem 2rem;
       border-radius: 8px;
@@ -564,16 +1414,128 @@ function mapCurrency(currency) {
       text-align: center;
       margin-bottom: 1rem;
       transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .pricing-cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .pricing-cta:hover::before {
+      left: 100%;
     }
     
     .pricing-cta:hover {
-      background: var(--accent-secondary);
       transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
     }
     
     .pricing-note {
       font-size: 0.9rem;
       color: var(--text-secondary);
+    }
+
+    /* Quick Actions Sidebar */
+    .quick-actions {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-primary);
+      box-shadow: 0 1px 3px var(--shadow-light);
+    }
+    
+    .quick-actions h3 {
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    
+    .quick-action-btn {
+      display: block;
+      width: 100%;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.75rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-primary);
+      border-radius: 8px;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 500;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .quick-action-btn:hover {
+      background: var(--accent-primary);
+      color: white;
+      border-color: var(--accent-primary);
+      transform: translateY(-2px);
+    }
+
+    /* Tool Comparison Widget */
+    .comparison-widget {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-primary);
+      box-shadow: 0 1px 3px var(--shadow-light);
+    }
+    
+    .comparison-widget h3 {
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    
+    .compare-checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+      border: 1px solid var(--border-primary);
+    }
+    
+    .compare-checkbox {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+    
+    .compare-label {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+    
+    .compare-btn {
+      background: var(--warning-color);
+      color: white;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s ease;
+      display: none;
+    }
+    
+    .compare-btn:hover {
+      background: #d97706;
+      transform: translateY(-2px);
     }
 
     /* Section Styling */
@@ -588,6 +1550,46 @@ function mapCurrency(currency) {
       color: var(--text-secondary);
       margin-bottom: 2rem;
       font-size: 1.1rem;
+    }
+
+    /* Enhanced Table of Contents */
+    .table-of-contents {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-primary);
+      box-shadow: 0 1px 3px var(--shadow-light);
+      position: sticky;
+      top: 120px;
+    }
+    
+    .table-of-contents h3 {
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    
+    .toc-list {
+      list-style: none;
+    }
+    
+    .toc-item {
+      margin-bottom: 0.5rem;
+    }
+    
+    .toc-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 0.25rem 0;
+      display: block;
+      transition: color 0.3s ease;
+    }
+    
+    .toc-link:hover, .toc-link.active {
+      color: var(--accent-primary);
+      font-weight: 500;
     }
 
     /* DETAILED PRICING SECTIONS */
@@ -649,7 +1651,6 @@ function mapCurrency(currency) {
       margin-bottom: 0.5rem;
     }
 
-    /* REPARIERTE PLAN PRICE STYLING */
     .plan-price {
       font-size: 2.5rem;
       font-weight: 800;
@@ -740,7 +1741,7 @@ function mapCurrency(currency) {
       transform: translateY(-2px);
     }
 
-    /* API PRICING SECTION - REPARIERT */
+    /* API PRICING SECTION */
     .api-pricing {
       background: var(--card-bg);
       padding: 3rem;
@@ -827,7 +1828,6 @@ function mapCurrency(currency) {
       margin-bottom: 0.5rem;
     }
 
-    /* REPARIERTER API PRICE VALUE */
     .api-price-value {
       font-size: 1.3rem;
       font-weight: 700;
@@ -1182,11 +2182,34 @@ function mapCurrency(currency) {
       font-weight: 600;
       color: var(--text-primary);
       margin-bottom: 0.75rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .faq-question::after {
+      content: '+';
+      font-size: 1.5rem;
+      font-weight: 300;
+      transition: transform 0.3s ease;
+    }
+    
+    .faq-question.active::after {
+      transform: rotate(45deg);
     }
     
     .faq-answer {
       color: var(--text-secondary);
       line-height: 1.6;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    
+    .faq-answer.active {
+      max-height: 200px;
+      padding-top: 0.5rem;
     }
 
     /* SIMILAR TOOLS */
@@ -1212,6 +2235,7 @@ function mapCurrency(currency) {
       padding: 1.5rem;
       border: 1px solid var(--border-primary);
       transition: all 0.3s ease;
+      position: relative;
     }
     
     .tool-card:hover {
@@ -1409,7 +2433,7 @@ function mapCurrency(currency) {
         gap: 2rem;
       }
       
-      .pricing-card {
+      .sidebar {
         position: static;
       }
 
@@ -1513,9 +2537,14 @@ function mapCurrency(currency) {
         </div>
       </div>
       
-      <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="hero-cta">
-        Tool testen →
-      </a>
+      <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
+        <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="hero-cta">
+          Tool testen →
+        </a>
+        <button class="hero-bookmark" data-tool={data.title}>
+          🤍
+        </button>
+      </div>
     </div>
   </section>
 
@@ -1582,8 +2611,8 @@ function mapCurrency(currency) {
         </div>
       )}
 
-      <div class="features-section">
-        <h3>Hauptfunktionen</h3>
+      <div class="features-section"><div class="features-section">
+        <h3 id="features">Hauptfunktionen</h3>
         <div class="features-grid">
           <div class="feature-item">
             <div class="feature-icon">⚡</div>
@@ -1655,7 +2684,7 @@ function mapCurrency(currency) {
         </div>
       )}
 
-      <div class="pros-cons">
+      <div class="pros-cons" id="pros-cons">
         <div class="pros">
           <h3 class="pros-title">✅ Vorteile</h3>
           <ul class="pros-list">
@@ -1686,7 +2715,7 @@ function mapCurrency(currency) {
 
       <!-- USE CASES -->
       {data.use_cases && data.use_cases.length > 0 && (
-        <div class="features-section">
+        <div class="features-section" id="use-cases">
           <h3>Anwendungsfälle</h3>
           <p class="section-subtitle">{data.title} eignet sich besonders für:</p>
           <div class="features-grid">
@@ -1703,18 +2732,19 @@ function mapCurrency(currency) {
         </div>
       )}
 
-      <div class="faq-section">
+      <div class="faq-section" id="faq">
         <h3>Häufig gestellte Fragen</h3>
-        {faqItems.map(faq => (
+        {faqItems.map((faq, index) => (
           <div class="faq-item">
-            <h4 class="faq-question">{faq.question}</h4>
-            <p class="faq-answer">{faq.answer}</p>
+            <h4 class="faq-question" data-faq={index}>{faq.question}</h4>
+            <div class="faq-answer" data-answer={index}>{faq.answer}</div>
           </div>
         ))}
       </div>
     </div>
 
     <div class="sidebar">
+      <!-- Enhanced Pricing Card -->
       <div class="pricing-card">
         <div class="pricing-tag">{data.pricing || 'Freemium'}</div>
         <h3 class="pricing-title">{data.title} testen</h3>
@@ -1742,6 +2772,61 @@ function mapCurrency(currency) {
         )}
       </div>
 
+      <!-- Table of Contents -->
+      <div class="table-of-contents">
+        <h3>Inhaltsverzeichnis</h3>
+        <ul class="toc-list">
+          <li class="toc-item">
+            <a href="#overview" class="toc-link">Überblick</a>
+          </li>
+          <li class="toc-item">
+            <a href="#features" class="toc-link">Features</a>
+          </li>
+          <li class="toc-item">
+            <a href="#pricing" class="toc-link">Preise</a>
+          </li>
+          <li class="toc-item">
+            <a href="#pros-cons" class="toc-link">Vor- & Nachteile</a>
+          </li>
+          <li class="toc-item">
+            <a href="#use-cases" class="toc-link">Anwendungsfälle</a>
+          </li>
+          <li class="toc-item">
+            <a href="#faq" class="toc-link">FAQ</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <h3>Schnellaktionen</h3>
+        <a href={data.affiliate_link} target="_blank" class="quick-action-btn">
+          🚀 Tool direkt testen
+        </a>
+        <a href="/tools" class="quick-action-btn">
+          🔍 Ähnliche Tools finden
+        </a>
+        <button class="quick-action-btn" onclick="window.print()">
+          📄 Seite drucken
+        </button>
+        <button class="quick-action-btn" onclick="navigator.share && navigator.share({title: document.title, url: window.location.href})">
+          📤 Tool teilen
+        </button>
+      </div>
+
+      <!-- Tool Comparison Widget -->
+      <div class="comparison-widget">
+        <h3>Tool-Vergleich</h3>
+        <div class="compare-checkbox-wrapper">
+          <input type="checkbox" class="compare-checkbox" data-tool={data.title} />
+          <label class="compare-label">Zu Vergleich hinzufügen</label>
+        </div>
+        <button class="compare-btn" id="compareBtn">
+          Vergleich starten (0)
+        </button>
+      </div>
+
+      <!-- AdSense Sidebar -->
       <div class="ad-container ad-sidebar">
         <ins class="adsbygoogle"
              style="display:block"
@@ -1755,7 +2840,7 @@ function mapCurrency(currency) {
 
   <!-- DETAILED PRICING SECTION -->
   {data.pricing_details && (
-    <div class="pricing-overview">
+    <div class="pricing-overview" id="pricing">
       <h3>Detaillierte Preisübersicht</h3>
       <p>Alle Preispläne und Features im Überblick</p>
       
@@ -1790,7 +2875,7 @@ function mapCurrency(currency) {
           </div>
         )}
         
-        {/* PAID PLANS - REPARIERT */}
+        {/* PAID PLANS */}
         {data.pricing_details.paid_plans && data.pricing_details.paid_plans.map(plan => (
           <div class={`plan-card ${plan.popular ? 'popular' : ''}`}>
             <h4 class="plan-name">{plan.name}</h4>
@@ -1843,7 +2928,7 @@ function mapCurrency(currency) {
     </div>
   )}
 
-  <!-- API PRICING SECTION - KOMPLETT REPARIERT -->
+  <!-- API PRICING SECTION -->
   {data.api_pricing && data.api_pricing.models && (
     <div class="api-pricing">
       <h3>API Preise für Entwickler</h3>
@@ -1898,7 +2983,6 @@ function mapCurrency(currency) {
             </tr>
           </thead>
           <tbody>
-            {/* Nachrichten pro Tag */}
             {data.comparison_metrics.messages_per_day && (
               <tr>
                 <td class="metric-label">Nachrichten pro Tag</td>
@@ -1908,7 +2992,6 @@ function mapCurrency(currency) {
               </tr>
             )}
             
-            {/* Requests pro Monat */}
             {data.comparison_metrics.requests_per_month && (
               <tr>
                 <td class="metric-label">Requests pro Monat</td>
@@ -1918,7 +3001,6 @@ function mapCurrency(currency) {
               </tr>
             )}
             
-            {/* Verfügbare Modelle */}
             {data.comparison_metrics.models_included && (
               <tr>
                 <td class="metric-label">Verfügbare Modelle</td>
@@ -1930,7 +3012,6 @@ function mapCurrency(currency) {
               </tr>
             )}
             
-            {/* Kontextfenster */}
             {data.comparison_metrics.context_window && (
               <tr>
                 <td class="metric-label">Kontextfenster</td>
@@ -1940,7 +3021,6 @@ function mapCurrency(currency) {
               </tr>
             )}
             
-            {/* Datei-Upload Limit */}
             {data.comparison_metrics.file_upload_limit && (
               <tr>
                 <td class="metric-label">Datei-Upload Limit</td>
@@ -1950,7 +3030,6 @@ function mapCurrency(currency) {
               </tr>
             )}
             
-            {/* Support Level */}
             {data.comparison_metrics.support_level && (
               <tr>
                 <td class="metric-label">Support-Level</td>
@@ -1960,7 +3039,6 @@ function mapCurrency(currency) {
               </tr>
             )}
             
-            {/* Storage Limit */}
             {data.comparison_metrics.storage_limit && (
               <tr>
                 <td class="metric-label">Speicher-Limit</td>
@@ -1970,7 +3048,6 @@ function mapCurrency(currency) {
               </tr>
             )}
             
-            {/* Team Members */}
             {data.comparison_metrics.team_members && (
               <tr>
                 <td class="metric-label">Team-Mitglieder</td>
@@ -1980,7 +3057,6 @@ function mapCurrency(currency) {
               </tr>
             )}
             
-            {/* API Calls per Month */}
             {data.comparison_metrics.api_calls_per_month && (
               <tr>
                 <td class="metric-label">API-Calls pro Monat</td>
@@ -1990,7 +3066,6 @@ function mapCurrency(currency) {
               </tr>
             )}
             
-            {/* Concurrent Users */}
             {data.comparison_metrics.concurrent_users && (
               <tr>
                 <td class="metric-label">Gleichzeitige Nutzer</td>
@@ -2006,8 +3081,8 @@ function mapCurrency(currency) {
   )}
 
   <div class="similar-tools">
-    <h3>Ähnliche Tools</h3>
-    <p>Weitere Tools aus der Kategorie {data.category}</p>
+    <h3>Ähnliche Tools aus der Kategorie {data.category}</h3>
+    <p>Weitere empfehlenswerte KI-Tools</p>
     
     <div class="tools-grid">
       {similarTools.map(tool => (
@@ -2069,6 +3144,7 @@ function mapCurrency(currency) {
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // ===== THEME TOGGLE =====
       var themeToggle = document.getElementById('themeToggle');
       var html = document.documentElement;
       
@@ -2104,6 +3180,179 @@ function mapCurrency(currency) {
         });
       }
 
+      // ===== ENHANCED BOOKMARKS =====
+      function initializeBookmarks() {
+        var favorites = JSON.parse(localStorage.getItem('favoriteTools') || '[]');
+        var toolName = document.querySelector('.hero-bookmark').getAttribute('data-tool');
+        var bookmarkBtn = document.querySelector('.hero-bookmark');
+        
+        if (favorites.includes(toolName)) {
+          bookmarkBtn.textContent = '❤️';
+          bookmarkBtn.classList.add('favorited');
+        }
+      }
+      
+      function toggleBookmark(btn) {
+        var toolName = btn.getAttribute('data-tool');
+        var favorites = JSON.parse(localStorage.getItem('favoriteTools') || '[]');
+        
+        if (favorites.includes(toolName)) {
+          favorites = favorites.filter(function(tool) { return tool !== toolName; });
+          btn.textContent = '🤍';
+          btn.classList.remove('favorited');
+        } else {
+          favorites.push(toolName);
+          btn.textContent = '❤️';
+          btn.classList.add('favorited');
+        }
+        
+        localStorage.setItem('favoriteTools', JSON.stringify(favorites));
+        
+        // Show feedback
+        btn.style.transform = 'scale(1.2)';
+        setTimeout(function() {
+          btn.style.transform = 'scale(1)';
+        }, 200);
+      }
+      
+      // Handle bookmark clicks
+      document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('hero-bookmark')) {
+          toggleBookmark(e.target);
+        }
+      });
+
+      // ===== ENHANCED FAQ ACCORDION =====
+      function setupFAQ() {
+        var faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(function(question) {
+          question.addEventListener('click', function() {
+            var index = this.getAttribute('data-faq');
+            var answer = document.querySelector(`[data-answer="${index}"]`);
+            var isActive = this.classList.contains('active');
+            
+            // Close all other FAQs
+            faqQuestions.forEach(function(q) {
+              q.classList.remove('active');
+            });
+            document.querySelectorAll('.faq-answer').forEach(function(a) {
+              a.classList.remove('active');
+            });
+            
+            // Toggle current FAQ
+            if (!isActive) {
+              this.classList.add('active');
+              answer.classList.add('active');
+            }
+          });
+        });
+      }
+
+      // ===== TABLE OF CONTENTS NAVIGATION =====
+      function setupTableOfContents() {
+        var tocLinks = document.querySelectorAll('.toc-link');
+        var sections = ['overview', 'features', 'pricing', 'pros-cons', 'use-cases', 'faq'];
+        
+        // Smooth scrolling for TOC links
+        tocLinks.forEach(function(link) {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var targetId = this.getAttribute('href').substring(1);
+            var targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+              targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+          });
+        });
+        
+        // Highlight active section
+        function updateActiveTOC() {
+          var scrollPosition = window.scrollY + 200;
+          
+          sections.forEach(function(sectionId) {
+            var section = document.getElementById(sectionId);
+            var link = document.querySelector(`[href="#${sectionId}"]`);
+            
+            if (section && link) {
+              var sectionTop = section.offsetTop;
+              var sectionBottom = sectionTop + section.offsetHeight;
+              
+              if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                document.querySelectorAll('.toc-link').forEach(function(l) {
+                  l.classList.remove('active');
+                });
+                link.classList.add('active');
+              }
+            }
+          });
+        }
+        
+        window.addEventListener('scroll', updateActiveTOC);
+      }
+
+      // ===== TOOL COMPARISON SYSTEM =====
+      function setupToolComparison() {
+        var compareCheckbox = document.querySelector('.compare-checkbox');
+        var compareBtn = document.getElementById('compareBtn');
+        
+        if (compareCheckbox && compareBtn) {
+          compareCheckbox.addEventListener('change', function() {
+            var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');
+            var toolName = this.getAttribute('data-tool');
+            
+            if (this.checked) {
+              if (!selectedTools.includes(toolName)) {
+                selectedTools.push(toolName);
+              }
+            } else {
+              selectedTools = selectedTools.filter(function(tool) { 
+                return tool !== toolName; 
+              });
+            }
+            
+            localStorage.setItem('selectedTools', JSON.stringify(selectedTools));
+            updateCompareButton(selectedTools.length);
+          });
+          
+          // Initialize compare button
+          var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');
+          var toolName = compareCheckbox.getAttribute('data-tool');
+          if (selectedTools.includes(toolName)) {
+            compareCheckbox.checked = true;
+          }
+          updateCompareButton(selectedTools.length);
+        }
+        
+        function updateCompareButton(count) {
+          if (compareBtn) {
+            compareBtn.textContent = `Vergleich starten (${count})`;
+            compareBtn.style.display = count > 0 ? 'block' : 'none';
+          }
+        }
+        
+        if (compareBtn) {
+          compareBtn.addEventListener('click', function() {
+            var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');
+            
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'tool_comparison_start', {
+                'tool_count': selectedTools.length,
+                'tools': selectedTools.join(','),
+                'source': 'tool_detail_page'
+              });
+            }
+            
+            alert(`Vergleich wird gestartet mit: ${selectedTools.join(', ')}`);
+          });
+        }
+      }
+
+      // ===== ENHANCED MOBILE MENU =====
       var mobileMenuBtn = document.querySelector('.mobile-menu');
       var navLinks = document.querySelector('.nav-links');
       
@@ -2132,27 +3381,8 @@ function mapCurrency(currency) {
         });
       }
 
-      function initAdSense() {
-        var ads = document.querySelectorAll('.adsbygoogle');
-        var observer = new IntersectionObserver(function(entries) {
-          entries.forEach(function(entry) {
-            if (entry.isIntersecting && !entry.target.getAttribute('data-loaded')) {
-              try {
-                (adsbygoogle = window.adsbygoogle || []).push({});
-                entry.target.setAttribute('data-loaded', 'true');
-              } catch (e) {
-                console.warn('AdSense loading error:', e);
-              }
-              observer.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.1 });
-        
-        ads.forEach(function(ad) {
-          observer.observe(ad);
-        });
-      }
-
+      // ===== ENHANCED TRACKING =====
+      
       // Enhanced Affiliate Tracking
       var affiliateButtons = document.querySelectorAll('a[href*="' + document.querySelector('.hero-cta').href.split('?')[0] + '"]');
       affiliateButtons.forEach(function(btn, index) {
@@ -2161,6 +3391,7 @@ function mapCurrency(currency) {
           if (this.classList.contains('hero-cta')) buttonType = 'hero';
           else if (this.classList.contains('pricing-cta')) buttonType = 'sidebar';
           else if (this.classList.contains('plan-cta')) buttonType = 'pricing_plan';
+          else if (this.classList.contains('quick-action-btn')) buttonType = 'quick_action';
           
           if (typeof gtag !== 'undefined') {
             gtag('event', 'affiliate_click', {
@@ -2221,7 +3452,7 @@ function mapCurrency(currency) {
           if (typeof gtag !== 'undefined') {
             gtag('event', 'faq_interaction', {
               'tool_name': document.querySelector('h1').textContent,
-              'question': question.substring(0, 50), // Limit length
+              'question': question.substring(0, 50),
               'position': index + 1
             });
           }
@@ -2271,9 +3502,280 @@ function mapCurrency(currency) {
       
       window.addEventListener('scroll', trackScrollDepth);
 
-      initAdSense();
-      console.log('🎨 Enhanced Tool Detail Page - PREISE REPARIERT!');
+      // Reading Progress Tracking
+      function trackReadingProgress() {
+        var contentElement = document.querySelector('.content');
+        if (!contentElement) return;
+        
+        var contentTop = contentElement.offsetTop;
+        var contentHeight = contentElement.offsetHeight;
+        var windowHeight = window.innerHeight;
+        var scrollTop = window.scrollY;
+        
+        var contentStart = contentTop;
+        var contentEnd = contentTop + contentHeight;
+        var viewportBottom = scrollTop + windowHeight;
+        
+        if (scrollTop > contentStart && viewportBottom < contentEnd) {
+          var readProgress = Math.round(((scrollTop - contentStart) / contentHeight) * 100);
+          
+          // Track reading milestones
+          [25, 50, 75, 100].forEach(function(milestone) {
+            if (readProgress >= milestone && !window['reading_' + milestone]) {
+              window['reading_' + milestone] = true;
+              
+              if (typeof gtag !== 'undefined') {
+                gtag('event', 'reading_progress', {
+                  'tool_name': document.querySelector('h1').textContent,
+                  'progress_percent': milestone
+                });
+              }
+            }
+          });
+        }
+      }
+      
+      window.addEventListener('scroll', trackReadingProgress);
+
+      // ===== ADSENSE INITIALIZATION =====
+      function initAdSense() {
+        var ads = document.querySelectorAll('.adsbygoogle');
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting && !entry.target.getAttribute('data-loaded')) {
+              try {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                entry.target.setAttribute('data-loaded', 'true');
+              } catch (e) {
+                console.warn('AdSense loading error:', e);
+              }
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        
+        ads.forEach(function(ad) {
+          observer.observe(ad);
+        });
+      }
+
+      // ===== PERFORMANCE MONITORING =====
+      function trackPerformance() {
+        // Track page load time
+        window.addEventListener('load', function() {
+          setTimeout(function() {
+            var loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+            
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'page_load_time', {
+                'tool_name': document.querySelector('h1').textContent,
+                'load_time_ms': loadTime,
+                'page_type': 'tool_detail'
+              });
+            }
+          }, 0);
+        });
+      }
+
+      // ===== USER ENGAGEMENT TRACKING =====
+      function trackEngagement() {
+        var startTime = Date.now();
+        var isActive = true;
+        
+        // Track when user becomes inactive
+        var inactivityTimer;
+        function resetInactivityTimer() {
+          clearTimeout(inactivityTimer);
+          isActive = true;
+          inactivityTimer = setTimeout(function() {
+            isActive = false;
+          }, 30000); // 30 seconds of inactivity
+        }
+        
+        ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(function(event) {
+          document.addEventListener(event, resetInactivityTimer, true);
+        });
+        
+        // Track time on page when leaving
+        window.addEventListener('beforeunload', function() {
+          var timeOnPage = Math.round((Date.now() - startTime) / 1000);
+          
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'time_on_page', {
+              'tool_name': document.querySelector('h1').textContent,
+              'time_seconds': timeOnPage,
+              'was_active': isActive
+            });
+          }
+        });
+      }
+
+      // ===== SEARCH FUNCTIONALITY =====
+      function setupSearch() {
+        // Quick search in page content
+        var searchBtn = document.querySelector('.search-btn');
+        if (searchBtn) {
+          searchBtn.addEventListener('click', function() {
+            var searchTerm = prompt('Suche auf dieser Seite:');
+            if (searchTerm) {
+              var found = window.find(searchTerm);
+              if (!found) {
+                alert('Begriff nicht gefunden.');
+              }
+            }
+          });
+        }
+      }
+
+      // ===== COPY TO CLIPBOARD FUNCTIONALITY =====
+      function setupCopyFeatures() {
+        // Add copy buttons to code blocks
+        var codeBlocks = document.querySelectorAll('pre code');
+        codeBlocks.forEach(function(block) {
+          var copyBtn = document.createElement('button');
+          copyBtn.textContent = 'Kopieren';
+          copyBtn.className = 'copy-btn';
+          copyBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(block.textContent).then(function() {
+              copyBtn.textContent = 'Kopiert!';
+              setTimeout(function() {
+                copyBtn.textContent = 'Kopieren';
+              }, 2000);
+            });
+          });
+          
+          block.parentNode.style.position = 'relative';
+          block.parentNode.appendChild(copyBtn);
+        });
+      }
+
+      // ===== ACCESSIBILITY IMPROVEMENTS =====
+      function setupAccessibility() {
+        // Add skip links
+        var skipLink = document.createElement('a');
+        skipLink.href = '#main-content';
+        skipLink.textContent = 'Zum Hauptinhalt springen';
+        skipLink.className = 'skip-link';
+        document.body.insertBefore(skipLink, document.body.firstChild);
+        
+        // Improve focus management
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Tab') {
+            document.body.classList.add('keyboard-nav');
+          }
+        });
+        
+        document.addEventListener('mousedown', function() {
+          document.body.classList.remove('keyboard-nav');
+        });
+      }
+
+      // ===== INITIALIZE ALL FUNCTIONS =====
+      try {
+        initializeBookmarks();
+        setupFAQ();
+        setupTableOfContents();
+        setupToolComparison();
+        setupSearch();
+        setupCopyFeatures();
+        setupAccessibility();
+        trackPerformance();
+        trackEngagement();
+        initAdSense();
+        
+        console.log('🚀 Enhanced Tool Detail Page initialized successfully');
+      } catch (error) {
+        console.error('Error initializing tool detail page:', error);
+      }
     });
   </script>
+
+  <!-- Additional CSS for enhanced features -->
+  <style>
+    /* Skip link for accessibility */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 6px;
+      background: var(--accent-primary);
+      color: white;
+      padding: 8px;
+      text-decoration: none;
+      border-radius: 4px;
+      z-index: 2000;
+    }
+    
+    .skip-link:focus {
+      top: 6px;
+    }
+    
+    /* Keyboard navigation styles */
+    .keyboard-nav *:focus {
+      outline: 2px solid var(--accent-primary);
+      outline-offset: 2px;
+    }
+    
+    /* Copy button styles */
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--accent-primary);
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    pre:hover .copy-btn {
+      opacity: 1;
+    }
+    
+    /* Enhanced loading states */
+    .loading {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    
+    .loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      border: 2px solid var(--accent-primary);
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Print styles */
+    @media print {
+      .nav, .hero-bookmark, .theme-toggle, .quick-actions, 
+      .comparison-widget, .ad-container, .footer {
+        display: none !important;
+      }
+      
+      .main-content {
+        grid-template-columns: 1fr;
+        max-width: none;
+        padding: 0;
+      }
+      
+      .sidebar {
+        display: none;
+      }
+    }
+  </style>
 </body>
 </html>
