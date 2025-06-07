@@ -817,47 +817,47 @@ const isNew = data.founded && parseInt(data.founded) >= 2023;
 // Enhanced Logo URLs
 function getToolLogo(toolName) {
   const logoMap = {
-    'ChatGPT': 'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg','
-    'Claude': 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Anthropic_logo.svg','
-    'DALL-E 3': 'https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg','
-    'Midjourney': 'https://seeklogo.com/images/M/midjourney-logo-F8C82EA677-seeklogo.com.png','
-    'GitHub Copilot': 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png','
-    'Stable Diffusion': 'https://stability.ai/favicon.ico''
+    'ChatGPT': 'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg',
+    'Claude': 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Anthropic_logo.svg',
+    'DALL-E 3': 'https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg',
+    'Midjourney': 'https://seeklogo.com/images/M/midjourney-logo-F8C82EA677-seeklogo.com.png',
+    'GitHub Copilot': 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
+    'Stable Diffusion': 'https://stability.ai/favicon.ico'
   };
   
-  return logoMap[toolName] || `https://ui-avatars.com/api/?name=${encodeURIComponent(toolName)}&background=3b82f6&color=fff&size=100&rounded=true`;`
+  return logoMap[toolName] || `https://ui-avatars.com/api/?name=${encodeURIComponent(toolName)}&background=3b82f6&color=fff&size=100&rounded=true`;
 }
 
 // Enhanced FAQ generation
 function generateFAQ() {
   return [
     {
-      question: `Ist ${data.title} kostenlos?`,`
+      question: `Ist ${data.title} kostenlos?`,
       answer: data.pricing === "Kostenlos" ? 
-        `Ja, ${data.title} ist komplett kostenlos nutzbar ohne versteckte Kosten.` :`
+        `Ja, ${data.title} ist komplett kostenlos nutzbar ohne versteckte Kosten.` :
         data.pricing === "Freemium" ?
-        `${data.title} bietet eine kostenlose Basisversion. Für erweiterte Features gibt es Premium-Pläne.` :`
-        `${data.title} ist ein Premium-Tool. ${data.free_trial ? "Es gibt jedoch eine kostenlose Testversion." : "Die Investition lohnt sich für professionelle Anwender."}``
+        `${data.title} bietet eine kostenlose Basisversion. Für erweiterte Features gibt es Premium-Pläne.` :
+        `${data.title} ist ein Premium-Tool. ${data.free_trial ? "Es gibt jedoch eine kostenlose Testversion." : "Die Investition lohnt sich für professionelle Anwender."}`
     },
     {
-      question: `Für wen eignet sich ${data.title}?`,`
-      answer: `${data.title} eignet sich perfekt für ${data.category.toLowerCase()}-Anwender${data.use_cases ? `, insbesondere für ${data.use_cases.slice(0,2).join(' und ')}.` : ', Kreative, Unternehmer und alle, die ihre Produktivität steigern möchten.'}``'
+      question: `Für wen eignet sich ${data.title}?`,
+      answer: `${data.title} eignet sich perfekt für ${data.category.toLowerCase()}-Anwender${data.use_cases ? `, insbesondere für ${data.use_cases.slice(0,2).join(' und ')}.` : ', Kreative, Unternehmer und alle, die ihre Produktivität steigern möchten.'}`
     },
     {
-      question: `Wie schnell kann ich mit ${data.title} starten?`,`
-      answer: `Der Einstieg ist sehr einfach - nach der Anmeldung kannst du sofort loslegen. Die intuitive Benutzeroberfläche ermöglicht auch Anfängern einen schnellen Start.``
+      question: `Wie schnell kann ich mit ${data.title} starten?`,
+      answer: `Der Einstieg ist sehr einfach - nach der Anmeldung kannst du sofort loslegen. Die intuitive Benutzeroberfläche ermöglicht auch Anfängern einen schnellen Start.`
     },
     {
-      question: `Gibt es eine mobile App für ${data.title}?`,`
+      question: `Gibt es eine mobile App für ${data.title}?`,
       answer: data.mobile_app ? 
-        `Ja, ${data.title} bietet auch eine mobile App für iOS und Android.` :`
-        `${data.title} ist aktuell als Web-Anwendung verfügbar und funktioniert perfekt im Browser auf allen Geräten.``
+        `Ja, ${data.title} bietet auch eine mobile App für iOS und Android.` :
+        `${data.title} ist aktuell als Web-Anwendung verfügbar und funktioniert perfekt im Browser auf allen Geräten.`
     },
     {
-      question: `Kann ich ${data.title} in mein Unternehmen integrieren?`,`
+      question: `Kann ich ${data.title} in mein Unternehmen integrieren?`,
       answer: data.api_available ?
-        `Ja, ${data.title} bietet eine API für die Integration in bestehende Systeme und Workflows.` :`
-        `${data.title} kann über Standard-Integrationen in die meisten Business-Workflows eingebunden werden.``
+        `Ja, ${data.title} bietet eine API für die Integration in bestehende Systeme und Workflows.` :
+        `${data.title} kann über Standard-Integrationen in die meisten Business-Workflows eingebunden werden.`
     }
   ];
 }
@@ -889,9 +889,9 @@ function formatBillingCycle(cycle) {
 
 function formatApiPrice(price, currency) {
   if (currency === "EUR" || currency === "€") {
-    return `${price}€`;`
+    return `${price}€`;
   }
-  return `${price}${currency || '€'}`;`'
+  return `${price}${currency || '€'}`;
 }
 
 function mapCurrency(currency) {
@@ -899,7 +899,7 @@ function mapCurrency(currency) {
     "EUR": "€",
     "USD": "$",
     "GBP": "£
-  };
+  }; // Removed potential stray quote if one was here
   return currencyMap[currency] || currency;
 }
 ---
@@ -910,33 +910,33 @@ function mapCurrency(currency) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{data.title} Test & Erfahrungen 2025 - Lohnt sich das KI-Tool?</title>
-  <meta name="description" content={`✅ ${data.title} im Test: Funktionen, Preise & ehrliche Bewertung. ${data.description} ➤ Jetzt kostenlos testen!`}>`
+  <meta name="description" content={`✅ ${data.title} im Test: Funktionen, Preise & ehrliche Bewertung. ${data.description} ➤ Jetzt kostenlos testen!`} />
   
   <script is:inline>
     (function() {
       function setTheme() {
-        var theme = 'light';'
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {'
-          theme = localStorage.getItem('theme');'
-        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {'
-          theme = 'dark';'
+        var theme = 'light';
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          theme = localStorage.getItem('theme');
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          theme = 'dark';
         }
         
-        if (theme === 'dark') {'
-          document.documentElement.classList.add('dark');'
-          document.documentElement.setAttribute('data-theme', 'dark');'
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+          document.documentElement.setAttribute('data-theme', 'dark');
         } else {
-          document.documentElement.classList.remove('dark');'
-          document.documentElement.setAttribute('data-theme', 'light');'
+          document.documentElement.classList.remove('dark');
+          document.documentElement.setAttribute('data-theme', 'light');
         }
         
-        if (typeof localStorage !== 'undefined') {'
-          localStorage.setItem('theme', theme);'
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem('theme', theme);
         }
       }
       
       setTheme();
-      document.addEventListener('astro:after-swap', setTheme);'
+      document.addEventListener('astro:after-swap', setTheme);
     })();
   </script>
   
@@ -944,11 +944,11 @@ function mapCurrency(currency) {
   <script is:inline>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());'
-    gtag('config', 'G-EC62QPK5VL');'
+    gtag('js', new Date());
+    gtag('config', 'G-EC62QPK5VL');
   </script>
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5595876978844902
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5595876978844902"
      crossorigin="anonymous"></script>
 
   <style>
@@ -2500,7 +2500,7 @@ function mapCurrency(currency) {
 
   <section class="hero">
     <div class="hero-container">
-      <img src={toolLogo} alt={`${data.title} Logo`} class="tool-logo" />`
+      <img src={toolLogo} alt={`${data.title} Logo`} class="tool-logo" />
       
       <div class="hero-content">
         <div class="hero-badges">
@@ -2746,14 +2746,14 @@ function mapCurrency(currency) {
     <div class="sidebar">
       <!-- Enhanced Pricing Card -->
       <div class="pricing-card">
-        <div class="pricing-tag">{data.pricing || 'Freemium'}</div>'
+        <div class="pricing-tag">{data.pricing || 'Freemium'}</div>
         <h3 class="pricing-title">{data.title} testen</h3>
         <p class="pricing-description">
           {data.pricing === "Kostenlos" ? 
             "Komplett kostenlos nutzbar" :
             data.pricing === "Freemium" ?
             "Kostenlos testen, dann upgraden" :
-            "Premium Tool für Profis
+            "Premium Tool für Profis"
           }
         </p>
         <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="pricing-cta">
@@ -2877,22 +2877,22 @@ function mapCurrency(currency) {
         
         {/* PAID PLANS */}
         {data.pricing_details.paid_plans && data.pricing_details.paid_plans.map(plan => (
-          <div class={`plan-card ${plan.popular ? 'popular' : ''}`}>`'
+          <div class={`plan-card ${plan.popular ? 'popular' : ''}`}>
             <h4 class="plan-name">{plan.name}</h4>
             <div class="plan-price">
-              {typeof plan.price === 'string' ? ('
+              {typeof plan.price === 'string' ? (
                 <span>{plan.price}</span>
               ) : (
                 <>
                   <span>{plan.price}</span>
-                  <span class="currency">{mapCurrency(plan.currency) || '€'}</span>'
+                  <span class="currency">{mapCurrency(plan.currency) || '€'}</span>
                 </>
               )}
             </div>
             <div class="plan-cycle">
               {formatBillingCycle(plan.billing_cycle)}
-              {plan.per_user && ' pro Nutzer'}'
-              {plan.minimum_users && ` (min. ${plan.minimum_users} Nutzer)`}`
+              {plan.per_user && ' pro Nutzer'}
+              {plan.minimum_users && ` (min. ${plan.minimum_users} Nutzer)`}
             </div>
             
             <ul class="plan-features">
@@ -2914,7 +2914,7 @@ function mapCurrency(currency) {
             )}
             
             <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="plan-cta">
-              {plan.popular ? 'Jetzt upgraden' : 'Plan wählen'}'
+              {plan.popular ? 'Jetzt upgraden' : 'Plan wählen'}
             </a>
           </div>
         ))}
@@ -2936,7 +2936,7 @@ function mapCurrency(currency) {
       
       <div class="api-models">
         {data.api_pricing.models.map(model => (
-          <div class={`api-model ${model.popular ? 'popular' : ''}`}>`'
+          <div class={`api-model ${model.popular ? 'popular' : ''}`}>
             <div class="api-model-header">
               <h4 class="api-model-name">{model.name}</h4>
               <span class="api-model-context">{model.context_window}</span>
@@ -2946,13 +2946,13 @@ function mapCurrency(currency) {
               <div class="api-price-item">
                 <div class="api-price-label">Input</div>
                 <div class="api-price-value">{formatApiPrice(model.input_price, model.currency)}</div>
-                <div class="api-price-unit">pro {model.per_million_tokens ? 'Million Token' : 'Request'}</div>'
+                <div class="api-price-unit">pro {model.per_million_tokens ? 'Million Token' : 'Request'}</div>
               </div>
               
               <div class="api-price-item">
                 <div class="api-price-label">Output</div>
                 <div class="api-price-value">{formatApiPrice(model.output_price, model.currency)}</div>
-                <div class="api-price-unit">pro {model.per_million_tokens ? 'Million Token' : 'Request'}</div>'
+                <div class="api-price-unit">pro {model.per_million_tokens ? 'Million Token' : 'Request'}</div>
               </div>
             </div>
             
@@ -3006,7 +3006,7 @@ function mapCurrency(currency) {
                 <td class="metric-label">Verfügbare Modelle</td>
                 {Object.entries(data.comparison_metrics.models_included).map(([plan, models]) => (
                   <td class="metric-value">
-                    {Array.isArray(models) ? models.join(', ') : models}'
+                    {Array.isArray(models) ? models.join(', ') : models}
                   </td>
                 ))}
               </tr>
@@ -3089,7 +3089,7 @@ function mapCurrency(currency) {
         <div class="tool-card">
           <h3>{tool.data.title}</h3>
           <p>{tool.data.description}</p>
-          <a href={`/tools/${tool.slug}`} class="tool-card-cta">`
+          <a href={`/tools/${tool.slug}`} class="tool-card-cta">
             Mehr erfahren
           </a>
         </div>
@@ -3143,19 +3143,19 @@ function mapCurrency(currency) {
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {'
+    document.addEventListener('DOMContentLoaded', function() {
       // ===== THEME TOGGLE =====
-      var themeToggle = document.getElementById('themeToggle');'
+      var themeToggle = document.getElementById('themeToggle');
       var html = document.documentElement;
       
-      var savedTheme = localStorage.getItem('theme') || 'light';'
-      html.setAttribute('data-theme', savedTheme);'
+      var savedTheme = localStorage.getItem('theme') || 'light';
+      html.setAttribute('data-theme', savedTheme);
       
       function updateToggleButton(theme) {
-        var button = document.getElementById('themeToggle');'
+        var button = document.getElementById('themeToggle');
         if (button) {
-          button.setAttribute('aria-label', '
-            theme === 'dark' ? 'Zu hellem Modus wechseln' : 'Zu dunklem Modus wechseln''
+          button.setAttribute('aria-label', 
+            theme === 'dark' ? 'Zu hellem Modus wechseln' : 'Zu dunklem Modus wechseln'
           );
         }
       }
@@ -3163,18 +3163,18 @@ function mapCurrency(currency) {
       updateToggleButton(savedTheme);
       
       if (themeToggle) {
-        themeToggle.addEventListener('click', function() {'
-          var currentTheme = html.getAttribute('data-theme');'
-          var newTheme = currentTheme === 'dark' ? 'light' : 'dark';'
+        themeToggle.addEventListener('click', function() {
+          var currentTheme = html.getAttribute('data-theme');
+          var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
           
-          html.setAttribute('data-theme', newTheme);'
-          localStorage.setItem('theme', newTheme);'
+          html.setAttribute('data-theme', newTheme);
+          localStorage.setItem('theme', newTheme);
           updateToggleButton(newTheme);
           
-          if (typeof gtag !== 'undefined') {'
-            gtag('event', 'theme_change', {'
-              'theme_mode': newTheme,'
-              'source': 'tool_page_toggle''
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'theme_change', {
+              'theme_mode': newTheme,
+              'source': 'tool_page_toggle'
             });
           }
         });
@@ -3182,68 +3182,69 @@ function mapCurrency(currency) {
 
       // ===== ENHANCED BOOKMARKS =====
       function initializeBookmarks() {
-        var favorites = JSON.parse(localStorage.getItem('favoriteTools') || '[]');'
-        var toolName = document.querySelector('.hero-bookmark').getAttribute('data-tool');'
-        var bookmarkBtn = document.querySelector('.hero-bookmark');'
+        var favorites = JSON.parse(localStorage.getItem('favoriteTools') || '[]');
+        var bookmarkBtn = document.querySelector('.hero-bookmark');
+        if (!bookmarkBtn) return;
+        var toolName = bookmarkBtn.getAttribute('data-tool');
         
         if (favorites.includes(toolName)) {
-          bookmarkBtn.textContent = '❤️';'
-          bookmarkBtn.classList.add('favorited');'
+          bookmarkBtn.textContent = '❤️';
+          bookmarkBtn.classList.add('favorited');
         }
       }
       
       function toggleBookmark(btn) {
-        var toolName = btn.getAttribute('data-tool');'
-        var favorites = JSON.parse(localStorage.getItem('favoriteTools') || '[]');'
+        var toolName = btn.getAttribute('data-tool');
+        var favorites = JSON.parse(localStorage.getItem('favoriteTools') || '[]');
         
         if (favorites.includes(toolName)) {
           favorites = favorites.filter(function(tool) { return tool !== toolName; });
-          btn.textContent = '🤍';'
-          btn.classList.remove('favorited');'
+          btn.textContent = '🤍';
+          btn.classList.remove('favorited');
         } else {
           favorites.push(toolName);
-          btn.textContent = '❤️';'
-          btn.classList.add('favorited');'
+          btn.textContent = '❤️';
+          btn.classList.add('favorited');
         }
         
-        localStorage.setItem('favoriteTools', JSON.stringify(favorites));'
+        localStorage.setItem('favoriteTools', JSON.stringify(favorites));
         
         // Show feedback
-        btn.style.transform = 'scale(1.2)';'
+        btn.style.transform = 'scale(1.2)';
         setTimeout(function() {
-          btn.style.transform = 'scale(1)';'
+          btn.style.transform = 'scale(1)';
         }, 200);
       }
       
       // Handle bookmark clicks
-      document.addEventListener('click', function(e) {'
-        if (e.target.classList.contains('hero-bookmark')) {'
+      document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('hero-bookmark')) {
           toggleBookmark(e.target);
         }
       });
 
       // ===== ENHANCED FAQ ACCORDION =====
       function setupFAQ() {
-        var faqQuestions = document.querySelectorAll('.faq-question');'
+        var faqQuestions = document.querySelectorAll('.faq-question');
         
         faqQuestions.forEach(function(question) {
-          question.addEventListener('click', function() {'
-            var index = this.getAttribute('data-faq');'
-            var answer = document.querySelector(`[data-answer="${index}"]`);`
-            var isActive = this.classList.contains('active');'
+          question.addEventListener('click', function() {
+            var index = this.getAttribute('data-faq');
+            var answer = document.querySelector(`[data-answer="${index}"]`);
+            var isActive = this.classList.contains('active');
             
             // Close all other FAQs
             faqQuestions.forEach(function(q) {
-              q.classList.remove('active');'
+              q.classList.remove('active');
             });
-            document.querySelectorAll('.faq-answer').forEach(function(a) {'
-              a.classList.remove('active');'
+            document.querySelectorAll('.faq-answer').forEach(function(a) {
+              a.classList.remove('active');
             });
             
             // Toggle current FAQ
             if (!isActive) {
-              this.classList.add('active');'
-              answer.classList.add('active');'
+              this.classList.add('active');
+              if (answer) answer.classList.add('active');
             }
           });
         });
@@ -3251,20 +3252,20 @@ function mapCurrency(currency) {
 
       // ===== TABLE OF CONTENTS NAVIGATION =====
       function setupTableOfContents() {
-        var tocLinks = document.querySelectorAll('.toc-link');'
-        var sections = ['overview', 'features', 'pricing', 'pros-cons', 'use-cases', 'faq'];'
+        var tocLinks = document.querySelectorAll('.toc-link');
+        var sections = ['overview', 'features', 'pricing', 'pros-cons', 'use-cases', 'faq'];
         
         // Smooth scrolling for TOC links
         tocLinks.forEach(function(link) {
-          link.addEventListener('click', function(e) {'
+          link.addEventListener('click', function(e) {
             e.preventDefault();
-            var targetId = this.getAttribute('href').substring(1);'
+            var targetId = this.getAttribute('href').substring(1);
             var targetElement = document.getElementById(targetId);
             
             if (targetElement) {
               targetElement.scrollIntoView({
-                behavior: 'smooth','
-                block: 'start''
+                behavior: 'smooth',
+                block: 'start'
               });
             }
           });
@@ -3276,23 +3277,23 @@ function mapCurrency(currency) {
           
           sections.forEach(function(sectionId) {
             var section = document.getElementById(sectionId);
-            var link = document.querySelector(`[href="#${sectionId}"]`);`
+            var link = document.querySelector(`[href="#${sectionId}"]`);
             
             if (section && link) {
               var sectionTop = section.offsetTop;
               var sectionBottom = sectionTop + section.offsetHeight;
               
               if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                document.querySelectorAll('.toc-link').forEach(function(l) {'
-                  l.classList.remove('active');'
+                document.querySelectorAll('.toc-link').forEach(function(l) {
+                  l.classList.remove('active');
                 });
-                link.classList.add('active');'
+                link.classList.add('active');
               }
             }
           });
         }
         
-        window.addEventListener('scroll', updateActiveTOC);'
+        window.addEventListener('scroll', updateActiveTOC);
       }
 
       // ===== TOOL COMPARISON SYSTEM =====
@@ -3301,9 +3302,9 @@ function mapCurrency(currency) {
         var compareBtn = document.getElementById('compareBtn');'
         
         if (compareCheckbox && compareBtn) {
-          compareCheckbox.addEventListener('change', function() {'
-            var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');'
-            var toolName = this.getAttribute('data-tool');'
+          compareCheckbox.addEventListener('change', function() {
+            var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');
+            var toolName = this.getAttribute('data-tool');
             
             if (this.checked) {
               if (!selectedTools.includes(toolName)) {
@@ -3315,13 +3316,13 @@ function mapCurrency(currency) {
               });
             }
             
-            localStorage.setItem('selectedTools', JSON.stringify(selectedTools));'
+            localStorage.setItem('selectedTools', JSON.stringify(selectedTools));
             updateCompareButton(selectedTools.length);
           });
           
           // Initialize compare button
-          var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');'
-          var toolName = compareCheckbox.getAttribute('data-tool');'
+          var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');
+          var toolName = compareCheckbox.getAttribute('data-tool');
           if (selectedTools.includes(toolName)) {
             compareCheckbox.checked = true;
           }
@@ -3330,97 +3331,100 @@ function mapCurrency(currency) {
         
         function updateCompareButton(count) {
           if (compareBtn) {
-            compareBtn.textContent = `Vergleich starten (${count})`;`
-            compareBtn.style.display = count > 0 ? 'block' : 'none';'
+            compareBtn.textContent = `Vergleich starten (${count})`;
+            compareBtn.style.display = count > 0 ? 'block' : 'none';
           }
         }
         
         if (compareBtn) {
-          compareBtn.addEventListener('click', function() {'
-            var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');'
+          compareBtn.addEventListener('click', function() {
+            var selectedTools = JSON.parse(localStorage.getItem('selectedTools') || '[]');
             
-            if (typeof gtag !== 'undefined') {'
-              gtag('event', 'tool_comparison_start', {'
-                'tool_count': selectedTools.length,'
-                'tools': selectedTools.join(','),'
-                'source': 'tool_detail_page''
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'tool_comparison_start', {
+                'tool_count': selectedTools.length,
+                'tools': selectedTools.join(','),
+                'source': 'tool_detail_page'
               });
             }
             
-            alert(`Vergleich wird gestartet mit: ${selectedTools.join(', ')}`);`'
+            alert(`Vergleich wird gestartet mit: ${selectedTools.join(', ')}`);
           });
         }
       }
 
       // ===== ENHANCED MOBILE MENU =====
-      var mobileMenuBtn = document.querySelector('.mobile-menu');'
-      var navLinks = document.querySelector('.nav-links');'
+      var mobileMenuBtn = document.querySelector('.mobile-menu');
+      var navLinks = document.querySelector('.nav-links');
       
       if (mobileMenuBtn && navLinks) {
         var menuOpen = false;
         
-        mobileMenuBtn.addEventListener('click', function(e) {'
+        mobileMenuBtn.addEventListener('click', function(e) {
           e.stopPropagation();
           menuOpen = !menuOpen;
           
           if (menuOpen) {
-            navLinks.classList.add('show');'
-            this.innerHTML = '✕';'
+            navLinks.classList.add('show');
+            this.innerHTML = '✕';
           } else {
-            navLinks.classList.remove('show');'
-            this.innerHTML = '☰';'
+            navLinks.classList.remove('show');
+            this.innerHTML = '☰';
           }
         });
         
-        document.addEventListener('click', function() {'
+        document.addEventListener('click', function() {
           if (menuOpen) {
-            navLinks.classList.remove('show');'
-            mobileMenuBtn.innerHTML = '☰';'
+            navLinks.classList.remove('show');
+            mobileMenuBtn.innerHTML = '☰';
             menuOpen = false;
           }
         });
       }
 
       // ===== ENHANCED TRACKING =====
-      
       // Enhanced Affiliate Tracking
-      var affiliateButtons = document.querySelectorAll('a[href*="' + document.querySelector('.hero-cta').href.split('?')[0] + '"]');'
-      affiliateButtons.forEach(function(btn, index) {
-        btn.addEventListener('click', function() {'
-          var buttonType = 'unknown';'
-          if (this.classList.contains('hero-cta')) buttonType = 'hero';'
-          else if (this.classList.contains('pricing-cta')) buttonType = 'sidebar';'
-          else if (this.classList.contains('plan-cta')) buttonType = 'pricing_plan';'
-          else if (this.classList.contains('quick-action-btn')) buttonType = 'quick_action';'
-          
-          if (typeof gtag !== 'undefined') {'
-            gtag('event', 'affiliate_click', {'
-              'tool_name': document.querySelector('h1').textContent,'
-              'source': 'tool_detail_page','
-              'button_type': buttonType,'
-              'position': index + 1,'
-              'affiliate_url': this.href,'
-              'value': 25.00,'
-              'currency': 'EUR''
-            });
-          }
+      var heroCta = document.querySelector('.hero-cta');
+      if (heroCta) {
+        var affiliateBaseUrl = heroCta.href.split('?')[0];
+        var affiliateButtons = document.querySelectorAll('a[href*="' + affiliateBaseUrl + '"]');
+        affiliateButtons.forEach(function(btn, index) {
+          btn.addEventListener('click', function() {
+            var buttonType = 'unknown';
+            if (this.classList.contains('hero-cta')) buttonType = 'hero';
+            else if (this.classList.contains('pricing-cta')) buttonType = 'sidebar';
+            else if (this.classList.contains('plan-cta')) buttonType = 'pricing_plan';
+            else if (this.classList.contains('quick-action-btn')) buttonType = 'quick_action';
+            
+            if (typeof gtag !== 'undefined' && document.querySelector('h1')) {
+              gtag('event', 'affiliate_click', {
+                'tool_name': document.querySelector('h1').textContent,
+                'source': 'tool_detail_page',
+                'button_type': buttonType,
+                'position': index + 1,
+                'affiliate_url': this.href,
+                'value': 25.00,
+                'currency': 'EUR'
+              });
+            }
+          });
         });
-      });
+      }
 
       // Plan Comparison Tracking
-      var planCards = document.querySelectorAll('.plan-card');'
+      var planCards = document.querySelectorAll('.plan-card');
       planCards.forEach(function(card, index) {
-        var planName = card.querySelector('.plan-name')?.textContent || 'Unknown Plan';'
-        var ctaButton = card.querySelector('.plan-cta');'
+        var planName = card.querySelector('.plan-name')?.textContent || 'Unknown Plan';
+        var ctaButton = card.querySelector('.plan-cta');
         
         if (ctaButton) {
-          ctaButton.addEventListener('click', function() {'
-            if (typeof gtag !== 'undefined') {'
-              gtag('event', 'pricing_plan_click', {'
-                'tool_name': document.querySelector('h1').textContent,'
-                'plan_name': planName,'
-                'plan_position': index + 1,'
-                'is_popular': card.classList.contains('popular')'
+          ctaButton.addEventListener('click', function() {
+            if (typeof gtag !== 'undefined' && document.querySelector('h1')) {
+              gtag('event', 'pricing_plan_click', {
+                'tool_name': document.querySelector('h1').textContent,
+                'plan_name': planName,
+                'plan_position': index + 1,
+                'is_popular': card.classList.contains('popular')
               });
             }
           });
@@ -3428,50 +3432,50 @@ function mapCurrency(currency) {
       });
 
       // API Model Interest Tracking
-      var apiModels = document.querySelectorAll('.api-model');'
+      var apiModels = document.querySelectorAll('.api-model');
       apiModels.forEach(function(model, index) {
-        model.addEventListener('click', function() {'
-          var modelName = this.querySelector('.api-model-name')?.textContent || 'Unknown Model';'
+        model.addEventListener('click', function() {
+          var modelName = this.querySelector('.api-model-name')?.textContent || 'Unknown Model';
           
-          if (typeof gtag !== 'undefined') {'
-            gtag('event', 'api_model_interest', {'
-              'tool_name': document.querySelector('h1').textContent,'
-              'model_name': modelName,'
-              'model_position': index + 1'
+          if (typeof gtag !== 'undefined' && document.querySelector('h1')) {
+            gtag('event', 'api_model_interest', {
+              'tool_name': document.querySelector('h1').textContent,
+              'model_name': modelName,
+              'model_position': index + 1
             });
           }
         });
       });
 
       // FAQ Interaction Tracking
-      var faqItems = document.querySelectorAll('.faq-item');'
+      var faqItems = document.querySelectorAll('.faq-item');
       faqItems.forEach(function(item, index) {
-        item.addEventListener('click', function() {'
-          var question = this.querySelector('.faq-question')?.textContent || 'Unknown Question';'
+        item.addEventListener('click', function() {
+          var question = this.querySelector('.faq-question')?.textContent || 'Unknown Question';
           
-          if (typeof gtag !== 'undefined') {'
-            gtag('event', 'faq_interaction', {'
-              'tool_name': document.querySelector('h1').textContent,'
-              'question': question.substring(0, 50),'
-              'position': index + 1'
+          if (typeof gtag !== 'undefined' && document.querySelector('h1')) {
+            gtag('event', 'faq_interaction', {
+              'tool_name': document.querySelector('h1').textContent,
+              'question': question.substring(0, 50),
+              'position': index + 1
             });
           }
         });
       });
 
       // Similar Tools Tracking
-      var similarToolCards = document.querySelectorAll('.tool-card');'
+      var similarToolCards = document.querySelectorAll('.tool-card');
       similarToolCards.forEach(function(card, index) {
-        var toolName = card.querySelector('h3')?.textContent || 'Unknown Tool';'
-        var ctaButton = card.querySelector('.tool-card-cta');'
+        var toolName = card.querySelector('h3')?.textContent || 'Unknown Tool';
+        var ctaButton = card.querySelector('.tool-card-cta');
         
         if (ctaButton) {
-          ctaButton.addEventListener('click', function() {'
-            if (typeof gtag !== 'undefined') {'
-              gtag('event', 'similar_tool_click', {'
-                'source_tool': document.querySelector('h1').textContent,'
-                'target_tool': toolName,'
-                'position': index + 1'
+          ctaButton.addEventListener('click', function() {
+            if (typeof gtag !== 'undefined' && document.querySelector('h1')) {
+              gtag('event', 'similar_tool_click', {
+                'source_tool': document.querySelector('h1').textContent,
+                'target_tool': toolName,
+                'position': index + 1
               });
             }
           });
@@ -3489,18 +3493,18 @@ function mapCurrency(currency) {
           if (scrollPercent >= depth && scrollDepthReached.indexOf(depth) === -1) {
             scrollDepthReached.push(depth);
             
-            if (typeof gtag !== 'undefined') {'
-              gtag('event', 'scroll_depth', {'
-                'tool_name': document.querySelector('h1').textContent,'
-                'scroll_depth': depth,'
-                'page_type': 'tool_detail''
+            if (typeof gtag !== 'undefined' && document.querySelector('h1')) {
+              gtag('event', 'scroll_depth', {
+                'tool_name': document.querySelector('h1').textContent,
+                'scroll_depth': depth,
+                'page_type': 'tool_detail'
               });
             }
           }
         });
       }
       
-      window.addEventListener('scroll', trackScrollDepth);'
+      window.addEventListener('scroll', trackScrollDepth);
 
       // Reading Progress Tracking
       function trackReadingProgress() {
@@ -3521,13 +3525,13 @@ function mapCurrency(currency) {
           
           // Track reading milestones
           [25, 50, 75, 100].forEach(function(milestone) {
-            if (readProgress >= milestone && !window['reading_' + milestone]) {'
-              window['reading_' + milestone] = true;'
+            if (readProgress >= milestone && !window['reading_' + milestone]) {
+              window['reading_' + milestone] = true;
               
-              if (typeof gtag !== 'undefined') {'
-                gtag('event', 'reading_progress', {'
-                  'tool_name': document.querySelector('h1').textContent,'
-                  'progress_percent': milestone'
+              if (typeof gtag !== 'undefined' && document.querySelector('h1')) {
+                gtag('event', 'reading_progress', {
+                  'tool_name': document.querySelector('h1').textContent,
+                  'progress_percent': milestone
                 });
               }
             }
@@ -3535,19 +3539,19 @@ function mapCurrency(currency) {
         }
       }
       
-      window.addEventListener('scroll', trackReadingProgress);'
+      window.addEventListener('scroll', trackReadingProgress);
 
       // ===== ADSENSE INITIALIZATION =====
       function initAdSense() {
-        var ads = document.querySelectorAll('.adsbygoogle');'
+        var ads = document.querySelectorAll('.adsbygoogle');
         var observer = new IntersectionObserver(function(entries) {
           entries.forEach(function(entry) {
-            if (entry.isIntersecting && !entry.target.getAttribute('data-loaded')) {'
+            if (entry.isIntersecting && !entry.target.getAttribute('data-loaded')) {
               try {
                 (adsbygoogle = window.adsbygoogle || []).push({});
-                entry.target.setAttribute('data-loaded', 'true');'
+                entry.target.setAttribute('data-loaded', 'true');
               } catch (e) {
-                console.warn('AdSense loading error:', e);'
+                console.warn('AdSense loading error:', e);
               }
               observer.unobserve(entry.target);
             }
@@ -3562,15 +3566,15 @@ function mapCurrency(currency) {
       // ===== PERFORMANCE MONITORING =====
       function trackPerformance() {
         // Track page load time
-        window.addEventListener('load', function() {'
+        window.addEventListener('load', function() {
           setTimeout(function() {
             var loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
             
-            if (typeof gtag !== 'undefined') {'
-              gtag('event', 'page_load_time', {'
-                'tool_name': document.querySelector('h1').textContent,'
-                'load_time_ms': loadTime,'
-                'page_type': 'tool_detail''
+            if (typeof gtag !== 'undefined' && document.querySelector('h1')) {
+              gtag('event', 'page_load_time', {
+                'tool_name': document.querySelector('h1').textContent,
+                'load_time_ms': loadTime,
+                'page_type': 'tool_detail'
               });
             }
           }, 0);
@@ -3592,19 +3596,19 @@ function mapCurrency(currency) {
           }, 30000); // 30 seconds of inactivity
         }
         
-        ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(function(event) {'
+        ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(function(event) {
           document.addEventListener(event, resetInactivityTimer, true);
         });
         
         // Track time on page when leaving
-        window.addEventListener('beforeunload', function() {'
+        window.addEventListener('beforeunload', function() {
           var timeOnPage = Math.round((Date.now() - startTime) / 1000);
           
-          if (typeof gtag !== 'undefined') {'
-            gtag('event', 'time_on_page', {'
-              'tool_name': document.querySelector('h1').textContent,'
-              'time_seconds': timeOnPage,'
-              'was_active': isActive'
+          if (typeof gtag !== 'undefined' && document.querySelector('h1')) {
+            gtag('event', 'time_on_page', {
+              'tool_name': document.querySelector('h1').textContent,
+              'time_seconds': timeOnPage,
+              'was_active': isActive
             });
           }
         });
@@ -3613,14 +3617,14 @@ function mapCurrency(currency) {
       // ===== SEARCH FUNCTIONALITY =====
       function setupSearch() {
         // Quick search in page content
-        var searchBtn = document.querySelector('.search-btn');'
+        var searchBtn = document.querySelector('.search-btn'); // Assuming .search-btn exists
         if (searchBtn) {
-          searchBtn.addEventListener('click', function() {'
-            var searchTerm = prompt('Suche auf dieser Seite:');'
+          searchBtn.addEventListener('click', function() {
+            var searchTerm = prompt('Suche auf dieser Seite:');
             if (searchTerm) {
               var found = window.find(searchTerm);
               if (!found) {
-                alert('Begriff nicht gefunden.');'
+                alert('Begriff nicht gefunden.');
               }
             }
           });
@@ -3630,21 +3634,21 @@ function mapCurrency(currency) {
       // ===== COPY TO CLIPBOARD FUNCTIONALITY =====
       function setupCopyFeatures() {
         // Add copy buttons to code blocks
-        var codeBlocks = document.querySelectorAll('pre code');'
+        var codeBlocks = document.querySelectorAll('pre code');
         codeBlocks.forEach(function(block) {
-          var copyBtn = document.createElement('button');'
-          copyBtn.textContent = 'Kopieren';'
-          copyBtn.className = 'copy-btn';'
-          copyBtn.addEventListener('click', function() {'
+          var copyBtn = document.createElement('button');
+          copyBtn.textContent = 'Kopieren';
+          copyBtn.className = 'copy-btn';
+          copyBtn.addEventListener('click', function() {
             navigator.clipboard.writeText(block.textContent).then(function() {
-              copyBtn.textContent = 'Kopiert!';'
+              copyBtn.textContent = 'Kopiert!';
               setTimeout(function() {
-                copyBtn.textContent = 'Kopieren';'
+                copyBtn.textContent = 'Kopieren';
               }, 2000);
             });
           });
           
-          block.parentNode.style.position = 'relative';'
+          block.parentNode.style.position = 'relative';
           block.parentNode.appendChild(copyBtn);
         });
       }
@@ -3652,21 +3656,21 @@ function mapCurrency(currency) {
       // ===== ACCESSIBILITY IMPROVEMENTS =====
       function setupAccessibility() {
         // Add skip links
-        var skipLink = document.createElement('a');'
-        skipLink.href = '#main-content';'
-        skipLink.textContent = 'Zum Hauptinhalt springen';'
-        skipLink.className = 'skip-link';'
+        var skipLink = document.createElement('a');
+        skipLink.href = '#main-content'; // Ensure an element with id="main-content" exists
+        skipLink.textContent = 'Zum Hauptinhalt springen';
+        skipLink.className = 'skip-link';
         document.body.insertBefore(skipLink, document.body.firstChild);
         
         // Improve focus management
-        document.addEventListener('keydown', function(e) {'
-          if (e.key === 'Tab') {'
-            document.body.classList.add('keyboard-nav');'
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Tab') {
+            document.body.classList.add('keyboard-nav');
           }
         });
         
-        document.addEventListener('mousedown', function() {'
-          document.body.classList.remove('keyboard-nav');'
+        document.addEventListener('mousedown', function() {
+          document.body.classList.remove('keyboard-nav');
         });
       }
 
@@ -3683,9 +3687,9 @@ function mapCurrency(currency) {
         trackEngagement();
         initAdSense();
         
-        console.log('🚀 Enhanced Tool Detail Page initialized successfully');'
+        console.log('🚀 Enhanced Tool Detail Page initialized successfully');
       } catch (error) {
-        console.error('Error initializing tool detail page:', error);'
+        console.error('Error initializing tool detail page:', error);
       }
     });
   </script>
