@@ -9,7 +9,8 @@ const apiPricingSchema = z.object({
     per_million_tokens: z.boolean().default(true),
     context_window: z.string(),
     popular: z.boolean().default(false),
-    note: z.string().optional()
+    note: z.string().optional(),
+    currency: z.string().optional() // HINZUGEFÜGT
   })).optional()
 });
 
@@ -23,14 +24,15 @@ const pricingPlanSchema = z.object({
   features: z.array(z.string()),
   limitations: z.array(z.string()).optional(),
   popular: z.boolean().default(false),
-  note: z.string().optional()
+  note: z.string().optional(),
+  currency: z.string().optional() // HINZUGEFÜGT
 });
 
-// Schema für kostenlosen Plan
+// Schema für kostenlosen Plan - REPARIERT
 const freePlanSchema = z.object({
   available: z.boolean(),
   price: z.number().default(0),
-  currency: z.string().default(EUR),
+  currency: z.string().default("€"), // REPARIERT: EUR → "€"
   billing_cycle: z.string(),
   features: z.array(z.string()),
   limitations: z.array(z.string()).optional()
@@ -85,7 +87,7 @@ const toolsCollection = defineCollection({
     use_cases: z.array(z.string()).optional(),
     languages: z.array(z.string()).optional(),
     
-    // NEUE PREIS-STRUKTUR
+    // PREIS-STRUKTUR
     pricing_details: z.object({
       free_plan: freePlanSchema.optional(),
       paid_plans: z.array(pricingPlanSchema).optional()
