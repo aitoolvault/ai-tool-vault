@@ -101,9 +101,9 @@
       </div>
 
       <!-- USE CASES -->
-      {data.use_cases && data.use_cases.length > 0 && (
+        <div class="features-section">
         <div class="features-section">"
-          <h3>Anwendungsfälle</h3>
+          <p class="section-subtitle">{data.title} eignet sich besonders für:</p>
           <p class="section-subtitle">{data.title} eignet sich besonders für:</p>"
           <div class="features-grid">"
             {data.use_cases.map((useCase, index) => (
