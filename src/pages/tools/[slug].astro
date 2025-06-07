@@ -33,10 +33,9 @@
           <p>Nahtlose Integration in bestehende Systeme über moderne APIs</p>
         </div>
       </div>
-    ))}
-  </div>
-</div>
+    )} {/* Corrected: was ))}. This is the primary cause of the build error. */}
 
+    {/* Moved mobile_app and languages inside the features-grid and ensured proper closing */}
           {data.mobile_app && (
             <div class="feature-item">
               <div class="feature-icon">📱</div>
@@ -45,6 +44,7 @@
                 <p>Vollständige Funktionalität auf iOS und Android Geräten</p>
               </div>
             </div>
+          )} {/* Added missing closing parenthesis and brace */}
 
           {data.languages && data.languages.length > 3 && (
             <div class="feature-item">
@@ -55,8 +55,14 @@
               </div>
             </div>
           )}
-        </div>
-      </div>
+  </div> {/* Closes features-grid (from line 3 of the snippet) */}
+</div> {/* Closes features-section (from line 1 of the snippet) */}
+
+      {/*
+        The extraneous </div> tags that were previously here (around snippet lines 50-51)
+        are removed as a result of correctly nesting the mobile_app and languages features
+        within the main features-grid and features-section.
+      */}
 
       <!-- SECURITY FEATURES -->
       {data.security_features && data.security_features.length > 0 && (
@@ -71,7 +77,6 @@
           </div>
         </div>
       )}
-      <div class="pros-cons">
       <div class="pros-cons">
         <div class="pros">
           <h3 class="pros-title">✅ Vorteile</h3>
@@ -90,13 +95,18 @@
         <div class="cons">
           <h3 class="cons-title">❌ Nachteile</h3>
           <ul class="cons-list">
-            {data.cons ? data.cons.map(con => <li>{con}</li>) : (
-          <ul class="cons-list">
+            {data.cons && data.cons.length > 0 ? data.cons.map(con => <li>{con}</li>) : (
+              <> {/* Use fragment for default items and remove nested ul */}
                 <li>Lernkurve für Anfänger</li>
                 <li>Internet-Verbindung erforderlich</li>
                 <li>Begrenzte kostenlose Features</li>
               </>
             )}
+          </ul>
+        </div>
+      </div> {/* Closes pros-cons div (from line 64 of snippet / corrected line 68) */}
+
+{/* Moved USE CASES section to be a sibling of pros-cons, not inside it */}
 {data.use_cases && data.use_cases.length > 0 && (
   <div class="features-section">
     <p class="section-subtitle">{data.title} eignet sich besonders für:</p>
@@ -109,7 +119,6 @@
     </div>
   </div>
 )}
-
       <div class="faq-section">
         <h3>Häufig gestellte Fragen</h3>
         {faqItems.map((faq, index) => (
