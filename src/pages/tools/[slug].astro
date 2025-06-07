@@ -97,12 +97,17 @@
               </>
             )}
 {data.use_cases && data.use_cases.length > 0 && (
-      </div>
-
-          <div class="features-grid">
-          <div class="features-grid">"
-            {data.use_cases.map((useCase, index) => (
-              <div class="feature-item">"
+  <div class="features-section">
+    <p class="section-subtitle">{data.title} eignet sich besonders für:</p>
+    <div class="features-grid">
+      {data.use_cases.map((useCase) => (
+        <div class="feature-card" title={useCase}>
+          {useCase}
+        </div>
+      ))}
+    </div>
+  </div>
+)}
                 <div class="feature-icon">{String(index + 1)}</div>"
                 <div class="feature-content">"
                   <h3>{useCase}</h3>
