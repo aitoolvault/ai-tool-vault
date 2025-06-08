@@ -3,83 +3,45 @@ import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
   const tools = await getCollection("tools");
-  return tools.map(tool => ({
+  return tools.map((tool) => ({
     params: { slug: tool.slug },
-    props: { tool }
+    props: { tool },
   }));
 }
 
 const { tool } = Astro.props;
 
-// Fehlerbehandlung
 if (!tool) {
   return Astro.redirect('/404');
 }
 
 const { data } = tool;
 
-// Alle Tools für "Ähnliche Tools" laden
+// Alle Tools für ähnliche Tools laden
 const allTools = await getCollection("tools");
 const similarTools = allTools
-  .filter(t => t.data.category === data.category && t.slug !== tool.slug)
+  .filter((t) => t.data.category === data.category && t.slug !== tool.slug)
   .slice(0, 6);
 
-// Trust & Authority Elemente
-const expertRating = data.rating || (4.2 + Math.random() * 0.8);
-const userCount = Math.floor(Math.random() * 90000) + 10000;
-const isPopular = userCount > 50000;
-const isNew = data.founded && parseInt(data.founded) >= 2023;
-
-// Enhanced Logo URLs
-function getToolLogo(toolName) {
-  const logoMap = {
-    'ChatGPT': 'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg',
-    'Claude': 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Anthropic_logo.svg',
-    'DALL-E 3': 'https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg',
-    'Midjourney': 'https://seeklogo.com/images/M/midjourney-logo-F8C82EA677-seeklogo.com.png',
-    'GitHub Copilot': 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
-    'Stable Diffusion': 'https://stability.ai/favicon.ico'
-  };
-  
-  return logoMap[toolName] || `https://ui-avatars.com/api/?name=${encodeURIComponent(toolName)}&background=3b82f6&color=fff&size=100&rounded=true`;
-}
-
-// Enhanced FAQ generation
+// FAQ generieren
 function generateFAQ() {
   return [
     {
       question: `Ist ${data.title} kostenlos?`,
       answer: data.pricing === "Kostenlos" ? 
-        `Ja, ${data.title} ist komplett kostenlos nutzbar ohne versteckte Kosten.` :
+        `Ja, ${data.title} ist komplett kostenlos nutzbar.` :
         data.pricing === "Freemium" ?
-        `${data.title} bietet eine kostenlose Basisversion. Für erweiterte Features gibt es Premium-Pläne.` :
-        `${data.title} ist ein Premium-Tool. ${data.free_trial ? "Es gibt jedoch eine kostenlose Testversion." : "Die Investition lohnt sich für professionelle Anwender."}`
+        `${data.title} bietet eine kostenlose Basisversion und Premium-Pläne.` :
+        `${data.title} ist ein Premium-Tool.`
     },
     {
       question: `Für wen eignet sich ${data.title}?`,
-      answer: `${data.title} eignet sich perfekt für ${data.category.toLowerCase()}-Anwender${data.use_cases ? `, insbesondere für ${data.use_cases.slice(0,2).join(' und ')}.` : ', Kreative, Unternehmer und alle, die ihre Produktivität steigern möchten.'}`
-    },
-    {
-      question: `Wie schnell kann ich mit ${data.title} starten?`,
-      answer: `Der Einstieg ist sehr einfach - nach der Anmeldung kannst du sofort loslegen. Die intuitive Benutzeroberfläche ermöglicht auch Anfängern einen schnellen Start.`
-    },
-    {
-      question: `Gibt es eine mobile App für ${data.title}?`,
-      answer: data.mobile_app ? 
-        `Ja, ${data.title} bietet auch eine mobile App für iOS und Android.` :
-        `${data.title} ist aktuell als Web-Anwendung verfügbar und funktioniert perfekt im Browser auf allen Geräten.`
-    },
-    {
-      question: `Kann ich ${data.title} in mein Unternehmen integrieren?`,
-      answer: data.api_available ?
-        `Ja, ${data.title} bietet eine API für die Integration in bestehende Systeme und Workflows.` :
-        `${data.title} kann über Standard-Integrationen in die meisten Business-Workflows eingebunden werden.`
+      answer: `${data.title} eignet sich für ${data.category.toLowerCase()}-Anwender und alle, die ihre Produktivität steigern möchten.`
     }
   ];
 }
 
 const faqItems = generateFAQ();
-const toolLogo = getToolLogo(data.title);
 ---
 
 <!DOCTYPE html>
@@ -87,10 +49,9 @@ const toolLogo = getToolLogo(data.title);
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{data.title} Test & Erfahrungen 2025 - Lohnt sich das KI-Tool?</title>
-  <meta name="description" content={`✅ ${data.title} im Test: Funktionen, Preise & ehrliche Bewertung. ${data.description} ➤ Jetzt kostenlos testen!`} />
+  <title>{data.title} - Test & Bewertung 2025</title>
+  <meta name="description" content={`${data.title} im Test: ${data.description}`} />
   
-  <!-- Theme Script -->
   <script is:inline>
     (function() {
       function setTheme() {
@@ -115,69 +76,41 @@ const toolLogo = getToolLogo(data.title);
       }
       
       setTheme();
-      document.addEventListener('astro:after-swap', setTheme);
     })();
-  </script>
-  
-  <!-- Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
-  <script is:inline>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-EC62QPK5VL');
   </script>
 
   <style>
     :root {
       --bg-primary: #f8fafc;
       --bg-secondary: #ffffff;
-      --bg-tertiary: #f8fafc;
       --text-primary: #1e293b;
       --text-secondary: #64748b;
-      --text-tertiary: #94a3b8;
       --border-primary: #e2e8f0;
-      --border-secondary: #cbd5e1;
       --accent-primary: #3b82f6;
       --accent-secondary: #2563eb;
       --success-color: #10b981;
-      --error-color: #ef4444;
-      --warning-color: #f59e0b;
       --shadow-light: rgba(0, 0, 0, 0.1);
-      --shadow-medium: rgba(0, 0, 0, 0.15);
-      --nav-bg: rgba(255, 255, 255, 0.95);
       --card-bg: #ffffff;
-      --footer-bg: #0f172a;
-      --footer-text: #94a3b8;
     }
 
     [data-theme="dark"] {
       --bg-primary: #0f172a;
       --bg-secondary: #1e293b;
-      --bg-tertiary: #334155;
       --text-primary: #f1f5f9;
       --text-secondary: #cbd5e1;
-      --text-tertiary: #94a3b8;
       --border-primary: #334155;
-      --border-secondary: #475569;
       --accent-primary: #60a5fa;
       --accent-secondary: #3b82f6;
       --success-color: #34d399;
-      --error-color: #f87171;
-      --warning-color: #fbbf24;
       --shadow-light: rgba(0, 0, 0, 0.3);
-      --shadow-medium: rgba(0, 0, 0, 0.4);
-      --nav-bg: rgba(30, 41, 59, 0.95);
       --card-bg: #1e293b;
-      --footer-bg: #020617;
-      --footer-text: #64748b;
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
     
     body {
@@ -187,19 +120,17 @@ const toolLogo = getToolLogo(data.title);
       background: var(--bg-primary);
     }
 
-    /* Navigation */
     .nav {
-      background: var(--nav-bg);
+      background: var(--bg-secondary);
       border-bottom: 1px solid var(--border-primary);
       padding: 1rem 0;
       position: sticky;
       top: 0;
       z-index: 1000;
-      backdrop-filter: blur(10px);
     }
     
     .nav-container {
-      max-width: 1400px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 2rem;
       display: flex;
@@ -209,7 +140,7 @@ const toolLogo = getToolLogo(data.title);
     
     .nav-logo {
       font-size: 1.5rem;
-      font-weight: 800;
+      font-weight: 700;
       color: var(--text-primary);
       text-decoration: none;
     }
@@ -230,7 +161,6 @@ const toolLogo = getToolLogo(data.title);
       color: var(--text-primary);
     }
 
-    /* Main Content */
     .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -238,26 +168,15 @@ const toolLogo = getToolLogo(data.title);
     }
 
     .hero {
-      background: var(--bg-secondary);
+      background: var(--card-bg);
       padding: 3rem;
       border-radius: 12px;
       margin-bottom: 3rem;
       border: 1px solid var(--border-primary);
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 2rem;
-      align-items: center;
+      text-align: center;
     }
 
-    .tool-logo {
-      width: 80px;
-      height: 80px;
-      border-radius: 16px;
-      object-fit: cover;
-      border: 2px solid var(--border-primary);
-    }
-
-    .hero-content h1 {
+    .hero h1 {
       font-size: 2.5rem;
       font-weight: 800;
       margin-bottom: 1rem;
@@ -268,6 +187,9 @@ const toolLogo = getToolLogo(data.title);
       font-size: 1.2rem;
       color: var(--text-secondary);
       margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .hero-badges {
@@ -275,6 +197,7 @@ const toolLogo = getToolLogo(data.title);
       gap: 0.75rem;
       margin-bottom: 2rem;
       flex-wrap: wrap;
+      justify-content: center;
     }
 
     .badge {
@@ -315,9 +238,8 @@ const toolLogo = getToolLogo(data.title);
       transform: translateY(-2px);
     }
 
-    /* Content Sections */
     .content-section {
-      background: var(--bg-secondary);
+      background: var(--card-bg);
       padding: 2rem;
       border-radius: 12px;
       margin-bottom: 2rem;
@@ -331,18 +253,12 @@ const toolLogo = getToolLogo(data.title);
       color: var(--text-primary);
     }
 
-    /* Pricing Table */
-    .pricing-table {
-      display: grid;
-      gap: 1rem;
-      margin: 2rem 0;
-    }
-
     .pricing-plan {
-      background: var(--bg-tertiary);
+      background: var(--bg-primary);
       padding: 1.5rem;
       border-radius: 8px;
       border: 1px solid var(--border-primary);
+      margin-bottom: 1rem;
     }
 
     .plan-name {
@@ -361,7 +277,6 @@ const toolLogo = getToolLogo(data.title);
 
     .plan-features {
       list-style: none;
-      margin-bottom: 1rem;
     }
 
     .plan-features li {
@@ -376,7 +291,6 @@ const toolLogo = getToolLogo(data.title);
       margin-right: 0.5rem;
     }
 
-    /* FAQ Section */
     .faq-item {
       border-bottom: 1px solid var(--border-primary);
       padding: 1.5rem 0;
@@ -394,7 +308,6 @@ const toolLogo = getToolLogo(data.title);
       line-height: 1.6;
     }
 
-    /* Similar Tools */
     .similar-tools {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -403,7 +316,7 @@ const toolLogo = getToolLogo(data.title);
     }
 
     .tool-card {
-      background: var(--bg-tertiary);
+      background: var(--bg-primary);
       padding: 1.5rem;
       border-radius: 8px;
       border: 1px solid var(--border-primary);
@@ -434,14 +347,8 @@ const toolLogo = getToolLogo(data.title);
       font-weight: 500;
     }
 
-    /* Responsive Design */
     @media (max-width: 768px) {
-      .hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .hero-content h1 {
+      .hero h1 {
         font-size: 2rem;
       }
 
@@ -456,7 +363,6 @@ const toolLogo = getToolLogo(data.title);
   </style>
 </head>
 <body>
-  <!-- Navigation -->
   <nav class="nav">
     <div class="nav-container">
       <a href="/" class="nav-logo">AI Tool Vault</a>
@@ -471,35 +377,27 @@ const toolLogo = getToolLogo(data.title);
   </nav>
 
   <div class="container">
-    <!-- Hero Section -->
     <section class="hero">
-      <img src={toolLogo} alt={`${data.title} Logo`} class="tool-logo" />
-      
-      <div class="hero-content">
-        <div class="hero-badges">
-          {isPopular && <span class="badge badge-popular">Beliebt</span>}
-          {data.pricing === "Kostenlos" && <span class="badge badge-free">Kostenlos</span>}
-          {isNew && <span class="badge badge-new">Neu</span>}
-          {data.api_available && <span class="badge badge-api">API</span>}
-        </div>
-        
-        <h1>{data.title}</h1>
-        <p class="hero-description">{data.description}</p>
-        
-        {data.rating && (
-          <div class="hero-rating">
-            <span>⭐ {data.rating}/5</span>
-            <span>({userCount.toLocaleString()} Nutzer)</span>
-          </div>
-        )}
+      <div class="hero-badges">
+        {data.pricing === "Kostenlos" && <span class="badge badge-free">Kostenlos</span>}
+        {data.api_available && <span class="badge badge-api">API</span>}
+        {data.founded && parseInt(data.founded) >= 2023 && <span class="badge badge-new">Neu</span>}
       </div>
+      
+      <h1>{data.title}</h1>
+      <p class="hero-description">{data.description}</p>
+      
+      {data.rating && (
+        <div style="margin-bottom: 2rem;">
+          <span style="color: #fbbf24; font-size: 1.2rem;">⭐ {data.rating}/5</span>
+        </div>
+      )}
       
       <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="hero-cta">
         Tool testen →
       </a>
     </section>
 
-    <!-- Main Content -->
     <div class="content-section">
       <h2 class="section-title">Über {data.title}</h2>
       <p>
@@ -507,84 +405,84 @@ const toolLogo = getToolLogo(data.title);
         {data.description}
       </p>
       
-      {data.founded && (
-        <p>Gegründet im Jahr {data.founded} von {data.company || "einem innovativen Team"}.</p>
+      {data.founded && data.company && (
+        <p style="margin-top: 1rem;">
+          Gegründet im Jahr {data.founded} von {data.company}.
+        </p>
       )}
     </div>
 
-    <!-- Pricing Section -->
     {data.pricing_details && (
       <div class="content-section">
         <h2 class="section-title">Preise & Pläne</h2>
-        <div class="pricing-table">
-          {data.pricing_details.free_plan && (
-            <div class="pricing-plan">
-              <div class="plan-name">Kostenlos</div>
-              <div class="plan-price">0€</div>
-              <ul class="plan-features">
-                {data.pricing_details.free_plan.features.map(feature => (
-                  <li>{feature}</li>
-                ))}
-              </ul>
+        
+        {data.pricing_details.free_plan && (
+          <div class="pricing-plan">
+            <div class="plan-name">Kostenlos</div>
+            <div class="plan-price">0€</div>
+            <ul class="plan-features">
+              {data.pricing_details.free_plan.features.map((feature) => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        
+        {data.pricing_details.paid_plans && data.pricing_details.paid_plans.map((plan) => (
+          <div class="pricing-plan">
+            <div class="plan-name">{plan.name}</div>
+            <div class="plan-price">
+              {typeof plan.price === 'number' ? `${plan.price}€` : plan.price}
+              {plan.per_user ? '/Nutzer' : ''}
             </div>
-          )}
-          
-          {data.pricing_details.paid_plans && data.pricing_details.paid_plans.map(plan => (
-            <div class="pricing-plan">
-              <div class="plan-name">{plan.name}</div>
-              <div class="plan-price">{plan.price}€{plan.per_user ? "/Nutzer" : ""}</div>
-              <ul class="plan-features">
-                {plan.features.map(feature => (
-                  <li>{feature}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+            <ul class="plan-features">
+              {plan.features.map((feature) => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     )}
 
-    <!-- Features Section -->
     {(data.pros || data.cons) && (
       <div class="content-section">
         <h2 class="section-title">Vor- und Nachteile</h2>
         
         {data.pros && (
-          <div>
-            <h3>✅ Vorteile:</h3>
-            <ul>
-              {data.pros.map(pro => <li>{pro}</li>)}
+          <div style="margin-bottom: 2rem;">
+            <h3 style="color: var(--success-color); margin-bottom: 1rem;">✅ Vorteile:</h3>
+            <ul style="padding-left: 1.5rem;">
+              {data.pros.map((pro) => <li style="margin-bottom: 0.5rem;">{pro}</li>)}
             </ul>
           </div>
         )}
         
         {data.cons && (
           <div>
-            <h3>❌ Nachteile:</h3>
-            <ul>
-              {data.cons.map(con => <li>{con}</li>)}
+            <h3 style="color: #ef4444; margin-bottom: 1rem;">❌ Nachteile:</h3>
+            <ul style="padding-left: 1.5rem;">
+              {data.cons.map((con) => <li style="margin-bottom: 0.5rem;">{con}</li>)}
             </ul>
           </div>
         )}
       </div>
     )}
 
-    <!-- Use Cases -->
     {data.use_cases && (
       <div class="content-section">
         <h2 class="section-title">Anwendungsfälle</h2>
-        <ul>
-          {data.use_cases.map(useCase => (
-            <li>{useCase}</li>
+        <ul style="padding-left: 1.5rem;">
+          {data.use_cases.map((useCase) => (
+            <li style="margin-bottom: 0.5rem;">{useCase}</li>
           ))}
         </ul>
       </div>
     )}
 
-    <!-- FAQ Section -->
     <div class="content-section">
       <h2 class="section-title">Häufige Fragen</h2>
-      {faqItems.map(faq => (
+      {faqItems.map((faq) => (
         <div class="faq-item">
           <h3 class="faq-question">{faq.question}</h3>
           <p class="faq-answer">{faq.answer}</p>
@@ -592,12 +490,11 @@ const toolLogo = getToolLogo(data.title);
       ))}
     </div>
 
-    <!-- Similar Tools -->
     {similarTools.length > 0 && (
       <div class="content-section">
         <h2 class="section-title">Ähnliche Tools</h2>
         <div class="similar-tools">
-          {similarTools.map(similarTool => (
+          {similarTools.map((similarTool) => (
             <div class="tool-card">
               <h4>{similarTool.data.title}</h4>
               <p>{similarTool.data.description}</p>
@@ -608,9 +505,5 @@ const toolLogo = getToolLogo(data.title);
       </div>
     )}
   </div>
-
-  <script>
-    console.log('🎉 Tool page loaded:', {tool.data.title});
-  </script>
 </body>
 </html>
