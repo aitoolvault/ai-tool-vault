@@ -10,6 +10,12 @@ export async function getStaticPaths() {
 }
 
 const { tool } = Astro.props;
+
+// Fehlerbehandlung
+if (!tool) {
+  return Astro.redirect('/404');
+}
+
 const { data } = tool;
 
 // Alle Tools für "Ähnliche Tools" laden
@@ -17,11 +23,6 @@ const allTools = await getCollection("tools");
 const similarTools = allTools
   .filter(t => t.data.category === data.category && t.slug !== tool.slug)
   .slice(0, 6);
-
-// Related tools by category
-const relatedByCategory = allTools
-  .filter(t => t.data.category === data.category && t.slug !== tool.slug)
-  .slice(0, 3);
 
 // Trust & Authority Elemente
 const expertRating = data.rating || (4.2 + Math.random() * 0.8);
@@ -79,44 +80,6 @@ function generateFAQ() {
 
 const faqItems = generateFAQ();
 const toolLogo = getToolLogo(data.title);
-
-// PRICING HELPER FUNCTIONS
-function formatPrice(price, currency = "€") {
-  if (typeof price === "string") return price;
-  if (price === 0) return "Kostenlos";
-  
-  if (typeof price === "number") {
-    return `${price}${currency}`;
-  }
-  
-  return price;
-}
-
-function formatBillingCycle(cycle) {
-  const cycles = {
-    "monthly": "pro Monat",
-    "yearly": "pro Jahr", 
-    "one-time": "einmalig",
-    "usage-based": "nutzungsabhängig"
-  };
-  return cycles[cycle] || cycle;
-}
-
-function formatApiPrice(price, currency) {
-  if (currency === "EUR" || currency === "€") {
-    return `${price}€`;
-  }
-  return `${price}${currency || '€'}`;
-}
-
-function mapCurrency(currency) {
-  const currencyMap = {
-    "EUR": "€",
-    "USD": "$",
-    "GBP": "£"
-  };
-  return currencyMap[currency] || currency;
-}
 ---
 
 <!DOCTYPE html>
@@ -127,6 +90,7 @@ function mapCurrency(currency) {
   <title>{data.title} Test & Erfahrungen 2025 - Lohnt sich das KI-Tool?</title>
   <meta name="description" content={`✅ ${data.title} im Test: Funktionen, Preise & ehrliche Bewertung. ${data.description} ➤ Jetzt kostenlos testen!`} />
   
+  <!-- Theme Script -->
   <script is:inline>
     (function() {
       function setTheme() {
@@ -155,6 +119,7 @@ function mapCurrency(currency) {
     })();
   </script>
   
+  <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
   <script is:inline>
     window.dataLayer = window.dataLayer || [];
@@ -162,9 +127,6 @@ function mapCurrency(currency) {
     gtag('js', new Date());
     gtag('config', 'G-EC62QPK5VL');
   </script>
-
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5595876978844902"
-     crossorigin="anonymous"></script>
 
   <style>
     :root {
@@ -225,89 +187,15 @@ function mapCurrency(currency) {
       background: var(--bg-primary);
     }
 
-    /* Theme Toggle */
-    .theme-toggle {
-      position: fixed;
-      top: 50%;
-      right: 2rem;
-      transform: translateY(-50%);
-      z-index: 1001;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 10px;
-      border-radius: 25px;
-      transition: all 0.3s ease;
-    }
-
-    .theme-switch {
-      position: relative;
-      width: 60px;
-      height: 30px;
-      background: linear-gradient(145deg, #e2e8f0, #f1f5f9);
-      border-radius: 15px;
-      transition: all 0.3s ease;
-      box-shadow: 
-        inset 2px 2px 5px rgba(0, 0, 0, 0.1),
-        inset -2px -2px 5px rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(0, 0, 0, 0.1);
-    }
-
-    .theme-switch::before {
-      content: '';
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 22px;
-      height: 22px;
-      background: linear-gradient(145deg, #ffffff, #f8fafc);
-      border-radius: 50%;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 
-        2px 2px 6px rgba(0, 0, 0, 0.2),
-        -1px -1px 3px rgba(255, 255, 255, 0.8);
-    }
-
-    .theme-switch::after {
-      content: '☀️';
-      position: absolute;
-      top: 50%;
-      right: 8px;
-      transform: translateY(-50%);
-      font-size: 12px;
-      opacity: 1;
-      transition: all 0.3s ease;
-    }
-
-    [data-theme="dark"] .theme-switch {
-      background: linear-gradient(145deg, #374151, #4b5563);
-      box-shadow: 
-        inset 2px 2px 5px rgba(0, 0, 0, 0.3),
-        inset -2px -2px 5px rgba(255, 255, 255, 0.1);
-    }
-
-    [data-theme="dark"] .theme-switch::before {
-      transform: translateX(30px);
-      background: linear-gradient(145deg, #1f2937, #374151);
-    }
-
-    [data-theme="dark"] .theme-switch::after {
-      content: '🌙';
-      left: 8px;
-      right: auto;
-    }
-
     /* Navigation */
     .nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
       background: var(--nav-bg);
-      backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border-primary);
-      z-index: 1000;
       padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
     }
     
     .nav-container {
@@ -341,82 +229,54 @@ function mapCurrency(currency) {
     .nav-links a:hover {
       color: var(--text-primary);
     }
-    
-    .mobile-menu {
-      display: none;
-      background: none;
-      border: none;
-      color: var(--text-primary);
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
 
-    /* Breadcrumb */
-    .breadcrumb {
-      background: var(--bg-secondary);
-      padding: 1rem 0;
-      margin-top: 70px;
-      border-bottom: 1px solid var(--border-primary);
-    }
-    
-    .breadcrumb-container {
-      max-width: 1400px;
+    /* Main Content */
+    .container {
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.9rem;
-    }
-    
-    .breadcrumb a {
-      color: var(--accent-primary);
-      text-decoration: none;
-    }
-    
-    .breadcrumb .current {
-      color: var(--text-secondary);
-      font-weight: 500;
+      padding: 2rem;
     }
 
-    /* Hero Section */
     .hero {
       background: var(--bg-secondary);
-      padding: 4rem 0;
-      border-bottom: 1px solid var(--border-primary);
-    }
-    
-    .hero-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 2rem;
+      padding: 3rem;
+      border-radius: 12px;
+      margin-bottom: 3rem;
+      border: 1px solid var(--border-primary);
       display: grid;
       grid-template-columns: auto 1fr auto;
       gap: 2rem;
       align-items: center;
     }
-    
+
     .tool-logo {
       width: 80px;
       height: 80px;
       border-radius: 16px;
       object-fit: cover;
       border: 2px solid var(--border-primary);
-      box-shadow: 0 4px 6px -1px var(--shadow-light);
-      background: var(--bg-secondary);
     }
-    
-    .hero-content {
-      flex: 1;
+
+    .hero-content h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
     }
-    
+
+    .hero-description {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
     .hero-badges {
       display: flex;
       gap: 0.75rem;
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
       flex-wrap: wrap;
     }
-    
+
     .badge {
       padding: 0.25rem 0.75rem;
       border-radius: 20px;
@@ -425,62 +285,17 @@ function mapCurrency(currency) {
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    
-    /* Badge Colors */
+
     .badge-popular { background: #fee2e2; color: #dc2626; }
     .badge-free { background: #d1fae5; color: #047857; }
     .badge-new { background: #fef3c7; color: #d97706; }
-    .badge-expert { background: #e0e7ff; color: #4338ca; }
     .badge-api { background: #f3e8ff; color: #7c3aed; }
-    .badge-security { background: #ecfdf5; color: #047857; }
 
     [data-theme="dark"] .badge-popular { background: rgba(220, 38, 38, 0.2); color: #f87171; }
     [data-theme="dark"] .badge-free { background: rgba(4, 120, 87, 0.2); color: #34d399; }
     [data-theme="dark"] .badge-new { background: rgba(217, 119, 6, 0.2); color: #fbbf24; }
-    [data-theme="dark"] .badge-expert { background: rgba(67, 56, 202, 0.2); color: #a5b4fc; }
     [data-theme="dark"] .badge-api { background: rgba(124, 58, 237, 0.2); color: #c4b5fd; }
-    [data-theme="dark"] .badge-security { background: rgba(4, 120, 87, 0.2); color: #6ee7b7; }
-    
-    .hero h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
-      color: var(--text-primary);
-      line-height: 1.2;
-    }
-    
-    .hero-description {
-      font-size: 1.2rem;
-      color: var(--text-secondary);
-      margin-bottom: 2rem;
-      line-height: 1.6;
-    }
-    
-    .hero-stats {
-      display: flex;
-      gap: 2rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-    }
-    
-    .hero-stat {
-      text-align: center;
-    }
-    
-    .hero-stat-number {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      display: block;
-    }
-    
-    .hero-stat-label {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    
+
     .hero-cta {
       background: var(--accent-primary);
       color: white;
@@ -493,342 +308,309 @@ function mapCurrency(currency) {
       align-items: center;
       gap: 0.5rem;
       transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
     }
-    
-    .hero-cta::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s;
-    }
-    
-    .hero-cta:hover::before {
-      left: 100%;
-    }
-    
+
     .hero-cta:hover {
       background: var(--accent-secondary);
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
     }
 
-    /* Bookmark Button in Hero */
-    .hero-bookmark {
-      background: var(--bg-tertiary);
-      border: 2px solid var(--border-primary);
-      padding: 1rem;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 60px;
-      height: 60px;
-    }
-    
-    .hero-bookmark:hover {
-      border-color: var(--accent-primary);
-      transform: scale(1.1);
-    }
-    
-    .hero-bookmark.favorited {
-      background: var(--accent-primary);
-      border-color: var(--accent-primary);
-      color: white;
-    }
-
-    /* Main Content Layout */
-    .main-content {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 3rem;
-    }
-    
-    .content {
-      background: var(--card-bg);
-      padding: 3rem;
-      border-radius: 12px;
-      border: 1px solid var(--border-primary);
-      box-shadow: 0 1px 3px var(--shadow-light);
-    }
-    
-    .sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      position: sticky;
-      top: 120px;
-      height: fit-content;
-    }
-
-    /* Enhanced Pricing Card */
-    .pricing-card {
-      background: var(--card-bg);
+    /* Content Sections */
+    .content-section {
+      background: var(--bg-secondary);
       padding: 2rem;
       border-radius: 12px;
+      margin-bottom: 2rem;
       border: 1px solid var(--border-primary);
-      box-shadow: 0 1px 3px var(--shadow-light);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
     }
-    
-    .pricing-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-    }
-    
-    .pricing-tag {
-      background: var(--accent-primary);
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      display: inline-block;
-      margin-bottom: 1rem;
-    }
-    
-    .pricing-title {
+
+    .section-title {
       font-size: 1.5rem;
       font-weight: 700;
       margin-bottom: 1rem;
       color: var(--text-primary);
     }
-    
-    .pricing-description {
+
+    /* Pricing Table */
+    .pricing-table {
+      display: grid;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .pricing-plan {
+      background: var(--bg-tertiary);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-primary);
+    }
+
+    .plan-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .plan-price {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent-primary);
+      margin-bottom: 1rem;
+    }
+
+    .plan-features {
+      list-style: none;
+      margin-bottom: 1rem;
+    }
+
+    .plan-features li {
+      padding: 0.25rem 0;
       color: var(--text-secondary);
-      margin-bottom: 1.5rem;
+    }
+
+    .plan-features li::before {
+      content: "✓";
+      color: var(--success-color);
+      font-weight: bold;
+      margin-right: 0.5rem;
+    }
+
+    /* FAQ Section */
+    .faq-item {
+      border-bottom: 1px solid var(--border-primary);
+      padding: 1.5rem 0;
+    }
+
+    .faq-question {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .faq-answer {
+      color: var(--text-secondary);
       line-height: 1.6;
     }
-    
-    .pricing-cta {
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 700;
-      display: block;
-      text-align: center;
-      margin-bottom: 1rem;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .pricing-cta::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s;
-    }
-    
-    .pricing-cta:hover::before {
-      left: 100%;
-    }
-    
-    .pricing-cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
-    }
-    
-    .pricing-note {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-    }
 
-    /* Quick Actions Sidebar */
-    .quick-actions {
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: 12px;
-      border: 1px solid var(--border-primary);
-      box-shadow: 0 1px 3px var(--shadow-light);
-    }
-    
-    .quick-actions h3 {
-      color: var(--text-primary);
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-    
-    .quick-action-btn {
-      display: block;
-      width: 100%;
-      padding: 0.75rem 1rem;
-      margin-bottom: 0.75rem;
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border-primary);
-      border-radius: 8px;
-      color: var(--text-primary);
-      text-decoration: none;
-      font-weight: 500;
-      text-align: center;
-      transition: all 0.3s ease;
-    }
-    
-    .quick-action-btn:hover {
-      background: var(--accent-primary);
-      color: white;
-      border-color: var(--accent-primary);
-      transform: translateY(-2px);
-    }
-
-    /* Tool Comparison Widget */
-    .comparison-widget {
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: 12px;
-      border: 1px solid var(--border-primary);
-      box-shadow: 0 1px 3px var(--shadow-light);
-    }
-    
-    .comparison-widget h3 {
-      color: var(--text-primary);
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-    
-    .compare-checkbox-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
-      padding: 0.75rem;
-      background: var(--bg-tertiary);
-      border-radius: 8px;
-      border: 1px solid var(--border-primary);
-    }
-    
-    .compare-checkbox {
-      width: 20px;
-      height: 20px;
-      cursor: pointer;
-    }
-    
-    .compare-label {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      cursor: pointer;
-    }
-    
-    .compare-btn {
-      background: var(--warning-color);
-      color: white;
-      padding: 0.75rem 1rem;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      width: 100%;
-      transition: all 0.3s ease;
-      display: none;
-    }
-    
-    .compare-btn:hover {
-      background: #d97706;
-      transform: translateY(-2px);
-    }
-
-    /* Section Styling */
-    .section-title {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      color: var(--text-primary);
-    }
-    
-    .section-subtitle {
-      color: var(--text-secondary);
-      margin-bottom: 2rem;
-      font-size: 1.1rem;
-    }
-
-    /* Enhanced Table of Contents */
-    .table-of-contents {
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: 12px;
-      border: 1px solid var(--border-primary);
-      box-shadow: 0 1px 3px var(--shadow-light);
-      position: sticky;
-      top: 120px;
-    }
-    
-    .table-of-contents h3 {
-      color: var(--text-primary);
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-    
-    .toc-list {
-      list-style: none;
-    }
-    
-    .toc-item {
-      margin-bottom: 0.5rem;
-    }
-    
-    .toc-link {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 0.9rem;
-      padding: 0.25rem 0;
-      display: block;
-      transition: color 0.3s ease;
-    }
-    
-    .toc-link:hover, .toc-link.active {
-      color: var(--accent-primary);
-      font-weight: 500;
-    }
-
-    /* MAIN CONTENT FEATURES */
-    .features-section {
-      margin: 3rem 0;
-    }
-    
-    .features-grid {
+    /* Similar Tools */
+    .similar-tools {
       display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1.5rem;
       margin-top: 2rem;
     }
-    
-    .feature-item {
-      display: flex;
-      gap: 1rem;
-      padding: 1.5rem;
+
+    .tool-card {
       background: var(--bg-tertiary);
+      padding: 1.5rem;
       border-radius: 8px;
       border: 1px solid var(--border-primary);
       transition: all 0.3s ease;
     }
-    
-    .feature-item:hover {
+
+    .tool-card:hover {
       transform: translateY(-2px);
       border-color: var(--accent-primary);
-    
+    }
+
+    .tool-card h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .tool-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .tool-card a {
+      color: var(--accent-primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+
+      .container {
+        padding: 1rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">AI Tool Vault</a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tools">Tools</a></li>
+        <li><a href="/impressum">Impressum</a></li>
+        <li><a href="/kontakt">Kontakt</a></li>
+        <li><a href="/datenschutz">Datenschutz</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <img src={toolLogo} alt={`${data.title} Logo`} class="tool-logo" />
+      
+      <div class="hero-content">
+        <div class="hero-badges">
+          {isPopular && <span class="badge badge-popular">Beliebt</span>}
+          {data.pricing === "Kostenlos" && <span class="badge badge-free">Kostenlos</span>}
+          {isNew && <span class="badge badge-new">Neu</span>}
+          {data.api_available && <span class="badge badge-api">API</span>}
+        </div>
+        
+        <h1>{data.title}</h1>
+        <p class="hero-description">{data.description}</p>
+        
+        {data.rating && (
+          <div class="hero-rating">
+            <span>⭐ {data.rating}/5</span>
+            <span>({userCount.toLocaleString()} Nutzer)</span>
+          </div>
+        )}
+      </div>
+      
+      <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="hero-cta">
+        Tool testen →
+      </a>
+    </section>
+
+    <!-- Main Content -->
+    <div class="content-section">
+      <h2 class="section-title">Über {data.title}</h2>
+      <p>
+        {data.title} ist ein führendes KI-Tool in der Kategorie {data.category}. 
+        {data.description}
+      </p>
+      
+      {data.founded && (
+        <p>Gegründet im Jahr {data.founded} von {data.company || "einem innovativen Team"}.</p>
+      )}
+    </div>
+
+    <!-- Pricing Section -->
+    {data.pricing_details && (
+      <div class="content-section">
+        <h2 class="section-title">Preise & Pläne</h2>
+        <div class="pricing-table">
+          {data.pricing_details.free_plan && (
+            <div class="pricing-plan">
+              <div class="plan-name">Kostenlos</div>
+              <div class="plan-price">0€</div>
+              <ul class="plan-features">
+                {data.pricing_details.free_plan.features.map(feature => (
+                  <li>{feature}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          
+          {data.pricing_details.paid_plans && data.pricing_details.paid_plans.map(plan => (
+            <div class="pricing-plan">
+              <div class="plan-name">{plan.name}</div>
+              <div class="plan-price">{plan.price}€{plan.per_user ? "/Nutzer" : ""}</div>
+              <ul class="plan-features">
+                {plan.features.map(feature => (
+                  <li>{feature}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Features Section -->
+    {(data.pros || data.cons) && (
+      <div class="content-section">
+        <h2 class="section-title">Vor- und Nachteile</h2>
+        
+        {data.pros && (
+          <div>
+            <h3>✅ Vorteile:</h3>
+            <ul>
+              {data.pros.map(pro => <li>{pro}</li>)}
+            </ul>
+          </div>
+        )}
+        
+        {data.cons && (
+          <div>
+            <h3>❌ Nachteile:</h3>
+            <ul>
+              {data.cons.map(con => <li>{con}</li>)}
+            </ul>
+          </div>
+        )}
+      </div>
+    )}
+
+    <!-- Use Cases -->
+    {data.use_cases && (
+      <div class="content-section">
+        <h2 class="section-title">Anwendungsfälle</h2>
+        <ul>
+          {data.use_cases.map(useCase => (
+            <li>{useCase}</li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    <!-- FAQ Section -->
+    <div class="content-section">
+      <h2 class="section-title">Häufige Fragen</h2>
+      {faqItems.map(faq => (
+        <div class="faq-item">
+          <h3 class="faq-question">{faq.question}</h3>
+          <p class="faq-answer">{faq.answer}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Similar Tools -->
+    {similarTools.length > 0 && (
+      <div class="content-section">
+        <h2 class="section-title">Ähnliche Tools</h2>
+        <div class="similar-tools">
+          {similarTools.map(similarTool => (
+            <div class="tool-card">
+              <h4>{similarTool.data.title}</h4>
+              <p>{similarTool.data.description}</p>
+              <a href={`/tools/${similarTool.slug}`}>Mehr erfahren →</a>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+
+  <script>
+    console.log('🎉 Tool page loaded:', {tool.data.title});
+  </script>
+</body>
+</html>
