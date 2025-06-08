@@ -5,29 +5,63 @@ import { getCollection } from "astro:content";
 // Tools laden
 const allTools = await getCollection("tools");
 
-// URL Parameter auslesen
+// URL Parameter auslesen und debuggen
 const url = Astro.url;
 const toolsParam = url.searchParams.get('tools');
 
 let selectedTools = [];
 let error = null;
+let debugInfo = {};
+
+// Debug: Alle verfügbaren Tool-Namen loggen
+const availableToolNames = allTools.map(tool => tool.data.title);
+debugInfo.availableTools = availableToolNames;
+debugInfo.urlParam = toolsParam;
 
 if (toolsParam) {
   const toolNames = toolsParam.split(',').map(name => name.trim());
+  debugInfo.requestedTools = toolNames;
   
-  // Tools basierend auf Namen finden
+  // Tools basierend auf Namen finden - mit flexibler Suche
   selectedTools = toolNames
-    .map(name => allTools.find(tool => tool.data.title === name))
+    .map(requestedName => {
+      // Exakte Übereinstimmung
+      let tool = allTools.find(tool => tool.data.title === requestedName);
+      
+      // Falls nicht gefunden, case-insensitive Suche
+      if (!tool) {
+        tool = allTools.find(tool => 
+          tool.data.title.toLowerCase() === requestedName.toLowerCase()
+        );
+      }
+      
+      // Falls immer noch nicht gefunden, teilweise Übereinstimmung
+      if (!tool) {
+        tool = allTools.find(tool => 
+          tool.data.title.toLowerCase().includes(requestedName.toLowerCase()) ||
+          requestedName.toLowerCase().includes(tool.data.title.toLowerCase())
+        );
+      }
+      
+      return tool;
+    })
     .filter(tool => tool !== undefined);
   
+  debugInfo.foundTools = selectedTools.map(tool => tool.data.title);
+  
   if (selectedTools.length === 0) {
-    error = "Keine gültigen Tools zum Vergleichen gefunden.";
+    error = `Keine der angeforderten Tools gefunden: ${toolNames.join(', ')}`;
+  } else if (selectedTools.length < 2 && toolNames.length >= 2) {
+    error = `Nur ${selectedTools.length} von ${toolNames.length} Tools gefunden. Mindestens 2 Tools sind erforderlich.`;
   } else if (selectedTools.length < 2) {
     error = "Mindestens 2 Tools sind für einen Vergleich erforderlich.";
   }
 } else {
   error = "Keine Tools zum Vergleichen ausgewählt.";
 }
+
+// Debug-Ausgabe (nur in Development)
+console.log('🔍 Compare Debug Info:', debugInfo);
 
 // Vergleichsdaten vorbereiten
 const comparisonData = selectedTools.map(tool => ({
@@ -340,6 +374,26 @@ const comparisonData = selectedTools.map(tool => ({
         <div class="error-icon">🔍</div>
         <div class="error-title">Keine Tools ausgewählt</div>
         <div class="error-message">{error}</div>
+        
+        <!-- Debug Info (nur sichtbar in Development) -->
+        <details style="margin: 2rem 0; text-align: left; background: #f8f9fa; padding: 1rem; border-radius: 8px;">
+          <summary style="cursor: pointer; font-weight: 600;">🐛 Debug Informationen</summary>
+          <div style="margin-top: 1rem; font-family: monospace; font-size: 0.9rem;">
+            <p><strong>URL Parameter:</strong> {debugInfo.urlParam || 'nicht vorhanden'}</p>
+            <p><strong>Angeforderte Tools:</strong> {debugInfo.requestedTools?.join(', ') || 'keine'}</p>
+            <p><strong>Gefundene Tools:</strong> {debugInfo.foundTools?.join(', ') || 'keine'}</p>
+            <p><strong>Verfügbare Tools (erste 10):</strong></p>
+            <ul style="margin-left: 1rem;">
+              {debugInfo.availableTools?.slice(0, 10).map(name => (
+                <li>{name}</li>
+              )) || []}
+            </ul>
+            {debugInfo.availableTools?.length > 10 && (
+              <p><em>... und {debugInfo.availableTools.length - 10} weitere</em></p>
+            )}
+          </div>
+        </details>
+        
         <a href="/tools" class="back-btn">Zurück zu Tools</a>
       </div>
     ) : (
