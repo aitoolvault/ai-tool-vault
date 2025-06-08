@@ -66,7 +66,7 @@ const toolsCollection = defineCollection({
     title: z.string(),
     description: z.string(),
     category: z.string(),
-    pricing: z.enum(['Kostenlos', 'Freemium', 'Kostenpflichtig']),
+    pricing: z.enum(['Kostenlos', 'Freemium', 'Kostenpflichtig', 'Eingestellt']),
     affiliate_link: z.string().url(),
     website_url: z.string().url().optional(),
     
