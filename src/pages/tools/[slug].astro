@@ -23,6 +23,11 @@ const similarTools = allTools
   .filter((t) => t.data.category === data.category && t.slug !== tool.slug)
   .slice(0, 6);
 
+// Verwandte Kategorien finden
+const relatedCategories = Array.from(new Set(allTools.map(t => t.data.category)))
+  .filter(cat => cat !== data.category)
+  .slice(0, 5);
+
 // FAQ generieren
 function generateFAQ() {
   return [
@@ -37,6 +42,16 @@ function generateFAQ() {
     {
       question: `Für wen eignet sich ${data.title}?`,
       answer: `${data.title} eignet sich für ${data.category.toLowerCase()}-Anwender und alle, die ihre Produktivität steigern möchten.`
+    },
+    {
+      question: `Wie schnell kann ich mit ${data.title} starten?`,
+      answer: `Der Einstieg ist sehr einfach - nach der Anmeldung kannst du sofort loslegen.`
+    },
+    {
+      question: `Gibt es eine mobile App?`,
+      answer: data.mobile_app ? 
+        `Ja, ${data.title} bietet auch eine mobile App.` :
+        `${data.title} ist als Web-Anwendung verfügbar und funktioniert auf allen Geräten.`
     }
   ];
 }
@@ -49,8 +64,8 @@ const faqItems = generateFAQ();
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{data.title} - Test & Bewertung 2025</title>
-  <meta name="description" content={`${data.title} im Test: ${data.description}`} />
+  <title>{data.title} - Test & Bewertung 2025 | AI Tool Vault</title>
+  <meta name="description" content={`✅ ${data.title} Test: Funktionen, Preise & Bewertung. ${data.description} ➤ Jetzt kostenlos testen!`} />
   
   <script is:inline>
     (function() {
@@ -83,34 +98,46 @@ const faqItems = generateFAQ();
     :root {
       --bg-primary: #f8fafc;
       --bg-secondary: #ffffff;
+      --bg-tertiary: #f1f5f9;
       --text-primary: #1e293b;
       --text-secondary: #64748b;
       --border-primary: #e2e8f0;
+      --border-secondary: #cbd5e1;
       --accent-primary: #3b82f6;
       --accent-secondary: #2563eb;
       --success-color: #10b981;
+      --warning-color: #f59e0b;
+      --error-color: #ef4444;
       --shadow-light: rgba(0, 0, 0, 0.1);
+      --shadow-medium: rgba(0, 0, 0, 0.15);
       --card-bg: #ffffff;
+      --nav-bg: rgba(255, 255, 255, 0.95);
     }
 
     [data-theme="dark"] {
       --bg-primary: #0f172a;
       --bg-secondary: #1e293b;
+      --bg-tertiary: #334155;
       --text-primary: #f1f5f9;
       --text-secondary: #cbd5e1;
       --border-primary: #334155;
+      --border-secondary: #475569;
       --accent-primary: #60a5fa;
       --accent-secondary: #3b82f6;
       --success-color: #34d399;
+      --warning-color: #fbbf24;
+      --error-color: #f87171;
       --shadow-light: rgba(0, 0, 0, 0.3);
+      --shadow-medium: rgba(0, 0, 0, 0.4);
       --card-bg: #1e293b;
+      --nav-bg: rgba(30, 41, 59, 0.95);
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
     
     body {
@@ -120,17 +147,19 @@ const faqItems = generateFAQ();
       background: var(--bg-primary);
     }
 
-    .nav {
-      background: var(--bg-secondary);
+    /* Navigation */
+    .main-nav {
+      background: var(--nav-bg);
       border-bottom: 1px solid var(--border-primary);
       padding: 1rem 0;
       position: sticky;
       top: 0;
       z-index: 1000;
+      backdrop-filter: blur(10px);
     }
     
     .nav-container {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 0 2rem;
       display: flex;
@@ -140,7 +169,7 @@ const faqItems = generateFAQ();
     
     .nav-logo {
       font-size: 1.5rem;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--text-primary);
       text-decoration: none;
     }
@@ -161,19 +190,121 @@ const faqItems = generateFAQ();
       color: var(--text-primary);
     }
 
+    /* Table of Contents Navigation */
+    .toc-nav {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-primary);
+      padding: 1rem 0;
+      position: sticky;
+      top: 73px;
+      z-index: 999;
+    }
+
+    .toc-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .toc-scroll {
+      display: flex;
+      gap: 2rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .toc-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .toc-item {
+      white-space: nowrap;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-primary);
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .toc-item:hover {
+      background: var(--accent-primary);
+      color: white;
+      border-color: var(--accent-primary);
+    }
+
+    .toc-item.active {
+      background: var(--accent-primary);
+      color: white;
+      border-color: var(--accent-primary);
+    }
+
+    /* Main Content */
     .container {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 2rem;
     }
 
+    /* Breadcrumb */
+    .breadcrumb {
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .breadcrumb a {
+      color: var(--accent-primary);
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    /* Hero Section */
     .hero {
       background: var(--card-bg);
       padding: 3rem;
       border-radius: 12px;
       margin-bottom: 3rem;
       border: 1px solid var(--border-primary);
-      text-align: center;
+      position: relative;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .category-badge {
+      padding: 0.5rem 1rem;
+      background: var(--accent-primary);
+      color: white;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .category-description {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: start;
     }
 
     .hero h1 {
@@ -181,15 +312,14 @@ const faqItems = generateFAQ();
       font-weight: 800;
       margin-bottom: 1rem;
       color: var(--text-primary);
+      line-height: 1.2;
     }
 
     .hero-description {
       font-size: 1.2rem;
       color: var(--text-secondary);
       margin-bottom: 2rem;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      line-height: 1.5;
     }
 
     .hero-badges {
@@ -197,27 +327,34 @@ const faqItems = generateFAQ();
       gap: 0.75rem;
       margin-bottom: 2rem;
       flex-wrap: wrap;
-      justify-content: center;
     }
 
     .badge {
       padding: 0.25rem 0.75rem;
-      border-radius: 20px;
+      border-radius: 15px;
       font-size: 0.8rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
-    .badge-popular { background: #fee2e2; color: #dc2626; }
     .badge-free { background: #d1fae5; color: #047857; }
-    .badge-new { background: #fef3c7; color: #d97706; }
+    .badge-freemium { background: #dbeafe; color: #1e40af; }
+    .badge-paid { background: #fee2e2; color: #dc2626; }
     .badge-api { background: #f3e8ff; color: #7c3aed; }
+    .badge-mobile { background: #ecfdf5; color: #059669; }
+    .badge-trial { background: #fef3c7; color: #d97706; }
 
-    [data-theme="dark"] .badge-popular { background: rgba(220, 38, 38, 0.2); color: #f87171; }
     [data-theme="dark"] .badge-free { background: rgba(4, 120, 87, 0.2); color: #34d399; }
-    [data-theme="dark"] .badge-new { background: rgba(217, 119, 6, 0.2); color: #fbbf24; }
+    [data-theme="dark"] .badge-freemium { background: rgba(30, 64, 175, 0.2); color: #93c5fd; }
+    [data-theme="dark"] .badge-paid { background: rgba(220, 38, 38, 0.2); color: #f87171; }
     [data-theme="dark"] .badge-api { background: rgba(124, 58, 237, 0.2); color: #c4b5fd; }
+    [data-theme="dark"] .badge-mobile { background: rgba(5, 150, 105, 0.2); color: #6ee7b7; }
+    [data-theme="dark"] .badge-trial { background: rgba(217, 119, 6, 0.2); color: #fbbf24; }
+
+    .hero-cta-section {
+      text-align: center;
+    }
 
     .hero-cta {
       background: var(--accent-primary);
@@ -231,6 +368,7 @@ const faqItems = generateFAQ();
       align-items: center;
       gap: 0.5rem;
       transition: all 0.3s ease;
+      margin-bottom: 1rem;
     }
 
     .hero-cta:hover {
@@ -238,38 +376,88 @@ const faqItems = generateFAQ();
       transform: translateY(-2px);
     }
 
+    .hero-rating {
+      margin-bottom: 1rem;
+    }
+
+    .rating-stars {
+      color: #fbbf24;
+      font-size: 1.2rem;
+      margin-right: 0.5rem;
+    }
+
+    .rating-text {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* Content Sections */
     .content-section {
       background: var(--card-bg);
       padding: 2rem;
       border-radius: 12px;
       margin-bottom: 2rem;
       border: 1px solid var(--border-primary);
+      scroll-margin-top: 150px;
     }
 
     .section-title {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       font-weight: 700;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       color: var(--text-primary);
     }
 
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Pricing Table */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
     .pricing-plan {
-      background: var(--bg-primary);
-      padding: 1.5rem;
-      border-radius: 8px;
+      background: var(--bg-tertiary);
+      padding: 2rem;
+      border-radius: 12px;
       border: 1px solid var(--border-primary);
-      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .pricing-plan.popular {
+      border-color: var(--accent-primary);
+      transform: scale(1.02);
+    }
+
+    .pricing-plan.popular::before {
+      content: "Beliebt";
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent-primary);
+      color: white;
+      padding: 0.25rem 1rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 600;
     }
 
     .plan-name {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
       color: var(--text-primary);
     }
 
     .plan-price {
-      font-size: 2rem;
+      font-size: 2.5rem;
       font-weight: 800;
       color: var(--accent-primary);
       margin-bottom: 1rem;
@@ -277,37 +465,151 @@ const faqItems = generateFAQ();
 
     .plan-features {
       list-style: none;
+      margin-bottom: 2rem;
     }
 
     .plan-features li {
-      padding: 0.25rem 0;
+      padding: 0.5rem 0;
       color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .plan-features li::before {
       content: "✓";
       color: var(--success-color);
       font-weight: bold;
-      margin-right: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .pros-section, .cons-section {
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-primary);
+    }
+
+    .pros-section {
+      background: rgba(16, 185, 129, 0.05);
+      border-color: var(--success-color);
+    }
+
+    .cons-section {
+      background: rgba(239, 68, 68, 0.05);
+      border-color: var(--error-color);
+    }
+
+    .pros-section h3 {
+      color: var(--success-color);
+      margin-bottom: 1rem;
+    }
+
+    .cons-section h3 {
+      color: var(--error-color);
+      margin-bottom: 1rem;
+    }
+
+    .pros-section ul, .cons-section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .pros-section li, .cons-section li {
+      margin-bottom: 0.5rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .pros-section li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--success-color);
+      font-weight: bold;
+    }
+
+    .cons-section li::before {
+      content: "✗";
+      position: absolute;
+      left: 0;
+      color: var(--error-color);
+      font-weight: bold;
+    }
+
+    /* FAQ Section */
+    .faq-grid {
+      display: grid;
+      gap: 1rem;
     }
 
     .faq-item {
-      border-bottom: 1px solid var(--border-primary);
-      padding: 1.5rem 0;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-primary);
+      border-radius: 8px;
+      overflow: hidden;
     }
 
     .faq-question {
+      background: var(--bg-secondary);
+      padding: 1.5rem;
       font-size: 1.1rem;
       font-weight: 600;
-      margin-bottom: 0.5rem;
       color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.3s ease;
+    }
+
+    .faq-question:hover {
+      background: var(--bg-tertiary);
     }
 
     .faq-answer {
+      padding: 0 1.5rem 1.5rem;
       color: var(--text-secondary);
       line-height: 1.6;
     }
 
+    /* Categories Section */
+    .categories-section {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .category-item {
+      padding: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border-primary);
+      border-radius: 8px;
+      text-align: center;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .category-item:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-primary);
+      box-shadow: 0 4px 12px var(--shadow-light);
+    }
+
+    /* Similar Tools */
     .similar-tools {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -316,21 +618,22 @@ const faqItems = generateFAQ();
     }
 
     .tool-card {
-      background: var(--bg-primary);
+      background: var(--bg-tertiary);
       padding: 1.5rem;
-      border-radius: 8px;
+      border-radius: 12px;
       border: 1px solid var(--border-primary);
       transition: all 0.3s ease;
     }
 
     .tool-card:hover {
-      transform: translateY(-2px);
+      transform: translateY(-3px);
       border-color: var(--accent-primary);
+      box-shadow: 0 4px 12px var(--shadow-light);
     }
 
     .tool-card h4 {
-      font-size: 1.1rem;
-      font-weight: 600;
+      font-size: 1.2rem;
+      font-weight: 700;
       margin-bottom: 0.5rem;
       color: var(--text-primary);
     }
@@ -339,15 +642,26 @@ const faqItems = generateFAQ();
       color: var(--text-secondary);
       font-size: 0.9rem;
       margin-bottom: 1rem;
+      line-height: 1.5;
     }
 
     .tool-card a {
       color: var(--accent-primary);
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 600;
     }
 
+    .tool-card a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive Design */
     @media (max-width: 768px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
       .hero h1 {
         font-size: 2rem;
       }
@@ -359,11 +673,28 @@ const faqItems = generateFAQ();
       .nav-links {
         display: none;
       }
+
+      .toc-nav {
+        top: 60px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-plan.popular {
+        transform: none;
+      }
     }
   </style>
 </head>
 <body>
-  <nav class="nav">
+  <!-- Main Navigation -->
+  <nav class="main-nav">
     <div class="nav-container">
       <a href="/" class="nav-logo">AI Tool Vault</a>
       <ul class="nav-links">
@@ -376,123 +707,193 @@ const faqItems = generateFAQ();
     </div>
   </nav>
 
-  <div class="container">
-    <section class="hero">
-      <div class="hero-badges">
-        {data.pricing === "Kostenlos" && <span class="badge badge-free">Kostenlos</span>}
-        {data.api_available && <span class="badge badge-api">API</span>}
-        {data.founded && parseInt(data.founded) >= 2023 && <span class="badge badge-new">Neu</span>}
+  <!-- Table of Contents Navigation -->
+  <nav class="toc-nav">
+    <div class="toc-container">
+      <div class="toc-scroll">
+        <a href="#overview" class="toc-item">Überblick</a>
+        <a href="#pricing" class="toc-item">Preise</a>
+        <a href="#features" class="toc-item">Vor- & Nachteile</a>
+        <a href="#use-cases" class="toc-item">Anwendungen</a>
+        <a href="#faq" class="toc-item">FAQ</a>
+        <a href="#categories" class="toc-item">Kategorien</a>
+        <a href="#similar" class="toc-item">Ähnliche Tools</a>
       </div>
-      
-      <h1>{data.title}</h1>
-      <p class="hero-description">{data.description}</p>
-      
-      {data.rating && (
-        <div style="margin-bottom: 2rem;">
-          <span style="color: #fbbf24; font-size: 1.2rem;">⭐ {data.rating}/5</span>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+      <a href="/">Home</a> / <a href="/tools">Tools</a> / <a href={`/tools?category=${encodeURIComponent(data.category)}`}>{data.category}</a> / {data.title}
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="overview">
+      <!-- Category Header -->
+      <div class="category-header">
+        <span class="category-badge">{data.category}</span>
+        <span class="category-description">KI-Tool für {data.category.toLowerCase()}</span>
+      </div>
+
+      <div class="hero-content">
+        <div>
+          <h1>{data.title}</h1>
+          <p class="hero-description">{data.description}</p>
+          
+          <div class="hero-badges">
+            <span class={`badge badge-${data.pricing.toLowerCase().replace('ü', 'ue')}`}>{data.pricing}</span>
+            {data.api_available && <span class="badge badge-api">API</span>}
+            {data.mobile_app && <span class="badge badge-mobile">Mobile App</span>}
+            {data.free_trial && <span class="badge badge-trial">Kostenlose Testversion</span>}
+          </div>
         </div>
-      )}
-      
-      <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="hero-cta">
-        Tool testen →
-      </a>
+
+        <div class="hero-cta-section">
+          {data.rating && (
+            <div class="hero-rating">
+              <span class="rating-stars">{'★'.repeat(Math.floor(data.rating))}{'☆'.repeat(5-Math.floor(data.rating))}</span>
+              <div class="rating-text">{data.rating}/5 Sterne</div>
+            </div>
+          )}
+          
+          <a href={data.affiliate_link} target="_blank" rel="noopener noreferrer" class="hero-cta">
+            Tool testen →
+          </a>
+          
+          {data.founded && (
+            <div class="rating-text">Seit {data.founded} | {data.company || 'Entwicklerteam'}</div>
+          )}
+        </div>
+      </div>
     </section>
 
-    <div class="content-section">
-      <h2 class="section-title">Über {data.title}</h2>
-      <p>
-        {data.title} ist ein führendes KI-Tool in der Kategorie {data.category}. 
-        {data.description}
-      </p>
-      
-      {data.founded && data.company && (
-        <p style="margin-top: 1rem;">
-          Gegründet im Jahr {data.founded} von {data.company}.
-        </p>
-      )}
-    </div>
-
+    <!-- Pricing Section -->
     {data.pricing_details && (
-      <div class="content-section">
+      <section class="content-section" id="pricing">
         <h2 class="section-title">Preise & Pläne</h2>
+        <p class="section-subtitle">Finde den passenden Plan für deine Bedürfnisse</p>
         
-        {data.pricing_details.free_plan && (
-          <div class="pricing-plan">
-            <div class="plan-name">Kostenlos</div>
-            <div class="plan-price">0€</div>
-            <ul class="plan-features">
-              {data.pricing_details.free_plan.features.map((feature) => (
-                <li>{feature}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-        
-        {data.pricing_details.paid_plans && data.pricing_details.paid_plans.map((plan) => (
-          <div class="pricing-plan">
-            <div class="plan-name">{plan.name}</div>
-            <div class="plan-price">
-              {typeof plan.price === 'number' ? `${plan.price}€` : plan.price}
-              {plan.per_user ? '/Nutzer' : ''}
+        <div class="pricing-grid">
+          {data.pricing_details.free_plan && (
+            <div class="pricing-plan">
+              <div class="plan-name">Kostenlos</div>
+              <div class="plan-price">0€</div>
+              <ul class="plan-features">
+                {data.pricing_details.free_plan.features.map((feature) => (
+                  <li>{feature}</li>
+                ))}
+              </ul>
             </div>
-            <ul class="plan-features">
-              {plan.features.map((feature) => (
-                <li>{feature}</li>
-              ))}
-            </ul>
+          )}
+          
+          {data.pricing_details.paid_plans && data.pricing_details.paid_plans.map((plan) => (
+            <div class={`pricing-plan ${plan.popular ? 'popular' : ''}`}>
+              <div class="plan-name">{plan.name}</div>
+              <div class="plan-price">
+                {typeof plan.price === 'number' ? `${plan.price}€` : plan.price}
+                {plan.per_user ? '/Nutzer' : ''}
+              </div>
+              <ul class="plan-features">
+                {plan.features.map((feature) => (
+                  <li>{feature}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Features Section -->
+    {(data.pros || data.cons) && (
+      <section class="content-section" id="features">
+        <h2 class="section-title">Vor- und Nachteile</h2>
+        <p class="section-subtitle">Objektive Bewertung der Stärken und Schwächen</p>
+        
+        <div class="features-grid">
+          {data.pros && (
+            <div class="pros-section">
+              <h3>✅ Vorteile</h3>
+              <ul>
+                {data.pros.map((pro) => <li>{pro}</li>)}
+              </ul>
+            </div>
+          )}
+          
+          {data.cons && (
+            <div class="cons-section">
+              <h3>❌ Nachteile</h3>
+              <ul>
+                {data.cons.map((con) => <li>{con}</li>)}
+              </ul>
+            </div>
+          )}
+        </div>
+      </section>
+    )}
+
+    <!-- Use Cases Section -->
+    {data.use_cases && (
+      <section class="content-section" id="use-cases">
+        <h2 class="section-title">Anwendungsfälle</h2>
+        <p class="section-subtitle">Perfekt geeignet für diese Szenarien</p>
+        
+        <div class="categories-grid">
+          {data.use_cases.map((useCase) => (
+            <div class="category-item">
+              <strong>{useCase}</strong>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- FAQ Section -->
+    <section class="content-section" id="faq">
+      <h2 class="section-title">Häufige Fragen</h2>
+      <p class="section-subtitle">Antworten auf die wichtigsten Fragen zu {data.title}</p>
+      
+      <div class="faq-grid">
+        {faqItems.map((faq) => (
+          <div class="faq-item">
+            <div class="faq-question">
+              {faq.question}
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              {faq.answer}
+            </div>
           </div>
         ))}
       </div>
-    )}
+    </section>
 
-    {(data.pros || data.cons) && (
-      <div class="content-section">
-        <h2 class="section-title">Vor- und Nachteile</h2>
-        
-        {data.pros && (
-          <div style="margin-bottom: 2rem;">
-            <h3 style="color: var(--success-color); margin-bottom: 1rem;">✅ Vorteile:</h3>
-            <ul style="padding-left: 1.5rem;">
-              {data.pros.map((pro) => <li style="margin-bottom: 0.5rem;">{pro}</li>)}
-            </ul>
-          </div>
-        )}
-        
-        {data.cons && (
-          <div>
-            <h3 style="color: #ef4444; margin-bottom: 1rem;">❌ Nachteile:</h3>
-            <ul style="padding-left: 1.5rem;">
-              {data.cons.map((con) => <li style="margin-bottom: 0.5rem;">{con}</li>)}
-            </ul>
-          </div>
-        )}
+    <!-- Categories Section -->
+    <section class="content-section categories-section" id="categories">
+      <h2 class="section-title">Verwandte Kategorien</h2>
+      <p class="section-subtitle">Entdecke weitere KI-Tools in diesen Bereichen</p>
+      
+      <div class="categories-grid">
+        <a href={`/tools?category=${encodeURIComponent(data.category)}`} class="category-item">
+          <strong>{data.category}</strong>
+          <div>Aktuelle Kategorie</div>
+        </a>
+        {relatedCategories.map((category) => (
+          <a href={`/tools?category=${encodeURIComponent(category)}`} class="category-item">
+            <strong>{category}</strong>
+            <div>Weitere Tools entdecken</div>
+          </a>
+        ))}
       </div>
-    )}
+    </section>
 
-    {data.use_cases && (
-      <div class="content-section">
-        <h2 class="section-title">Anwendungsfälle</h2>
-        <ul style="padding-left: 1.5rem;">
-          {data.use_cases.map((useCase) => (
-            <li style="margin-bottom: 0.5rem;">{useCase}</li>
-          ))}
-        </ul>
-      </div>
-    )}
-
-    <div class="content-section">
-      <h2 class="section-title">Häufige Fragen</h2>
-      {faqItems.map((faq) => (
-        <div class="faq-item">
-          <h3 class="faq-question">{faq.question}</h3>
-          <p class="faq-answer">{faq.answer}</p>
-        </div>
-      ))}
-    </div>
-
+    <!-- Similar Tools Section -->
     {similarTools.length > 0 && (
-      <div class="content-section">
+      <section class="content-section" id="similar">
         <h2 class="section-title">Ähnliche Tools</h2>
+        <p class="section-subtitle">Alternative {data.category}-Tools die du kennen solltest</p>
+        
         <div class="similar-tools">
           {similarTools.map((similarTool) => (
             <div class="tool-card">
@@ -502,8 +903,163 @@ const faqItems = generateFAQ();
             </div>
           ))}
         </div>
-      </div>
+      </section>
     )}
+
+    <!-- Back to Tools -->
+    <div style="text-align: center; margin: 3rem 0;">
+      <a href="/tools" style="color: var(--accent-primary); text-decoration: none; font-weight: 600;">
+        ← Zurück zur Tools-Übersicht
+      </a>
+    </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Smooth scrolling for TOC links
+      const tocLinks = document.querySelectorAll('.toc-item');
+      
+      tocLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+
+      // Active TOC item highlighting
+      function updateActiveTocItem() {
+        const sections = ['overview', 'pricing', 'features', 'use-cases', 'faq', 'categories', 'similar'];
+        let activeSection = 'overview';
+        
+        sections.forEach(sectionId => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            if (rect.top <= 200 && rect.bottom >= 200) {
+              activeSection = sectionId;
+            }
+          }
+        });
+        
+        // Update active state
+        tocLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + activeSection) {
+            link.classList.add('active');
+          }
+        });
+      }
+
+      // Update active item on scroll
+      window.addEventListener('scroll', updateActiveTocItem);
+      updateActiveTocItem(); // Initial call
+
+      // FAQ toggle functionality
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', function() {
+          const answer = this.nextElementSibling;
+          const icon = this.querySelector('span');
+          
+          if (answer.style.display === 'none' || !answer.style.display) {
+            answer.style.display = 'block';
+            icon.textContent = '−';
+          } else {
+            answer.style.display = 'none';
+            icon.textContent = '+';
+          }
+        });
+      });
+
+      // Initialize FAQ state
+      const faqAnswers = document.querySelectorAll('.faq-answer');
+      faqAnswers.forEach(answer => {
+        answer.style.display = 'none';
+      });
+
+      // Bookmark functionality
+      const toolTitle = document.querySelector('h1').textContent;
+      const bookmarkBtn = document.createElement('button');
+      bookmarkBtn.style.cssText = `
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        background: var(--accent-primary);
+        color: white;
+        border: none;
+        padding: 1rem;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        cursor: pointer;
+        z-index: 1000;
+        box-shadow: 0 4px 12px var(--shadow-medium);
+        transition: all 0.3s ease;
+      `;
+      
+      // Check if bookmarked
+      const bookmarkedTools = JSON.parse(localStorage.getItem('bookmarkedTools') || '[]');
+      const isBookmarked = bookmarkedTools.includes(toolTitle);
+      bookmarkBtn.textContent = isBookmarked ? '❤️' : '🤍';
+      
+      bookmarkBtn.addEventListener('click', function() {
+        const currentBookmarks = JSON.parse(localStorage.getItem('bookmarkedTools') || '[]');
+        const index = currentBookmarks.indexOf(toolTitle);
+        
+        if (index > -1) {
+          currentBookmarks.splice(index, 1);
+          this.textContent = '🤍';
+        } else {
+          currentBookmarks.push(toolTitle);
+          this.textContent = '❤️';
+        }
+        
+        localStorage.setItem('bookmarkedTools', JSON.stringify(currentBookmarks));
+        
+        // Show feedback
+        const feedback = document.createElement('div');
+        feedback.textContent = index > -1 ? 'Aus Favoriten entfernt' : 'Zu Favoriten hinzugefügt';
+        feedback.style.cssText = `
+          position: fixed;
+          bottom: 6rem;
+          right: 2rem;
+          background: var(--card-bg);
+          color: var(--text-primary);
+          padding: 0.5rem 1rem;
+          border-radius: 6px;
+          font-size: 0.9rem;
+          box-shadow: 0 4px 12px var(--shadow-medium);
+          z-index: 1001;
+          border: 1px solid var(--border-primary);
+        `;
+        
+        document.body.appendChild(feedback);
+        setTimeout(() => {
+          feedback.remove();
+        }, 2000);
+      });
+      
+      document.body.appendChild(bookmarkBtn);
+
+      // Analytics tracking
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'page_view', {
+          page_title: toolTitle,
+          page_location: window.location.href,
+          tool_category: document.querySelector('.category-badge').textContent
+        });
+      }
+
+      console.log('🔧 Tool page loaded:', toolTitle);
+    });
+  </script>
 </body>
 </html>
