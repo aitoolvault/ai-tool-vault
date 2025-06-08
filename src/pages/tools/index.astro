@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-const tools = await getCollection("tools");
+const tools = await getCollection("tools"); 
 
 // Kategorien extrahieren und sortieren
 const categories = Array.from(new Set(tools.map(tool => tool.data.category))).sort();
