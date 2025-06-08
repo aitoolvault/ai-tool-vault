@@ -399,7 +399,7 @@ const toolNames = tools.map(tool => tool.data.title);
       height: fit-content;
     }
     
-    /* Filter Section */
+    /* Filter Section - AKTUALISIERT */
     .filter-section {
       background: var(--bg-secondary);
       padding: 2rem;
@@ -411,7 +411,7 @@ const toolNames = tools.map(tool => tool.data.title);
     
     .filter-controls {
       display: grid;
-      grid-template-columns: 1fr auto auto auto auto;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;  /* 5 Spalten: Suche breiter */
       gap: 1.5rem;
       align-items: end;
       margin-bottom: 1.5rem;
@@ -448,7 +448,30 @@ const toolNames = tools.map(tool => tool.data.title);
     }
     
     .search-box {
-      min-width: 300px;
+      width: 100%;  /* Nimmt die ganze Breite der Spalte */
+    }
+    
+    .dropdown {
+      width: 100%;  /* Alle Dropdowns gleich breit */
+    }
+
+    /* Responsive Anpassungen */
+    @media (max-width: 1200px) {
+      .filter-controls {
+        grid-template-columns: 1fr 1fr 1fr;  /* 3 Spalten auf Tablet */
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .filter-controls {
+        grid-template-columns: 1fr;  /* 1 Spalte auf Mobile */
+        gap: 1rem;
+      }
+      
+      .search-box {
+        min-width: auto;
+      }
     }
     
     .dropdown {
