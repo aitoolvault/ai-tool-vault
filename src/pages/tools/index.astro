@@ -396,8 +396,6 @@ const toolNames = tools.map(tool => tool.data.title);
       display: flex;
       flex-direction: column;
       gap: 2rem;
-      position: sticky;
-      top: 120px;
       height: fit-content;
     }
     
@@ -1176,6 +1174,7 @@ const toolNames = tools.map(tool => tool.data.title);
         <div class="quick-filters">
           <button class="quick-filter-btn" data-filter="featured">🌟 Featured</button>
           <button class="quick-filter-btn" data-filter="free">💰 Kostenlos</button>
+          <button class="quick-filter-btn" data-filter="bookmarked">❤️ Favoriten</button>
           <button class="quick-filter-btn" data-filter="new">🆕 Neu</button>
           <button class="quick-filter-btn" data-filter="popular">🔥 Beliebt</button>
           <button class="quick-filter-btn" data-filter="api">🔌 API</button>
@@ -1468,6 +1467,10 @@ const toolNames = tools.map(tool => tool.data.title);
               case 'free':
                 if (card.dataset.pricing !== 'Kostenlos') return false;
                 break;
+              case 'bookmarked':
+                var bookmarkedTools = JSON.parse(localStorage.getItem('bookmarkedTools') || '[]');
+                if (!bookmarkedTools.includes(card.dataset.name)) return false;
+                break;
               case 'new':
                 var statElements = card.querySelectorAll('.stat');
                 var isNew = false;
@@ -1593,7 +1596,7 @@ const toolNames = tools.map(tool => tool.data.title);
         });
       }
 
-      // Bookmark functionality
+      // Bookmark functionality mit Dynamic Filter Update
       var bookmarkBtns = document.querySelectorAll('.bookmark-btn');
       var bookmarkedTools = JSON.parse(localStorage.getItem('bookmarkedTools') || '[]');
 
@@ -1623,6 +1626,11 @@ const toolNames = tools.map(tool => tool.data.title);
           }
           
           localStorage.setItem('bookmarkedTools', JSON.stringify(bookmarkedTools));
+          
+          // Re-apply filters if bookmarked filter is active
+          if (activeFilters.quick === 'bookmarked') {
+            applyFilters();
+          }
           
           if (typeof gtag !== 'undefined') {
             gtag('event', 'bookmark_toggle', {
@@ -1843,6 +1851,7 @@ const toolNames = tools.map(tool => tool.data.title);
       console.log('🎨 Tools page loaded successfully!');
       console.log('📊 Tools available:', tools.length);
       console.log('📂 Categories:', categories.length);
+      console.log('✨ New features: Favoriten-Filter & Static Sidebar');
     });
   </script>
 </body>
