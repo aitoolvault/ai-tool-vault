@@ -25,19 +25,57 @@ const allTools = await getCollection("tools");
 // Debug: Zeige alle verfügbaren Tool-Titel
 const availableToolTitles = allTools.map(t => t.data.title);
 
-// Tools by TITLE finden
+console.log('🔍 Available tool titles:');
+availableToolTitles.forEach((title, index) => {
+  console.log(`  ${index + 1}. "${title}"`);
+});
+
+console.log('🔍 Searching for these tools:', toolNames);
+
+// Tools by TITLE finden - mit Fuzzy Matching
 const toolsToCompare = toolNames.map(toolName => {
-  const tool = allTools.find(t => t.data.title === toolName);
+  // Exact match first
+  let tool = allTools.find(t => t.data.title === toolName);
+  
+  if (!tool) {
+    // Try case-insensitive match
+    tool = allTools.find(t => t.data.title.toLowerCase() === toolName.toLowerCase());
+  }
+  
+  if (!tool) {
+    // Try partial match
+    tool = allTools.find(t => 
+      t.data.title.toLowerCase().includes(toolName.toLowerCase()) ||
+      toolName.toLowerCase().includes(t.data.title.toLowerCase())
+    );
+  }
+  
+  console.log(`🔍 Searching for "${toolName}":`, tool ? `Found "${tool.data.title}"` : 'NOT FOUND');
+  
   return { searchName: toolName, found: !!tool, tool: tool };
 }).filter(item => item.tool);
 
 // Debug Info sammeln
 const debugResults = {
   requestedTools: toolNames,
-  availableTools: availableToolTitles.slice(0, 10), // Nur erste 10 zeigen
+  availableTools: availableToolTitles, // Alle Tools zeigen
   totalAvailable: allTools.length,
   foundTools: toolsToCompare.length,
-  foundToolNames: toolsToCompare.map(item => item.tool.data.title)
+  foundToolNames: toolsToCompare.map(item => item.tool.data.title),
+  searchResults: toolNames.map(name => {
+    const exactMatch = allTools.find(t => t.data.title === name);
+    const caseInsensitive = allTools.find(t => t.data.title.toLowerCase() === name.toLowerCase());
+    const partialMatch = allTools.find(t => 
+      t.data.title.toLowerCase().includes(name.toLowerCase()) ||
+      name.toLowerCase().includes(t.data.title.toLowerCase())
+    );
+    return {
+      searchFor: name,
+      exactMatch: exactMatch?.data.title || null,
+      caseInsensitive: caseInsensitive?.data.title || null,
+      partialMatch: partialMatch?.data.title || null
+    };
+  })
 };
 
 if (toolsToCompare.length < 2) {
@@ -566,9 +604,28 @@ const comparisonData = getComparisonData(finalTools);
       <p><strong>Found Tools:</strong> {debugResults.foundTools} von {debugResults.requestedTools.length}</p>
       <p><strong>Tool Names Found:</strong> {debugResults.foundToolNames.join(', ')}</p>
       <p><strong>Total Available Tools:</strong> {debugResults.totalAvailable}</p>
+      
       <details>
-        <summary>Available Tool Names (first 20)</summary>
-        <p style="font-size: 0.9rem; margin-top: 0.5rem;">{debugResults.availableTools.join(', ')}</p>
+        <summary>Detailed Search Results</summary>
+        <div style="margin-top: 1rem; font-family: monospace; font-size: 0.9rem;">
+          {debugResults.searchResults.map((result) => (
+            <div style="margin-bottom: 0.5rem; padding: 0.5rem; background: #f8f9fa; border-left: 3px solid #007bff;">
+              <strong>Searching for:</strong> "{result.searchFor}"<br/>
+              <strong>Exact Match:</strong> {result.exactMatch || '❌ None'}<br/>
+              <strong>Case Insensitive:</strong> {result.caseInsensitive || '❌ None'}<br/>
+              <strong>Partial Match:</strong> {result.partialMatch || '❌ None'}
+            </div>
+          ))}
+        </div>
+      </details>
+      
+      <details>
+        <summary>All Available Tools ({debugResults.totalAvailable})</summary>
+        <div style="margin-top: 1rem; font-size: 0.8rem; max-height: 200px; overflow-y: auto; background: #f8f9fa; padding: 1rem;">
+          {debugResults.availableTools.map((toolName, index) => (
+            <div>"{toolName}"</div>
+          ))}
+        </div>
       </details>
     </div>
     
