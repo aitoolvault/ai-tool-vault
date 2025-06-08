@@ -5,33 +5,48 @@ import { getCollection } from "astro:content";
 const url = new URL(Astro.request.url);
 const toolParams = url.searchParams.get('tools');
 
-console.log('🔍 Raw URL params:', toolParams);
+// Debug: Zeige was empfangen wurde
+const debugInfo = {
+  urlPath: url.pathname,
+  searchParams: url.search,
+  toolParams: toolParams,
+  hasTools: !!toolParams
+};
 
 if (!toolParams) {
-  console.log('❌ No tool params found, redirecting to /tools');
-  return Astro.redirect('/tools');
+  return Astro.redirect('/tools?error=no-tools-selected');
 }
 
-const toolNames = toolParams.split(',').slice(0, 4); // Max 4 Tools
-console.log('🔍 Tool names to find:', toolNames);
+const toolNames = toolParams.split(',').slice(0, 4).map(name => name.trim());
 
 // Tools laden
 const allTools = await getCollection("tools");
-console.log('📚 Total tools available:', allTools.length);
 
-// Tools by TITLE finden (nicht slug)
+// Debug: Zeige alle verfügbaren Tool-Titel
+const availableToolTitles = allTools.map(t => t.data.title);
+
+// Tools by TITLE finden
 const toolsToCompare = toolNames.map(toolName => {
-  const tool = allTools.find(t => t.data.title === toolName.trim());
-  console.log(`🔍 Looking for "${toolName.trim()}" - Found:`, !!tool);
-  return tool;
-}).filter(Boolean);
+  const tool = allTools.find(t => t.data.title === toolName);
+  return { searchName: toolName, found: !!tool, tool: tool };
+}).filter(item => item.tool);
 
-console.log('✅ Tools found for comparison:', toolsToCompare.length);
+// Debug Info sammeln
+const debugResults = {
+  requestedTools: toolNames,
+  availableTools: availableToolTitles.slice(0, 10), // Nur erste 10 zeigen
+  totalAvailable: allTools.length,
+  foundTools: toolsToCompare.length,
+  foundToolNames: toolsToCompare.map(item => item.tool.data.title)
+};
 
 if (toolsToCompare.length < 2) {
-  console.log('❌ Less than 2 tools found, redirecting to /tools');
-  return Astro.redirect('/tools');
+  // Zeige Debug-Info auf Error-Seite
+  return Astro.redirect(`/tools?error=tools-not-found&debug=${encodeURIComponent(JSON.stringify(debugResults))}`);
 }
+
+// Extrahiere nur die Tools
+const finalTools = toolsToCompare.map(item => item.tool);
 
 // Comparison Data aufbereiten
 function getComparisonData(tools) {
@@ -107,7 +122,7 @@ function getComparisonData(tools) {
   return comparisons;
 }
 
-const comparisonData = getComparisonData(toolsToCompare);
+const comparisonData = getComparisonData(finalTools);
 ---
 
 <!DOCTYPE html>
@@ -115,8 +130,8 @@ const comparisonData = getComparisonData(toolsToCompare);
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tool-Vergleich: {toolsToCompare.map(t => t.data.title).join(' vs ')} - AI Tool Vault</title>
-  <meta name="description" content={`Vergleiche ${toolsToCompare.map(t => t.data.title).join(', ')} - Alle Features, Preise und Bewertungen im direkten Vergleich.`}>
+  <title>Tool-Vergleich: {finalTools.map(t => t.data.title).join(' vs ')} - AI Tool Vault</title>
+  <meta name="description" content={`Vergleiche ${finalTools.map(t => t.data.title).join(', ')} - Alle Features, Preise und Bewertungen im direkten Vergleich.`}>
   
   <!-- Theme Script -->
   <script is:inline>
@@ -542,16 +557,30 @@ const comparisonData = getComparisonData(toolsToCompare);
     </div>
   </nav>
 
-  <div class="container" style={`--tool-count: ${toolsToCompare.length}`}>
+  <div class="container" style={`--tool-count: ${finalTools.length}`}>
+    <!-- DEBUG INFO -->
+    <div style="background: #f0f9ff; border: 1px solid #0ea5e9; padding: 1rem; margin-bottom: 2rem; border-radius: 8px;">
+      <h3 style="color: #0c4a6e; margin-bottom: 0.5rem;">🔍 Debug Information</h3>
+      <p><strong>URL:</strong> {debugInfo.urlPath}{debugInfo.searchParams}</p>
+      <p><strong>Requested Tools:</strong> {debugResults.requestedTools.join(', ')}</p>
+      <p><strong>Found Tools:</strong> {debugResults.foundTools} von {debugResults.requestedTools.length}</p>
+      <p><strong>Tool Names Found:</strong> {debugResults.foundToolNames.join(', ')}</p>
+      <p><strong>Total Available Tools:</strong> {debugResults.totalAvailable}</p>
+      <details>
+        <summary>Available Tool Names (first 20)</summary>
+        <p style="font-size: 0.9rem; margin-top: 0.5rem;">{debugResults.availableTools.join(', ')}</p>
+      </details>
+    </div>
+    
     <header class="header">
       <h1>Tool-Vergleich</h1>
-      <p>Detaillierter Vergleich von {toolsToCompare.map(t => t.data.title).join(', ')}</p>
+      <p>Detaillierter Vergleich von {finalTools.map(t => t.data.title).join(', ')}</p>
     </header>
 
     <!-- Tool Overview Cards -->
     <section class="tools-header">
       <div class="label"></div>
-      {toolsToCompare.map((tool) => (
+      {finalTools.map((tool) => (
         <div class="tool-header-card">
           <h3>{tool.data.title}</h3>
           <p>{tool.data.description}</p>
@@ -602,14 +631,14 @@ const comparisonData = getComparisonData(toolsToCompare);
     ))}
 
     <!-- Pros and Cons Comparison -->
-    {toolsToCompare.some(t => t.data.pros || t.data.cons) && (
+    {finalTools.some(t => t.data.pros || t.data.cons) && (
       <section class="comparison-section">
         <h2 class="section-title">Vor- und Nachteile</h2>
         
         <div class="comparison-grid">
           <div class="comparison-row">
             <div class="row-label">Vorteile</div>
-            {toolsToCompare.map((tool) => (
+            {finalTools.map((tool) => (
               <div class="row-value" style="text-align: left; align-items: flex-start;">
                 {tool.data.pros ? (
                   <ul style="list-style: none; padding: 0;">
@@ -626,7 +655,7 @@ const comparisonData = getComparisonData(toolsToCompare);
           
           <div class="comparison-row">
             <div class="row-label">Nachteile</div>
-            {toolsToCompare.map((tool) => (
+            {finalTools.map((tool) => (
               <div class="row-value" style="text-align: left; align-items: flex-start;">
                 {tool.data.cons ? (
                   <ul style="list-style: none; padding: 0;">
@@ -645,14 +674,14 @@ const comparisonData = getComparisonData(toolsToCompare);
     )}
 
     <!-- Use Cases Comparison -->
-    {toolsToCompare.some(t => t.data.use_cases) && (
+    {finalTools.some(t => t.data.use_cases) && (
       <section class="comparison-section">
         <h2 class="section-title">Anwendungsfälle</h2>
         
         <div class="comparison-grid">
           <div class="comparison-row">
             <div class="row-label">Top Use Cases</div>
-            {toolsToCompare.map((tool) => (
+            {finalTools.map((tool) => (
               <div class="row-value" style="text-align: left; align-items: flex-start;">
                 {tool.data.use_cases ? (
                   <ul style="list-style: none; padding: 0;">
@@ -679,7 +708,7 @@ const comparisonData = getComparisonData(toolsToCompare);
         </p>
         
         <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-          {toolsToCompare.map((tool) => (
+          {finalTools.map((tool) => (
             <a href={tool.data.affiliate_link} 
                target="_blank" 
                rel="noopener noreferrer" 
@@ -693,18 +722,18 @@ const comparisonData = getComparisonData(toolsToCompare);
     </section>
   </div>
 
-  <script define:vars={{ toolsToCompare, toolNames }}>
+  <script define:vars={{ finalTools, debugResults }}>
     document.addEventListener('DOMContentLoaded', function() {
       console.log('🔄 Compare page loaded!');
-      console.log('📊 Tools being compared:', toolsToCompare.map(t => t.data.title));
-      console.log('🔗 Original tool names from URL:', toolNames);
+      console.log('📊 Tools being compared:', finalTools.map(t => t.data.title));
+      console.log('🔗 Debug results:', debugResults);
       
       // Analytics tracking für Vergleichsseite
       if (typeof gtag !== 'undefined') {
         gtag('event', 'page_view', {
           'page_title': 'Tool Comparison',
-          'tools_compared': toolsToCompare.map(t => t.data.title).join(','),
-          'tool_count': toolsToCompare.length
+          'tools_compared': finalTools.map(t => t.data.title).join(','),
+          'tool_count': finalTools.length
         });
       }
 
@@ -718,7 +747,7 @@ const comparisonData = getComparisonData(toolsToCompare);
             gtag('event', 'affiliate_click', {
               'tool_name': toolName,
               'source': 'comparison_page',
-              'compared_with': toolsToCompare.map(t => t.data.title).filter(t => t !== toolName).join(','),
+              'compared_with': finalTools.map(t => t.data.title).filter(t => t !== toolName).join(','),
               'value': 12.00,
               'currency': 'EUR'
             });
@@ -727,7 +756,7 @@ const comparisonData = getComparisonData(toolsToCompare);
       });
 
       console.log('🔄 Comparison page loaded successfully!');
-      console.log('📊 Comparing tools:', toolsToCompare.map(t => t.data.title));
+      console.log('📊 Comparing tools:', finalTools.map(t => t.data.title));
     });
   </script>
 </body>
