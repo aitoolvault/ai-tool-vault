@@ -5,20 +5,31 @@ import { getCollection } from "astro:content";
 const url = new URL(Astro.request.url);
 const toolParams = url.searchParams.get('tools');
 
+console.log('🔍 Raw URL params:', toolParams);
+
 if (!toolParams) {
+  console.log('❌ No tool params found, redirecting to /tools');
   return Astro.redirect('/tools');
 }
 
-const toolSlugs = toolParams.split(',').slice(0, 4); // Max 4 Tools
+const toolNames = toolParams.split(',').slice(0, 4); // Max 4 Tools
+console.log('🔍 Tool names to find:', toolNames);
 
 // Tools laden
 const allTools = await getCollection("tools");
-const toolsToCompare = toolSlugs.map(slug => {
-  const tool = allTools.find(t => t.data.title === slug);
+console.log('📚 Total tools available:', allTools.length);
+
+// Tools by TITLE finden (nicht slug)
+const toolsToCompare = toolNames.map(toolName => {
+  const tool = allTools.find(t => t.data.title === toolName.trim());
+  console.log(`🔍 Looking for "${toolName.trim()}" - Found:`, !!tool);
   return tool;
 }).filter(Boolean);
 
+console.log('✅ Tools found for comparison:', toolsToCompare.length);
+
 if (toolsToCompare.length < 2) {
+  console.log('❌ Less than 2 tools found, redirecting to /tools');
   return Astro.redirect('/tools');
 }
 
@@ -682,8 +693,12 @@ const comparisonData = getComparisonData(toolsToCompare);
     </section>
   </div>
 
-  <script define:vars={{ toolsToCompare }}>
+  <script define:vars={{ toolsToCompare, toolNames }}>
     document.addEventListener('DOMContentLoaded', function() {
+      console.log('🔄 Compare page loaded!');
+      console.log('📊 Tools being compared:', toolsToCompare.map(t => t.data.title));
+      console.log('🔗 Original tool names from URL:', toolNames);
+      
       // Analytics tracking für Vergleichsseite
       if (typeof gtag !== 'undefined') {
         gtag('event', 'page_view', {
