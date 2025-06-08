@@ -1670,27 +1670,39 @@ const toolNames = tools.map(tool => tool.data.title);
         });
       });
 
-      // Comparison functionality - REPARIERT
+      // Comparison functionality - KOMPLETT REPARIERT
       var compareCheckboxes = document.querySelectorAll('.card .compare-checkbox');
       var compareToggle = document.getElementById('compare-toggle');
       var compareBtn = document.getElementById('compareSelected');
       var selectedForComparison = [];
 
-      console.log('🔍 Found compare checkboxes:', compareCheckboxes.length);
-      console.log('🔍 Found compare toggle:', !!compareToggle);
-      console.log('🔍 Found compare button:', !!compareBtn);
+      console.log('🔍 Compare system initialization:');
+      console.log('  - Checkboxes found:', compareCheckboxes.length);
+      console.log('  - Toggle found:', !!compareToggle);
+      console.log('  - Button found:', !!compareBtn);
 
       function updateCompareButton() {
+        if (!compareBtn) return;
+        
         compareBtn.textContent = 'Vergleichen (' + selectedForComparison.length + ')';
-        compareBtn.style.display = selectedForComparison.length > 0 ? 'block' : 'none';
+        
+        if (selectedForComparison.length > 0) {
+          compareBtn.style.display = 'block';
+        } else {
+          compareBtn.style.display = 'none';
+        }
         
         if (selectedForComparison.length >= 2) {
           compareBtn.disabled = false;
           compareBtn.style.opacity = '1';
+          compareBtn.style.cursor = 'pointer';
         } else {
           compareBtn.disabled = true;
           compareBtn.style.opacity = '0.6';
+          compareBtn.style.cursor = 'not-allowed';
         }
+        
+        console.log('📊 Button updated - Selected tools:', selectedForComparison.length);
       }
 
       if (compareToggle) {
@@ -1701,17 +1713,20 @@ const toolNames = tools.map(tool => tool.data.title);
           compareCheckboxes.forEach(function(checkbox) {
             if (isCompareMode) {
               checkbox.style.display = 'block';
+              console.log('✅ Checkbox shown for:', checkbox.dataset.tool);
             } else {
               checkbox.style.display = 'none';
             }
           });
           
           if (!isCompareMode) {
+            // Reset selection when disabling compare mode
             selectedForComparison = [];
             compareCheckboxes.forEach(function(checkbox) {
               checkbox.checked = false;
             });
             updateCompareButton();
+            console.log('🔄 Compare mode disabled - selections reset');
           }
         });
       }
@@ -1728,6 +1743,7 @@ const toolNames = tools.map(tool => tool.data.title);
             } else {
               this.checked = false;
               alert('Du kannst maximal 4 Tools vergleichen.');
+              console.log('❌ Max limit reached, rejecting:', toolName);
             }
           } else {
             var index = selectedForComparison.indexOf(toolName);
@@ -1747,17 +1763,26 @@ const toolNames = tools.map(tool => tool.data.title);
         compareBtn.style.display = 'none';
         compareBtn.disabled = true;
         
-        compareBtn.addEventListener('click', function() {
-          console.log('🚀 Compare button clicked with tools:', selectedForComparison);
+        compareBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('🚀 Compare button clicked!');
+          console.log('📋 Selected tools:', selectedForComparison);
           
           if (selectedForComparison.length < 2) {
             alert('Wähle mindestens 2 Tools zum Vergleichen aus.');
+            console.log('❌ Not enough tools selected');
             return;
           }
           
-          // URL mit Tool-Namen erstellen
-          var compareUrl = '/compare?tools=' + encodeURIComponent(selectedForComparison.join(','));
-          console.log('🔗 Redirecting to:', compareUrl);
+          // Debug: Log what we're sending
+          console.log('🔗 Creating compare URL with tools:', selectedForComparison);
+          
+          // URL mit Tool-Namen erstellen - WICHTIG: Kein encodeURIComponent um das ganze Array!
+          var toolsParam = selectedForComparison.join(',');
+          var compareUrl = '/compare?tools=' + encodeURIComponent(toolsParam);
+          
+          console.log('🔗 Tool parameter string:', toolsParam);
+          console.log('🔗 Final URL:', compareUrl);
           
           // Analytics tracking
           if (typeof gtag !== 'undefined') {
@@ -1768,8 +1793,12 @@ const toolNames = tools.map(tool => tool.data.title);
             });
           }
           
+          // Navigate to comparison page
+          console.log('🚀 Navigating to:', compareUrl);
           window.location.href = compareUrl;
         });
+        
+        console.log('✅ Compare button event listener attached');
       }
 
       // Global filter function for quick nav
