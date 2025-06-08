@@ -1,166 +1,48 @@
 ---
+// src/pages/compare.astro
 import { getCollection } from "astro:content";
-
-// URL Parameter auslesen
-const url = new URL(Astro.request.url);
-const toolParams = url.searchParams.get('tools');
-
-// Debug: Zeige was empfangen wurde
-const debugInfo = {
-  urlPath: url.pathname,
-  searchParams: url.search,
-  toolParams: toolParams,
-  hasTools: !!toolParams
-};
-
-if (!toolParams) {
-  return Astro.redirect('/tools?error=no-tools-selected');
-}
-
-const toolNames = toolParams.split(',').slice(0, 4).map(name => name.trim());
 
 // Tools laden
 const allTools = await getCollection("tools");
 
-// Debug: Zeige alle verfügbaren Tool-Titel
-const availableToolTitles = allTools.map(t => t.data.title);
+// URL Parameter auslesen
+const url = Astro.url;
+const toolsParam = url.searchParams.get('tools');
 
-console.log('🔍 Available tool titles:');
-availableToolTitles.forEach((title, index) => {
-  console.log(`  ${index + 1}. "${title}"`);
-});
+let selectedTools = [];
+let error = null;
 
-console.log('🔍 Searching for these tools:', toolNames);
-
-// Tools by TITLE finden - mit Fuzzy Matching
-const toolsToCompare = toolNames.map(toolName => {
-  // Exact match first
-  let tool = allTools.find(t => t.data.title === toolName);
+if (toolsParam) {
+  const toolNames = toolsParam.split(',').map(name => name.trim());
   
-  if (!tool) {
-    // Try case-insensitive match
-    tool = allTools.find(t => t.data.title.toLowerCase() === toolName.toLowerCase());
+  // Tools basierend auf Namen finden
+  selectedTools = toolNames
+    .map(name => allTools.find(tool => tool.data.title === name))
+    .filter(tool => tool !== undefined);
+  
+  if (selectedTools.length === 0) {
+    error = "Keine gültigen Tools zum Vergleichen gefunden.";
+  } else if (selectedTools.length < 2) {
+    error = "Mindestens 2 Tools sind für einen Vergleich erforderlich.";
   }
-  
-  if (!tool) {
-    // Try partial match
-    tool = allTools.find(t => 
-      t.data.title.toLowerCase().includes(toolName.toLowerCase()) ||
-      toolName.toLowerCase().includes(t.data.title.toLowerCase())
-    );
-  }
-  
-  console.log(`🔍 Searching for "${toolName}":`, tool ? `Found "${tool.data.title}"` : 'NOT FOUND');
-  
-  return { searchName: toolName, found: !!tool, tool: tool };
-}).filter(item => item.tool);
-
-// Debug Info sammeln
-const debugResults = {
-  requestedTools: toolNames,
-  availableTools: availableToolTitles, // Alle Tools zeigen
-  totalAvailable: allTools.length,
-  foundTools: toolsToCompare.length,
-  foundToolNames: toolsToCompare.map(item => item.tool.data.title),
-  searchResults: toolNames.map(name => {
-    const exactMatch = allTools.find(t => t.data.title === name);
-    const caseInsensitive = allTools.find(t => t.data.title.toLowerCase() === name.toLowerCase());
-    const partialMatch = allTools.find(t => 
-      t.data.title.toLowerCase().includes(name.toLowerCase()) ||
-      name.toLowerCase().includes(t.data.title.toLowerCase())
-    );
-    return {
-      searchFor: name,
-      exactMatch: exactMatch?.data.title || null,
-      caseInsensitive: caseInsensitive?.data.title || null,
-      partialMatch: partialMatch?.data.title || null
-    };
-  })
-};
-
-if (toolsToCompare.length < 2) {
-  // Zeige Debug-Info auf Error-Seite
-  return Astro.redirect(`/tools?error=tools-not-found&debug=${encodeURIComponent(JSON.stringify(debugResults))}`);
+} else {
+  error = "Keine Tools zum Vergleichen ausgewählt.";
 }
 
-// Extrahiere nur die Tools
-const finalTools = toolsToCompare.map(item => item.tool);
-
-// Comparison Data aufbereiten
-function getComparisonData(tools) {
-  const comparisons = [];
-  
-  // Basis-Informationen
-  comparisons.push({
-    category: "Grundlagen",
-    rows: [
-      {
-        label: "Kategorie",
-        values: tools.map(t => t.data.category)
-      },
-      {
-        label: "Preismodell",
-        values: tools.map(t => t.data.pricing)
-      },
-      {
-        label: "Bewertung",
-        values: tools.map(t => t.data.rating ? `⭐ ${t.data.rating}/5` : "Keine Bewertung")
-      },
-      {
-        label: "Gegründet",
-        values: tools.map(t => t.data.founded || "Unbekannt")
-      },
-      {
-        label: "Unternehmen",
-        values: tools.map(t => t.data.company || "Unbekannt")
-      }
-    ]
-  });
-  
-  // Features
-  comparisons.push({
-    category: "Features",
-    rows: [
-      {
-        label: "API verfügbar",
-        values: tools.map(t => t.data.api_available ? "✅ Ja" : "❌ Nein")
-      },
-      {
-        label: "Mobile App",
-        values: tools.map(t => t.data.mobile_app ? "✅ Ja" : "❌ Nein")
-      },
-      {
-        label: "Kostenlose Testversion",
-        values: tools.map(t => t.data.free_trial ? "✅ Ja" : "❌ Nein")
-      }
-    ]
-  });
-  
-  // Preisdetails (wenn verfügbar)
-  const hasDetailedPricing = tools.some(t => t.data.pricing_details);
-  if (hasDetailedPricing) {
-    comparisons.push({
-      category: "Preise",
-      rows: [
-        {
-          label: "Kostenloser Plan",
-          values: tools.map(t => t.data.pricing_details?.free_plan?.available ? "✅ Verfügbar" : "❌ Nicht verfügbar")
-        },
-        {
-          label: "Premium Preis",
-          values: tools.map(t => {
-            const premium = t.data.pricing_details?.paid_plans?.[0];
-            return premium ? `${premium.price}€/${premium.billing_cycle}` : "Nicht verfügbar";
-          })
-        }
-      ]
-    });
+// Vergleichsdaten vorbereiten
+const comparisonData = selectedTools.map(tool => ({
+  ...tool,
+  features: {
+    pricing: tool.data.pricing,
+    category: tool.data.category,
+    api_available: tool.data.api_available || false,
+    mobile_app: tool.data.mobile_app || false,
+    free_trial: tool.data.free_trial || false,
+    rating: tool.data.rating || 'N/A',
+    founded: tool.data.founded || 'N/A',
+    company: tool.data.company || 'N/A'
   }
-  
-  return comparisons;
-}
-
-const comparisonData = getComparisonData(finalTools);
+}));
 ---
 
 <!DOCTYPE html>
@@ -168,116 +50,57 @@ const comparisonData = getComparisonData(finalTools);
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tool-Vergleich: {finalTools.map(t => t.data.title).join(' vs ')} - AI Tool Vault</title>
-  <meta name="description" content={`Vergleiche ${finalTools.map(t => t.data.title).join(', ')} - Alle Features, Preise und Bewertungen im direkten Vergleich.`}>
+  <title>Tool-Vergleich | AI Tool Vault</title>
+  <meta name="description" content="Vergleiche KI-Tools direkt miteinander - Features, Preise und Bewertungen im Überblick" />
   
-  <!-- Theme Script -->
-  <script is:inline>
-    (function() {
-      function setTheme() {
-        var theme = 'light';
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          theme = localStorage.getItem('theme');
-        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          theme = 'dark';
-        }
-        
-        if (theme === 'dark') {
-          document.documentElement.classList.add('dark');
-          document.documentElement.setAttribute('data-theme', 'dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-          document.documentElement.setAttribute('data-theme', 'light');
-        }
-        
-        if (typeof localStorage !== 'undefined') {
-          localStorage.setItem('theme', theme);
-        }
-      }
-      
-      setTheme();
-    })();
-  </script>
-
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
-  <script is:inline>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-EC62QPK5VL');
-  </script>
-
   <style>
     :root {
       --bg-primary: #f8fafc;
       --bg-secondary: #ffffff;
-      --bg-tertiary: #f8fafc;
       --text-primary: #1e293b;
       --text-secondary: #64748b;
-      --text-tertiary: #94a3b8;
       --border-primary: #e2e8f0;
-      --border-secondary: #cbd5e1;
       --accent-primary: #3b82f6;
-      --accent-secondary: #2563eb;
       --success-color: #10b981;
       --error-color: #ef4444;
       --warning-color: #f59e0b;
-      --shadow-light: rgba(0, 0, 0, 0.1);
-      --shadow-medium: rgba(0, 0, 0, 0.15);
-      --nav-bg: rgba(255, 255, 255, 0.95);
-      --card-bg: #ffffff;
-      --footer-bg: #0f172a;
-      --footer-text: #94a3b8;
     }
 
     [data-theme="dark"] {
       --bg-primary: #0f172a;
       --bg-secondary: #1e293b;
-      --bg-tertiary: #334155;
       --text-primary: #f1f5f9;
       --text-secondary: #cbd5e1;
-      --text-tertiary: #94a3b8;
       --border-primary: #334155;
-      --border-secondary: #475569;
       --accent-primary: #60a5fa;
-      --accent-secondary: #3b82f6;
       --success-color: #34d399;
       --error-color: #f87171;
       --warning-color: #fbbf24;
-      --shadow-light: rgba(0, 0, 0, 0.3);
-      --shadow-medium: rgba(0, 0, 0, 0.4);
-      --nav-bg: rgba(30, 41, 59, 0.95);
-      --card-bg: #1e293b;
-      --footer-bg: #020617;
-      --footer-text: #64748b;
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
-    
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg-primary);
-      line-height: 1.6;
       color: var(--text-primary);
+      line-height: 1.6;
     }
 
-    /* Navigation */
     .nav {
-      background: var(--nav-bg);
+      background: var(--bg-secondary);
       border-bottom: 1px solid var(--border-primary);
       padding: 1rem 0;
       position: sticky;
       top: 0;
       z-index: 1000;
-      backdrop-filter: blur(10px);
     }
-    
+
     .nav-container {
       max-width: 1400px;
       margin: 0 auto;
@@ -286,55 +109,36 @@ const comparisonData = getComparisonData(finalTools);
       justify-content: space-between;
       align-items: center;
     }
-    
+
     .nav-logo {
       font-size: 1.5rem;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--text-primary);
       text-decoration: none;
     }
-    
+
     .nav-links {
       display: flex;
       gap: 2rem;
-      align-items: center;
       list-style: none;
     }
-    
+
     .nav-links a {
       color: var(--text-secondary);
       text-decoration: none;
       font-weight: 500;
     }
-    
+
     .nav-links a:hover {
       color: var(--text-primary);
     }
 
-    .back-btn {
-      background: var(--bg-tertiary);
-      color: var(--text-primary);
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 500;
-      border: 1px solid var(--border-primary);
-      transition: all 0.3s ease;
-    }
-
-    .back-btn:hover {
-      background: var(--bg-secondary);
-      border-color: var(--accent-primary);
-    }
-
-    /* Container */
     .container {
       max-width: 1400px;
       margin: 0 auto;
       padding: 2rem;
     }
 
-    /* Header */
     .header {
       text-align: center;
       margin-bottom: 3rem;
@@ -344,226 +148,153 @@ const comparisonData = getComparisonData(finalTools);
       font-size: 2.5rem;
       font-weight: 800;
       margin-bottom: 1rem;
-      color: var(--text-primary);
     }
 
     .header p {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: var(--text-secondary);
       max-width: 600px;
       margin: 0 auto;
     }
 
-    /* Tool Cards Header */
-    .tools-header {
-      display: grid;
-      grid-template-columns: 200px repeat(var(--tool-count), 1fr);
-      gap: 1rem;
-      margin-bottom: 2rem;
-      background: var(--card-bg);
+    .error-section {
+      background: var(--bg-secondary);
+      padding: 3rem;
       border-radius: 12px;
-      padding: 2rem;
-      border: 1px solid var(--border-primary);
-    }
-
-    .tools-header .label {
-      /* Leere erste Spalte */
-    }
-
-    .tool-header-card {
       text-align: center;
-      padding: 1.5rem;
-      background: var(--bg-tertiary);
-      border-radius: 8px;
       border: 1px solid var(--border-primary);
     }
 
-    .tool-header-card h3 {
-      font-size: 1.2rem;
+    .error-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .error-title {
+      font-size: 1.5rem;
       font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: var(--text-primary);
+      margin-bottom: 1rem;
+      color: var(--error-color);
     }
 
-    .tool-header-card p {
-      font-size: 0.9rem;
+    .error-message {
       color: var(--text-secondary);
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
     }
 
-    .tool-rating {
+    .back-btn {
+      background: var(--accent-primary);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    .back-btn:hover {
+      opacity: 0.9;
+    }
+
+    .comparison-table {
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      border: 1px solid var(--border-primary);
+      overflow: hidden;
+      overflow-x: auto;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 800px;
+    }
+
+    .table th, .table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-primary);
+    }
+
+    .table th {
+      background: var(--bg-primary);
+      font-weight: 600;
+      color: var(--text-primary);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .table td {
+      color: var(--text-secondary);
+    }
+
+    .tool-header {
+      background: var(--accent-primary);
+      color: white;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .feature-label {
+      font-weight: 600;
+      color: var(--text-primary);
+      min-width: 150px;
+    }
+
+    .badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .badge-kostenlos { background: #d1fae5; color: #047857; }
+    .badge-freemium { background: #dbeafe; color: #1e40af; }
+    .badge-kostenpflichtig { background: #fee2e2; color: #dc2626; }
+
+    .check-icon { color: var(--success-color); }
+    .cross-icon { color: var(--error-color); }
+
+    .rating-stars {
+      color: #fbbf24;
       font-size: 1.1rem;
-      margin-bottom: 1rem;
     }
 
     .tool-actions {
       display: flex;
-      flex-direction: column;
       gap: 0.5rem;
+      flex-wrap: wrap;
     }
 
-    .btn-details {
-      background: var(--bg-secondary);
-      color: var(--text-primary);
+    .btn-small {
       padding: 0.5rem 1rem;
       border-radius: 6px;
       text-decoration: none;
-      font-weight: 500;
-      text-align: center;
       font-size: 0.85rem;
-      border: 1px solid var(--border-primary);
-      transition: all 0.3s ease;
+      font-weight: 600;
+      text-align: center;
     }
 
-    .btn-affiliate {
+    .btn-primary {
       background: var(--accent-primary);
       color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      text-align: center;
-      font-size: 0.85rem;
-      border: 1px solid var(--accent-primary);
-      transition: all 0.3s ease;
     }
 
-    .btn-details:hover {
-      background: var(--bg-tertiary);
-      border-color: var(--accent-primary);
-    }
-
-    .btn-affiliate:hover {
-      background: var(--accent-secondary);
-      transform: translateY(-1px);
-    }
-
-    /* Comparison Table */
-    .comparison-section {
-      background: var(--card-bg);
-      border-radius: 12px;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      border: 1px solid var(--border-primary);
-    }
-
-    .section-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      color: var(--text-primary);
-    }
-
-    .comparison-grid {
-      display: grid;
-      grid-template-columns: 200px repeat(var(--tool-count), 1fr);
-      gap: 1rem;
-    }
-
-    .comparison-row {
-      display: contents;
-    }
-
-    .row-label {
-      padding: 1rem;
-      background: var(--bg-tertiary);
-      border-radius: 8px;
-      font-weight: 600;
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-    }
-
-    .row-value {
-      padding: 1rem;
+    .btn-secondary {
       background: var(--bg-primary);
-      border-radius: 8px;
-      text-align: center;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      color: var(--text-primary);
       border: 1px solid var(--border-primary);
     }
 
-    /* Pricing badges in comparison */
-    .pricing-kostenlos { color: var(--success-color); font-weight: 600; }
-    .pricing-freemium { color: var(--accent-primary); font-weight: 600; }
-    .pricing-kostenpflichtig { color: var(--warning-color); font-weight: 600; }
-
-    /* Winner indicators */
-    .winner {
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
-      border-color: var(--success-color);
-      position: relative;
-    }
-
-    .winner::before {
-      content: '👑';
-      position: absolute;
-      top: -8px;
-      right: -8px;
-      background: var(--success-color);
-      color: white;
-      border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 1200px) {
-      .tools-header,
-      .comparison-grid {
-        grid-template-columns: 160px repeat(var(--tool-count), 1fr);
-        gap: 0.5rem;
-      }
-
-      .tool-header-card {
-        padding: 1rem;
-      }
-
-      .row-label,
-      .row-value {
-        padding: 0.75rem;
-        font-size: 0.9rem;
-      }
+    .btn-primary:hover, .btn-secondary:hover {
+      opacity: 0.9;
     }
 
     @media (max-width: 768px) {
-      .tools-header,
-      .comparison-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-
-      .tools-header {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .comparison-grid {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .comparison-row {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-        margin-bottom: 1.5rem;
-        padding-bottom: 1.5rem;
-        border-bottom: 1px solid var(--border-primary);
-      }
-
-      .row-label {
-        background: var(--accent-primary);
-        color: white;
-        text-align: center;
-        margin-bottom: 0.5rem;
+      .nav-links {
+        display: none;
       }
 
       .header h1 {
@@ -574,8 +305,13 @@ const comparisonData = getComparisonData(finalTools);
         padding: 1rem;
       }
 
-      .nav-links {
-        display: none;
+      .table th, .table td {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+      }
+
+      .tool-actions {
+        flex-direction: column;
       }
     }
   </style>
@@ -588,232 +324,190 @@ const comparisonData = getComparisonData(finalTools);
         <li><a href="/">Home</a></li>
         <li><a href="/tools">Tools</a></li>
         <li><a href="/impressum">Impressum</a></li>
-        <li><a href="/kontakt">Kontakt</a></li>
         <li><a href="/datenschutz">Datenschutz</a></li>
       </ul>
-      <a href="/tools" class="back-btn">← Zurück zu Tools</a>
     </div>
   </nav>
 
-  <div class="container" style={`--tool-count: ${finalTools.length}`}>
-    <!-- DEBUG INFO -->
-    <div style="background: #f0f9ff; border: 1px solid #0ea5e9; padding: 1rem; margin-bottom: 2rem; border-radius: 8px;">
-      <h3 style="color: #0c4a6e; margin-bottom: 0.5rem;">🔍 Debug Information</h3>
-      <p><strong>URL:</strong> {debugInfo.urlPath}{debugInfo.searchParams}</p>
-      <p><strong>Requested Tools:</strong> {debugResults.requestedTools.join(', ')}</p>
-      <p><strong>Found Tools:</strong> {debugResults.foundTools} von {debugResults.requestedTools.length}</p>
-      <p><strong>Tool Names Found:</strong> {debugResults.foundToolNames.join(', ')}</p>
-      <p><strong>Total Available Tools:</strong> {debugResults.totalAvailable}</p>
-      
-      <details>
-        <summary>Detailed Search Results</summary>
-        <div style="margin-top: 1rem; font-family: monospace; font-size: 0.9rem;">
-          {debugResults.searchResults.map((result) => (
-            <div style="margin-bottom: 0.5rem; padding: 0.5rem; background: #f8f9fa; border-left: 3px solid #007bff;">
-              <strong>Searching for:</strong> "{result.searchFor}"<br/>
-              <strong>Exact Match:</strong> {result.exactMatch || '❌ None'}<br/>
-              <strong>Case Insensitive:</strong> {result.caseInsensitive || '❌ None'}<br/>
-              <strong>Partial Match:</strong> {result.partialMatch || '❌ None'}
-            </div>
-          ))}
-        </div>
-      </details>
-      
-      <details>
-        <summary>All Available Tools ({debugResults.totalAvailable})</summary>
-        <div style="margin-top: 1rem; font-size: 0.8rem; max-height: 200px; overflow-y: auto; background: #f8f9fa; padding: 1rem;">
-          {debugResults.availableTools.map((toolName, index) => (
-            <div>"{toolName}"</div>
-          ))}
-        </div>
-      </details>
-    </div>
-    
-    <header class="header">
+  <div class="container">
+    <div class="header">
       <h1>Tool-Vergleich</h1>
-      <p>Detaillierter Vergleich von {finalTools.map(t => t.data.title).join(', ')}</p>
-    </header>
+      <p>Vergleiche die ausgewählten KI-Tools direkt miteinander</p>
+    </div>
 
-    <!-- Tool Overview Cards -->
-    <section class="tools-header">
-      <div class="label"></div>
-      {finalTools.map((tool) => (
-        <div class="tool-header-card">
-          <h3>{tool.data.title}</h3>
-          <p>{tool.data.description}</p>
-          
-          {tool.data.rating && (
-            <div class="tool-rating">
-              ⭐ {tool.data.rating}/5
-            </div>
-          )}
-          
-          <div class="tool-actions">
-            <a href={`/tools/${tool.slug}`} class="btn-details">Details ansehen</a>
-            <a href={tool.data.affiliate_link} 
-               target="_blank" 
-               rel="noopener noreferrer" 
-               class="btn-affiliate">
-              Tool testen
-            </a>
-          </div>
-        </div>
-      ))}
-    </section>
-
-    <!-- Comparison Sections -->
-    {comparisonData.map((section) => (
-      <section class="comparison-section">
-        <h2 class="section-title">{section.category}</h2>
-        
-        <div class="comparison-grid">
-          {section.rows.map((row) => (
-            <div class="comparison-row">
-              <div class="row-label">{row.label}</div>
-              {row.values.map((value, index) => {
-                const isWinner = section.category === "Grundlagen" && row.label === "Bewertung" && 
-                  value.includes("⭐") && 
-                  parseFloat(value.match(/[\d.]+/)?.[0] || "0") === Math.max(...row.values.map(v => parseFloat(v.match(/[\d.]+/)?.[0] || "0")));
-                
-                return (
-                  <div class={`row-value ${isWinner ? 'winner' : ''} ${row.label === "Preismodell" ? `pricing-${value.toLowerCase().replace(/[^a-z]/g, '')}` : ''}`}>
-                    {value}
-                  </div>
-                );
-              })}
-            </div>
-          ))}
-        </div>
-      </section>
-    ))}
-
-    <!-- Pros and Cons Comparison -->
-    {finalTools.some(t => t.data.pros || t.data.cons) && (
-      <section class="comparison-section">
-        <h2 class="section-title">Vor- und Nachteile</h2>
-        
-        <div class="comparison-grid">
-          <div class="comparison-row">
-            <div class="row-label">Vorteile</div>
-            {finalTools.map((tool) => (
-              <div class="row-value" style="text-align: left; align-items: flex-start;">
-                {tool.data.pros ? (
-                  <ul style="list-style: none; padding: 0;">
-                    {tool.data.pros.slice(0, 3).map((pro) => (
-                      <li style="margin-bottom: 0.25rem;">✅ {pro}</li>
-                    ))}
-                  </ul>
-                ) : (
-                  <span style="color: var(--text-tertiary);">Keine Angaben</span>
-                )}
-              </div>
-            ))}
-          </div>
-          
-          <div class="comparison-row">
-            <div class="row-label">Nachteile</div>
-            {finalTools.map((tool) => (
-              <div class="row-value" style="text-align: left; align-items: flex-start;">
-                {tool.data.cons ? (
-                  <ul style="list-style: none; padding: 0;">
-                    {tool.data.cons.slice(0, 3).map((con) => (
-                      <li style="margin-bottom: 0.25rem;">❌ {con}</li>
-                    ))}
-                  </ul>
-                ) : (
-                  <span style="color: var(--text-tertiary);">Keine Angaben</span>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    )}
-
-    <!-- Use Cases Comparison -->
-    {finalTools.some(t => t.data.use_cases) && (
-      <section class="comparison-section">
-        <h2 class="section-title">Anwendungsfälle</h2>
-        
-        <div class="comparison-grid">
-          <div class="comparison-row">
-            <div class="row-label">Top Use Cases</div>
-            {finalTools.map((tool) => (
-              <div class="row-value" style="text-align: left; align-items: flex-start;">
-                {tool.data.use_cases ? (
-                  <ul style="list-style: none; padding: 0;">
-                    {tool.data.use_cases.slice(0, 4).map((useCase) => (
-                      <li style="margin-bottom: 0.25rem;">• {useCase}</li>
-                    ))}
-                  </ul>
-                ) : (
-                  <span style="color: var(--text-tertiary);">Keine Angaben</span>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    )}
-
-    <!-- Final Recommendation -->
-    <section class="comparison-section">
-      <h2 class="section-title">Empfehlung</h2>
-      <div style="text-align: center; padding: 2rem;">
-        <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2rem;">
-          Alle Tools haben ihre Stärken. Wähle das Tool, das am besten zu deinen spezifischen Anforderungen und Budget passt.
-        </p>
-        
-        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-          {finalTools.map((tool) => (
-            <a href={tool.data.affiliate_link} 
-               target="_blank" 
-               rel="noopener noreferrer" 
-               class="btn-affiliate"
-               style="padding: 1rem 2rem; font-size: 1rem;">
-              {tool.data.title} testen
-            </a>
-          ))}
-        </div>
+    {error ? (
+      <div class="error-section">
+        <div class="error-icon">🔍</div>
+        <div class="error-title">Keine Tools ausgewählt</div>
+        <div class="error-message">{error}</div>
+        <a href="/tools" class="back-btn">Zurück zu Tools</a>
       </div>
-    </section>
+    ) : (
+      <div class="comparison-table">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="feature-label">Feature</th>
+              {comparisonData.map(tool => (
+                <th class="tool-header">{tool.data.title}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Beschreibung -->
+            <tr>
+              <td class="feature-label">Beschreibung</td>
+              {comparisonData.map(tool => (
+                <td>{tool.data.description}</td>
+              ))}
+            </tr>
+
+            <!-- Kategorie -->
+            <tr>
+              <td class="feature-label">Kategorie</td>
+              {comparisonData.map(tool => (
+                <td>{tool.data.category}</td>
+              ))}
+            </tr>
+
+            <!-- Preis -->
+            <tr>
+              <td class="feature-label">Preismodell</td>
+              {comparisonData.map(tool => (
+                <td>
+                  <span class={`badge badge-${tool.data.pricing.toLowerCase().replace(/[^a-z]/g, '')}`}>
+                    {tool.data.pricing}
+                  </span>
+                </td>
+              ))}
+            </tr>
+
+            <!-- Bewertung -->
+            <tr>
+              <td class="feature-label">Bewertung</td>
+              {comparisonData.map(tool => (
+                <td>
+                  {tool.data.rating ? (
+                    <div>
+                      <span class="rating-stars">
+                        {'★'.repeat(Math.floor(tool.data.rating))}{'☆'.repeat(5-Math.floor(tool.data.rating))}
+                      </span>
+                      <span>{tool.data.rating}/5</span>
+                    </div>
+                  ) : (
+                    <span>Nicht bewertet</span>
+                  )}
+                </td>
+              ))}
+            </tr>
+
+            <!-- API verfügbar -->
+            <tr>
+              <td class="feature-label">API verfügbar</td>
+              {comparisonData.map(tool => (
+                <td>
+                  {tool.data.api_available ? (
+                    <span class="check-icon">✅ Ja</span>
+                  ) : (
+                    <span class="cross-icon">❌ Nein</span>
+                  )}
+                </td>
+              ))}
+            </tr>
+
+            <!-- Mobile App -->
+            <tr>
+              <td class="feature-label">Mobile App</td>
+              {comparisonData.map(tool => (
+                <td>
+                  {tool.data.mobile_app ? (
+                    <span class="check-icon">✅ Ja</span>
+                  ) : (
+                    <span class="cross-icon">❌ Nein</span>
+                  )}
+                </td>
+              ))}
+            </tr>
+
+            <!-- Kostenlose Testversion -->
+            <tr>
+              <td class="feature-label">Kostenlose Testversion</td>
+              {comparisonData.map(tool => (
+                <td>
+                  {tool.data.free_trial ? (
+                    <span class="check-icon">✅ Ja</span>
+                  ) : (
+                    <span class="cross-icon">❌ Nein</span>
+                  )}
+                </td>
+              ))}
+            </tr>
+
+            <!-- Gegründet -->
+            <tr>
+              <td class="feature-label">Gegründet</td>
+              {comparisonData.map(tool => (
+                <td>{tool.data.founded || 'N/A'}</td>
+              ))}
+            </tr>
+
+            <!-- Unternehmen -->
+            <tr>
+              <td class="feature-label">Unternehmen</td>
+              {comparisonData.map(tool => (
+                <td>{tool.data.company || 'N/A'}</td>
+              ))}
+            </tr>
+
+            <!-- Aktionen -->
+            <tr>
+              <td class="feature-label">Aktionen</td>
+              {comparisonData.map(tool => (
+                <td>
+                  <div class="tool-actions">
+                    <a href={`/tools/${tool.slug}`} class="btn-small btn-secondary">
+                      Details
+                    </a>
+                    <a href={tool.data.affiliate_link} 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="btn-small btn-primary">
+                      Tool testen
+                    </a>
+                  </div>
+                </td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    )}
+
+    <div style="text-align: center; margin-top: 3rem;">
+      <a href="/tools" class="back-btn">← Zurück zu allen Tools</a>
+    </div>
   </div>
 
-  <script define:vars={{ finalTools, debugResults }}>
+  <script>
+    // Theme support
     document.addEventListener('DOMContentLoaded', function() {
-      console.log('🔄 Compare page loaded!');
-      console.log('📊 Tools being compared:', finalTools.map(t => t.data.title));
-      console.log('🔗 Debug results:', debugResults);
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
       
-      // Analytics tracking für Vergleichsseite
+      // Analytics tracking
       if (typeof gtag !== 'undefined') {
-        gtag('event', 'page_view', {
-          'page_title': 'Tool Comparison',
-          'tools_compared': finalTools.map(t => t.data.title).join(','),
-          'tool_count': finalTools.length
-        });
+        const urlParams = new URLSearchParams(window.location.search);
+        const toolsParam = urlParams.get('tools');
+        
+        if (toolsParam) {
+          const toolNames = toolsParam.split(',');
+          gtag('event', 'tool_comparison_view', {
+            'tools_compared': toolNames.join(','),
+            'tool_count': toolNames.length,
+            'source': 'compare_page'
+          });
+        }
       }
-
-      // Affiliate link tracking
-      var affiliateLinks = document.querySelectorAll('.btn-affiliate');
-      affiliateLinks.forEach(function(link) {
-        link.addEventListener('click', function() {
-          var toolName = this.textContent.replace(' testen', '');
-          
-          if (typeof gtag !== 'undefined') {
-            gtag('event', 'affiliate_click', {
-              'tool_name': toolName,
-              'source': 'comparison_page',
-              'compared_with': finalTools.map(t => t.data.title).filter(t => t !== toolName).join(','),
-              'value': 12.00,
-              'currency': 'EUR'
-            });
-          }
-        });
-      });
-
-      console.log('🔄 Comparison page loaded successfully!');
-      console.log('📊 Comparing tools:', finalTools.map(t => t.data.title));
     });
   </script>
 </body>
