@@ -17,6 +17,12 @@ featured: true
 pricing_details:
   free_plan:
     available: false
+    price: 0
+    currency: "€"
+    billing_cycle: "monthly"
+    features: []
+    limitations:
+      - "Keine kostenlose Version verfügbar seit April 2023"
     note: "Midjourney bietet keine kostenlose Version mehr seit April 2023"
       
   paid_plans:
