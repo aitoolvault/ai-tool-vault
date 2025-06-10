@@ -17,6 +17,10 @@ featured: true
 pricing_details:
   free_plan:
     available: false
+    price: 0
+    currency: "€"
+    billing_cycle: "monthly"
+    features: []
     note: "Jasper bietet keinen kostenlosen Plan, aber eine 7-tägige kostenlose Testversion"
       
   paid_plans:
