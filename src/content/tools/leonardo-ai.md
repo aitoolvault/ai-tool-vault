@@ -99,7 +99,8 @@ api_pricing:
       note: "40% Rabatt auf Credit Top-ups"
       
     - name: "API Custom"
-      price: "Auf Anfrage"
+      currency: "€"
+      per_month: true
       features: "Custom Credits & Features"
       note: "Enterprise API-Lösung"
 
