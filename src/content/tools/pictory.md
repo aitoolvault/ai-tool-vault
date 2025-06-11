@@ -114,12 +114,6 @@ api_pricing:
       per_video: true
       context_window: "Premium Features"
       note: "Mit AI Voice-Over und Advanced Features"
-      
-    - name: "Custom API"
-      price: "Auf Anfrage"
-      per_video: true
-      context_window: "Enterprise Features"
-      note: "Für Custom Integrations und White-label"
 
 # VERGLEICHSMETRIKEN
 comparison_metrics:
