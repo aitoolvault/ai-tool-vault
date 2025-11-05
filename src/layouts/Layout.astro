@@ -21,13 +21,6 @@ const siteURL = "https://aitoolvault.de";
 
 <!DOCTYPE html>
 <html lang="de">
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "u1frswldnv");
-</script>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -61,26 +54,74 @@ const siteURL = "https://aitoolvault.de";
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   
-  <!-- Preconnect für Performance -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://www.googletagmanager.com" />
-  <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+  <!-- Performance: Preconnect zu kritischen Domains -->
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+  <link rel="dns-prefetch" href="https://www.google-analytics.com">
+  <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net">
+  <link rel="dns-prefetch" href="https://www.clarity.ms">
   
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
+  <!-- Google Analytics - Performance-optimiert (verzögert) -->
   <script is:inline>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-EC62QPK5VL', {
-      page_path: window.location.pathname,
-      anonymize_ip: true
+    // Verzögere Analytics bis Seite geladen ist
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        const script = document.createElement('script');
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL';
+        script.async = true;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-EC62QPK5VL', {
+          'send_page_view': true,
+          'anonymize_ip': true
+        });
+      }, 2000); // 2 Sekunden Verzögerung
     });
   </script>
 
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5595876978844902"
-     crossorigin="anonymous"></script>
+  <!-- Google AdSense - Performance-optimiert (verzögert) -->
+  <script is:inline>
+    // Verzögere AdSense bis User interagiert oder nach 3 Sekunden
+    (function() {
+      let adsLoaded = false;
+      
+      function loadAds() {
+        if (adsLoaded) return;
+        adsLoaded = true;
+        
+        const script = document.createElement('script');
+        script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5595876978844902';
+        script.async = true;
+        script.crossOrigin = 'anonymous';
+        script.onerror = function() {
+          console.log('AdSense blocked - this is normal with ad blockers');
+        };
+        document.head.appendChild(script);
+      }
+      
+      // Lade AdSense nach 3 Sekunden
+      window.addEventListener('load', function() {
+        setTimeout(loadAds, 3000);
+      });
+      
+      // ODER bei erster User-Interaktion (was auch immer zuerst kommt)
+      ['scroll', 'click', 'touchstart', 'mousemove'].forEach(function(event) {
+        window.addEventListener(event, loadAds, { once: true, passive: true });
+      });
+    })();
+  </script>
+
+  <!-- Microsoft Clarity - UX Analytics -->
+  <script type="text/javascript" is:inline>
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "p7h0pwb5x7");
+  </script>
   
   <!-- Structured Data / JSON-LD -->
   <script type="application/ld+json" set:html={JSON.stringify({
@@ -106,6 +147,7 @@ const siteURL = "https://aitoolvault.de";
       background: #f8fafc;
       border-radius: 0.5rem;
       border: 1px solid #e2e8f0;
+      min-height: 90px;
     }
 
     .ad-container::before {
@@ -162,11 +204,18 @@ const siteURL = "https://aitoolvault.de";
       .ad-container {
         margin: 1.5rem auto;
         padding: 0.5rem;
+        min-height: 50px;
       }
       
       .ad-between-sections {
         margin: 2rem auto;
       }
+    }
+
+    /* Performance: Reduce layout shifts */
+    img, iframe, video {
+      max-width: 100%;
+      height: auto;
     }
   </style>
 </head>
@@ -195,27 +244,35 @@ const siteURL = "https://aitoolvault.de";
     </div>
   </footer>
 
-  <!-- AdSense Initialization -->
+  <!-- AdSense Initialization - Lazy Loading -->
   <script is:inline>
     document.addEventListener('DOMContentLoaded', function() {
       const ads = document.querySelectorAll('.adsbygoogle');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+      
+      // Intersection Observer für lazy loading
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
           if (entry.isIntersecting && !entry.target.getAttribute('data-loaded')) {
             try {
-              (adsbygoogle = window.adsbygoogle || []).push({});
-              entry.target.setAttribute('data-loaded', 'true');
+              if (typeof adsbygoogle !== 'undefined') {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                entry.target.setAttribute('data-loaded', 'true');
+              }
             } catch (e) {
-              console.warn('AdSense loading error:', e);
+              console.warn('AdSense loading error (normal with ad blockers):', e);
             }
             observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.1 });
+      }, { 
+        threshold: 0.1,
+        rootMargin: '50px'
+      });
       
-      ads.forEach(ad => observer.observe(ad));
+      ads.forEach(function(ad) {
+        observer.observe(ad);
+      });
     });
   </script>
 </body>
 </html>
-
