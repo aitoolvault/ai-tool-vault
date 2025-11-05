@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+# Sitemap
+Sitemap: https://aitoolvault.de/sitemap-index.xml
+
+# Crawl-delay für bestimmte Bots
+User-agent: GPTBot
+Crawl-delay: 2
+
+User-agent: ChatGPT-User
+Crawl-delay: 2
+
+# Wichtige Seiten priorisieren
+User-agent: Googlebot
+Allow: /tools/
+Allow: /
+Crawl-delay: 1
