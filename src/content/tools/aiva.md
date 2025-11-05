@@ -1,4 +1,15 @@
 ---
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EC62QPK5VL');
+</script>
+
 title: "AIVA"
 description: "Professioneller KI-Komponist für emotionale Soundtrack-Erstellung und Musikproduktion"
 category: "Audiogenerierung"
@@ -290,3 +301,4 @@ AIVA wird bereits verwendet von:
 AIVA ist der **unbestrittene König** für orchestrale, emotionale KI-Musik. Die **Film-Qualität** der Kompositionen und das **Copyright-Eigentum** ab 11€ machen es zur ersten Wahl für alle, die professionelle Soundtracks benötigen.
 
 **Empfehlung**: Starte kostenlos, upgrade zu Standard für kommerzielle Nutzung, Pro nur bei intensiver Nutzung oder API-Bedarf.
+
