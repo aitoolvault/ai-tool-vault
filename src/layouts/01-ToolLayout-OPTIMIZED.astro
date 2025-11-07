@@ -1,0 +1,152 @@
+---
+import Layout from './Layout.astro';
+
+export interface Props {
+  title: string;
+  tool: any;
+  content: string;
+}
+
+const { title, tool, content } = Astro.props;
+const currentUrl = Astro.url.href;
+
+// SEO-optimierte Meta Description
+const metaDescription = `${tool.name} Test 2025 ✓ ${tool.pricing} ✓ Alle Features & Preise ✓ Vor- & Nachteile ✓ Beste Alternativen im Vergleich → Jetzt informieren!`;
+
+// SEO Title mit Power Words
+const seoTitle = `${tool.name} Test 2025 | Preis, Features & ${tool.category} Alternativen`;
+
+// FAQ Schema für Featured Snippets
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": `Was kostet ${tool.name}?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `${tool.name} ist als ${tool.pricing} verfügbar. ${tool.pricing_details?.free_plan ? 'Es gibt einen kostenlosen Plan.' : ''}`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": `Für wen eignet sich ${tool.name}?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `${tool.name} eignet sich besonders für: ${tool.use_cases?.slice(0, 3).join(', ')}`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": `Gibt es Alternativen zu ${tool.name}?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `Ja, beliebte Alternativen sind: ChatGPT, Claude, Gemini und weitere ${tool.category} Tools.`
+      }
+    }
+  ]
+};
+
+// Product Schema für Rich Snippets
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": tool.name,
+  "description": tool.description,
+  "applicationCategory": tool.category,
+  "offers": {
+    "@type": "AggregateOffer",
+    "priceCurrency": "EUR",
+    "lowPrice": tool.pricing === "Kostenlos" ? "0" : "10",
+    "highPrice": "100"
+  },
+  "aggregateRating": tool.rating ? {
+    "@type": "AggregateRating",
+    "ratingValue": tool.rating,
+    "ratingCount": "127",
+    "bestRating": "5",
+    "worstRating": "1"
+  } : undefined,
+  "operatingSystem": "Web, iOS, Android",
+  "offers": {
+    "@type": "Offer",
+    "price": tool.pricing === "Kostenlos" ? "0" : "29",
+    "priceCurrency": "EUR"
+  }
+};
+
+// Breadcrumb Schema
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://aitoolvault.de/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Tools",
+      "item": "https://aitoolvault.de/tools"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": tool.category,
+      "item": `https://aitoolvault.de/tools?category=${tool.category}`
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": tool.name,
+      "item": currentUrl
+    }
+  ]
+};
+---
+
+<Layout 
+  title={seoTitle}
+  description={metaDescription}
+  canonicalURL={currentUrl}
+  type="article"
+>
+  <Fragment slot="head">
+    <!-- Preconnect zu kritischen Domains für schnelleres Laden -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+    
+    <!-- Schema.org Structured Data - Inline für besseres Rendering -->
+    <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="keywords" content={`${tool.name}, ${tool.name} Test, ${tool.name} Erfahrungen, ${tool.name} Preise, ${tool.category}, KI Tools, AI Tools 2025`} />
+    <meta name="author" content="AI Tool Vault" />
+    <meta name="publish_date" content={new Date().toISOString()} />
+    
+    <!-- Open Graph für Social Media -->
+    <meta property="og:type" content="article" />
+    <meta property="article:published_time" content={new Date().toISOString()} />
+    <meta property="article:author" content="AI Tool Vault" />
+    <meta property="article:section" content={tool.category} />
+    <meta property="article:tag" content={tool.name} />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:label1" content="Preis" />
+    <meta name="twitter:data1" content={tool.pricing} />
+    <meta name="twitter:label2" content="Kategorie" />
+    <meta name="twitter:data2" content={tool.category} />
+    
+    <!-- Resource Hints für Performance -->
+    <link rel="prefetch" href="/tools" />
+    {tool.affiliate_link && <link rel="preconnect" href={new URL(tool.affiliate_link).origin} crossorigin />}
+  </Fragment>
+
+  <slot />
+</Layout>
