@@ -1,0 +1,169 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string;
+  type?: 'website' | 'article';
+}
+
+const { 
+  title, 
+  description = "Die besten KI-Tools entdecken - Tests, Vergleiche & Preise 2025", 
+  image = "/og-image.jpg",
+  canonicalURL = Astro.url.href,
+  type = 'website'
+} = Astro.props;
+
+const siteName = "AI Tool Vault";
+const siteURL = "https://aitoolvault.de";
+---
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <!-- Critical Meta Tags -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- SEO Meta Tags -->
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href={canonicalURL} />
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content={type} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={`${siteURL}${image}`} />
+  <meta property="og:site_name" content={siteName} />
+  <meta property="og:locale" content="de_DE" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={`${siteURL}${image}`} />
+  
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  
+  <!-- PERFORMANCE OPTIMIZATION: Preconnect zu kritischen Domains -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+  
+  <!-- Organization Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "AI Tool Vault",
+    "url": "https://aitoolvault.de",
+    "logo": "https://aitoolvault.de/logo.png",
+    "description": "Die umfassendste Datenbank für KI-Tools und AI-Software",
+    "sameAs": [
+      "https://twitter.com/aitoolvault",
+      "https://linkedin.com/company/aitoolvault"
+    ]
+  }
+  </script>
+  
+  <!-- Website Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "AI Tool Vault",
+    "url": "https://aitoolvault.de",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://aitoolvault.de/tools?search={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <slot name="head" />
+  
+  <!-- CRITICAL CSS - Inline für First Paint -->
+  <style>
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8f9fa;
+      --text-primary: #1a202c;
+      --text-secondary: #4a5568;
+      --accent-primary: #667eea;
+      --accent-secondary: #764ba2;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background: var(--bg-primary);
+      /* PERFORMANCE: GPU Acceleration */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    a {
+      color: var(--accent-primary);
+      text-decoration: none;
+    }
+    
+    /* PERFORMANCE: Lazy load images */
+    img {
+      max-width: 100%;
+      height: auto;
+      /* Prevent layout shift */
+      aspect-ratio: attr(width) / attr(height);
+    }
+    
+    /* PERFORMANCE: Contain layout for better rendering */
+    .card, .tool-card {
+      contain: layout style paint;
+    }
+  </style>
+</head>
+<body>
+  <slot />
+  
+  <!-- PERFORMANCE: Defer non-critical scripts -->
+  <script>
+    // Lazy load non-critical resources
+    if ('loading' in HTMLImageElement.prototype) {
+      const images = document.querySelectorAll('img[loading="lazy"]');
+      images.forEach(img => {
+        if (img.dataset.src) {
+          img.src = img.dataset.src;
+        }
+      });
+    } else {
+      // Fallback für ältere Browser
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/lazysizes@5/lazysizes.min.js';
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    
+    // PERFORMANCE: Reduce main-thread work
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => {
+        // Load analytics nur wenn Browser idle ist
+        if (window.location.hostname === 'aitoolvault.de') {
+          // Analytics Code hier
+        }
+      });
+    }
+  </script>
+</body>
+</html>
