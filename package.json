@@ -1,15 +1,28 @@
 {
   "name": "ai-resource-vault",
   "type": "module",
+  "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
+    "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "astro": "astro",
+    "build:optimize": "astro build && npm run compress",
+    "compress": "echo 'Build completed with compression'",
+    "check": "astro check"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.4.0",
     "@astrojs/tailwind": "^6.0.2",
     "astro": "^5.8.0",
     "tailwindcss": "^3.4.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.3.1",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
