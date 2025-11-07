@@ -1,0 +1,203 @@
+---
+// Internal Linking Component für besseres SEO
+import { getCollection } from 'astro:content';
+
+export interface Props {
+  currentTool?: string;
+  category?: string;
+  limit?: number;
+}
+
+const { currentTool, category, limit = 5 } = Astro.props;
+const allTools = await getCollection('tools');
+
+// Intelligente Tool-Vorschläge basierend auf Kategorie und Popularität
+let relatedTools = allTools
+  .filter(tool => {
+    if (currentTool && tool.slug === currentTool) return false;
+    if (category) return tool.data.category === category;
+    return true;
+  })
+  .sort((a, b) => {
+    // Sortiere nach: 1. Featured, 2. Rating, 3. Alphabetisch
+    if (a.data.featured && !b.data.featured) return -1;
+    if (!a.data.featured && b.data.featured) return 1;
+    if (a.data.rating && b.data.rating) {
+      return b.data.rating - a.data.rating;
+    }
+    return a.data.name.localeCompare(b.data.name);
+  })
+  .slice(0, limit);
+
+// Keywords für interne Verlinkung
+const linkKeywords = {
+  'chatgpt': ['ChatGPT', 'GPT-4', 'OpenAI'],
+  'claude': ['Claude', 'Anthropic'],
+  'gemini': ['Gemini', 'Google AI'],
+  'midjourney': ['Midjourney', 'AI Bilder'],
+  'jasper': ['Jasper AI', 'Content Marketing'],
+  'notion-ai': ['Notion AI', 'Produktivität'],
+  'grammarly': ['Grammarly', 'Grammatik'],
+  'copy-ai': ['Copy.ai', 'Copywriting'],
+};
+---
+
+<aside class="related-tools-widget">
+  <h3>🔗 Verwandte Tools</h3>
+  <div class="related-tools-list">
+    {relatedTools.map(tool => (
+      <a href={`/tools/${tool.slug}`} class="related-tool-link">
+        <div class="tool-info">
+          <span class="tool-name">{tool.data.name}</span>
+          {tool.data.rating && (
+            <span class="tool-rating">⭐ {tool.data.rating}</span>
+          )}
+        </div>
+        <span class="tool-category">{tool.data.category}</span>
+      </a>
+    ))}
+  </div>
+  
+  <a href="/tools" class="view-all-link">
+    Alle {allTools.length} KI-Tools ansehen →
+  </a>
+</aside>
+
+<!-- Contextual Links für SEO -->
+<div class="contextual-links">
+  <h4>📚 Beliebte Kategorien</h4>
+  <div class="category-links">
+    <a href="/tools?category=Chatbot">KI-Chatbots</a>
+    <a href="/tools?category=Bildgenerierung">Bildgenerierung</a>
+    <a href="/tools?category=Content Marketing">Content Marketing</a>
+    <a href="/tools?category=Code">Code-Tools</a>
+    <a href="/tools?category=Produktivität">Produktivität</a>
+  </div>
+</div>
+
+<!-- Quick Comparison Links -->
+<div class="quick-comparisons">
+  <h4>⚖️ Beliebte Vergleiche</h4>
+  <div class="comparison-links">
+    <a href="/vergleich/chatgpt-vs-claude">ChatGPT vs Claude</a>
+    <a href="/vergleich/chatgpt-vs-gemini">ChatGPT vs Gemini</a>
+    <a href="/vergleich/midjourney-vs-dalle">Midjourney vs DALL-E</a>
+    <a href="/vergleich/claude-vs-gemini">Claude vs Gemini</a>
+  </div>
+</div>
+
+<style>
+  .related-tools-widget {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+  }
+
+  .related-tools-widget h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #1a202c;
+  }
+
+  .related-tools-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .related-tool-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #1a202c;
+    transition: all 0.2s;
+  }
+
+  .related-tool-link:hover {
+    background: #e9ecef;
+    transform: translateX(3px);
+  }
+
+  .tool-info {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .tool-name {
+    font-weight: 600;
+  }
+
+  .tool-rating {
+    font-size: 0.85rem;
+    color: #fbbf24;
+  }
+
+  .tool-category {
+    font-size: 0.85rem;
+    color: #667eea;
+    font-weight: 500;
+  }
+
+  .view-all-link {
+    display: block;
+    margin-top: 1rem;
+    text-align: center;
+    color: #667eea;
+    font-weight: 600;
+    padding: 0.5rem;
+  }
+
+  .contextual-links,
+  .quick-comparisons {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+  }
+
+  .contextual-links h4,
+  .quick-comparisons h4 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #1a202c;
+  }
+
+  .category-links,
+  .comparison-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .category-links a,
+  .comparison-links a {
+    padding: 0.5rem 1rem;
+    background: #f8f9fa;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: #4a5568;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .category-links a:hover,
+  .comparison-links a:hover {
+    background: #667eea;
+    color: white;
+  }
+
+  @media (max-width: 768px) {
+    .category-links,
+    .comparison-links {
+      flex-direction: column;
+    }
+  }
+</style>
