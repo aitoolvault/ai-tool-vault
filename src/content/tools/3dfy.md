@@ -19,6 +19,8 @@ pricing_details:
     price: 0
     currency: "$"
     billing_cycle: "monthly"
+    features: []
+    limitations: []
 
   paid_plans:
     - name: "3DFY Prompt"
