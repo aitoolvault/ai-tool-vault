@@ -7,7 +7,7 @@
 <header class="header-main">
   <div class="header-container">
     <a href="/" class="header-logo">
-      ⚙️ AI Tool Vault
+      AI Tool Vault
     </a>
 
     <nav class="header-nav" id="headerNav">
@@ -40,14 +40,14 @@
     left: 0;
     right: 0;
     z-index: 1000;
-    background: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
     transition: all 0.3s ease;
   }
 
   [data-theme="dark"] .header-main {
-    background: #1f2937;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
   }
 
   .header-container {
@@ -62,15 +62,17 @@
 
   .header-logo {
     font-size: 1.5rem;
-    font-weight: 700;
-    color: #111827;
+    font-weight: 800;
+    color: white;
     text-decoration: none;
     white-space: nowrap;
     transition: transform 0.2s ease;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 
   [data-theme="dark"] .header-logo {
     color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
 
   .header-logo:hover {
@@ -86,24 +88,26 @@
   }
 
   .nav-item {
-    color: #6b7280;
+    color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
     font-weight: 500;
     font-size: 1rem;
-    transition: color 0.2s ease;
+    transition: all 0.2s ease;
     white-space: nowrap;
   }
 
   [data-theme="dark"] .nav-item {
-    color: #d1d5db;
+    color: rgba(255, 255, 255, 0.85);
   }
 
   .nav-item:hover {
-    color: #3b82f6;
+    color: white;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
   }
 
   [data-theme="dark"] .nav-item:hover {
-    color: #60a5fa;
+    color: white;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
   }
 
   .header-actions {
@@ -115,10 +119,11 @@
   .theme-toggle-button {
     padding: 0.5rem 1rem;
     border-radius: 9999px;
-    background: #3b82f6;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
     color: white;
     font-weight: 600;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     cursor: pointer;
     font-size: 1rem;
     transition: all 0.2s ease;
@@ -126,7 +131,8 @@
   }
 
   .theme-toggle-button:hover {
-    background: #2563eb;
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
     transform: scale(1.05);
   }
 
@@ -143,7 +149,7 @@
   .hamburger-line {
     width: 24px;
     height: 3px;
-    background: #111827;
+    background: white;
     border-radius: 2px;
     transition: all 0.3s ease;
   }
@@ -186,9 +192,9 @@
       left: 0;
       right: 0;
       flex-direction: column;
-      background: white;
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
       padding: 1rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
       transform: translateY(-100%);
       opacity: 0;
       visibility: hidden;
@@ -196,7 +202,7 @@
     }
 
     [data-theme="dark"] .header-nav {
-      background: #1f2937;
+      background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
     }
 
     .header-nav.active {

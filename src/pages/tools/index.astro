@@ -1360,6 +1360,27 @@ const toolNames = tools.map(tool => tool.data.title);
             var allCards = Array.from(toolsGrid.children);
             var activeFilters = {};
 
+            // Check URL parameters and set filters automatically
+            var urlParams = new URLSearchParams(window.location.search);
+            var categoryParam = urlParams.get('category');
+            var pricingParam = urlParams.get('pricing');
+            var searchParam = urlParams.get('search');
+
+            if (categoryParam && categoryFilter) {
+                categoryFilter.value = categoryParam;
+                activeFilters.category = categoryParam;
+            }
+
+            if (pricingParam && pricingFilter) {
+                pricingFilter.value = pricingParam;
+                activeFilters.pricing = pricingParam;
+            }
+
+            if (searchParam && searchInput) {
+                searchInput.value = searchParam;
+                activeFilters.search = searchParam;
+            }
+
             function applyFilters() {
                 var visibleCards = allCards.filter(function(card) {
                     // Search filter
@@ -1520,6 +1541,11 @@ const toolNames = tools.map(tool => tool.data.title);
                     applyFilters();
                 });
             });
+
+            // Apply initial filters from URL parameters
+            if (categoryParam || pricingParam || searchParam) {
+                applyFilters();
+            }
 
             // Clear Filters
             if (clearFilters) {
