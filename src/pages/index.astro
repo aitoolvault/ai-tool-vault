@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import Navigation from '../components/Navigation.astro';
+import Header from '../components/Header.astro';
 
 let tools = [];
 let categories = [];
@@ -871,8 +871,8 @@ function getCategoryIcon(categoryName) {
     }
   </style>
 </head>
-<body style="padding-top: 70px;">
-  <Navigation />
+<body style="padding-top: 80px;">
+  <Header />
 
   <section class="hero">
     <div class="hero-container">

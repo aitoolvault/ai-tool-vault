@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import Navigation from '../../components/Navigation.astro';
+import Header from '../../components/Header.astro';
 
 const tools = await getCollection("tools");
 
@@ -1027,8 +1027,8 @@ const toolNames = tools.map(tool => tool.data.title);
         }
     </style>
 </head>
-<body style="padding-top: 70px;">
-    <Navigation />
+<body style="padding-top: 80px;">
+    <Header />
 
     <section class="trust-banner">
         <div class="trust-container">

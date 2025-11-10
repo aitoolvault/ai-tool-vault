@@ -1,7 +1,7 @@
 ---
 // src/pages/compare.astro
 import { getCollection } from "astro:content";
-import Navigation from '../components/Navigation.astro';
+import Header from '../components/Header.astro';
 
 // Tools laden
 const allTools = await getCollection("tools");
@@ -532,8 +532,8 @@ const comparisonData = selectedTools.map(tool => ({
     }
   </style>
 </head>
-<body style="padding-top: 70px;">
-  <Navigation />
+<body style="padding-top: 80px;">
+  <Header />
 
   <div class="container">
     <div class="header">

@@ -1,39 +1,297 @@
 ---
+// Einheitlicher Header für alle Seiten
 ---
-
-
-<header class="flex justify-between items-center py-6 px-8 shadow bg-white dark:bg-gray-900">
-  <a href="/" class="text-2xl font-bold text-gray-900 dark:text-white">
-    ⚙️ AI Tool Vault
-  </a>
 
 <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="6ff1c2bf-6e6e-4ddb-b46e-b43b350bc9d0" type="text/javascript" async></script>
 
-  <nav class="space-x-6">
-    <a href="/" class="text-gray-600 dark:text-gray-300 hover:text-blue-500">Home</a>
-    <a href="/#categories" class="text-gray-600 dark:text-gray-300 hover:text-blue-500">Kategorien</a>
-    <a href="/impressum" class="text-gray-600 dark:text-gray-300 hover:text-blue-500">Impressum</a>
-    <button onclick="toggleTheme()" class="ml-4 px-3 py-1 rounded-full bg-blue-600 text-white font-semibold">
-      ☀️ / 🌙
-    </button>
-  </nav>
+<header class="header-main">
+  <div class="header-container">
+    <a href="/" class="header-logo">
+      ⚙️ AI Tool Vault
+    </a>
+
+    <nav class="header-nav" id="headerNav">
+      <a href="/" class="nav-item">Home</a>
+      <a href="/tools" class="nav-item">Tools</a>
+      <a href="/blog" class="nav-item">Blog</a>
+      <a href="/compare" class="nav-item">Vergleich</a>
+      <a href="/#categories" class="nav-item">Kategorien</a>
+      <a href="/kontakt" class="nav-item">Kontakt</a>
+      <a href="/impressum" class="nav-item">Impressum</a>
+    </nav>
+
+    <div class="header-actions">
+      <button onclick="toggleTheme()" class="theme-toggle-button" aria-label="Theme wechseln">
+        ☀️ / 🌙
+      </button>
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menü öffnen">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </div>
 </header>
+
+<style>
+  .header-main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  [data-theme="dark"] .header-main {
+    background: #1f2937;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .header-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111827;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform 0.2s ease;
+  }
+
+  [data-theme="dark"] .header-logo {
+    color: white;
+  }
+
+  .header-logo:hover {
+    transform: scale(1.02);
+  }
+
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .nav-item {
+    color: #6b7280;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  [data-theme="dark"] .nav-item {
+    color: #d1d5db;
+  }
+
+  .nav-item:hover {
+    color: #3b82f6;
+  }
+
+  [data-theme="dark"] .nav-item:hover {
+    color: #60a5fa;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .theme-toggle-button {
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    background: #3b82f6;
+    color: white;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .theme-toggle-button:hover {
+    background: #2563eb;
+    transform: scale(1.05);
+  }
+
+  .mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .hamburger-line {
+    width: 24px;
+    height: 3px;
+    background: #111827;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  [data-theme="dark"] .hamburger-line {
+    background: white;
+  }
+
+  .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .header-nav {
+      gap: 1rem;
+    }
+
+    .nav-item {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header-container {
+      padding: 1rem 1.5rem;
+    }
+
+    .header-nav {
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      background: white;
+      padding: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transform: translateY(-100%);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    [data-theme="dark"] .header-nav {
+      background: #1f2937;
+    }
+
+    .header-nav.active {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .nav-item {
+      width: 100%;
+      text-align: center;
+      padding: 0.75rem;
+      font-size: 1rem;
+    }
+
+    .mobile-menu-toggle {
+      display: flex;
+    }
+
+    .theme-toggle-button {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header-logo {
+      font-size: 1.25rem;
+    }
+
+    .theme-toggle-button {
+      padding: 0.4rem 0.6rem;
+      font-size: 0.85rem;
+    }
+  }
+</style>
 
 <script is:inline>
   function toggleTheme() {
     const html = document.documentElement;
-    const currentTheme = html.classList.contains('dark') ? 'dark' : 'light';
+    const currentTheme = html.getAttribute('data-theme') || 'light';
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    html.classList.remove(currentTheme);
-    html.classList.add(newTheme);
+    html.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
+
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'theme_toggle', {
+        theme_mode: newTheme,
+        source: 'header'
+      });
+    }
   }
 
   window.addEventListener('DOMContentLoaded', () => {
     const saved = localStorage.getItem('theme');
     if (saved) {
-      document.documentElement.classList.remove('dark', 'light');
-      document.documentElement.classList.add(saved);
+      document.documentElement.setAttribute('data-theme', saved);
+    }
+
+    // Mobile Menu Toggle
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const headerNav = document.getElementById('headerNav');
+
+    if (mobileMenuToggle && headerNav) {
+      mobileMenuToggle.addEventListener('click', function() {
+        const isActive = headerNav.classList.contains('active');
+
+        if (isActive) {
+          headerNav.classList.remove('active');
+          mobileMenuToggle.classList.remove('active');
+          mobileMenuToggle.setAttribute('aria-label', 'Menü öffnen');
+        } else {
+          headerNav.classList.add('active');
+          mobileMenuToggle.classList.add('active');
+          mobileMenuToggle.setAttribute('aria-label', 'Menü schließen');
+        }
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.header-main') && headerNav.classList.contains('active')) {
+          headerNav.classList.remove('active');
+          mobileMenuToggle.classList.remove('active');
+          mobileMenuToggle.setAttribute('aria-label', 'Menü öffnen');
+        }
+      });
+
+      // Close menu when clicking on nav items
+      headerNav.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', function() {
+          headerNav.classList.remove('active');
+          mobileMenuToggle.classList.remove('active');
+          mobileMenuToggle.setAttribute('aria-label', 'Menü öffnen');
+        });
+      });
     }
   });
 </script>
