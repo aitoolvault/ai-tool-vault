@@ -77,6 +77,21 @@ const comparisonSchema = {
       <p>Welches KI-Tool ist besser? Wir vergleichen Preise, Features und Performance im Detail.</p>
     </div>
 
+    <!-- Einleitung -->
+    <section class="intro-section">
+      <p>
+        Im direkten Vergleich zwischen {tool1.data.name} und {tool2.data.name} zeigen sich deutliche Unterschiede
+        in Funktionsumfang, Preisgestaltung und Einsatzgebieten. Beide Tools haben ihre Stärken und sind für
+        unterschiedliche Anwendungsfälle konzipiert. Während {tool1.data.name} vor allem durch {tool1.data.pros?.[0]}
+        überzeugt, punktet {tool2.data.name} besonders mit {tool2.data.pros?.[0]}.
+      </p>
+      <p>
+        In diesem ausführlichen Vergleich analysieren wir die wichtigsten Aspekte beider Tools, von der Benutzerfreundlichkeit
+        über die Preismodelle bis hin zu den spezifischen Features. So können Sie eine fundierte Entscheidung treffen,
+        welches Tool am besten zu Ihren Anforderungen passt.
+      </p>
+    </section>
+
     <div class="comparison-grid">
       <!-- Tool 1 -->
       <div class="tool-card">
@@ -90,12 +105,12 @@ const comparisonSchema = {
         </div>
 
         <div class="pros-cons">
-          <h3>✅ Vorteile</h3>
+          <h3>Vorteile</h3>
           <ul>
             {tool1.data.pros?.slice(0, 5).map(pro => <li>{pro}</li>)}
           </ul>
-          
-          <h3>❌ Nachteile</h3>
+
+          <h3>Nachteile</h3>
           <ul>
             {tool1.data.cons?.slice(0, 3).map(con => <li>{con}</li>)}
           </ul>
@@ -123,12 +138,12 @@ const comparisonSchema = {
         </div>
 
         <div class="pros-cons">
-          <h3>✅ Vorteile</h3>
+          <h3>Vorteile</h3>
           <ul>
             {tool2.data.pros?.slice(0, 5).map(pro => <li>{pro}</li>)}
           </ul>
-          
-          <h3>❌ Nachteile</h3>
+
+          <h3>Nachteile</h3>
           <ul>
             {tool2.data.cons?.slice(0, 3).map(con => <li>{con}</li>)}
           </ul>
@@ -179,6 +194,25 @@ const comparisonSchema = {
           </tr>
         </tbody>
       </table>
+    </section>
+
+    <!-- Fazit -->
+    <section class="conclusion">
+      <h2>Fazit: {tool1.data.name} oder {tool2.data.name}?</h2>
+      <p>
+        Beide Tools bieten hervorragende Lösungen in ihrem jeweiligen Bereich. Die Wahl zwischen {tool1.data.name}
+        und {tool2.data.name} hängt stark von Ihren individuellen Anforderungen und Präferenzen ab.
+      </p>
+      <p>
+        {tool1.data.name} eignet sich besonders gut für Nutzer, die Wert auf {tool1.data.pros?.[0]} legen und bereit sind,
+        {tool1.data.pricing === 'Kostenlos' ? 'das kostenlose Angebot zu nutzen' : `${tool1.data.pricing} zu investieren`}.
+        Demgegenüber ist {tool2.data.name} die bessere Wahl, wenn {tool2.data.pros?.[0]} im Vordergrund steht.
+      </p>
+      <p>
+        Unsere Empfehlung: Testen Sie beide Tools im Rahmen der verfügbaren kostenlosen Versionen oder Testphasen,
+        um selbst herauszufinden, welche Lösung besser zu Ihrem Workflow passt. Nur so können Sie eine fundierte
+        Entscheidung treffen, die langfristig zu Ihren Anforderungen passt.
+      </p>
     </section>
 
     <!-- FAQ Section für Featured Snippets -->
@@ -265,6 +299,34 @@ const comparisonSchema = {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
+  }
+
+  .intro-section,
+  .conclusion {
+    background: var(--bg-secondary);
+    padding: 2.5rem;
+    border-radius: 16px;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-primary);
+    line-height: 1.8;
+  }
+
+  .intro-section p,
+  .conclusion p {
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+  }
+
+  .intro-section p:last-child,
+  .conclusion p:last-child {
+    margin-bottom: 0;
+  }
+
+  .conclusion h2 {
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
   }
 
   .hero {
