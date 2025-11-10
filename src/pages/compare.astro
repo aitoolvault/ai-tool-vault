@@ -105,25 +105,35 @@ const comparisonData = selectedTools.map(tool => ({
     :root {
       --bg-primary: #f8fafc;
       --bg-secondary: #ffffff;
+      --bg-tertiary: #f1f5f9;
       --text-primary: #1e293b;
       --text-secondary: #64748b;
       --border-primary: #e2e8f0;
       --accent-primary: #3b82f6;
+      --accent-secondary: #8b5cf6;
       --success-color: #10b981;
       --error-color: #ef4444;
       --warning-color: #f59e0b;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
     }
 
     [data-theme="dark"] {
       --bg-primary: #0f172a;
       --bg-secondary: #1e293b;
+      --bg-tertiary: #334155;
       --text-primary: #f1f5f9;
       --text-secondary: #cbd5e1;
       --border-primary: #334155;
       --accent-primary: #60a5fa;
+      --accent-secondary: #a78bfa;
       --success-color: #34d399;
       --error-color: #f87171;
       --warning-color: #fbbf24;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
+      --shadow-lg: 0 10px 15px rgba(0,0,0,0.3);
     }
 
     * {
@@ -147,6 +157,7 @@ const comparisonData = selectedTools.map(tool => ({
       position: sticky;
       top: 0;
       z-index: 1000;
+      box-shadow: var(--shadow-sm);
     }
 
     .nav-container {
@@ -175,10 +186,11 @@ const comparisonData = selectedTools.map(tool => ({
       color: var(--text-secondary);
       text-decoration: none;
       font-weight: 500;
+      transition: color 0.2s;
     }
 
     .nav-links a:hover {
-      color: var(--text-primary);
+      color: var(--accent-primary);
     }
 
     .container {
@@ -196,6 +208,10 @@ const comparisonData = selectedTools.map(tool => ({
       font-size: 2.5rem;
       font-weight: 800;
       margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .header p {
@@ -205,12 +221,41 @@ const comparisonData = selectedTools.map(tool => ({
       margin: 0 auto;
     }
 
+    .view-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .toggle-btn {
+      padding: 0.75rem 1.5rem;
+      border: 2px solid var(--border-primary);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .toggle-btn.active {
+      background: var(--accent-primary);
+      color: white;
+      border-color: var(--accent-primary);
+    }
+
+    .toggle-btn:hover:not(.active) {
+      border-color: var(--accent-primary);
+    }
+
     .error-section {
       background: var(--bg-secondary);
       padding: 3rem;
       border-radius: 12px;
       text-align: center;
       border: 1px solid var(--border-primary);
+      box-shadow: var(--shadow-md);
     }
 
     .error-icon {
@@ -238,18 +283,80 @@ const comparisonData = selectedTools.map(tool => ({
       text-decoration: none;
       font-weight: 600;
       display: inline-block;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .back-btn:hover {
-      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
     }
 
+    /* Card View Styles */
+    .comparison-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .tool-comparison-card {
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      border: 1px solid var(--border-primary);
+      padding: 2rem;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .tool-comparison-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .tool-card-header {
+      text-align: center;
+      padding-bottom: 1.5rem;
+      border-bottom: 2px solid var(--border-primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .tool-card-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--accent-primary);
+    }
+
+    .feature-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border-primary);
+    }
+
+    .feature-row:last-child {
+      border-bottom: none;
+    }
+
+    .feature-row-label {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .feature-row-value {
+      color: var(--text-secondary);
+      text-align: right;
+    }
+
+    /* Table View Styles */
     .comparison-table {
       background: var(--bg-secondary);
       border-radius: 12px;
       border: 1px solid var(--border-primary);
       overflow: hidden;
       overflow-x: auto;
+      box-shadow: var(--shadow-md);
     }
 
     .table {
@@ -265,7 +372,7 @@ const comparisonData = selectedTools.map(tool => ({
     }
 
     .table th {
-      background: var(--bg-primary);
+      background: var(--bg-tertiary);
       font-weight: 600;
       color: var(--text-primary);
       position: sticky;
@@ -277,37 +384,66 @@ const comparisonData = selectedTools.map(tool => ({
       color: var(--text-secondary);
     }
 
+    .table tbody tr:hover {
+      background: var(--bg-tertiary);
+    }
+
     .tool-header {
-      background: var(--accent-primary);
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
       color: white;
       text-align: center;
       font-weight: 700;
+      font-size: 1.1rem;
     }
 
     .feature-label {
       font-weight: 600;
       color: var(--text-primary);
-      min-width: 150px;
+      min-width: 180px;
     }
 
     .badge {
-      padding: 0.25rem 0.75rem;
-      border-radius: 15px;
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
       font-size: 0.8rem;
       font-weight: 600;
       text-transform: uppercase;
+      display: inline-block;
     }
 
-    .badge-kostenlos { background: #d1fae5; color: #047857; }
-    .badge-freemium { background: #dbeafe; color: #1e40af; }
-    .badge-kostenpflichtig { background: #fee2e2; color: #dc2626; }
+    .badge-kostenlos {
+      background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+      color: #047857;
+    }
+    .badge-freemium {
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+      color: #1e40af;
+    }
+    .badge-kostenpflichtig {
+      background: linear-gradient(135deg, #fee2e2, #fecaca);
+      color: #dc2626;
+    }
 
-    .check-icon { color: var(--success-color); }
-    .cross-icon { color: var(--error-color); }
+    .check-icon {
+      color: var(--success-color);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .cross-icon {
+      color: var(--error-color);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
 
     .rating-stars {
       color: #fbbf24;
       font-size: 1.1rem;
+    }
+
+    .rating-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .tool-actions {
@@ -317,27 +453,40 @@ const comparisonData = selectedTools.map(tool => ({
     }
 
     .btn-small {
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
       text-decoration: none;
       font-size: 0.85rem;
       font-weight: 600;
       text-align: center;
+      transition: all 0.2s;
     }
 
     .btn-primary {
       background: var(--accent-primary);
       color: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-secondary);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
     }
 
     .btn-secondary {
-      background: var(--bg-primary);
+      background: var(--bg-tertiary);
       color: var(--text-primary);
       border: 1px solid var(--border-primary);
     }
 
-    .btn-primary:hover, .btn-secondary:hover {
-      opacity: 0.9;
+    .btn-secondary:hover {
+      background: var(--bg-primary);
+      border-color: var(--accent-primary);
+    }
+
+    .hidden {
+      display: none !important;
     }
 
     @media (max-width: 768px) {
@@ -353,6 +502,10 @@ const comparisonData = selectedTools.map(tool => ({
         padding: 1rem;
       }
 
+      .comparison-cards {
+        grid-template-columns: 1fr;
+      }
+
       .table th, .table td {
         padding: 0.75rem;
         font-size: 0.9rem;
@@ -360,6 +513,20 @@ const comparisonData = selectedTools.map(tool => ({
 
       .tool-actions {
         flex-direction: column;
+      }
+
+      .view-toggle {
+        flex-direction: column;
+      }
+
+      .toggle-btn {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .comparison-cards {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -388,7 +555,7 @@ const comparisonData = selectedTools.map(tool => ({
         <div class="error-icon">🔍</div>
         <div class="error-title">Keine Tools ausgewählt</div>
         <div class="error-message">{error}</div>
-        
+
         <!-- Debug Info (nur sichtbar in Development) -->
         <details style="margin: 2rem 0; text-align: left; background: #f8f9fa; padding: 1rem; border-radius: 8px;">
           <summary style="cursor: pointer; font-weight: 600;">🐛 Debug Informationen</summary>
@@ -407,148 +574,254 @@ const comparisonData = selectedTools.map(tool => ({
             )}
           </div>
         </details>
-        
+
         <a href="/tools" class="back-btn">Zurück zu Tools</a>
       </div>
     ) : (
-      <div class="comparison-table">
-        <table class="table">
-          <thead>
-            <tr>
-              <th class="feature-label">Feature</th>
-              {comparisonData.map(tool => (
-                <th class="tool-header">{tool.data.title}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Beschreibung -->
-            <tr>
-              <td class="feature-label">Beschreibung</td>
-              {comparisonData.map(tool => (
-                <td>{tool.data.description}</td>
-              ))}
-            </tr>
+      <>
+        <!-- View Toggle -->
+        <div class="view-toggle">
+          <button class="toggle-btn active" id="cardViewBtn">📱 Kartenansicht</button>
+          <button class="toggle-btn" id="tableViewBtn">📊 Tabellenansicht</button>
+        </div>
 
-            <!-- Kategorie -->
-            <tr>
-              <td class="feature-label">Kategorie</td>
-              {comparisonData.map(tool => (
-                <td>{tool.data.category}</td>
-              ))}
-            </tr>
-
-            <!-- Preis -->
-            <tr>
-              <td class="feature-label">Preismodell</td>
-              {comparisonData.map(tool => (
-                <td>
-                  <span class={`badge badge-${tool.data.pricing.toLowerCase().replace(/[^a-z]/g, '')}`}>
-                    {tool.data.pricing}
-                  </span>
-                </td>
-              ))}
-            </tr>
-
-            <!-- Bewertung -->
-            <tr>
-              <td class="feature-label">Bewertung</td>
-              {comparisonData.map(tool => (
-                <td>
+        <!-- Card View -->
+        <div class="comparison-cards" id="cardView">
+          {comparisonData.map(tool => (
+            <div class="tool-comparison-card">
+              <div class="tool-card-header">
+                <h2 class="tool-card-title">{tool.data.title}</h2>
+                <div class="rating-container">
                   {tool.data.rating ? (
-                    <div>
+                    <>
                       <span class="rating-stars">
                         {'★'.repeat(Math.floor(tool.data.rating))}{'☆'.repeat(5-Math.floor(tool.data.rating))}
                       </span>
                       <span>{tool.data.rating}/5</span>
-                    </div>
+                    </>
                   ) : (
                     <span>Nicht bewertet</span>
                   )}
-                </td>
-              ))}
-            </tr>
+                </div>
+              </div>
 
-            <!-- API verfügbar -->
-            <tr>
-              <td class="feature-label">API verfügbar</td>
-              {comparisonData.map(tool => (
-                <td>
+              <div class="feature-row">
+                <span class="feature-row-label">Beschreibung</span>
+                <span class="feature-row-value">{tool.data.description.substring(0, 80)}...</span>
+              </div>
+
+              <div class="feature-row">
+                <span class="feature-row-label">Kategorie</span>
+                <span class="feature-row-value">{tool.data.category}</span>
+              </div>
+
+              <div class="feature-row">
+                <span class="feature-row-label">Preismodell</span>
+                <span class="feature-row-value">
+                  <span class={`badge badge-${tool.data.pricing.toLowerCase().replace(/[^a-z]/g, '')}`}>
+                    {tool.data.pricing}
+                  </span>
+                </span>
+              </div>
+
+              <div class="feature-row">
+                <span class="feature-row-label">API verfügbar</span>
+                <span class="feature-row-value">
                   {tool.data.api_available ? (
                     <span class="check-icon">✅ Ja</span>
                   ) : (
                     <span class="cross-icon">❌ Nein</span>
                   )}
-                </td>
-              ))}
-            </tr>
+                </span>
+              </div>
 
-            <!-- Mobile App -->
-            <tr>
-              <td class="feature-label">Mobile App</td>
-              {comparisonData.map(tool => (
-                <td>
+              <div class="feature-row">
+                <span class="feature-row-label">Mobile App</span>
+                <span class="feature-row-value">
                   {tool.data.mobile_app ? (
                     <span class="check-icon">✅ Ja</span>
                   ) : (
                     <span class="cross-icon">❌ Nein</span>
                   )}
-                </td>
-              ))}
-            </tr>
+                </span>
+              </div>
 
-            <!-- Kostenlose Testversion -->
-            <tr>
-              <td class="feature-label">Kostenlose Testversion</td>
-              {comparisonData.map(tool => (
-                <td>
+              <div class="feature-row">
+                <span class="feature-row-label">Kostenlose Testversion</span>
+                <span class="feature-row-value">
                   {tool.data.free_trial ? (
                     <span class="check-icon">✅ Ja</span>
                   ) : (
                     <span class="cross-icon">❌ Nein</span>
                   )}
-                </td>
-              ))}
-            </tr>
+                </span>
+              </div>
 
-            <!-- Gegründet -->
-            <tr>
-              <td class="feature-label">Gegründet</td>
-              {comparisonData.map(tool => (
-                <td>{tool.data.founded || 'N/A'}</td>
-              ))}
-            </tr>
+              <div class="feature-row">
+                <span class="feature-row-label">Gegründet</span>
+                <span class="feature-row-value">{tool.data.founded || 'N/A'}</span>
+              </div>
 
-            <!-- Unternehmen -->
-            <tr>
-              <td class="feature-label">Unternehmen</td>
-              {comparisonData.map(tool => (
-                <td>{tool.data.company || 'N/A'}</td>
-              ))}
-            </tr>
+              <div class="feature-row">
+                <span class="feature-row-label">Unternehmen</span>
+                <span class="feature-row-value">{tool.data.company || 'N/A'}</span>
+              </div>
 
-            <!-- Aktionen -->
-            <tr>
-              <td class="feature-label">Aktionen</td>
-              {comparisonData.map(tool => (
-                <td>
-                  <div class="tool-actions">
-                    <a href={`/tools/${tool.slug}`} class="btn-small btn-secondary">
-                      Details
-                    </a>
-                    <a href={tool.data.affiliate_link} 
-                       target="_blank" 
-                       rel="noopener noreferrer" 
-                       class="btn-small btn-primary">
-                      Tool testen
-                    </a>
-                  </div>
-                </td>
-              ))}
-            </tr>
-          </tbody>
-        </table>
-      </div>
+              <div class="tool-actions" style="margin-top: 1.5rem;">
+                <a href={`/tools/${tool.slug}`} class="btn-small btn-secondary" style="flex: 1;">
+                  Details
+                </a>
+                <a href={tool.data.affiliate_link}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-small btn-primary" style="flex: 1;">
+                  Tool testen
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Table View -->
+        <div class="comparison-table hidden" id="tableView">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="feature-label">Feature</th>
+                {comparisonData.map(tool => (
+                  <th class="tool-header">{tool.data.title}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Beschreibung -->
+              <tr>
+                <td class="feature-label">Beschreibung</td>
+                {comparisonData.map(tool => (
+                  <td>{tool.data.description}</td>
+                ))}
+              </tr>
+
+              <!-- Kategorie -->
+              <tr>
+                <td class="feature-label">Kategorie</td>
+                {comparisonData.map(tool => (
+                  <td>{tool.data.category}</td>
+                ))}
+              </tr>
+
+              <!-- Preis -->
+              <tr>
+                <td class="feature-label">Preismodell</td>
+                {comparisonData.map(tool => (
+                  <td>
+                    <span class={`badge badge-${tool.data.pricing.toLowerCase().replace(/[^a-z]/g, '')}`}>
+                      {tool.data.pricing}
+                    </span>
+                  </td>
+                ))}
+              </tr>
+
+              <!-- Bewertung -->
+              <tr>
+                <td class="feature-label">Bewertung</td>
+                {comparisonData.map(tool => (
+                  <td>
+                    {tool.data.rating ? (
+                      <div class="rating-container">
+                        <span class="rating-stars">
+                          {'★'.repeat(Math.floor(tool.data.rating))}{'☆'.repeat(5-Math.floor(tool.data.rating))}
+                        </span>
+                        <span>{tool.data.rating}/5</span>
+                      </div>
+                    ) : (
+                      <span>Nicht bewertet</span>
+                    )}
+                  </td>
+                ))}
+              </tr>
+
+              <!-- API verfügbar -->
+              <tr>
+                <td class="feature-label">API verfügbar</td>
+                {comparisonData.map(tool => (
+                  <td>
+                    {tool.data.api_available ? (
+                      <span class="check-icon">✅ Ja</span>
+                    ) : (
+                      <span class="cross-icon">❌ Nein</span>
+                    )}
+                  </td>
+                ))}
+              </tr>
+
+              <!-- Mobile App -->
+              <tr>
+                <td class="feature-label">Mobile App</td>
+                {comparisonData.map(tool => (
+                  <td>
+                    {tool.data.mobile_app ? (
+                      <span class="check-icon">✅ Ja</span>
+                    ) : (
+                      <span class="cross-icon">❌ Nein</span>
+                    )}
+                  </td>
+                ))}
+              </tr>
+
+              <!-- Kostenlose Testversion -->
+              <tr>
+                <td class="feature-label">Kostenlose Testversion</td>
+                {comparisonData.map(tool => (
+                  <td>
+                    {tool.data.free_trial ? (
+                      <span class="check-icon">✅ Ja</span>
+                    ) : (
+                      <span class="cross-icon">❌ Nein</span>
+                    )}
+                  </td>
+                ))}
+              </tr>
+
+              <!-- Gegründet -->
+              <tr>
+                <td class="feature-label">Gegründet</td>
+                {comparisonData.map(tool => (
+                  <td>{tool.data.founded || 'N/A'}</td>
+                ))}
+              </tr>
+
+              <!-- Unternehmen -->
+              <tr>
+                <td class="feature-label">Unternehmen</td>
+                {comparisonData.map(tool => (
+                  <td>{tool.data.company || 'N/A'}</td>
+                ))}
+              </tr>
+
+              <!-- Aktionen -->
+              <tr>
+                <td class="feature-label">Aktionen</td>
+                {comparisonData.map(tool => (
+                  <td>
+                    <div class="tool-actions">
+                      <a href={`/tools/${tool.slug}`} class="btn-small btn-secondary">
+                        Details
+                      </a>
+                      <a href={tool.data.affiliate_link}
+                         target="_blank"
+                         rel="noopener noreferrer"
+                         class="btn-small btn-primary">
+                        Tool testen
+                      </a>
+                    </div>
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </>
     )}
 
     <div style="text-align: center; margin-top: 3rem;">
@@ -561,12 +834,62 @@ const comparisonData = selectedTools.map(tool => ({
     document.addEventListener('DOMContentLoaded', function() {
       const savedTheme = localStorage.getItem('theme') || 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
-      
+
+      // View Toggle
+      const cardViewBtn = document.getElementById('cardViewBtn');
+      const tableViewBtn = document.getElementById('tableViewBtn');
+      const cardView = document.getElementById('cardView');
+      const tableView = document.getElementById('tableView');
+
+      if (cardViewBtn && tableViewBtn && cardView && tableView) {
+        // Load saved view preference
+        const savedView = localStorage.getItem('comparisonView') || 'card';
+
+        if (savedView === 'table') {
+          cardView.classList.add('hidden');
+          tableView.classList.remove('hidden');
+          cardViewBtn.classList.remove('active');
+          tableViewBtn.classList.add('active');
+        }
+
+        cardViewBtn.addEventListener('click', function() {
+          cardView.classList.remove('hidden');
+          tableView.classList.add('hidden');
+          cardViewBtn.classList.add('active');
+          tableViewBtn.classList.remove('active');
+          localStorage.setItem('comparisonView', 'card');
+
+          // Track view switch
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'comparison_view_switch', {
+              'view_type': 'card',
+              'source': 'compare_page'
+            });
+          }
+        });
+
+        tableViewBtn.addEventListener('click', function() {
+          cardView.classList.add('hidden');
+          tableView.classList.remove('hidden');
+          cardViewBtn.classList.remove('active');
+          tableViewBtn.classList.add('active');
+          localStorage.setItem('comparisonView', 'table');
+
+          // Track view switch
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'comparison_view_switch', {
+              'view_type': 'table',
+              'source': 'compare_page'
+            });
+          }
+        });
+      }
+
       // Analytics tracking
       if (typeof gtag !== 'undefined') {
         const urlParams = new URLSearchParams(window.location.search);
         const toolsParam = urlParams.get('tools');
-        
+
         if (toolsParam) {
           const toolNames = toolsParam.split(',');
           gtag('event', 'tool_comparison_view', {
