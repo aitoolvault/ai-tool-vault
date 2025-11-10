@@ -1,6 +1,7 @@
 ---
 // src/pages/compare.astro
 import { getCollection } from "astro:content";
+import Navigation from '../components/Navigation.astro';
 
 // Tools laden
 const allTools = await getCollection("tools");
@@ -531,18 +532,8 @@ const comparisonData = selectedTools.map(tool => ({
     }
   </style>
 </head>
-<body>
-  <nav class="nav">
-    <div class="nav-container">
-      <a href="/" class="nav-logo">AI Tool Vault</a>
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/tools">Tools</a></li>
-        <li><a href="/impressum">Impressum</a></li>
-        <li><a href="/datenschutz">Datenschutz</a></li>
-      </ul>
-    </div>
-  </nav>
+<body style="padding-top: 70px;">
+  <Navigation />
 
   <div class="container">
     <div class="header">

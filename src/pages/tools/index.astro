@@ -1,5 +1,7 @@
 ---
 import { getCollection } from "astro:content";
+import Navigation from '../../components/Navigation.astro';
+
 const tools = await getCollection("tools");
 
 // Kategorien extrahieren und sortieren
@@ -1025,24 +1027,8 @@ const toolNames = tools.map(tool => tool.data.title);
         }
     </style>
 </head>
-<body>
-    <button class="theme-toggle" id="themeToggle" aria-label="Theme umschalten">
-        <div class="theme-switch"></div>
-    </button>
-
-    <nav class="navigation">
-        <div class="nav-container">
-            <a href="/" class="nav-logo">AI Tool Vault</a>
-            <ul class="nav-links">
-                <li><a href="/">Home</a></li>
-                <li><a href="/tools">Tools</a></li>
-                <li><a href="/impressum">Impressum</a></li>
-                <li><a href="/kontakt">Kontakt</a></li>
-                <li><a href="/datenschutz">Datenschutz</a></li>
-            </ul>
-            <button class="mobile-menu">☰</button>
-        </div>
-    </nav>
+<body style="padding-top: 70px;">
+    <Navigation />
 
     <section class="trust-banner">
         <div class="trust-container">

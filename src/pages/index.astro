@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import Navigation from '../components/Navigation.astro';
 
 let tools = [];
 let categories = [];
@@ -870,26 +871,8 @@ function getCategoryIcon(categoryName) {
     }
   </style>
 </head>
-<body>
-  <button class="theme-toggle" id="themeToggle" aria-label="Theme umschalten">
-    <div class="theme-switch"></div>
-  </button>
-
-  <nav class="nav">
-    <div class="nav-container">
-      <a href="/" class="nav-logo">AI Tool Vault</a>
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/tools">Tools</a></li>
-        <li><a href="/blog">Blog</a></li>
-        <li><a href="/impressum">Impressum</a></li>
-        <li><a href="/kontakt">Kontakt</a></li>
-        <li><a href="/datenschutz">Datenschutz</a></li>
-      </ul>
-      <a href="/tools" class="nav-cta">Tools entdecken</a>
-      <button class="mobile-menu">☰</button>
-    </div>
-  </nav>
+<body style="padding-top: 70px;">
+  <Navigation />
 
   <section class="hero">
     <div class="hero-container">

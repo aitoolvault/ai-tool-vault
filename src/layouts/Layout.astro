@@ -1,4 +1,6 @@
 ---
+import Navigation from '../components/Navigation.astro';
+
 export interface Props {
   title: string;
   description?: string;
@@ -7,9 +9,9 @@ export interface Props {
   type?: 'website' | 'article';
 }
 
-const { 
-  title, 
-  description = "Die besten KI-Tools entdecken", 
+const {
+  title,
+  description = "Die besten KI-Tools entdecken",
   image = "/og-image.jpg",
   canonicalURL = Astro.url.href,
   type = 'website'
@@ -24,7 +26,7 @@ const siteURL = "https://aitoolvault.de";
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
+
   <title>{title}</title>
   <meta name="title" content={title} />
   <meta name="description" content={description} />
@@ -32,6 +34,14 @@ const siteURL = "https://aitoolvault.de";
   <meta name="author" content="AI Tool Vault" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href={canonicalURL} />
+
+  <script is:inline>
+    // Theme initialization
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
   
   <meta property="og:type" content={type} />
   <meta property="og:url" content={canonicalURL} />
@@ -198,24 +208,12 @@ const siteURL = "https://aitoolvault.de";
     }
   </style>
 </head>
-<body class="bg-gray-50">
+<body style="background: var(--bg-primary, #f8fafc); padding-top: 70px;">
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M8SMR588"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  
-  <header class="bg-white shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 py-4">
-      <nav class="flex justify-between items-center">
-        <a href="/" class="text-2xl font-bold text-purple-600">
-          AI Tool Vault
-        </a>
-        <div class="space-x-6">
-          <a href="/" class="text-gray-600 hover:text-purple-600">Home</a>
-          <a href="/tools" class="text-gray-600 hover:text-purple-600">Tools</a>
-        </div>
-      </nav>
-    </div>
-  </header>
-  
+
+  <Navigation />
+
   <main>
     <slot />
   </main>
