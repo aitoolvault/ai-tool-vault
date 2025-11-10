@@ -736,6 +736,23 @@ const toolNames = tools.map(tool => tool.data.title);
             accent-color: var(--accent-primary);
             cursor: pointer;
             display: none; /* Hidden by default, shown by JS when compare mode is active */
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 10;
+            transform: scale(1.5);
+            background: white;
+            padding: 0.2rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .card .compare-checkbox {
+            /* Checkbox in card context */
+        }
+
+        .compare-checkbox:checked {
+            accent-color: var(--success-color);
         }
 
         .compare-label {
@@ -1027,7 +1044,7 @@ const toolNames = tools.map(tool => tool.data.title);
         }
     </style>
 </head>
-<body style="padding-top: 80px;">
+<body style="padding-top: 65px;">
     <Header />
 
     <section class="trust-banner">
