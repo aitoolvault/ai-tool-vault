@@ -529,7 +529,246 @@ const comparisonData = selectedTools.map(tool => ({
       .comparison-cards {
         grid-template-columns: 1fr;
       }
+
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
     }
+
+  /* Tool Selector Styles */
+  .tool-selector-section {
+    background: var(--bg-secondary, #ffffff);
+    padding: 2rem;
+    border-radius: 16px;
+  }
+
+  .selector-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .selector-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .selector-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary, #1e293b);
+    margin-bottom: 0.5rem;
+  }
+
+  .selector-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary, #64748b);
+  }
+
+  .search-box-container {
+    margin-bottom: 2rem;
+  }
+
+  .tool-search-input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    border: 2px solid var(--border-primary, #e2e8f0);
+    border-radius: 12px;
+    background: var(--bg-primary, #f8fafc);
+    color: var(--text-primary, #1e293b);
+    transition: all 0.2s ease;
+  }
+
+  .tool-search-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  .selected-tools-display {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+  }
+
+  .selected-tools-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: white;
+    font-weight: 600;
+  }
+
+  .clear-selection-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .clear-selection-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .selected-tools-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .selected-tool-tag {
+    background: rgba(255, 255, 255, 0.9);
+    color: #3b82f6;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .remove-tool-btn {
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1;
+    padding: 0;
+  }
+
+  .compare-btn {
+    width: 100%;
+    padding: 1rem;
+    background: white;
+    color: #3b82f6;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .compare-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .compare-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .tool-select-card {
+    position: relative;
+    border: 2px solid var(--border-primary, #e2e8f0);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    background: var(--bg-primary, #f8fafc);
+  }
+
+  .tool-select-card:has(.tool-checkbox:checked) {
+    border-color: #3b82f6;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    background: rgba(59, 130, 246, 0.05);
+  }
+
+  .tool-checkbox {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .tool-card-label {
+    display: block;
+    padding: 1.5rem;
+    cursor: pointer;
+  }
+
+  .tool-select-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    padding-right: 2rem;
+  }
+
+  .tool-select-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary, #1e293b);
+    margin: 0;
+  }
+
+  .tool-category-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    background: #3b82f6;
+    color: white;
+  }
+
+  .tool-select-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary, #64748b);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .tool-select-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .pricing-tag {
+    font-size: 0.85rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+
+  .pricing-tag.kostenlos {
+    background: #10b981;
+    color: white;
+  }
+
+  .pricing-tag.freemium {
+    background: #f59e0b;
+    color: white;
+  }
+
+  .pricing-tag.kostenpflichtig {
+    background: #3b82f6;
+    color: white;
+  }
+
+  .rating-display {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary, #1e293b);
+  }
   </style>
 </head>
 <body style="padding-top: 80px;">
@@ -542,31 +781,64 @@ const comparisonData = selectedTools.map(tool => ({
     </div>
 
     {error ? (
-      <div class="error-section">
-        <div class="error-icon">🔍</div>
-        <div class="error-title">Keine Tools ausgewählt</div>
-        <div class="error-message">{error}</div>
+      <div class="tool-selector-section">
+        <div class="selector-header">
+          <div class="selector-icon">⚡</div>
+          <h2 class="selector-title">Wähle Tools zum Vergleichen</h2>
+          <p class="selector-subtitle">Wähle mindestens 2 Tools aus, um einen detaillierten Vergleich zu starten</p>
+        </div>
 
-        <!-- Debug Info (nur sichtbar in Development) -->
-        <details style="margin: 2rem 0; text-align: left; background: #f8f9fa; padding: 1rem; border-radius: 8px;">
-          <summary style="cursor: pointer; font-weight: 600;">🐛 Debug Informationen</summary>
-          <div style="margin-top: 1rem; font-family: monospace; font-size: 0.9rem;">
-            <p><strong>URL Parameter:</strong> {debugInfo.urlParam || 'nicht vorhanden'}</p>
-            <p><strong>Angeforderte Tools:</strong> {debugInfo.requestedTools?.join(', ') || 'keine'}</p>
-            <p><strong>Gefundene Tools:</strong> {debugInfo.foundTools?.join(', ') || 'keine'}</p>
-            <p><strong>Verfügbare Tools (erste 10):</strong></p>
-            <ul style="margin-left: 1rem;">
-              {debugInfo.availableTools?.slice(0, 10).map(name => (
-                <li>{name}</li>
-              )) || []}
-            </ul>
-            {debugInfo.availableTools?.length > 10 && (
-              <p><em>... und {debugInfo.availableTools.length - 10} weitere</em></p>
-            )}
+        <div class="search-box-container">
+          <input
+            type="text"
+            id="toolSearchInput"
+            placeholder="Tools suchen..."
+            class="tool-search-input"
+          />
+        </div>
+
+        <div class="selected-tools-display" id="selectedToolsDisplay" style="display: none;">
+          <div class="selected-tools-header">
+            <span>Ausgewählte Tools (<span id="selectedCount">0</span>)</span>
+            <button class="clear-selection-btn" id="clearSelectionBtn">Alle abwählen</button>
           </div>
-        </details>
+          <div class="selected-tools-list" id="selectedToolsList"></div>
+          <button class="compare-btn" id="compareBtn" disabled>
+            Tools vergleichen
+          </button>
+        </div>
 
-        <a href="/tools" class="back-btn">Zurück zu Tools</a>
+        <div class="tools-grid" id="toolsGrid">
+          {allTools.map(tool => (
+            <div class="tool-select-card" data-tool-name={tool.data.title}>
+              <input
+                type="checkbox"
+                class="tool-checkbox"
+                id={`tool-${tool.slug}`}
+                value={tool.data.title}
+              />
+              <label for={`tool-${tool.slug}`} class="tool-card-label">
+                <div class="tool-select-header">
+                  <h3 class="tool-select-name">{tool.data.title}</h3>
+                  <span class={`tool-category-badge badge-${tool.data.category.toLowerCase().replace(/\s+/g, '-')}`}>
+                    {tool.data.category}
+                  </span>
+                </div>
+                <p class="tool-select-description">{tool.data.description.substring(0, 100)}...</p>
+                <div class="tool-select-footer">
+                  <span class={`pricing-tag ${tool.data.pricing.toLowerCase().replace(/\s+/g, '-')}`}>
+                    {tool.data.pricing}
+                  </span>
+                  {tool.data.rating && (
+                    <span class="rating-display">
+                      ⭐ {tool.data.rating}
+                    </span>
+                  )}
+                </div>
+              </label>
+            </div>
+          ))}
+        </div>
       </div>
     ) : (
       <>
@@ -889,6 +1161,103 @@ const comparisonData = selectedTools.map(tool => ({
             'source': 'compare_page'
           });
         }
+      }
+
+      // Tool Selector functionality
+      const toolCheckboxes = document.querySelectorAll('.tool-checkbox');
+      const selectedToolsDisplay = document.getElementById('selectedToolsDisplay');
+      const selectedToolsList = document.getElementById('selectedToolsList');
+      const selectedCount = document.getElementById('selectedCount');
+      const compareBtn = document.getElementById('compareBtn');
+      const clearSelectionBtn = document.getElementById('clearSelectionBtn');
+      const toolSearchInput = document.getElementById('toolSearchInput');
+      const toolsGrid = document.getElementById('toolsGrid');
+
+      let selectedTools = [];
+
+      function updateSelectedDisplay() {
+        if (selectedTools.length > 0) {
+          selectedToolsDisplay.style.display = 'block';
+          selectedCount.textContent = selectedTools.length;
+
+          selectedToolsList.innerHTML = selectedTools.map(tool => `
+            <div class="selected-tool-tag">
+              ${tool}
+              <button class="remove-tool-btn" data-tool="${tool}">×</button>
+            </div>
+          `).join('');
+
+          // Enable compare button if at least 2 tools selected
+          compareBtn.disabled = selectedTools.length < 2;
+
+          // Add remove button listeners
+          document.querySelectorAll('.remove-tool-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+              const toolName = this.getAttribute('data-tool');
+              const checkbox = document.querySelector(`.tool-checkbox[value="${toolName}"]`);
+              if (checkbox) {
+                checkbox.checked = false;
+                selectedTools = selectedTools.filter(t => t !== toolName);
+                updateSelectedDisplay();
+              }
+            });
+          });
+        } else {
+          selectedToolsDisplay.style.display = 'none';
+        }
+      }
+
+      // Handle checkbox changes
+      toolCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          const toolName = this.value;
+
+          if (this.checked) {
+            if (!selectedTools.includes(toolName)) {
+              selectedTools.push(toolName);
+            }
+          } else {
+            selectedTools = selectedTools.filter(t => t !== toolName);
+          }
+
+          updateSelectedDisplay();
+        });
+      });
+
+      // Clear selection
+      if (clearSelectionBtn) {
+        clearSelectionBtn.addEventListener('click', function() {
+          selectedTools = [];
+          toolCheckboxes.forEach(cb => cb.checked = false);
+          updateSelectedDisplay();
+        });
+      }
+
+      // Compare button
+      if (compareBtn) {
+        compareBtn.addEventListener('click', function() {
+          if (selectedTools.length >= 2) {
+            const toolsParam = selectedTools.join(',');
+            window.location.href = `/compare?tools=${encodeURIComponent(toolsParam)}`;
+          }
+        });
+      }
+
+      // Search functionality
+      if (toolSearchInput && toolsGrid) {
+        toolSearchInput.addEventListener('input', function() {
+          const searchTerm = this.value.toLowerCase();
+          const toolCards = toolsGrid.querySelectorAll('.tool-select-card');
+
+          toolCards.forEach(card => {
+            const toolName = card.getAttribute('data-tool-name').toLowerCase();
+            if (toolName.includes(searchTerm)) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
       }
     });
   </script>
