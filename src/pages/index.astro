@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import Header from '../components/Header.astro';
 
 let tools = [];
 let categories = [];
@@ -104,9 +105,6 @@ function getCategoryIcon(categoryName) {
     gtag('js', new Date());
     gtag('config', 'G-EC62QPK5VL');
   </script>
-
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5595876978844902"
-     crossorigin="anonymous"></script>
 
   <style>
     :root {
@@ -810,46 +808,6 @@ function getCategoryIcon(categoryName) {
       font-size: 0.9rem;
     }
 
-    .ad-container {
-      margin: 3rem auto;
-      padding: 1.5rem;
-      max-width: 1200px;
-      text-align: center;
-      background: var(--card-bg);
-      border-radius: 12px;
-      border: 1px solid var(--border-primary);
-    }
-
-    .ad-container::before {
-      content: "Anzeige";
-      display: block;
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .ad-between-sections {
-      margin: 4rem auto;
-      background: linear-gradient(135deg, var(--features-gradient-start) 0%, var(--features-gradient-end) 100%);
-    }
-
-    .ad-in-grid {
-      grid-column: 1 / -1;
-      margin: 2rem 0;
-    }
-
-    .ad-pre-footer {
-      margin: 3rem auto 1rem;
-      background: var(--bg-secondary);
-      color: var(--text-primary);
-    }
-
-    .ad-pre-footer::before {
-      color: var(--text-secondary);
-    }
-    
     @media (max-width: 768px) {
       .nav-links {
         display: none;
@@ -913,26 +871,8 @@ function getCategoryIcon(categoryName) {
     }
   </style>
 </head>
-<body>
-  <button class="theme-toggle" id="themeToggle" aria-label="Theme umschalten">
-    <div class="theme-switch"></div>
-  </button>
-
-  <nav class="nav">
-    <div class="nav-container">
-      <a href="/" class="nav-logo">AI Tool Vault</a>
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/tools">Tools</a></li>
-        <li><a href="/blog">Blog</a></li>
-        <li><a href="/impressum">Impressum</a></li>
-        <li><a href="/kontakt">Kontakt</a></li>
-        <li><a href="/datenschutz">Datenschutz</a></li>
-      </ul>
-      <a href="/tools" class="nav-cta">Tools entdecken</a>
-      <button class="mobile-menu">☰</button>
-    </div>
-  </nav>
+<body style="padding-top: 80px;">
+  <Header />
 
   <section class="hero">
     <div class="hero-container">
@@ -962,15 +902,6 @@ function getCategoryIcon(categoryName) {
       </a>
     </div>
   </section>
-
-  <div class="ad-container">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-5595876978844902"
-         data-ad-slot="AUTO"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-  </div>
 
   <section class="features section">
     <div class="section-header">

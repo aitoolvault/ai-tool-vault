@@ -77,6 +77,21 @@ const comparisonSchema = {
       <p>Welches KI-Tool ist besser? Wir vergleichen Preise, Features und Performance im Detail.</p>
     </div>
 
+    <!-- Einleitung -->
+    <section class="intro-section">
+      <p>
+        Im direkten Vergleich zwischen {tool1.data.name} und {tool2.data.name} zeigen sich deutliche Unterschiede
+        in Funktionsumfang, Preisgestaltung und Einsatzgebieten. Beide Tools haben ihre Stärken und sind für
+        unterschiedliche Anwendungsfälle konzipiert. Während {tool1.data.name} vor allem durch {tool1.data.pros?.[0]}
+        überzeugt, punktet {tool2.data.name} besonders mit {tool2.data.pros?.[0]}.
+      </p>
+      <p>
+        In diesem ausführlichen Vergleich analysieren wir die wichtigsten Aspekte beider Tools, von der Benutzerfreundlichkeit
+        über die Preismodelle bis hin zu den spezifischen Features. So können Sie eine fundierte Entscheidung treffen,
+        welches Tool am besten zu Ihren Anforderungen passt.
+      </p>
+    </section>
+
     <div class="comparison-grid">
       <!-- Tool 1 -->
       <div class="tool-card">
@@ -90,12 +105,12 @@ const comparisonSchema = {
         </div>
 
         <div class="pros-cons">
-          <h3>✅ Vorteile</h3>
+          <h3>Vorteile</h3>
           <ul>
             {tool1.data.pros?.slice(0, 5).map(pro => <li>{pro}</li>)}
           </ul>
-          
-          <h3>❌ Nachteile</h3>
+
+          <h3>Nachteile</h3>
           <ul>
             {tool1.data.cons?.slice(0, 3).map(con => <li>{con}</li>)}
           </ul>
@@ -123,12 +138,12 @@ const comparisonSchema = {
         </div>
 
         <div class="pros-cons">
-          <h3>✅ Vorteile</h3>
+          <h3>Vorteile</h3>
           <ul>
             {tool2.data.pros?.slice(0, 5).map(pro => <li>{pro}</li>)}
           </ul>
-          
-          <h3>❌ Nachteile</h3>
+
+          <h3>Nachteile</h3>
           <ul>
             {tool2.data.cons?.slice(0, 3).map(con => <li>{con}</li>)}
           </ul>
@@ -181,6 +196,25 @@ const comparisonSchema = {
       </table>
     </section>
 
+    <!-- Fazit -->
+    <section class="conclusion">
+      <h2>Fazit: {tool1.data.name} oder {tool2.data.name}?</h2>
+      <p>
+        Beide Tools bieten hervorragende Lösungen in ihrem jeweiligen Bereich. Die Wahl zwischen {tool1.data.name}
+        und {tool2.data.name} hängt stark von Ihren individuellen Anforderungen und Präferenzen ab.
+      </p>
+      <p>
+        {tool1.data.name} eignet sich besonders gut für Nutzer, die Wert auf {tool1.data.pros?.[0]} legen und bereit sind,
+        {tool1.data.pricing === 'Kostenlos' ? 'das kostenlose Angebot zu nutzen' : `${tool1.data.pricing} zu investieren`}.
+        Demgegenüber ist {tool2.data.name} die bessere Wahl, wenn {tool2.data.pros?.[0]} im Vordergrund steht.
+      </p>
+      <p>
+        Unsere Empfehlung: Testen Sie beide Tools im Rahmen der verfügbaren kostenlosen Versionen oder Testphasen,
+        um selbst herauszufinden, welche Lösung besser zu Ihrem Workflow passt. Nur so können Sie eine fundierte
+        Entscheidung treffen, die langfristig zu Ihren Anforderungen passt.
+      </p>
+    </section>
+
     <!-- FAQ Section für Featured Snippets -->
     <section class="faq">
       <h2>Häufig gestellte Fragen</h2>
@@ -229,24 +263,106 @@ const comparisonSchema = {
 </Layout>
 
 <style>
+  :root {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f1f5f9;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --border-primary: #e2e8f0;
+    --accent-primary: #667eea;
+    --accent-secondary: #764ba2;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 20px rgba(0,0,0,0.15);
+  }
+
+  [data-theme="dark"] {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-tertiary: #334155;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --border-primary: #334155;
+    --accent-primary: #818cf8;
+    --accent-secondary: #a78bfa;
+    --success-color: #34d399;
+    --warning-color: #fbbf24;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+    --shadow-lg: 0 10px 20px rgba(0,0,0,0.4);
+  }
+
   .comparison-page {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
   }
 
+  .intro-section,
+  .conclusion {
+    background: var(--bg-secondary);
+    padding: 2.5rem;
+    border-radius: 16px;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-primary);
+    line-height: 1.8;
+  }
+
+  .intro-section p,
+  .conclusion p {
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+  }
+
+  .intro-section p:last-child,
+  .conclusion p:last-child {
+    margin-bottom: 0;
+  }
+
+  .conclusion h2 {
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+  }
+
   .hero {
     text-align: center;
-    padding: 4rem 0;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
     color: white;
-    border-radius: 12px;
+    border-radius: 16px;
     margin-bottom: 3rem;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
   }
 
   .hero h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero p {
+    position: relative;
+    z-index: 1;
+    opacity: 0.95;
   }
 
   .comparison-grid {
@@ -254,37 +370,82 @@ const comparisonSchema = {
     grid-template-columns: 1fr auto 1fr;
     gap: 2rem;
     margin-bottom: 4rem;
+    align-items: start;
   }
 
   .tool-card {
-    background: white;
+    background: var(--bg-secondary);
     padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 16px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-primary);
+    transition: all 0.3s ease;
+  }
+
+  .tool-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent-primary);
+  }
+
+  .tool-card h2 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+  }
+
+  .tool-card .description {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
   }
 
   .vs-divider {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: bold;
-    color: #667eea;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding: 0 1rem;
   }
 
   .rating {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin: 1rem 0;
     color: #fbbf24;
+    font-weight: 600;
+  }
+
+  .pricing h3 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
   }
 
   .price-badge {
     display: inline-block;
-    background: #667eea;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
     color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
     font-weight: bold;
+    font-size: 0.95rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .pros-cons {
+    margin-top: 1.5rem;
+  }
+
+  .pros-cons h3 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    margin-top: 1.25rem;
   }
 
   .pros-cons ul {
@@ -293,32 +454,49 @@ const comparisonSchema = {
   }
 
   .pros-cons li {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #e5e7eb;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-primary);
+    color: var(--text-secondary);
+    position: relative;
+    padding-left: 0.5rem;
+  }
+
+  .pros-cons li:last-child {
+    border-bottom: none;
   }
 
   .cta-button {
     display: block;
     text-align: center;
-    background: #667eea;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
     color: white;
-    padding: 1rem;
-    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: bold;
     margin-top: 2rem;
-    transition: transform 0.2s;
+    transition: all 0.3s;
+    box-shadow: var(--shadow-sm);
   }
 
   .cta-button:hover {
     transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
   }
 
   .feature-comparison {
-    background: white;
+    background: var(--bg-secondary);
     padding: 2rem;
-    border-radius: 12px;
+    border-radius: 16px;
     margin-bottom: 3rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-primary);
+  }
+
+  .feature-comparison h2 {
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
   }
 
   .feature-comparison table {
@@ -330,37 +508,78 @@ const comparisonSchema = {
   .feature-comparison td {
     padding: 1rem;
     text-align: left;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid var(--border-primary);
   }
 
   .feature-comparison th {
-    background: #f9fafb;
+    background: var(--bg-tertiary);
     font-weight: bold;
+    color: var(--text-primary);
+    font-size: 1.05rem;
+  }
+
+  .feature-comparison td {
+    color: var(--text-secondary);
+  }
+
+  .feature-comparison tbody tr {
+    transition: background-color 0.2s;
+  }
+
+  .feature-comparison tbody tr:hover {
+    background: var(--bg-tertiary);
   }
 
   .faq {
-    background: white;
+    background: var(--bg-secondary);
     padding: 2rem;
-    border-radius: 12px;
+    border-radius: 16px;
     margin-bottom: 3rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-primary);
+  }
+
+  .faq h2 {
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
   }
 
   .faq-item {
     margin-bottom: 2rem;
     padding-bottom: 2rem;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid var(--border-primary);
+  }
+
+  .faq-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
 
   .faq-item h3 {
-    color: #667eea;
-    margin-bottom: 0.5rem;
+    color: var(--accent-primary);
+    margin-bottom: 0.75rem;
+    font-size: 1.15rem;
+  }
+
+  .faq-item p {
+    color: var(--text-secondary);
+    line-height: 1.6;
   }
 
   .final-cta {
     text-align: center;
-    padding: 3rem;
-    background: #f9fafb;
-    border-radius: 12px;
+    padding: 3rem 2rem;
+    background: var(--bg-tertiary);
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .final-cta h2 {
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
   }
 
   .cta-buttons {
@@ -368,29 +587,103 @@ const comparisonSchema = {
     gap: 1rem;
     justify-content: center;
     margin-top: 2rem;
+    flex-wrap: wrap;
   }
 
   .primary-button {
-    background: #667eea;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
     color: white;
     padding: 1rem 2rem;
-    border-radius: 8px;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: bold;
-    transition: transform 0.2s;
+    transition: all 0.3s;
+    box-shadow: var(--shadow-sm);
   }
 
   .primary-button:hover {
     transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+
+    .comparison-grid {
+      gap: 1.5rem;
+    }
   }
 
   @media (max-width: 768px) {
+    .comparison-page {
+      padding: 1rem;
+    }
+
+    .hero {
+      padding: 3rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      font-size: 1.75rem;
+    }
+
     .comparison-grid {
       grid-template-columns: 1fr;
+      gap: 2rem;
     }
-    
+
     .vs-divider {
       transform: rotate(90deg);
+      font-size: 2rem;
+      padding: 1rem 0;
+    }
+
+    .tool-card {
+      padding: 1.5rem;
+    }
+
+    .feature-comparison,
+    .faq,
+    .final-cta {
+      padding: 1.5rem;
+    }
+
+    .feature-comparison table {
+      font-size: 0.9rem;
+    }
+
+    .feature-comparison th,
+    .feature-comparison td {
+      padding: 0.75rem 0.5rem;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .primary-button {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 {
+      font-size: 1.5rem;
+    }
+
+    .tool-card h2 {
+      font-size: 1.5rem;
+    }
+
+    .feature-comparison h2,
+    .faq h2,
+    .final-cta h2 {
+      font-size: 1.5rem;
     }
   }
 </style>

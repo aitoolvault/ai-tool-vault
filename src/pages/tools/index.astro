@@ -1,5 +1,7 @@
 ---
 import { getCollection } from "astro:content";
+import Header from '../../components/Header.astro';
+
 const tools = await getCollection("tools");
 
 // Kategorien extrahieren und sortieren
@@ -67,20 +69,6 @@ const toolNames = tools.map(tool => tool.data.title);
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-EC62QPK5VL');
-    </script>
-
-    <script>
-        // AdSense laden mit Fehlerbehandlung
-        (function() {
-            var script = document.createElement('script');
-            script.async = true;
-            script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5595876978844902';
-            script.crossOrigin = 'anonymous';
-            script.onerror = function() {
-                console.warn('AdSense konnte nicht geladen werden (möglicherweise durch Adblocker blockiert)');
-            };
-            document.head.appendChild(script);
-        })();
     </script>
 
     <style>
@@ -1039,24 +1027,8 @@ const toolNames = tools.map(tool => tool.data.title);
         }
     </style>
 </head>
-<body>
-    <button class="theme-toggle" id="themeToggle" aria-label="Theme umschalten">
-        <div class="theme-switch"></div>
-    </button>
-
-    <nav class="navigation">
-        <div class="nav-container">
-            <a href="/" class="nav-logo">AI Tool Vault</a>
-            <ul class="nav-links">
-                <li><a href="/">Home</a></li>
-                <li><a href="/tools">Tools</a></li>
-                <li><a href="/impressum">Impressum</a></li>
-                <li><a href="/kontakt">Kontakt</a></li>
-                <li><a href="/datenschutz">Datenschutz</a></li>
-            </ul>
-            <button class="mobile-menu">☰</button>
-        </div>
-    </nav>
+<body style="padding-top: 80px;">
+    <Header />
 
     <section class="trust-banner">
         <div class="trust-container">
@@ -1106,15 +1078,6 @@ const toolNames = tools.map(tool => tool.data.title);
             </div>
         </div>
     </section>
-
-    <div class="ad-container">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-5595876978844902"
-             data-ad-slot="AUTO"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-    </div>
 
     <main class="container">
         <div class="main-content">
@@ -1230,14 +1193,6 @@ const toolNames = tools.map(tool => tool.data.title);
                         </div>
                     </div>
                 ))}
-            </div>
-
-            <div class="ad-container">
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-5595876978844902"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
             </div>
         </div>
 
