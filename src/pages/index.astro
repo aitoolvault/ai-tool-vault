@@ -11,7 +11,13 @@ try {
 } catch (error) {
   console.error("Fehler beim Laden der Tools:", error);
   tools = [];
-  categories = ['Textgenerierung', 'Bildgenerierung', 'Videobearbeitung', 'Coding', 'Audiogenerierung', 'Design', 'Produktivität', 'Literaturrecherche', 'Multimodal'];
+  categories = [
+    'Textgenerierung', 'Bildgenerierung', 'Videobearbeitung', 'Coding',
+    'Audiogenerierung', 'Audio-Tools', 'Audio & Musik', 'Musikgenerierung', 'Text-to-Speech',
+    'Design', 'Design-Tools', 'Produktivität', 'Literaturrecherche', 'Multimodal',
+    '3D-Generierung', 'Bildbearbeitung', 'E-Commerce', 'Fintech', 'Machine Learning',
+    'Marketing', 'Präsentation', 'Präsentationen', 'Unterhaltung', 'Web-Entwicklung', 'Website-Erstellung'
+  ];
 }
 
 const featuredTools = tools.slice(0, 6);
@@ -19,32 +25,51 @@ const freeTools = tools.filter(tool => tool.data?.pricing === "Kostenlos").lengt
 const freemiumTools = tools.filter(tool => tool.data?.pricing === "Freemium").length || 18;
 const paidTools = tools.filter(tool => tool.data?.pricing === "Kostenpflichtig").length || 44;
 
-const allCategories = [
-  { name: "Textgenerierung", count: tools.filter(t => t.data?.category === "Textgenerierung").length || 15 },
-  { name: "Bildgenerierung", count: tools.filter(t => t.data?.category === "Bildgenerierung").length || 12 },
-  { name: "Videobearbeitung", count: tools.filter(t => t.data?.category === "Videobearbeitung").length || 8 },
-  { name: "Coding", count: tools.filter(t => t.data?.category === "Coding").length || 10 },
-  { name: "Audiogenerierung", count: tools.filter(t => t.data?.category === "Audiogenerierung").length || 6 },
-  { name: "Design", count: tools.filter(t => t.data?.category === "Design").length || 7 },
-  { name: "Produktivität", count: tools.filter(t => t.data?.category === "Produktivität").length || 9 },
-  { name: "Literaturrecherche", count: tools.filter(t => t.data?.category === "Literaturrecherche").length || 4 },
-  { name: "Multimodal", count: tools.filter(t => t.data?.category === "Multimodal").length || 5 }
-];
+// Dynamisch alle Kategorien mit Counts generieren
+const categoryCounts = {};
+tools.forEach(tool => {
+  const cat = tool.data?.category;
+  if (cat) {
+    categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+  }
+});
+
+const allCategories = Object.entries(categoryCounts)
+  .map(([name, count]) => ({ name, count }))
+  .sort((a, b) => b.count - a.count); // Sortieren nach Anzahl (absteigend)
 
 const totalTools = tools.length || 86;
 const totalCategories = allCategories.length;
 
 function getCategoryIcon(categoryName) {
-  if (categoryName === 'Textgenerierung') return 'T';
-  if (categoryName === 'Bildgenerierung') return 'I';
-  if (categoryName === 'Videobearbeitung') return 'V';
-  if (categoryName === 'Coding') return 'C';
-  if (categoryName === 'Audiogenerierung') return 'A';
-  if (categoryName === 'Design') return 'D';
-  if (categoryName === 'Produktivität') return 'P';
-  if (categoryName === 'Literaturrecherche') return 'L';
-  if (categoryName === 'Multimodal') return 'M';
-  return 'T';
+  const iconMap = {
+    'Textgenerierung': '✍️',
+    'Bildgenerierung': '🎨',
+    'Videobearbeitung': '🎬',
+    'Coding': '💻',
+    'Audiogenerierung': '🎵',
+    'Audio-Tools': '🎧',
+    'Audio & Musik': '🎵',
+    'Musikgenerierung': '🎼',
+    'Text-to-Speech': '🔊',
+    'Design': '🎨',
+    'Design-Tools': '🖌️',
+    'Produktivität': '⚡',
+    'Literaturrecherche': '📚',
+    'Multimodal': '🔮',
+    '3D-Generierung': '🧊',
+    'Bildbearbeitung': '🖼️',
+    'E-Commerce': '🛒',
+    'Fintech': '💰',
+    'Machine Learning': '🤖',
+    'Marketing': '📈',
+    'Präsentation': '📊',
+    'Präsentationen': '📽️',
+    'Unterhaltung': '🎮',
+    'Web-Entwicklung': '🌐',
+    'Website-Erstellung': '🏗️'
+  };
+  return iconMap[categoryName] || '🔧';
 }
 ---
 

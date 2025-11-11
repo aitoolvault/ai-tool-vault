@@ -1,7 +1,7 @@
 ---
 // src/pages/compare.astro
 import { getCollection } from "astro:content";
-import Header from '../components/Header.astro';
+import Layout from '../layouts/Layout.astro';
 
 // Tools laden
 const allTools = await getCollection("tools");
@@ -20,40 +20,20 @@ debugInfo.availableTools = availableToolNames;
 debugInfo.urlParam = toolsParam;
 
 if (toolsParam) {
-  const toolNames = toolsParam.split(',').map(name => name.trim());
-  debugInfo.requestedTools = toolNames;
-  
-  // Tools basierend auf Namen finden - mit flexibler Suche
-  selectedTools = toolNames
-    .map(requestedName => {
-      // Exakte Übereinstimmung
-      let tool = allTools.find(tool => tool.data.title === requestedName);
-      
-      // Falls nicht gefunden, case-insensitive Suche
-      if (!tool) {
-        tool = allTools.find(tool => 
-          tool.data.title.toLowerCase() === requestedName.toLowerCase()
-        );
-      }
-      
-      // Falls immer noch nicht gefunden, teilweise Übereinstimmung
-      if (!tool) {
-        tool = allTools.find(tool => 
-          tool.data.title.toLowerCase().includes(requestedName.toLowerCase()) ||
-          requestedName.toLowerCase().includes(tool.data.title.toLowerCase())
-        );
-      }
-      
-      return tool;
-    })
+  const toolSlugs = toolsParam.split(',').map(slug => slug.trim());
+  debugInfo.requestedTools = toolSlugs;
+
+  // Tools basierend auf Slugs finden
+  selectedTools = toolSlugs
+    .map(slug => allTools.find(tool => tool.slug === slug))
     .filter(tool => tool !== undefined);
-  
-  debugInfo.foundTools = selectedTools.map(tool => tool.data.title);
-  
+
+  debugInfo.foundTools = selectedTools.map(tool => tool.slug);
+
   if (selectedTools.length === 0) {
-    error = `Keine der angeforderten Tools gefunden: ${toolNames.join(', ')}`;
-  } else if (selectedTools.length < 2 && toolNames.length >= 2) {
-    error = `Nur ${selectedTools.length} von ${toolNames.length} Tools gefunden. Mindestens 2 Tools sind erforderlich.`;
+    error = `Keine der angeforderten Tools gefunden: ${toolSlugs.join(', ')}`;
+  } else if (selectedTools.length < 2 && toolSlugs.length >= 2) {
+    error = `Nur ${selectedTools.length} von ${toolSlugs.length} Tools gefunden. Mindestens 2 Tools sind erforderlich.`;
   } else if (selectedTools.length < 2) {
     error = "Mindestens 2 Tools sind für einen Vergleich erforderlich.";
   }
@@ -80,118 +60,29 @@ const comparisonData = selectedTools.map(tool => ({
 }));
 ---
 
-<!DOCTYPE html>
-<html lang="de">
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-EC62QPK5VL');
-</script>
-
-<head>
-
-<script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="6ff1c2bf-6e6e-4ddb-b46e-b43b350bc9d0" type="text/javascript" async></script>
-
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tool-Vergleich | AI Tool Vault</title>
-  <meta name="description" content="Vergleiche KI-Tools direkt miteinander - Features, Preise und Bewertungen im Überblick" />
-  
-  <style>
+<Layout
+  title="Tool-Vergleich | AI Tool Vault"
+  description="Vergleiche KI-Tools direkt miteinander - Features, Preise und Bewertungen im Überblick"
+>
+  <style is:global>
     :root {
-      --bg-primary: #f8fafc;
-      --bg-secondary: #ffffff;
       --bg-tertiary: #f1f5f9;
-      --text-primary: #1e293b;
-      --text-secondary: #64748b;
-      --border-primary: #e2e8f0;
-      --accent-primary: #3b82f6;
-      --accent-secondary: #8b5cf6;
-      --success-color: #10b981;
-      --error-color: #ef4444;
-      --warning-color: #f59e0b;
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
       --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
       --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
     }
 
     [data-theme="dark"] {
-      --bg-primary: #0f172a;
-      --bg-secondary: #1e293b;
       --bg-tertiary: #334155;
-      --text-primary: #f1f5f9;
-      --text-secondary: #cbd5e1;
-      --border-primary: #334155;
-      --accent-primary: #60a5fa;
-      --accent-secondary: #a78bfa;
-      --success-color: #34d399;
-      --error-color: #f87171;
-      --warning-color: #fbbf24;
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
       --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
       --shadow-lg: 0 10px 15px rgba(0,0,0,0.3);
     }
+  </style>
 
+  <style>
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.6;
-    }
-
-    .nav {
-      background: var(--bg-secondary);
-      border-bottom: 1px solid var(--border-primary);
-      padding: 1rem 0;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .nav-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .nav-logo {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--text-primary);
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover {
-      color: var(--accent-primary);
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
 
     .container {
@@ -209,7 +100,7 @@ const comparisonData = selectedTools.map(tool => ({
       font-size: 2.5rem;
       font-weight: 800;
       margin-bottom: 1rem;
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -231,7 +122,7 @@ const comparisonData = selectedTools.map(tool => ({
 
     .toggle-btn {
       padding: 0.75rem 1.5rem;
-      border: 2px solid var(--border-primary);
+      border: 2px solid var(--border-color);
       background: var(--bg-secondary);
       color: var(--text-primary);
       border-radius: 8px;
@@ -241,13 +132,13 @@ const comparisonData = selectedTools.map(tool => ({
     }
 
     .toggle-btn.active {
-      background: var(--accent-primary);
+      background: #3b82f6;
       color: white;
-      border-color: var(--accent-primary);
+      border-color: #3b82f6;
     }
 
     .toggle-btn:hover:not(.active) {
-      border-color: var(--accent-primary);
+      border-color: #3b82f6;
     }
 
     .error-section {
@@ -255,7 +146,7 @@ const comparisonData = selectedTools.map(tool => ({
       padding: 3rem;
       border-radius: 12px;
       text-align: center;
-      border: 1px solid var(--border-primary);
+      border: 1px solid var(--border-color);
       box-shadow: var(--shadow-md);
     }
 
@@ -268,7 +159,7 @@ const comparisonData = selectedTools.map(tool => ({
       font-size: 1.5rem;
       font-weight: 700;
       margin-bottom: 1rem;
-      color: var(--error-color);
+      color: #ef4444;
     }
 
     .error-message {
@@ -277,7 +168,7 @@ const comparisonData = selectedTools.map(tool => ({
     }
 
     .back-btn {
-      background: var(--accent-primary);
+      background: #3b82f6;
       color: white;
       padding: 1rem 2rem;
       border-radius: 8px;
@@ -303,7 +194,7 @@ const comparisonData = selectedTools.map(tool => ({
     .tool-comparison-card {
       background: var(--bg-secondary);
       border-radius: 12px;
-      border: 1px solid var(--border-primary);
+      border: 1px solid var(--border-color);
       padding: 2rem;
       box-shadow: var(--shadow-md);
       transition: transform 0.3s, box-shadow 0.3s;
@@ -317,7 +208,7 @@ const comparisonData = selectedTools.map(tool => ({
     .tool-card-header {
       text-align: center;
       padding-bottom: 1.5rem;
-      border-bottom: 2px solid var(--border-primary);
+      border-bottom: 2px solid var(--border-color);
       margin-bottom: 1.5rem;
     }
 
@@ -325,7 +216,7 @@ const comparisonData = selectedTools.map(tool => ({
       font-size: 1.5rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
-      color: var(--accent-primary);
+      color: #3b82f6;
     }
 
     .feature-row {
@@ -333,7 +224,7 @@ const comparisonData = selectedTools.map(tool => ({
       justify-content: space-between;
       align-items: center;
       padding: 0.75rem 0;
-      border-bottom: 1px solid var(--border-primary);
+      border-bottom: 1px solid var(--border-color);
     }
 
     .feature-row:last-child {
@@ -354,7 +245,7 @@ const comparisonData = selectedTools.map(tool => ({
     .comparison-table {
       background: var(--bg-secondary);
       border-radius: 12px;
-      border: 1px solid var(--border-primary);
+      border: 1px solid var(--border-color);
       overflow: hidden;
       overflow-x: auto;
       box-shadow: var(--shadow-md);
@@ -369,7 +260,7 @@ const comparisonData = selectedTools.map(tool => ({
     .table th, .table td {
       padding: 1rem;
       text-align: left;
-      border-bottom: 1px solid var(--border-primary);
+      border-bottom: 1px solid var(--border-color);
     }
 
     .table th {
@@ -390,7 +281,7 @@ const comparisonData = selectedTools.map(tool => ({
     }
 
     .tool-header {
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
       color: white;
       text-align: center;
       font-weight: 700;
@@ -426,12 +317,12 @@ const comparisonData = selectedTools.map(tool => ({
     }
 
     .check-icon {
-      color: var(--success-color);
+      color: #10b981;
       font-weight: 600;
       font-size: 1.1rem;
     }
     .cross-icon {
-      color: var(--error-color);
+      color: #ef4444;
       font-weight: 600;
       font-size: 1.1rem;
     }
@@ -464,13 +355,13 @@ const comparisonData = selectedTools.map(tool => ({
     }
 
     .btn-primary {
-      background: var(--accent-primary);
+      background: #3b82f6;
       color: white;
       box-shadow: var(--shadow-sm);
     }
 
     .btn-primary:hover {
-      background: var(--accent-secondary);
+      background: #8b5cf6;
       transform: translateY(-1px);
       box-shadow: var(--shadow-md);
     }
@@ -478,23 +369,382 @@ const comparisonData = selectedTools.map(tool => ({
     .btn-secondary {
       background: var(--bg-tertiary);
       color: var(--text-primary);
-      border: 1px solid var(--border-primary);
+      border: 1px solid var(--border-color);
     }
 
     .btn-secondary:hover {
       background: var(--bg-primary);
-      border-color: var(--accent-primary);
+      border-color: #3b82f6;
     }
 
     .hidden {
       display: none !important;
     }
 
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
+    /* Comparison Summary Styles */
+    .comparison-summary {
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+    }
 
+    .comparison-summary h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+      text-align: center;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .summary-card {
+      background: var(--bg-primary);
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .summary-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .summary-card.recommended {
+      border-color: #f59e0b;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05));
+    }
+
+    .summary-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .summary-card h3 {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .winner-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .winner-detail {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .quick-comparison {
+      margin-top: 2rem;
+    }
+
+    .quick-comparison h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .quick-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-primary);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .quick-table th,
+    .quick-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .quick-table th {
+      background: var(--bg-tertiary);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .quick-table td {
+      color: var(--text-secondary);
+    }
+
+    .quick-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .highlight-better {
+      background: rgba(16, 185, 129, 0.1) !important;
+      color: #10b981 !important;
+      font-weight: 600;
+    }
+
+    .highlight-worse {
+      background: rgba(239, 68, 68, 0.1) !important;
+      color: #ef4444 !important;
+    }
+
+    [data-theme="dark"] .highlight-better {
+      background: rgba(16, 185, 129, 0.2) !important;
+      color: #34d399 !important;
+    }
+
+    [data-theme="dark"] .highlight-worse {
+      background: rgba(239, 68, 68, 0.2) !important;
+      color: #f87171 !important;
+    }
+
+    /* Tool Selector Styles */
+    .tool-selector-section {
+      background: var(--bg-secondary);
+      padding: 2rem;
+      border-radius: 16px;
+    }
+
+    .selector-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .selector-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .selector-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .selector-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+    }
+
+    .search-box-container {
+      margin-bottom: 2rem;
+    }
+
+    .tool-search-input {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+    }
+
+    .tool-search-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .selected-tools-display {
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+    }
+
+    .selected-tools-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      color: white;
+      font-weight: 600;
+    }
+
+    .clear-selection-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .clear-selection-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .selected-tools-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .selected-tool-tag {
+      background: rgba(255, 255, 255, 0.9);
+      color: #3b82f6;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .remove-tool-btn {
+      background: none;
+      border: none;
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 1.2rem;
+      line-height: 1;
+      padding: 0;
+    }
+
+    .compare-btn {
+      width: 100%;
+      padding: 1rem;
+      background: white;
+      color: #3b82f6;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .compare-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .compare-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .tool-select-card {
+      position: relative;
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.2s ease;
+      background: var(--bg-primary);
+    }
+
+    .tool-select-card:has(.tool-checkbox:checked) {
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+      background: rgba(59, 130, 246, 0.05);
+    }
+
+    .tool-checkbox {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .tool-card-label {
+      display: block;
+      padding: 1.5rem;
+      cursor: pointer;
+    }
+
+    .tool-select-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+      padding-right: 2rem;
+    }
+
+    .tool-select-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .tool-category-badge {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      white-space: nowrap;
+      background: #3b82f6;
+      color: white;
+    }
+
+    .tool-select-description {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .tool-select-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pricing-tag {
+      font-size: 0.85rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .pricing-tag.kostenlos {
+      background: #10b981;
+      color: white;
+    }
+
+    .pricing-tag.freemium {
+      background: #f59e0b;
+      color: white;
+    }
+
+    .pricing-tag.kostenpflichtig {
+      background: #3b82f6;
+      color: white;
+    }
+
+    .rating-display {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    @media (max-width: 768px) {
       .header h1 {
         font-size: 2rem;
       }
@@ -534,245 +784,7 @@ const comparisonData = selectedTools.map(tool => ({
         grid-template-columns: 1fr;
       }
     }
-
-  /* Tool Selector Styles */
-  .tool-selector-section {
-    background: var(--bg-secondary, #ffffff);
-    padding: 2rem;
-    border-radius: 16px;
-  }
-
-  .selector-header {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
-  .selector-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-  }
-
-  .selector-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text-primary, #1e293b);
-    margin-bottom: 0.5rem;
-  }
-
-  .selector-subtitle {
-    font-size: 1.1rem;
-    color: var(--text-secondary, #64748b);
-  }
-
-  .search-box-container {
-    margin-bottom: 2rem;
-  }
-
-  .tool-search-input {
-    width: 100%;
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
-    border: 2px solid var(--border-primary, #e2e8f0);
-    border-radius: 12px;
-    background: var(--bg-primary, #f8fafc);
-    color: var(--text-primary, #1e293b);
-    transition: all 0.2s ease;
-  }
-
-  .tool-search-input:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  }
-
-  .selected-tools-display {
-    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-    padding: 1.5rem;
-    border-radius: 12px;
-    margin-bottom: 2rem;
-  }
-
-  .selected-tools-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    color: white;
-    font-weight: 600;
-  }
-
-  .clear-selection-btn {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.2s ease;
-  }
-
-  .clear-selection-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-  }
-
-  .selected-tools-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .selected-tool-tag {
-    background: rgba(255, 255, 255, 0.9);
-    color: #3b82f6;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .remove-tool-btn {
-    background: none;
-    border: none;
-    color: #ef4444;
-    cursor: pointer;
-    font-size: 1.2rem;
-    line-height: 1;
-    padding: 0;
-  }
-
-  .compare-btn {
-    width: 100%;
-    padding: 1rem;
-    background: white;
-    color: #3b82f6;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .compare-btn:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-
-  .compare-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  .tools-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .tool-select-card {
-    position: relative;
-    border: 2px solid var(--border-primary, #e2e8f0);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: all 0.2s ease;
-    background: var(--bg-primary, #f8fafc);
-  }
-
-  .tool-select-card:has(.tool-checkbox:checked) {
-    border-color: #3b82f6;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-    background: rgba(59, 130, 246, 0.05);
-  }
-
-  .tool-checkbox {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    z-index: 10;
-  }
-
-  .tool-card-label {
-    display: block;
-    padding: 1.5rem;
-    cursor: pointer;
-  }
-
-  .tool-select-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 0.75rem;
-    padding-right: 2rem;
-  }
-
-  .tool-select-name {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--text-primary, #1e293b);
-    margin: 0;
-  }
-
-  .tool-category-badge {
-    font-size: 0.75rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 6px;
-    white-space: nowrap;
-    background: #3b82f6;
-    color: white;
-  }
-
-  .tool-select-description {
-    font-size: 0.9rem;
-    color: var(--text-secondary, #64748b);
-    margin-bottom: 1rem;
-    line-height: 1.5;
-  }
-
-  .tool-select-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .pricing-tag {
-    font-size: 0.85rem;
-    padding: 0.35rem 0.75rem;
-    border-radius: 6px;
-    font-weight: 600;
-  }
-
-  .pricing-tag.kostenlos {
-    background: #10b981;
-    color: white;
-  }
-
-  .pricing-tag.freemium {
-    background: #f59e0b;
-    color: white;
-  }
-
-  .pricing-tag.kostenpflichtig {
-    background: #3b82f6;
-    color: white;
-  }
-
-  .rating-display {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-primary, #1e293b);
-  }
   </style>
-</head>
-<body style="padding-top: 65px;">
-  <Header />
 
   <div class="container">
     <div class="header">
@@ -810,12 +822,13 @@ const comparisonData = selectedTools.map(tool => ({
 
         <div class="tools-grid" id="toolsGrid">
           {allTools.map(tool => (
-            <div class="tool-select-card" data-tool-name={tool.data.title}>
+            <div class="tool-select-card" data-tool-name={tool.data.title} data-tool-slug={tool.slug}>
               <input
                 type="checkbox"
                 class="tool-checkbox"
                 id={`tool-${tool.slug}`}
-                value={tool.data.title}
+                value={tool.slug}
+                data-tool-title={tool.data.title}
               />
               <label for={`tool-${tool.slug}`} class="tool-card-label">
                 <div class="tool-select-header">
@@ -842,6 +855,167 @@ const comparisonData = selectedTools.map(tool => ({
       </div>
     ) : (
       <>
+        <!-- Comparison Summary -->
+        <div class="comparison-summary">
+          <h2>📊 Vergleichsübersicht</h2>
+
+          <div class="summary-grid">
+            <!-- Rating Winner -->
+            {(() => {
+              const ratings = comparisonData.map(t => ({ tool: t, rating: t.data.rating || 0 }));
+              const maxRating = Math.max(...ratings.map(r => r.rating));
+              const winner = ratings.find(r => r.rating === maxRating);
+
+              return maxRating > 0 ? (
+                <div class="summary-card">
+                  <div class="summary-icon">⭐</div>
+                  <h3>Beste Bewertung</h3>
+                  <p class="winner-name">{winner.tool.data.title}</p>
+                  <p class="winner-detail">{maxRating}/5 Sterne</p>
+                </div>
+              ) : null;
+            })()}
+
+            <!-- Price Winner -->
+            {(() => {
+              const freeTools = comparisonData.filter(t => t.data.pricing === 'Kostenlos');
+              const freemiumTools = comparisonData.filter(t => t.data.pricing === 'Freemium');
+
+              if (freeTools.length > 0) {
+                return (
+                  <div class="summary-card">
+                    <div class="summary-icon">💰</div>
+                    <h3>Bester Preis</h3>
+                    <p class="winner-name">{freeTools[0].data.title}</p>
+                    <p class="winner-detail">Kostenlos</p>
+                  </div>
+                );
+              } else if (freemiumTools.length > 0) {
+                return (
+                  <div class="summary-card">
+                    <div class="summary-icon">💰</div>
+                    <h3>Bester Preis</h3>
+                    <p class="winner-name">{freemiumTools[0].data.title}</p>
+                    <p class="winner-detail">Freemium</p>
+                  </div>
+                );
+              }
+            })()}
+
+            <!-- Features Winner -->
+            {(() => {
+              const featureCounts = comparisonData.map(t => ({
+                tool: t,
+                count: [t.data.api_available, t.data.mobile_app, t.data.free_trial].filter(Boolean).length
+              }));
+              const maxFeatures = Math.max(...featureCounts.map(f => f.count));
+              const winner = featureCounts.find(f => f.count === maxFeatures);
+
+              return (
+                <div class="summary-card">
+                  <div class="summary-icon">🚀</div>
+                  <h3>Meiste Features</h3>
+                  <p class="winner-name">{winner.tool.data.title}</p>
+                  <p class="winner-detail">{maxFeatures}/3 Features</p>
+                </div>
+              );
+            })()}
+
+            <!-- Recommendation -->
+            {(() => {
+              // Berechne Score für jedes Tool
+              const scores = comparisonData.map(tool => {
+                let score = 0;
+                // Rating
+                score += (tool.data.rating || 0) * 10;
+                // Pricing
+                if (tool.data.pricing === 'Kostenlos') score += 30;
+                else if (tool.data.pricing === 'Freemium') score += 20;
+                // Features
+                if (tool.data.api_available) score += 10;
+                if (tool.data.mobile_app) score += 10;
+                if (tool.data.free_trial) score += 10;
+
+                return { tool, score };
+              });
+
+              scores.sort((a, b) => b.score - a.score);
+              const recommended = scores[0];
+
+              return (
+                <div class="summary-card recommended">
+                  <div class="summary-icon">🏆</div>
+                  <h3>Empfehlung</h3>
+                  <p class="winner-name">{recommended.tool.data.title}</p>
+                  <p class="winner-detail">Bestes Gesamtpaket</p>
+                </div>
+              );
+            })()}
+          </div>
+
+          <!-- Quick Comparison -->
+          <div class="quick-comparison">
+            <h3>Schnellvergleich</h3>
+            <table class="quick-table">
+              <tr>
+                <th>Kriterium</th>
+                {comparisonData.map(tool => (
+                  <th>{tool.data.title}</th>
+                ))}
+              </tr>
+              <tr>
+                <td><strong>Bewertung</strong></td>
+                {comparisonData.map(tool => (
+                  <td class={tool.data.rating === Math.max(...comparisonData.map(t => t.data.rating || 0)) ? 'highlight-better' : ''}>
+                    {tool.data.rating ? `${tool.data.rating}/5 ⭐` : 'N/A'}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <td><strong>Preis</strong></td>
+                {(() => {
+                  const pricingOrder = ['Kostenlos', 'Freemium', 'Kostenpflichtig'];
+                  const bestPricing = comparisonData.reduce((best, t) => {
+                    const currentIdx = pricingOrder.indexOf(t.data.pricing);
+                    const bestIdx = pricingOrder.indexOf(best);
+                    return currentIdx < bestIdx ? t.data.pricing : best;
+                  }, pricingOrder[pricingOrder.length - 1]);
+
+                  return comparisonData.map(tool => (
+                    <td class={tool.data.pricing === bestPricing ? 'highlight-better' : 'highlight-worse'}>
+                      {tool.data.pricing}
+                    </td>
+                  ));
+                })()}
+              </tr>
+              <tr>
+                <td><strong>API verfügbar</strong></td>
+                {comparisonData.map(tool => (
+                  <td class={tool.data.api_available ? 'highlight-better' : 'highlight-worse'}>
+                    {tool.data.api_available ? '✅ Ja' : '❌ Nein'}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <td><strong>Mobile App</strong></td>
+                {comparisonData.map(tool => (
+                  <td class={tool.data.mobile_app ? 'highlight-better' : 'highlight-worse'}>
+                    {tool.data.mobile_app ? '✅ Ja' : '❌ Nein'}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <td><strong>Free Trial</strong></td>
+                {comparisonData.map(tool => (
+                  <td class={tool.data.free_trial ? 'highlight-better' : 'highlight-worse'}>
+                    {tool.data.free_trial ? '✅ Ja' : '❌ Nein'}
+                  </td>
+                ))}
+              </tr>
+            </table>
+          </div>
+        </div>
+
         <!-- View Toggle -->
         <div class="view-toggle">
           <button class="toggle-btn active" id="cardViewBtn">📱 Kartenansicht</button>
@@ -1093,12 +1267,8 @@ const comparisonData = selectedTools.map(tool => ({
   </div>
 
   <script>
-    // Theme support
+    // View Toggle
     document.addEventListener('DOMContentLoaded', function() {
-      const savedTheme = localStorage.getItem('theme') || 'light';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-
-      // View Toggle
       const cardViewBtn = document.getElementById('cardViewBtn');
       const tableViewBtn = document.getElementById('tableViewBtn');
       const cardView = document.getElementById('cardView');
@@ -1173,7 +1343,7 @@ const comparisonData = selectedTools.map(tool => ({
       const toolSearchInput = document.getElementById('toolSearchInput');
       const toolsGrid = document.getElementById('toolsGrid');
 
-      let selectedTools = [];
+      let selectedTools = []; // Array von {slug, title}
 
       function updateSelectedDisplay() {
         if (selectedTools.length > 0) {
@@ -1182,8 +1352,8 @@ const comparisonData = selectedTools.map(tool => ({
 
           selectedToolsList.innerHTML = selectedTools.map(tool => `
             <div class="selected-tool-tag">
-              ${tool}
-              <button class="remove-tool-btn" data-tool="${tool}">×</button>
+              ${tool.title}
+              <button class="remove-tool-btn" data-tool-slug="${tool.slug}">×</button>
             </div>
           `).join('');
 
@@ -1193,11 +1363,11 @@ const comparisonData = selectedTools.map(tool => ({
           // Add remove button listeners
           document.querySelectorAll('.remove-tool-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-              const toolName = this.getAttribute('data-tool');
-              const checkbox = document.querySelector(`.tool-checkbox[value="${toolName}"]`);
+              const toolSlug = this.getAttribute('data-tool-slug');
+              const checkbox = document.querySelector(`.tool-checkbox[value="${toolSlug}"]`);
               if (checkbox) {
                 checkbox.checked = false;
-                selectedTools = selectedTools.filter(t => t !== toolName);
+                selectedTools = selectedTools.filter(t => t.slug !== toolSlug);
                 updateSelectedDisplay();
               }
             });
@@ -1210,14 +1380,15 @@ const comparisonData = selectedTools.map(tool => ({
       // Handle checkbox changes
       toolCheckboxes.forEach(checkbox => {
         checkbox.addEventListener('change', function() {
-          const toolName = this.value;
+          const toolSlug = this.value;
+          const toolTitle = this.getAttribute('data-tool-title');
 
           if (this.checked) {
-            if (!selectedTools.includes(toolName)) {
-              selectedTools.push(toolName);
+            if (!selectedTools.find(t => t.slug === toolSlug)) {
+              selectedTools.push({slug: toolSlug, title: toolTitle});
             }
           } else {
-            selectedTools = selectedTools.filter(t => t !== toolName);
+            selectedTools = selectedTools.filter(t => t.slug !== toolSlug);
           }
 
           updateSelectedDisplay();
@@ -1237,8 +1408,8 @@ const comparisonData = selectedTools.map(tool => ({
       if (compareBtn) {
         compareBtn.addEventListener('click', function() {
           if (selectedTools.length >= 2) {
-            const toolsParam = selectedTools.join(',');
-            window.location.href = `/compare?tools=${encodeURIComponent(toolsParam)}`;
+            const toolSlugs = selectedTools.map(t => t.slug).join(',');
+            window.location.href = `/compare?tools=${encodeURIComponent(toolSlugs)}`;
           }
         });
       }
@@ -1261,5 +1432,4 @@ const comparisonData = selectedTools.map(tool => ({
       }
     });
   </script>
-</body>
-</html>
+</Layout>

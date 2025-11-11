@@ -102,13 +102,9 @@ const blogPosts = [
   </div>
 </Layout>
 
-<style>
+<style is:global>
   :root {
-    --bg-primary: #f8fafc;
-    --bg-secondary: #ffffff;
     --bg-tertiary: #f1f5f9;
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
     --border-primary: #e2e8f0;
     --accent-primary: #667eea;
     --accent-secondary: #764ba2;
@@ -118,11 +114,7 @@ const blogPosts = [
   }
 
   [data-theme="dark"] {
-    --bg-primary: #0f172a;
-    --bg-secondary: #1e293b;
     --bg-tertiary: #334155;
-    --text-primary: #f1f5f9;
-    --text-secondary: #cbd5e1;
     --border-primary: #334155;
     --accent-primary: #818cf8;
     --accent-secondary: #a78bfa;
@@ -130,6 +122,9 @@ const blogPosts = [
     --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
     --shadow-lg: 0 10px 20px rgba(0,0,0,0.4);
   }
+</style>
+
+<style>
 
   /* PERFORMANCE: Use contain for better rendering */
   .blog-page {

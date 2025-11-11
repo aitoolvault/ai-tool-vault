@@ -1,157 +1,105 @@
 ---
+import Layout from '../layouts/Layout.astro';
 ---
-<!DOCTYPE html>
-<html lang="de">
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-EC62QPK5VL');
-</script>
-
-<head>
-
-<script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="6ff1c2bf-6e6e-4ddb-b46e-b43b350bc9d0" type="text/javascript" async></script>
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kontakt - AI Tool Vault</title>
-  <meta name="description" content="Kontaktiere das AI Tool Vault Team - Wir helfen dir gerne weiter">
+<Layout
+  title="Kontakt - AI Tool Vault"
+  description="Kontaktiere das AI Tool Vault Team - Wir helfen dir gerne weiter"
+>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      line-height: 1.6;
-      color: #1e293b;
-      background: #f8fafc;
-    }
-    
-    /* Navigation */
-    .nav {
-      background: white;
-      border-bottom: 1px solid #e2e8f0;
-      padding: 1rem 0;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    
-    .nav-container {
+    .contact-page {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .nav-logo {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: #0f172a;
-      text-decoration: none;
-    }
-    
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-    
-    .nav-links a {
-      color: #64748b;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-    
-    .nav-links a:hover {
-      color: #0f172a;
-    }
-    
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
       padding: 2rem;
-      background: white;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      border-radius: 12px;
-      margin-top: 2rem;
-      margin-bottom: 2rem;
     }
-    
+
     h1 {
-      color: #0f172a;
+      color: var(--text-primary);
       font-size: 2.5rem;
       margin-bottom: 2rem;
       text-align: center;
       font-weight: 800;
     }
-    
+
     h2 {
-      color: #1e293b;
+      color: var(--text-primary);
       font-size: 1.5rem;
       margin-top: 2rem;
       margin-bottom: 1rem;
-      border-bottom: 2px solid #e2e8f0;
+      border-bottom: 2px solid var(--border-color);
       padding-bottom: 0.5rem;
     }
-    
-    h3, h4 {
-      color: #374151;
+
+    h3 {
+      color: var(--text-primary);
       margin-top: 1.5rem;
       margin-bottom: 0.75rem;
     }
-    
+
+    h4 {
+      color: var(--text-primary);
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin: 2rem 0;
+      text-align: center;
+    }
+
     .row {
       display: grid;
       grid-template-columns: 2fr 1fr;
       gap: 3rem;
       margin-top: 2rem;
     }
-    
+
+    .form-section {
+      background: var(--bg-secondary);
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
     .form-group {
       margin-bottom: 1.5rem;
     }
-    
+
     label {
       display: block;
       margin-bottom: 0.5rem;
       font-weight: 600;
-      color: #374151;
+      color: var(--text-primary);
     }
-    
+
     input, select, textarea {
       width: 100%;
       padding: 0.75rem 1rem;
-      border: 2px solid #e2e8f0;
+      border: 2px solid var(--border-color);
       border-radius: 8px;
       font-size: 1rem;
       transition: border-color 0.3s;
       font-family: inherit;
-      background: white;
+      background: var(--bg-primary);
+      color: var(--text-primary);
     }
-    
+
     input:focus, select:focus, textarea:focus {
       outline: none;
       border-color: #3b82f6;
       box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
     }
-    
+
     textarea {
       resize: vertical;
       min-height: 120px;
     }
-    
+
     .btn-submit {
       background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
       color: white;
@@ -164,38 +112,43 @@
       transition: transform 0.3s;
       font-family: inherit;
     }
-    
-    .btn-submit:hover {
+
+    .btn-submit:hover:not(:disabled) {
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(59,130,246,0.3);
     }
-    
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
     .contact-info {
-      background: #f8fafc;
+      background: var(--bg-secondary);
       padding: 2rem;
       border-radius: 12px;
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--border-color);
     }
-    
+
     .contact-item {
       margin-bottom: 2rem;
     }
-    
+
     .contact-item h4 {
       font-size: 1.1rem;
       margin-bottom: 0.5rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      color: #0f172a;
+      color: var(--text-primary);
     }
-    
+
     .contact-item p {
       margin-bottom: 0.5rem;
       line-height: 1.8;
-      color: #64748b;
+      color: var(--text-secondary);
     }
-    
+
     .social-links a {
       color: #3b82f6;
       text-decoration: none;
@@ -204,12 +157,12 @@
       margin-bottom: 0.5rem;
       transition: color 0.3s;
     }
-    
+
     .social-links a:hover {
       color: #2563eb;
       text-decoration: underline;
     }
-    
+
     .back-btn {
       background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
       color: white;
@@ -221,116 +174,104 @@
       margin-top: 2rem;
       transition: transform 0.3s;
     }
-    
+
     .back-btn:hover {
       transform: translateY(-2px);
       color: white;
       text-decoration: none;
     }
-    
-    .highlight-box {
-      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+
+    .success-message {
+      background: #10b981;
       color: white;
-      padding: 1.5rem;
-      border-radius: 12px;
-      margin: 2rem 0;
-      text-align: center;
-    }
-    
-    .quick-contact {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-      margin: 2rem 0;
-    }
-    
-    .quick-contact-item {
-      background: #f8fafc;
-      padding: 1.5rem;
-      border-radius: 12px;
-      border: 1px solid #e2e8f0;
-      text-align: center;
-      transition: transform 0.3s;
-    }
-    
-    .quick-contact-item:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    
-    .quick-contact-item .icon {
-      font-size: 2rem;
+      padding: 1rem;
+      border-radius: 8px;
       margin-bottom: 1rem;
+      display: none;
     }
-    
+
+    .success-message.show {
+      display: block;
+    }
+
+    .error-message {
+      background: #ef4444;
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
     @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-      
       .row {
         grid-template-columns: 1fr;
         gap: 2rem;
       }
-      
-      .container {
+
+      .contact-page {
         padding: 1rem;
-        margin: 1rem;
       }
-      
+
       h1 {
         font-size: 2rem;
       }
-      
-      .quick-contact {
-        grid-template-columns: 1fr;
+
+      .form-section {
+        padding: 1.5rem;
       }
     }
   </style>
-</head>
-<body>
-  <!-- Navigation -->
-  <nav class="nav">
-    <div class="nav-container">
-      <a href="/" class="nav-logo">AI Tool Vault</a>
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/tools">Tools</a></li>
-        <li><a href="/impressum">Impressum</a></li>
-        <li><a href="/kontakt">Kontakt</a></li>
-        <li><a href="/datenschutz">Datenschutz</a></li>
-      </ul>
-    </div>
-  </nav>
 
-  <div class="container">
+  <div class="contact-page">
     <h1>Kontakt</h1>
-    
+
     <div class="highlight-box">
       <h3>Lass uns zusammen die KI-Zukunft gestalten!</h3>
       <p>Hast du Fragen, Vorschläge oder möchtest du mit uns kooperieren? Wir freuen uns auf deine Nachricht!</p>
     </div>
-    
+
     <div class="row">
       <!-- Contact Form -->
       <div class="form-section">
         <h2>Schreib uns eine Nachricht</h2>
         <p>Nutze unser Kontaktformular für eine schnelle und strukturierte Kommunikation:</p>
-        
-        <form action="#" method="POST" id="contactForm">
+
+        <div class="success-message" id="successMessage">
+          ✅ Vielen Dank für deine Nachricht! Wir melden uns innerhalb von 24 Stunden bei dir.
+        </div>
+
+        <div class="error-message" id="errorMessage">
+          ❌ Fehler beim Senden. Bitte versuche es erneut oder schreibe uns direkt an info@aitoolvault.de
+        </div>
+
+        <form action="https://api.web3forms.com/submit" method="POST" id="contactForm">
+          <!-- Web3Forms Access Key -->
+          <input type="hidden" name="access_key" value="ae3b946d-73f6-40ea-8d38-c1378f468cdc">
+
+          <!-- Redirect nach Absenden (optional) -->
+          <input type="hidden" name="redirect" value="https://www.aitoolvault.de/kontakt?success=true">
+
+          <!-- Subject für E-Mail -->
+          <input type="hidden" name="subject" value="Neue Kontaktanfrage von AI Tool Vault Website">
+
           <div class="form-group">
             <label for="name">Name *</label>
             <input type="text" id="name" name="name" required placeholder="Dein vollständiger Name">
           </div>
-          
+
           <div class="form-group">
             <label for="email">E-Mail-Adresse *</label>
             <input type="email" id="email" name="email" required placeholder="deine@email.de">
           </div>
-          
+
           <div class="form-group">
-            <label for="subject">Betreff</label>
-            <select id="subject" name="subject">
+            <label for="inquiry_type">Betreff</label>
+            <select id="inquiry_type" name="inquiry_type">
               <option value="">Wähle ein Thema...</option>
               <option value="general">Allgemeine Anfrage</option>
               <option value="tool-suggestion">Tool-Vorschlag</option>
@@ -341,39 +282,42 @@
               <option value="other">Sonstiges</option>
             </select>
           </div>
-          
+
           <div class="form-group">
             <label for="company">Unternehmen (optional)</label>
             <input type="text" id="company" name="company" placeholder="Dein Unternehmen">
           </div>
-          
+
           <div class="form-group">
             <label for="message">Nachricht *</label>
             <textarea id="message" name="message" required placeholder="Beschreibe dein Anliegen ausführlich..."></textarea>
           </div>
-          
+
           <div class="form-group">
             <label>
               <input type="checkbox" required style="width: auto; margin-right: 0.5rem;">
               Ich habe die <a href="/datenschutz" target="_blank">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zu. *
             </label>
           </div>
-          
+
+          <!-- Honeypot Spam Protection -->
+          <input type="checkbox" name="botcheck" style="display: none;">
+
           <button type="submit" class="btn-submit">Nachricht senden</button>
         </form>
       </div>
-      
+
       <!-- Contact Info Sidebar -->
       <div class="contact-info">
         <h2>Direkte Kontaktdaten</h2>
-        
+
         <div class="contact-item">
           <h4>📧 E-Mail Kontakt</h4>
           <p>
             <strong>Alle Anfragen:</strong> info@aitoolvault.de
           </p>
         </div>
-        
+
         <div class="contact-item">
           <h4>💬 Social Media</h4>
           <div class="social-links">
@@ -383,7 +327,7 @@
             <a href="#">Instagram</a>
           </div>
         </div>
-        
+
         <div class="contact-item">
           <h4>⏰ Antwortzeiten</h4>
           <p>
@@ -393,7 +337,7 @@
             <strong>Wochenende:</strong> Montag Vormittag
           </p>
         </div>
-        
+
         <div class="contact-item">
           <h4>🌍 Sprachen</h4>
           <p>
@@ -402,7 +346,7 @@
             • Englisch
           </p>
         </div>
-        
+
         <div class="contact-item">
           <h4>🎯 Tool-Empfehlungen</h4>
           <p>
@@ -412,47 +356,68 @@
         </div>
       </div>
     </div>
-    
+
     <a href="/" class="back-btn">← Zurück zur Startseite</a>
   </div>
-  
+
   <script>
+    // Check for success parameter in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success') === 'true') {
+      document.getElementById('successMessage').classList.add('show');
+      // Remove success parameter from URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
     // Form Submission Handler
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    const form = document.getElementById('contactForm');
+    const submitBtn = form.querySelector('.btn-submit');
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
+
+    form.addEventListener('submit', async function(e) {
       e.preventDefault();
-      
-      // Basic form validation
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const message = document.getElementById('message').value.trim();
-      
-      if (!name || !email || !message) {
-        alert('Bitte fülle alle Pflichtfelder (*) aus.');
-        return;
-      }
-      
-      // Email validation
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        alert('Bitte gib eine gültige E-Mail-Adresse ein.');
-        return;
-      }
-      
-      // Simulate form submission
-      const submitBtn = this.querySelector('.btn-submit');
+
+      // Hide previous messages
+      successMessage.classList.remove('show');
+      errorMessage.classList.remove('show');
+
+      // Disable submit button
       const originalText = submitBtn.textContent;
-      
       submitBtn.textContent = 'Wird gesendet...';
       submitBtn.disabled = true;
-      
-      // Simulate delay
-      setTimeout(() => {
-        alert('✅ Vielen Dank für deine Nachricht! Wir melden uns innerhalb von 24 Stunden bei dir.');
-        this.reset();
+
+      try {
+        const formData = new FormData(form);
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          successMessage.classList.add('show');
+          form.reset();
+
+          // Track successful form submission
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'form_submission', {
+              'event_category': 'Contact',
+              'event_label': 'Contact Form',
+              'value': 1
+            });
+          }
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        errorMessage.classList.add('show');
+      } finally {
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
-      }, 2000);
+      }
     });
   </script>
-</body>
-</html>
+</Layout>
