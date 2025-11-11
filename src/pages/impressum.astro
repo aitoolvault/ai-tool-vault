@@ -1,80 +1,54 @@
 ---
+import Layout from '../layouts/Layout.astro';
 ---
-<!DOCTYPE html>
-<html lang="de">
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-EC62QPK5VL');
-</script>
-
-<head>
-
-<script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="6ff1c2bf-6e6e-4ddb-b46e-b43b350bc9d0" type="text/javascript" async></script>
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Impressum - AI Tool Vault</title>
-  <meta name="description" content="Impressum und rechtliche Angaben von AI Tool Vault">
+<Layout
+  title="Impressum - AI Tool Vault"
+  description="Impressum und rechtliche Angaben von AI Tool Vault"
+>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      background: #f8fafc;
-    }
-    
     .container {
       max-width: 800px;
       margin: 0 auto;
       padding: 2rem;
-      background: white;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      background: var(--bg-secondary);
+      box-shadow: 0 10px 30px var(--shadow-light);
       border-radius: 1rem;
       margin-top: 2rem;
       margin-bottom: 2rem;
     }
-    
+
     h1 {
-      color: #667eea;
+      color: var(--accent-primary, #667eea);
       font-size: 2.5rem;
       margin-bottom: 2rem;
       text-align: center;
     }
-    
+
     h2 {
-      color: #1a202c;
+      color: var(--text-primary);
       font-size: 1.5rem;
       margin-top: 2rem;
       margin-bottom: 1rem;
-      border-bottom: 2px solid #e2e8f0;
+      border-bottom: 2px solid var(--border-color);
       padding-bottom: 0.5rem;
     }
-    
+
     p {
       margin-bottom: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
     }
-    
+
     a {
-      color: #667eea;
+      color: var(--accent-primary, #667eea);
       text-decoration: none;
     }
-    
+
     a:hover {
       text-decoration: underline;
     }
-    
+
     .back-btn {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
@@ -86,13 +60,13 @@
       margin-top: 2rem;
       transition: transform 0.3s;
     }
-    
+
     .back-btn:hover {
       transform: translateY(-2px);
       color: white;
       text-decoration: none;
     }
-    
+
     .highlight {
       background: #fef3c7;
       padding: 1rem;
@@ -100,12 +74,20 @@
       border-left: 4px solid #f59e0b;
       margin: 1rem 0;
     }
+
+    [data-theme="dark"] .highlight {
+      background: rgba(245, 158, 11, 0.1);
+      border-left-color: #f59e0b;
+    }
+
+    strong {
+      color: var(--text-primary);
+    }
   </style>
-</head>
-<body>
+
   <div class="container">
     <h1>Impressum</h1>
-       
+
     <h2>Angaben gemäß § 5 TMG</h2>
     <p>
       <strong>AI Tool Vault</strong><br>
@@ -113,39 +95,37 @@
       04157 Leipzig<br>
       Deutschland
     </p>
-    
+
     <h2>Kontakt</h2>
     <p>
       <strong>E-Mail:</strong> info@aitoolvault.de<br>
       <strong>Website:</strong> <a href="/">https://aitoolvault.de</a>
     </p>
-    
-        
+
     <h2>Redaktionell verantwortlich</h2>
     <p>
       Florian Herrmann<br>
       Adolph-Menzel-Straße 8<br>
       04157 Leipzig
     </p>
-    
+
     <h2>EU-Streitschlichtung</h2>
-    <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: 
+    <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
     <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr/</a></p>
     <p>Unsere E-Mail-Adresse finden Sie oben im Impressum.</p>
-    
+
     <h2>Verbraucher­streit­beilegung/Universal­schlichtungs­stelle</h2>
     <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
-    
+
     <h2>Haftung für Inhalte</h2>
     <p>Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht unter der Verpflichtung, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
-    
+
     <h2>Haftung für Links</h2>
     <p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
-    
+
     <h2>Urheberrecht</h2>
     <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
-    
+
     <a href="/" class="back-btn">← Zurück zur Startseite</a>
   </div>
-</body>
-</html>
+</Layout>
