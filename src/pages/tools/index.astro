@@ -213,90 +213,7 @@ const toolNames = tools.map(tool => tool.data.title);
             margin-top: 0.25rem;
         }
 
-        /* Navigation */
-        .navigation {
-            background: var(--nav-bg);
-            backdrop-filter: blur(8px);
-            padding: 1rem 2rem;
-            border-bottom: 1px solid var(--border-primary);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 4px var(--shadow-light);
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-primary);
-        }
-
-        .mobile-menu {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            color: var(--text-primary);
-            cursor: pointer;
-        }
-
-        /* Theme Toggle */
-        .theme-toggle {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: var(--card-bg);
-            border: 1px solid var(--border-primary);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 8px var(--shadow-medium);
-            z-index: 1000;
-            transition: background 0.2s ease, border-color 0.2s ease;
-        }
-
-        .theme-toggle:hover {
-            background: var(--bg-tertiary);
-        }
-
-        .theme-switch::before {
-            content: '☀️'; /* Light mode icon */
-            font-size: 1.5rem;
-        }
-
-        [data-theme="dark"] .theme-switch::before {
-            content: '🌙'; /* Dark mode icon */
-        }
+        /* Navigation and Theme Toggle are now handled by Layout.astro + Navigation.astro */
 
         /* Trust Banner */
         .trust-banner {
@@ -937,27 +854,6 @@ const toolNames = tools.map(tool => tool.data.title);
         }
 
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: var(--bg-secondary);
-                flex-direction: column;
-                padding: 1rem;
-                z-index: 999;
-                border-top: 1px solid var(--border-primary);
-            }
-
-            .nav-links.show {
-                display: flex;
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-
             .header h1 {
                 font-size: 2rem;
             }
@@ -1281,34 +1177,7 @@ const toolNames = tools.map(tool => tool.data.title);
                 });
             }
 
-            // Mobile Menu
-            var mobileMenuBtn = document.querySelector('.mobile-menu');
-            var navLinks = document.querySelector('.nav-links');
-
-            if (mobileMenuBtn && navLinks) {
-                var menuOpen = false;
-
-                mobileMenuBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    menuOpen = !menuOpen;
-
-                    if (menuOpen) {
-                        navLinks.classList.add('show');
-                        this.innerHTML = '✕';
-                    } else {
-                        navLinks.classList.remove('show');
-                        this.innerHTML = '☰';
-                    }
-                });
-
-                document.addEventListener('click', function() {
-                    if (menuOpen) {
-                        navLinks.classList.remove('show');
-                        mobileMenuBtn.innerHTML = '☰';
-                        menuOpen = false;
-                    }
-                });
-            }
+            /* Mobile menu is now handled by Navigation.astro */
 
             // Filter Functionality
             var searchInput = document.getElementById('searchInput');
