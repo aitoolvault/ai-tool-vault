@@ -1,7 +1,7 @@
 ---
 title: "Podcastle"
 description: "KI-Podcast-Editor mit Studio-Quality Recording, Transkription und automatischer Audio-Verbesserung"
-category: "Audio-Tools"
+category: "Audio & Musik"
 pricing: "Freemium"
 affiliate_link: "https://podcastle.ai?via=aitoolvault"
 website_url: "https://podcastle.ai"

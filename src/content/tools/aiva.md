@@ -1,7 +1,7 @@
 ---
 title: "AIVA"
 description: "Professioneller KI-Komponist für emotionale Soundtrack-Erstellung und Musikproduktion"
-category: "Audiogenerierung"
+category: "Audio & Musik"
 pricing: "Freemium"
 affiliate_link: "https://aiva.ai?via=aitoolvault"
 website_url: "https://aiva.ai"

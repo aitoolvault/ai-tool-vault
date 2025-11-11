@@ -1,7 +1,7 @@
 ---
 title: "Murf AI"
 description: "KI-Voice-Generator mit 120+ ultra-realistischen Stimmen für Voiceovers, Podcasts und Präsentationen"
-category: "Audio-Tools"
+category: "Audio & Musik"
 pricing: "Freemium"
 affiliate_link: "https://murf.ai?via=aitoolvault"
 website_url: "https://murf.ai"

@@ -1,7 +1,7 @@
 ---
 title: "Ad Auris"
 description: "KI-gestützte Text-to-Speech Plattform die Artikel in hochwertige Audio-Narration verwandelt"
-category: "Audiogenerierung"
+category: "Audio & Musik"
 pricing: "Freemium"
 affiliate_link: "https://www.adauris.ai?via=aitoolvault"
 website_url: "https://www.adauris.ai"

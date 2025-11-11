@@ -1,7 +1,7 @@
 ---
 title: "Suno AI"
 description: "KI-Musik-Generator der komplette Songs mit Vocals und Instrumentals aus Text-Prompts erstellt"
-category: "Audiogenerierung"
+category: "Audio & Musik"
 pricing: "Freemium"
 affiliate_link: "https://suno.com?via=aitoolvault"
 website_url: "https://suno.com"

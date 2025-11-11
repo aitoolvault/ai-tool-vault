@@ -1,7 +1,7 @@
 ---
 title: "Tome"
 description: "KI-Präsentations-Generator der komplette Slideshows aus Text-Prompts mit Design und Content erstellt"
-category: "Präsentationen"
+category: "Präsentation"
 pricing: "Freemium"
 affiliate_link: "https://tome.app?via=aitoolvault"
 website_url: "https://tome.app"

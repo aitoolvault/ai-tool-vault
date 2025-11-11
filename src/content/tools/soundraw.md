@@ -1,7 +1,7 @@
 ---
 title: "Soundraw"
 description: "KI-Musik-Generator für lizenzfreie Hintergrundmusik"
-category: "Audiogenerierung"
+category: "Audio & Musik"
 pricing: "Kostenpflichtig"
 affiliate_link: "https://soundraw.io"
 ---

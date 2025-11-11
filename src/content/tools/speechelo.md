@@ -1,7 +1,7 @@
 ---
 title: "Speechelo"
 description: "Text-zu-Sprache Software mit natürlich klingenden Stimmen"
-category: "Audiogenerierung"
+category: "Audio & Musik"
 pricing: "Kostenpflichtig"
 affiliate_link: "https://speechelo.com"
 ---

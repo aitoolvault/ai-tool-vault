@@ -1,7 +1,7 @@
 ---
 title: "Boomy"
 description: "KI-Plattform zur Erstellung und Monetarisierung von Musik auf Streaming-Plattformen"
-category: "Audiogenerierung"
+category: "Audio & Musik"
 pricing: "Freemium"
 affiliate_link: "https://boomy.com?via=aitoolvault"
 website_url: "https://boomy.com"

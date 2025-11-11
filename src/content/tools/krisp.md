@@ -1,7 +1,7 @@
 ---
 title: "Krisp"
 description: "KI-Noise-Cancellation für kristallklare Calls durch Entfernung von Hintergrundgeräuschen in Echtzeit"
-category: "Audio-Tools"
+category: "Audio & Musik"
 pricing: "Freemium"
 affiliate_link: "https://krisp.ai?via=aitoolvault"
 website_url: "https://krisp.ai"

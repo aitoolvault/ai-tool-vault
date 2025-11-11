@@ -1,7 +1,7 @@
 ---
 title: "Speechify"
 description: "KI-Text-to-Speech-App mit natürlichen Stimmen zum Vorlesen von Texten, Dokumenten und Webseiten"
-category: "Text-to-Speech"
+category: "Audio & Musik"
 pricing: "Freemium"
 affiliate_link: "https://speechify.com?via=aitoolvault"
 website_url: "https://speechify.com"

@@ -1,7 +1,7 @@
 ---
 title: "ElevenLabs"
 description: "Hochwertige KI-Sprachsynthese und Voice Cloning Technologie"
-category: "Audiogenerierung"
+category: "Audio & Musik"
 pricing: "Freemium"
 affiliate_link: "https://elevenlabs.io?via=aitoolvault"
 website_url: "https://elevenlabs.io"

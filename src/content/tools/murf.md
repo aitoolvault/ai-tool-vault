@@ -1,7 +1,7 @@
 ---
 title: "Murf AI"
 description: "Professionelle KI-Voiceovers für Videos, Präsentationen und Podcasts mit studio-qualitativen Stimmen"
-category: "Audiogenerierung"
+category: "Audio & Musik"
 pricing: "Freemium"
 affiliate_link: "https://murf.ai?via=aitoolvault"
 website_url: "https://murf.ai"

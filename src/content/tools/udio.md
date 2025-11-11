@@ -1,7 +1,7 @@
 ---
 title: "Udio"
 description: "KI-Musikgenerator der komplette Songs mit Vocals, Instrumentals und Lyrics aus Text erstellt"
-category: "Musikgenerierung"
+category: "Audio & Musik"
 pricing: "Freemium"
 affiliate_link: "https://udio.com?via=aitoolvault"
 website_url: "https://udio.com"
