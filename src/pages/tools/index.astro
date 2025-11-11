@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import Header from '../../components/Header.astro';
+import Layout from '../../layouts/Layout.astro';
 
 const tools = await getCollection("tools");
 
@@ -16,62 +16,22 @@ const paidTools = tools.filter(tool => tool.data.pricing === "Kostenpflichtig").
 const toolNames = tools.map(tool => tool.data.title);
 ---
 
-<!DOCTYPE html>
-<html lang="de">
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-EC62QPK5VL');
-</script>
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Tool Vault - {tools.length} KI-Tools durchsuchen</title>
-    <meta name="description" content={`Entdecke die besten ${tools.length} KI-Tools für Textgenerierung, Bildgenerierung, Videobearbeitung, Coding und mehr. Kostenlos, Freemium und Premium Tools.`}>
-
-    <script is:inline>
-        (function() {
-            function setTheme() {
-                var theme = 'light';
-                if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-                    theme = localStorage.getItem('theme');
-                } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    theme = 'dark';
-                }
-
-                if (theme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                    document.documentElement.setAttribute('data-theme', 'dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                    document.documentElement.setAttribute('data-theme', 'light');
-                }
-
-                if (typeof localStorage !== 'undefined') {
-                    localStorage.setItem('theme', theme);
-                }
-            }
-
-            setTheme();
-            document.addEventListener('astro:after-swap', setTheme);
-        })();
-    </script>
-
+<Layout
+  title={`AI Tool Vault - ${tools.length} KI-Tools durchsuchen`}
+  description={`Entdecke die besten ${tools.length} KI-Tools für Textgenerierung, Bildgenerierung, Videobearbeitung, Coding und mehr. Kostenlos, Freemium und Premium Tools.`}
+>
+  <Fragment slot="head">
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
     <script is:inline>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-EC62QPK5VL');
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-EC62QPK5VL');
     </script>
+  </Fragment>
 
-    <style>
+  <style is:global>
         /* CSS Custom Properties für Theme-Switching */
         :root {
             --bg-primary: #f8fafc;
@@ -1043,9 +1003,6 @@ const toolNames = tools.map(tool => tool.data.title);
             }
         }
     </style>
-</head>
-<body style="padding-top: 65px;">
-    <Header />
 
     <section class="trust-banner">
         <div class="trust-container">
@@ -1741,5 +1698,4 @@ const toolNames = tools.map(tool => tool.data.title);
             };
         });
     </script>
-</body>
-</html>
+</Layout>
