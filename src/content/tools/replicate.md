@@ -2,7 +2,7 @@
 title: "Replicate"
 description: "Cloud-Plattform zum Ausführen von Open-Source AI-Modellen via API mit Pay-per-Second Pricing"
 category: "Machine Learning"
-pricing: "Pay-as-you-go"
+pricing: "Freemium"
 affiliate_link: "https://replicate.com?via=aitoolvault"
 website_url: "https://replicate.com"
 rating: 4.7
@@ -76,7 +76,7 @@ comparison_metrics:
 
 price_per_feature_score: 8.8
 value_for_money: 9.0
-price_category: "variable"
+price_category: "budget"
 last_price_update: "2025-01-15"
 
 pros:

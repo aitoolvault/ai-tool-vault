@@ -2,7 +2,7 @@
 title: "Together AI"
 description: "Schnellste Inference-API für Open-Source LLMs mit kompetitivem Pricing und Sub-Second Latenz"
 category: "Machine Learning"
-pricing: "Pay-as-you-go"
+pricing: "Freemium"
 affiliate_link: "https://together.ai?via=aitoolvault"
 website_url: "https://together.ai"
 rating: 4.7
@@ -75,7 +75,7 @@ comparison_metrics:
 
 price_per_feature_score: 8.9
 value_for_money: 9.1
-price_category: "variable"
+price_category: "budget"
 last_price_update: "2025-01-15"
 
 pros:
