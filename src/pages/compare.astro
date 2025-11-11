@@ -381,6 +381,134 @@ const comparisonData = selectedTools.map(tool => ({
       display: none !important;
     }
 
+    /* Comparison Summary Styles */
+    .comparison-summary {
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+    }
+
+    .comparison-summary h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+      text-align: center;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .summary-card {
+      background: var(--bg-primary);
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .summary-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .summary-card.recommended {
+      border-color: #f59e0b;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05));
+    }
+
+    .summary-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .summary-card h3 {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .winner-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .winner-detail {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .quick-comparison {
+      margin-top: 2rem;
+    }
+
+    .quick-comparison h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .quick-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-primary);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .quick-table th,
+    .quick-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .quick-table th {
+      background: var(--bg-tertiary);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .quick-table td {
+      color: var(--text-secondary);
+    }
+
+    .quick-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .highlight-better {
+      background: rgba(16, 185, 129, 0.1) !important;
+      color: #10b981 !important;
+      font-weight: 600;
+    }
+
+    .highlight-worse {
+      background: rgba(239, 68, 68, 0.1) !important;
+      color: #ef4444 !important;
+    }
+
+    [data-theme="dark"] .highlight-better {
+      background: rgba(16, 185, 129, 0.2) !important;
+      color: #34d399 !important;
+    }
+
+    [data-theme="dark"] .highlight-worse {
+      background: rgba(239, 68, 68, 0.2) !important;
+      color: #f87171 !important;
+    }
+
     /* Tool Selector Styles */
     .tool-selector-section {
       background: var(--bg-secondary);
@@ -727,6 +855,167 @@ const comparisonData = selectedTools.map(tool => ({
       </div>
     ) : (
       <>
+        <!-- Comparison Summary -->
+        <div class="comparison-summary">
+          <h2>📊 Vergleichsübersicht</h2>
+
+          <div class="summary-grid">
+            <!-- Rating Winner -->
+            {(() => {
+              const ratings = comparisonData.map(t => ({ tool: t, rating: t.data.rating || 0 }));
+              const maxRating = Math.max(...ratings.map(r => r.rating));
+              const winner = ratings.find(r => r.rating === maxRating);
+
+              return maxRating > 0 ? (
+                <div class="summary-card">
+                  <div class="summary-icon">⭐</div>
+                  <h3>Beste Bewertung</h3>
+                  <p class="winner-name">{winner.tool.data.title}</p>
+                  <p class="winner-detail">{maxRating}/5 Sterne</p>
+                </div>
+              ) : null;
+            })()}
+
+            <!-- Price Winner -->
+            {(() => {
+              const freeTools = comparisonData.filter(t => t.data.pricing === 'Kostenlos');
+              const freemiumTools = comparisonData.filter(t => t.data.pricing === 'Freemium');
+
+              if (freeTools.length > 0) {
+                return (
+                  <div class="summary-card">
+                    <div class="summary-icon">💰</div>
+                    <h3>Bester Preis</h3>
+                    <p class="winner-name">{freeTools[0].data.title}</p>
+                    <p class="winner-detail">Kostenlos</p>
+                  </div>
+                );
+              } else if (freemiumTools.length > 0) {
+                return (
+                  <div class="summary-card">
+                    <div class="summary-icon">💰</div>
+                    <h3>Bester Preis</h3>
+                    <p class="winner-name">{freemiumTools[0].data.title}</p>
+                    <p class="winner-detail">Freemium</p>
+                  </div>
+                );
+              }
+            })()}
+
+            <!-- Features Winner -->
+            {(() => {
+              const featureCounts = comparisonData.map(t => ({
+                tool: t,
+                count: [t.data.api_available, t.data.mobile_app, t.data.free_trial].filter(Boolean).length
+              }));
+              const maxFeatures = Math.max(...featureCounts.map(f => f.count));
+              const winner = featureCounts.find(f => f.count === maxFeatures);
+
+              return (
+                <div class="summary-card">
+                  <div class="summary-icon">🚀</div>
+                  <h3>Meiste Features</h3>
+                  <p class="winner-name">{winner.tool.data.title}</p>
+                  <p class="winner-detail">{maxFeatures}/3 Features</p>
+                </div>
+              );
+            })()}
+
+            <!-- Recommendation -->
+            {(() => {
+              // Berechne Score für jedes Tool
+              const scores = comparisonData.map(tool => {
+                let score = 0;
+                // Rating
+                score += (tool.data.rating || 0) * 10;
+                // Pricing
+                if (tool.data.pricing === 'Kostenlos') score += 30;
+                else if (tool.data.pricing === 'Freemium') score += 20;
+                // Features
+                if (tool.data.api_available) score += 10;
+                if (tool.data.mobile_app) score += 10;
+                if (tool.data.free_trial) score += 10;
+
+                return { tool, score };
+              });
+
+              scores.sort((a, b) => b.score - a.score);
+              const recommended = scores[0];
+
+              return (
+                <div class="summary-card recommended">
+                  <div class="summary-icon">🏆</div>
+                  <h3>Empfehlung</h3>
+                  <p class="winner-name">{recommended.tool.data.title}</p>
+                  <p class="winner-detail">Bestes Gesamtpaket</p>
+                </div>
+              );
+            })()}
+          </div>
+
+          <!-- Quick Comparison -->
+          <div class="quick-comparison">
+            <h3>Schnellvergleich</h3>
+            <table class="quick-table">
+              <tr>
+                <th>Kriterium</th>
+                {comparisonData.map(tool => (
+                  <th>{tool.data.title}</th>
+                ))}
+              </tr>
+              <tr>
+                <td><strong>Bewertung</strong></td>
+                {comparisonData.map(tool => (
+                  <td class={tool.data.rating === Math.max(...comparisonData.map(t => t.data.rating || 0)) ? 'highlight-better' : ''}>
+                    {tool.data.rating ? `${tool.data.rating}/5 ⭐` : 'N/A'}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <td><strong>Preis</strong></td>
+                {(() => {
+                  const pricingOrder = ['Kostenlos', 'Freemium', 'Kostenpflichtig'];
+                  const bestPricing = comparisonData.reduce((best, t) => {
+                    const currentIdx = pricingOrder.indexOf(t.data.pricing);
+                    const bestIdx = pricingOrder.indexOf(best);
+                    return currentIdx < bestIdx ? t.data.pricing : best;
+                  }, pricingOrder[pricingOrder.length - 1]);
+
+                  return comparisonData.map(tool => (
+                    <td class={tool.data.pricing === bestPricing ? 'highlight-better' : 'highlight-worse'}>
+                      {tool.data.pricing}
+                    </td>
+                  ));
+                })()}
+              </tr>
+              <tr>
+                <td><strong>API verfügbar</strong></td>
+                {comparisonData.map(tool => (
+                  <td class={tool.data.api_available ? 'highlight-better' : 'highlight-worse'}>
+                    {tool.data.api_available ? '✅ Ja' : '❌ Nein'}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <td><strong>Mobile App</strong></td>
+                {comparisonData.map(tool => (
+                  <td class={tool.data.mobile_app ? 'highlight-better' : 'highlight-worse'}>
+                    {tool.data.mobile_app ? '✅ Ja' : '❌ Nein'}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <td><strong>Free Trial</strong></td>
+                {comparisonData.map(tool => (
+                  <td class={tool.data.free_trial ? 'highlight-better' : 'highlight-worse'}>
+                    {tool.data.free_trial ? '✅ Ja' : '❌ Nein'}
+                  </td>
+                ))}
+              </tr>
+            </table>
+          </div>
+        </div>
+
         <!-- View Toggle -->
         <div class="view-toggle">
           <button class="toggle-btn active" id="cardViewBtn">📱 Kartenansicht</button>
