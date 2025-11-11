@@ -16,6 +16,11 @@ featured: false
 pricing_details:
   free_plan:
     available: false
+    price: 0
+    currency: "$"
+    billing_cycle: "monthly"
+    features: []
+    limitations: []
 
   paid_plans:
     - name: "Basic"
