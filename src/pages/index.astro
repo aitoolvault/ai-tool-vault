@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import Header from '../components/Header.astro';
+import Layout from '../layouts/Layout.astro';
 
 let tools = [];
 let categories = [];
@@ -73,65 +73,25 @@ function getCategoryIcon(categoryName) {
 }
 ---
 
-<!DOCTYPE html>
-<html lang="de">
+<Layout
+  title={`AI Tool Vault - Die besten ${totalTools} KI-Tools entdecken`}
+  description={`Entdecke die besten ${totalTools} KI-Tools für Textgenerierung, Bildgenerierung, Videobearbeitung und mehr. Kostenlos, Freemium und Premium Tools in ${totalCategories} Kategorien.`}
+>
+  <Fragment slot="head">
+    <!-- Cookiebot -->
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="6ff1c2bf-6e6e-4ddb-b46e-b43b350bc9d0" type="text/javascript" async></script>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-EC62QPK5VL');
+    </script>
+  </Fragment>
 
-  gtag('config', 'G-EC62QPK5VL');
-</script>
-
-<head>
-
-<script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="6ff1c2bf-6e6e-4ddb-b46e-b43b350bc9d0" type="text/javascript" async></script>
-
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Tool Vault - Die besten {totalTools} KI-Tools entdecken</title>
-  <meta name="description" content={`Entdecke die besten ${totalTools} KI-Tools für Textgenerierung, Bildgenerierung, Videobearbeitung und mehr. Kostenlos, Freemium und Premium Tools in ${totalCategories} Kategorien.`}>
-  
-  <script is:inline>
-    (function() {
-      function setTheme() {
-        var theme = 'light';
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          theme = localStorage.getItem('theme');
-        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          theme = 'dark';
-        }
-        
-        if (theme === 'dark') {
-          document.documentElement.classList.add('dark');
-          document.documentElement.setAttribute('data-theme', 'dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-          document.documentElement.setAttribute('data-theme', 'light');
-        }
-        
-        if (typeof localStorage !== 'undefined') {
-          localStorage.setItem('theme', theme);
-        }
-      }
-      
-      setTheme();
-      document.addEventListener('astro:after-swap', setTheme);
-    })();
-  </script>
-  
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
-  <script is:inline>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-EC62QPK5VL');
-  </script>
-
-  <style>
+  <style is:global>
     :root {
       --bg-primary: #f8fafc;
       --bg-secondary: #ffffff;
@@ -895,9 +855,6 @@ function getCategoryIcon(categoryName) {
       }
     }
   </style>
-</head>
-<body style="padding-top: 65px;">
-  <Header />
 
   <section class="hero">
     <div class="hero-container">
@@ -1271,8 +1228,7 @@ function getCategoryIcon(categoryName) {
       console.log('🎨 FINAL Homepage - NO JSX, NO TYPESCRIPT!');
     });
   </script>
-</body>
-</html>
+</Layout>
 
 
 
