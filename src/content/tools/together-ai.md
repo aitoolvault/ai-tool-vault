@@ -44,7 +44,7 @@ pricing_details:
 
     - name: "Reserved Capacity"
       price: "Auf Anfrage"
-      billing_cycle: "custom"
+      billing_cycle: "yearly"
       features:
         - "Dedicated Hardware"
         - "Guaranteed Capacity"

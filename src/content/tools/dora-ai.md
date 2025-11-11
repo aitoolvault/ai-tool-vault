@@ -58,7 +58,7 @@ pricing_details:
 
     - name: "Enterprise"
       price: "Auf Anfrage"
-      billing_cycle: "custom"
+      billing_cycle: "yearly"
       features:
         - "Unlimited AI-Generierungen"
         - "Dedicated Support"
