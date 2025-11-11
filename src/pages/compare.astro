@@ -1121,6 +1121,14 @@ const comparisonData = selectedTools.map(tool => ({
           }
 
           updateSelectedDisplay();
+
+          // Automatisch Vergleich starten, wenn 2 oder mehr Tools ausgewählt sind
+          if (selectedTools.length >= 2) {
+            setTimeout(() => {
+              const toolsParam = selectedTools.join(',');
+              window.location.href = `/compare?tools=${encodeURIComponent(toolsParam)}`;
+            }, 500); // Kurze Verzögerung für bessere UX
+          }
         });
       });
 
