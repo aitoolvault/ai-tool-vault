@@ -79,7 +79,7 @@ comparison_metrics:
 
 price_per_feature_score: 8.5
 value_for_money: 8.7
-price_category: "affordable"
+price_category: "budget"
 last_price_update: "2025-01-15"
 
 pros:
