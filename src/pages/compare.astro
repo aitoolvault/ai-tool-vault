@@ -20,40 +20,20 @@ debugInfo.availableTools = availableToolNames;
 debugInfo.urlParam = toolsParam;
 
 if (toolsParam) {
-  const toolNames = toolsParam.split(',').map(name => name.trim());
-  debugInfo.requestedTools = toolNames;
+  const toolSlugs = toolsParam.split(',').map(slug => slug.trim());
+  debugInfo.requestedTools = toolSlugs;
 
-  // Tools basierend auf Namen finden - mit flexibler Suche
-  selectedTools = toolNames
-    .map(requestedName => {
-      // Exakte Übereinstimmung
-      let tool = allTools.find(tool => tool.data.title === requestedName);
-
-      // Falls nicht gefunden, case-insensitive Suche
-      if (!tool) {
-        tool = allTools.find(tool =>
-          tool.data.title.toLowerCase() === requestedName.toLowerCase()
-        );
-      }
-
-      // Falls immer noch nicht gefunden, teilweise Übereinstimmung
-      if (!tool) {
-        tool = allTools.find(tool =>
-          tool.data.title.toLowerCase().includes(requestedName.toLowerCase()) ||
-          requestedName.toLowerCase().includes(tool.data.title.toLowerCase())
-        );
-      }
-
-      return tool;
-    })
+  // Tools basierend auf Slugs finden
+  selectedTools = toolSlugs
+    .map(slug => allTools.find(tool => tool.slug === slug))
     .filter(tool => tool !== undefined);
 
-  debugInfo.foundTools = selectedTools.map(tool => tool.data.title);
+  debugInfo.foundTools = selectedTools.map(tool => tool.slug);
 
   if (selectedTools.length === 0) {
-    error = `Keine der angeforderten Tools gefunden: ${toolNames.join(', ')}`;
-  } else if (selectedTools.length < 2 && toolNames.length >= 2) {
-    error = `Nur ${selectedTools.length} von ${toolNames.length} Tools gefunden. Mindestens 2 Tools sind erforderlich.`;
+    error = `Keine der angeforderten Tools gefunden: ${toolSlugs.join(', ')}`;
+  } else if (selectedTools.length < 2 && toolSlugs.length >= 2) {
+    error = `Nur ${selectedTools.length} von ${toolSlugs.length} Tools gefunden. Mindestens 2 Tools sind erforderlich.`;
   } else if (selectedTools.length < 2) {
     error = "Mindestens 2 Tools sind für einen Vergleich erforderlich.";
   }
@@ -714,12 +694,13 @@ const comparisonData = selectedTools.map(tool => ({
 
         <div class="tools-grid" id="toolsGrid">
           {allTools.map(tool => (
-            <div class="tool-select-card" data-tool-name={tool.data.title}>
+            <div class="tool-select-card" data-tool-name={tool.data.title} data-tool-slug={tool.slug}>
               <input
                 type="checkbox"
                 class="tool-checkbox"
                 id={`tool-${tool.slug}`}
-                value={tool.data.title}
+                value={tool.slug}
+                data-tool-title={tool.data.title}
               />
               <label for={`tool-${tool.slug}`} class="tool-card-label">
                 <div class="tool-select-header">
@@ -1073,7 +1054,7 @@ const comparisonData = selectedTools.map(tool => ({
       const toolSearchInput = document.getElementById('toolSearchInput');
       const toolsGrid = document.getElementById('toolsGrid');
 
-      let selectedTools = [];
+      let selectedTools = []; // Array von {slug, title}
 
       function updateSelectedDisplay() {
         if (selectedTools.length > 0) {
@@ -1082,8 +1063,8 @@ const comparisonData = selectedTools.map(tool => ({
 
           selectedToolsList.innerHTML = selectedTools.map(tool => `
             <div class="selected-tool-tag">
-              ${tool}
-              <button class="remove-tool-btn" data-tool="${tool}">×</button>
+              ${tool.title}
+              <button class="remove-tool-btn" data-tool-slug="${tool.slug}">×</button>
             </div>
           `).join('');
 
@@ -1093,11 +1074,11 @@ const comparisonData = selectedTools.map(tool => ({
           // Add remove button listeners
           document.querySelectorAll('.remove-tool-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-              const toolName = this.getAttribute('data-tool');
-              const checkbox = document.querySelector(`.tool-checkbox[value="${toolName}"]`);
+              const toolSlug = this.getAttribute('data-tool-slug');
+              const checkbox = document.querySelector(`.tool-checkbox[value="${toolSlug}"]`);
               if (checkbox) {
                 checkbox.checked = false;
-                selectedTools = selectedTools.filter(t => t !== toolName);
+                selectedTools = selectedTools.filter(t => t.slug !== toolSlug);
                 updateSelectedDisplay();
               }
             });
@@ -1110,14 +1091,15 @@ const comparisonData = selectedTools.map(tool => ({
       // Handle checkbox changes
       toolCheckboxes.forEach(checkbox => {
         checkbox.addEventListener('change', function() {
-          const toolName = this.value;
+          const toolSlug = this.value;
+          const toolTitle = this.getAttribute('data-tool-title');
 
           if (this.checked) {
-            if (!selectedTools.includes(toolName)) {
-              selectedTools.push(toolName);
+            if (!selectedTools.find(t => t.slug === toolSlug)) {
+              selectedTools.push({slug: toolSlug, title: toolTitle});
             }
           } else {
-            selectedTools = selectedTools.filter(t => t !== toolName);
+            selectedTools = selectedTools.filter(t => t.slug !== toolSlug);
           }
 
           updateSelectedDisplay();
@@ -1125,8 +1107,8 @@ const comparisonData = selectedTools.map(tool => ({
           // Automatisch Vergleich starten, wenn 2 oder mehr Tools ausgewählt sind
           if (selectedTools.length >= 2) {
             setTimeout(() => {
-              const toolsParam = selectedTools.join(',');
-              window.location.href = `/compare?tools=${encodeURIComponent(toolsParam)}`;
+              const toolSlugs = selectedTools.map(t => t.slug).join(',');
+              window.location.href = `/compare?tools=${encodeURIComponent(toolSlugs)}`;
             }, 500); // Kurze Verzögerung für bessere UX
           }
         });
@@ -1145,8 +1127,8 @@ const comparisonData = selectedTools.map(tool => ({
       if (compareBtn) {
         compareBtn.addEventListener('click', function() {
           if (selectedTools.length >= 2) {
-            const toolsParam = selectedTools.join(',');
-            window.location.href = `/compare?tools=${encodeURIComponent(toolsParam)}`;
+            const toolSlugs = selectedTools.map(t => t.slug).join(',');
+            window.location.href = `/compare?tools=${encodeURIComponent(toolSlugs)}`;
           }
         });
       }
