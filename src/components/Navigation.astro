@@ -357,12 +357,11 @@
 
     if (!themeToggleBtn) return;
 
-    // Load saved theme
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    html.setAttribute('data-theme', savedTheme);
+    // Don't load saved theme here - already done in Layout.astro
+    // Just setup the toggle button
 
     themeToggleBtn.addEventListener('click', () => {
-      const currentTheme = html.getAttribute('data-theme');
+      const currentTheme = html.getAttribute('data-theme') || 'light';
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
       html.setAttribute('data-theme', newTheme);

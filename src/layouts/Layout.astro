@@ -148,7 +148,7 @@ const siteURL = "https://aitoolvault.de";
     }
   })} />
   
-  <style>
+  <style is:global>
     /* Global Dark Mode Variables */
     :root {
       --bg-primary: #f8fafc;
@@ -167,10 +167,13 @@ const siteURL = "https://aitoolvault.de";
     }
 
     body {
-      background: var(--bg-primary);
-      color: var(--text-primary);
+      background: var(--bg-primary) !important;
+      color: var(--text-primary) !important;
       transition: background-color 0.3s ease, color 0.3s ease;
     }
+  </style>
+
+  <style>
 
     .ad-container {
       margin: 2rem auto;
