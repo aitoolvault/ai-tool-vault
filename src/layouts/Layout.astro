@@ -134,7 +134,16 @@ const siteURL = "https://aitoolvault.de";
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "p7h0pwb5x7");
   </script>
-  
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-EC62QPK5VL');
+  </script>
+
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -236,6 +245,9 @@ const siteURL = "https://aitoolvault.de";
       height: auto;
     }
   </style>
+
+  <!-- Allow pages to add additional head elements -->
+  <slot name="head" />
 </head>
 <body>
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M8SMR588"

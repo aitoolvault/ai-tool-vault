@@ -77,19 +77,7 @@ function getCategoryIcon(categoryName) {
   title={`AI Tool Vault - Die besten ${totalTools} KI-Tools entdecken`}
   description={`Entdecke die besten ${totalTools} KI-Tools für Textgenerierung, Bildgenerierung, Videobearbeitung und mehr. Kostenlos, Freemium und Premium Tools in ${totalCategories} Kategorien.`}
 >
-  <Fragment slot="head">
-    <!-- Cookiebot -->
-    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="6ff1c2bf-6e6e-4ddb-b46e-b43b350bc9d0" type="text/javascript" async></script>
-
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-EC62QPK5VL');
-    </script>
-  </Fragment>
+  <!-- All analytics and tracking scripts are now in Layout.astro -->
 
   <style is:global>
     :root {

@@ -20,16 +20,7 @@ const toolNames = tools.map(tool => tool.data.title);
   title={`AI Tool Vault - ${tools.length} KI-Tools durchsuchen`}
   description={`Entdecke die besten ${tools.length} KI-Tools für Textgenerierung, Bildgenerierung, Videobearbeitung, Coding und mehr. Kostenlos, Freemium und Premium Tools.`}
 >
-  <Fragment slot="head">
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EC62QPK5VL"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-EC62QPK5VL');
-    </script>
-  </Fragment>
+  <!-- All analytics and tracking scripts are now in Layout.astro -->
 
   <style is:global>
         /* CSS Custom Properties für Theme-Switching */
