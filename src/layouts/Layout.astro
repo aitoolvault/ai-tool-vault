@@ -1,5 +1,5 @@
 ---
-import Header from '../components/Header.astro';
+import Navigation from '../components/Navigation.astro';
 
 export interface Props {
   title: string;
@@ -149,22 +149,46 @@ const siteURL = "https://aitoolvault.de";
   })} />
   
   <style>
+    /* Global Dark Mode Variables */
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --text-primary: #1e293b;
+      --text-secondary: #475569;
+      --border-color: #e2e8f0;
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --border-color: #334155;
+    }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
     .ad-container {
       margin: 2rem auto;
       padding: 1rem;
       max-width: 1200px;
       text-align: center;
-      background: #f8fafc;
+      background: var(--bg-secondary);
       border-radius: 0.5rem;
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--border-color);
       min-height: 90px;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 
     .ad-container::before {
       content: "Anzeige";
       display: block;
       font-size: 0.8rem;
-      color: #666;
+      color: var(--text-secondary);
       margin-bottom: 0.5rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -172,7 +196,7 @@ const siteURL = "https://aitoolvault.de";
 
     .ad-between-sections {
       margin: 4rem auto;
-      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
     }
 
     .ad-in-grid {
@@ -208,18 +232,18 @@ const siteURL = "https://aitoolvault.de";
     }
   </style>
 </head>
-<body style="background: var(--bg-primary, #f8fafc); padding-top: 65px;">
+<body style="background: var(--bg-primary, #f8fafc); padding-top: 70px;">
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M8SMR588"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-  <Header />
+  <Navigation />
 
   <main>
     <slot />
   </main>
   
-  <footer class="bg-gray-800 text-white py-8 mt-16">
-    <div class="max-w-7xl mx-auto px-4 text-center">
+  <footer style="background: #1e293b; color: #f1f5f9; padding: 2rem 0; margin-top: 4rem; border-top: 1px solid var(--border-color); transition: all 0.3s ease;">
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 2rem; text-align: center;">
       <p>&copy; 2024 AI Tool Vault. Alle Rechte vorbehalten.</p>
     </div>
   </footer>
