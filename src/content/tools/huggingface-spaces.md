@@ -57,7 +57,7 @@ pricing_details:
 
     - name: "Enterprise"
       price: "Auf Anfrage"
-      billing_cycle: "custom"
+      billing_cycle: "yearly"
       features:
         - "Dedicated Infrastructure"
         - "SSO Integration"
@@ -93,7 +93,7 @@ comparison_metrics:
 
 price_per_feature_score: 9.2
 value_for_money: 9.5
-price_category: "affordable"
+price_category: "budget"
 last_price_update: "2025-01-15"
 
 pros:
